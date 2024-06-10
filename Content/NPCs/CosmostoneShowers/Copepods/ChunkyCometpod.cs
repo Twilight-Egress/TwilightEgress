@@ -1,5 +1,7 @@
 ﻿using CalamityMod.Items.Fishing;
 using Cascade.Content.NPCs.CosmostoneShowers.Asteroids;
+using System.Runtime.InteropServices;
+using Terraria;
 
 namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 {
@@ -29,6 +31,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         public const float MaxPlayerSearchDistance = 300f;
 
         public const float MaxNPCSearchDistance = 500f;
+
+        public const float MaxTurnAroundCheckDistance = 60f;
 
         public const int PlayerAggroTimerIndex = 0;
 
@@ -130,21 +134,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             }
 
             Timer++;
+            NPC.spriteDirection = NPC.direction;
             NPC.AdjustNPCHitboxToScale(82f, 62f);
-        }
-
-        public void CheckForTurnAround(float minRadians, float maxRadians, float radiansIncrement, out bool turnAround)
-        {
-            turnAround = false;
-            for (float i = minRadians; i < maxRadians; i += radiansIncrement)
-            {
-                Vector2 velocityAhead = NPC.Center + NPC.velocity.SafeNormalize(Vector2.Zero).RotatedBy(i);
-                bool leavingSpace = velocityAhead.Y >= Main.maxTilesY + 750f || velocityAhead.Y < Main.maxTilesY * 0.34f;
-                turnAround = leavingSpace;
-
-                if (!Collision.CanHitLine(NPC.Center, 1, 1, velocityAhead * 100f, 1, 1))
-                    turnAround = true;
-            }
         }
 
         public void DoBehavior_PassiveWandering(NPCAimedTarget target, ref float playerAggroTimer)
@@ -156,12 +147,36 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 PassiveMovementSpeed = Main.rand.NextFloat(5f, 151f) * 0.01f; 
                 PassiveMovementVectorX = Main.rand.NextFloat(-100f, 101f);
                 PassiveMovementVectorY = Main.rand.NextFloat(-100f, 101f);
-                PassiveMovementTimer = Main.rand.NextFloat(120f, 240f);
+                PassiveMovementTimer = Main.rand.NextFloat(120f, 360f);
                 NPC.netUpdate = true;
             }
 
-            float moveSpeed = PassiveMovementSpeed / Sqrt(Pow(PassiveMovementVectorX, 2) + Pow(PassiveMovementVectorY, 2));
-            NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(PassiveMovementVectorX * moveSpeed, PassiveMovementVectorY * moveSpeed) * 3f, 0.02f);
+            NPC.CheckForTurnAround(-PiOver2, PiOver2, 0.05f, out bool shouldTurnAround);
+            Vector2 centerAhead = NPC.Center + NPC.velocity * MaxTurnAroundCheckDistance;
+            bool leavingSpace = centerAhead.Y >= Main.maxTilesY + 750f || centerAhead.Y < Main.maxTilesY * 0.34f;
+
+            // Avoid tiles and leaving space. 
+            if (shouldTurnAround || leavingSpace)
+            {
+                float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-PiOver2)) ?? 1000f;
+                float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(PiOver2)) ?? 1000f;
+                int directionToMove = distanceFromTileCollisionLeft > distanceFromTileCollisionRight ? -1 : 1;
+                Vector2 turnAroundVelocity = NPC.velocity.SafeNormalize(Vector2.Zero).RotatedBy(PiOver2 * directionToMove);
+                if (leavingSpace)
+                    turnAroundVelocity = centerAhead.Y >= Main.maxTilesY + 750f ? Vector2.UnitY * -3f : centerAhead.Y < Main.maxTilesY * 0.34f ? Vector2.UnitY * 3f : NPC.velocity;
+
+                // Setting these ensures that once the turnAround check becomes false, the normal idle velocity
+                // won't conflict with the turn around velocity.
+                PassiveMovementVectorX = turnAroundVelocity.X;
+                PassiveMovementVectorY = turnAroundVelocity.Y;
+
+                NPC.velocity = Vector2.Lerp(NPC.velocity, turnAroundVelocity, 0.1f);
+            }
+            else
+            {
+                float moveSpeed = PassiveMovementSpeed / Sqrt(Pow(PassiveMovementVectorX, 2) + Pow(PassiveMovementVectorY, 2));
+                NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(PassiveMovementVectorX * moveSpeed, PassiveMovementVectorY * moveSpeed) * 3f, 0.02f);
+            }
 
             if ((LifeRatio <= 0.5f || playerAggroTimer > 0) && !ShouldTargetPlayers)
             {
