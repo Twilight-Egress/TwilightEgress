@@ -71,14 +71,18 @@
         /// <param name="maxRadians">The maximum angle of the arc in radians</param>
         /// <param name="radiansIncrement">By how many radians should the loop increment by when looping between the two angles.</param>
         /// <param name="shouldTurnAround">Whether or not the entity should turn around or not.</param>
+        /// <param name="checkDirection">The direction of the arc in the form of a Vector2. This will be automatically safe normalized and rotated 
+        /// so there is no need for you to do so outside of this function. Defaults to using the entity's velocity if no value is input.</param>
         /// <param name="checkRadius">The radius of the arc from the center of the entity</param>
-        public static void CheckForTurnAround(this Entity entity, float minRadians, float maxRadians, float radiansIncrement, out bool shouldTurnAround, float checkRadius = 60f)
+        public static void CheckForTurnAround(this Entity entity, float minRadians, float maxRadians, float radiansIncrement, out bool shouldTurnAround, Vector2? checkDirection = null, float checkRadius = 60f)
         {
             shouldTurnAround = false;
             for (float i = minRadians; i < maxRadians; i += radiansIncrement)
             {
-                Vector2 arcFromVelocity = entity.velocity.SafeNormalize(Vector2.Zero).RotatedBy(i);
-                if (!Collision.CanHit(entity.Center, 1, 1, entity.Center + arcFromVelocity * 60f, 1, 1))
+                Vector2 arcVector = checkDirection.HasValue ? checkDirection.Value.SafeNormalize(Vector2.Zero).RotatedBy(i) : 
+                    entity.velocity.SafeNormalize(Vector2.Zero).RotatedBy(i);
+
+                if (!Collision.CanHit(entity.Center, 1, 1, entity.Center + arcVector * 60f, 1, 1))
                 {
                     shouldTurnAround = true;
                     break;

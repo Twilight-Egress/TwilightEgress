@@ -173,6 +173,9 @@ namespace TwilightEgress
 
             foreach (NPC activeNPC in Main.ActiveNPCs)
             {
+                if (!typesToSearchFor.Contains(activeNPC.type))
+                    continue;
+
                 bool canHit = Collision.CanHit(npc.Center, 1, 1, activeNPC.Center, 1, 1);
                 if (Vector2.DistanceSquared(npc.Center, activeNPC.Center) < distanceToNPC && canHit)
                 {
