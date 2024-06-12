@@ -177,7 +177,7 @@ namespace TwilightEgress
                     continue;
 
                 bool canHit = Collision.CanHit(npc.Center, 1, 1, activeNPC.Center, 1, 1);
-                if (Vector2.DistanceSquared(npc.Center, activeNPC.Center) < distanceToNPC && canHit)
+                if (Vector2.DistanceSquared(npc.Center, activeNPC.Center) < distanceToNPC && canHit && activeNPC.whoAmI != npc.whoAmI)
                 {
                     distanceToNPC = Vector2.DistanceSquared(npc.Center, activeNPC.Center);
                     closestMatch = activeNPC;
