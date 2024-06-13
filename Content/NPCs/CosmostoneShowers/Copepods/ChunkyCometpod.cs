@@ -39,6 +39,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public const float MaxTurnAroundCheckDistance = 60f;
 
+        public const float MaxPlayerAggroTimer = 1280f;
+
+        public const float MaxPlayerTargettingChanceReduction = 600f;
+
         public const int PlayerAggroTimerIndex = 0;
 
         public const int ChargeAngleIndex = 1;
@@ -50,6 +54,14 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         public const int InitializationIndex = 4;
 
         public const int MaxStarstruckTimeIndex = 5;
+
+        public const int PlayerTargettingChanceIndex = 6;
+
+        public const int PlayerTargettingChanceReductionIndex = 7;
+
+        public const int NPCTargettingChanceIndex = 8;
+
+        public const int MaxPassiveWanderingTimeIndex = 9;
 
         public ref float Timer => ref NPC.ai[0];
 
@@ -117,6 +129,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.localAI[i] = reader.ReadSingle();
         }
 
+        public float CalculateCollisionBounceSpeed(float baseSpeed, float velocityDividend = 20f) => baseSpeed * (NPC.velocity.Length() / velocityDividend);
+
         public void SwitchAIState(CometpodBehavior behaviorToSwitchTo, bool stopActivelyTargetting = true)
         {
             ShouldStopActivelyTargetting = stopActivelyTargetting;
@@ -132,6 +146,16 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             NPC.netUpdate = true;
         }
 
+        public void OnHit_HandleExtraVariables()
+        {
+            ref float playerAggroTimer = ref NPC.Cascade().ExtraAI[PlayerAggroTimerIndex];
+            ref float playerTargettingChanceReduction = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceReductionIndex];
+
+            if (LifeRatio > 0.5f)
+                playerAggroTimer = Clamp(playerAggroTimer + 180f, 0f, MaxPlayerAggroTimer);
+            playerTargettingChanceReduction = Clamp(playerTargettingChanceReduction + 100f, 0f, MaxPlayerTargettingChanceReduction);
+        }
+
         public override void AI()
         {
             int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
@@ -145,6 +169,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             ref float aimlessChargeCounter = ref NPC.Cascade().ExtraAI[AimlessChargeCounterIndex];
             ref float initialization = ref NPC.Cascade().ExtraAI[InitializationIndex];
             ref float maxStarstruckTime = ref NPC.Cascade().ExtraAI[MaxStarstruckTimeIndex];
+            ref float playerTargettingChance = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceIndex];
+            ref float playerTargettingChanceReduction = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceReductionIndex];
+            ref float npcTargettingChance = ref NPC.Cascade().ExtraAI[NPCTargettingChanceIndex];
+            ref float maxPassiveWanderingTime = ref NPC.Cascade().ExtraAI[MaxPassiveWanderingTimeIndex];
 
             CometType currentCometType = (CometType)CurrentCometType;
             NearestCometpod = NPC.FindClosestNPC(out _, ModContent.NPCType<ChunkyCometpod>());
@@ -152,7 +180,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             switch ((CometpodBehavior)AIState)
             {
                 case CometpodBehavior.PassiveWandering:
-                    DoBehavior_PassiveWandering(target, ref playerAggroTimer);
+                    DoBehavior_PassiveWandering(target, ref playerAggroTimer, ref playerTargettingChance, ref playerTargettingChanceReduction, ref npcTargettingChance, ref maxPassiveWanderingTime);
                     break;
 
                 case CometpodBehavior.AimlessCharging:
@@ -164,6 +192,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                     break;
 
                 case CometpodBehavior.ChargeTowardsPlayer:
+                    DoBehavior_ChargeTowardsPlayer(target, currentCometType);
                     break;
 
                 case CometpodBehavior.Starstruck:
@@ -184,14 +213,29 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.Calamity().VulnerableToCold = false;
             }
 
+            // Decrement certain values passively.
+            playerAggroTimer--;
+            playerTargettingChanceReduction--;
+
             Timer++;
             NPC.spriteDirection = NPC.direction;
             NPC.AdjustNPCHitboxToScale(82f, 62f);
         }
 
-        public void DoBehavior_PassiveWandering(NPCAimedTarget target, ref float playerAggroTimer)
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone) => OnHit_HandleExtraVariables();
+
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone) => OnHit_HandleExtraVariables();
+
+        public void DoBehavior_PassiveWandering(NPCAimedTarget target, ref float playerAggroTimer, ref float playerTargettingChance, ref float playerTargettingChanceReduction, ref float npcTargettingChance, ref float maxPassiveWanderingTime)
         {
-            int maxTime = 480;
+            // Initialize a few values after each chance to switch AI.
+            if (Timer is 0)
+            {
+                playerTargettingChance = Main.rand.Next(750, 1501) - playerTargettingChanceReduction;
+                npcTargettingChance = Main.rand.Next(1200, 1801);
+                maxPassiveWanderingTime = Main.rand.Next(480, 1200);
+                return;
+            }
 
             // Move slowly in a random direction every few seconds.
             PassiveMovementTimer--;
@@ -231,28 +275,28 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(PassiveMovementVectorX * moveSpeed, PassiveMovementVectorY * moveSpeed) * 3f, 0.02f);
             }
 
-            if ((LifeRatio <= 0.5f || playerAggroTimer > 0) && !ShouldTargetPlayers)
-            {
-                ShouldTargetPlayers = true;
-                NPC.netUpdate = true;
-            }
-            else
-            {
-                ShouldTargetPlayers = false;
-                ShouldTargetNPCs = true;
-            }
+            ShouldTargetNPCs = true;
+            ShouldTargetPlayers = true;
 
             // Randomly select an asteroid and switch AI states.
             int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
-            if (Main.rand.NextBool(1500) && ShouldTargetNPCs && !target.Invalid)
+            if (Main.rand.NextBool(1500) && ShouldTargetNPCs && target.Type == Terraria.Enums.NPCTargetType.NPC && !target.Invalid)
             {
                 NearestAsteroid = NPC.FindClosestNPC(out float _, asteroids);
                 SwitchAIState(CometpodBehavior.ChargeTowardsAsteroid);
             }
 
-            if (Timer >= maxTime)
-            {
+            // Randomly select a player and switch AI states.
+            int playerTargetChance = (int)(1500 - playerTargettingChanceReduction);
+            if (Main.rand.NextBool(playerTargetChance) && ShouldTargetPlayers && target.Type == Terraria.Enums.NPCTargetType.Player && !target.Invalid)
+                SwitchAIState(CometpodBehavior.ChargeTowardsPlayer);
+
+            if (Timer >= maxPassiveWanderingTime && Main.rand.NextBool(5))
                 SwitchAIState(CometpodBehavior.AimlessCharging, false);
+            else
+            {
+                Timer = 0f;
+                NPC.netUpdate = true;
             }
 
             NPC.rotation = NPC.rotation.AngleLerp(NPC.velocity.ToRotation() - Pi, 0.2f); 
@@ -262,7 +306,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         {
             int lineUpTime = 75;
             int chargeTime = 240;
-            int postBonkCooldownTime = 120;
+            int postBonkCooldownTime = 180;
             int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
 
             // Initialize and pick a random amount of times to charge.
@@ -316,17 +360,17 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                     switchToCooldown(ref aimlessChargeCounter);
 
                 // Bump into any tiles.
-                if (NPC.collideX || NPC.collideY || Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
+                if (NPC.collideX || NPC.collideY)
                 {
-                    NPC.velocity = NPC.oldVelocity * -0.8f;
+                    NPC.velocity = NPC.oldVelocity * CalculateCollisionBounceSpeed(-0.42f);
                     switchToCooldown(ref aimlessChargeCounter);
                 }
                 
                 // Bump into nearby cometpods if collision between the two occurs.
                 if (NearestCometpod is not null && NPC.Hitbox.Intersects(NearestCometpod.Hitbox))
                 {
-                    NPC.velocity = NPC.DirectionFrom(NearestCometpod.Center) * (2f + (NPC.velocity.Length() / 15f));
-                    NearestCometpod.velocity = NearestCometpod.DirectionFrom(NPC.Center) * (2f + (NPC.velocity.Length() / 15f));
+                    NPC.velocity = NPC.DirectionFrom(NearestCometpod.Center) * CalculateCollisionBounceSpeed(0.8f);
+                    NearestCometpod.velocity = NearestCometpod.DirectionFrom(NPC.Center) * CalculateCollisionBounceSpeed(1f);
 
                     // Stun the other cometpod.
                     if (NearestCometpod.ModNPC is ChunkyCometpod cometpod && cometpod.AIState != (float)CometpodBehavior.AimlessCharging)
@@ -338,16 +382,16 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 // Bump into the player if collision between the two occurs.
                 if (!target.Invalid && target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Hitbox.Intersects(target.Hitbox))
                 {
-                    NPC.velocity = NPC.DirectionFrom(target.Center) * NPC.velocity.Length() * (2f + (NPC.velocity.Length() / 15f));
-                    target.Velocity = target.Center.DirectionFrom(NPC.Center) * NPC.velocity.Length() * (2f + (NPC.velocity.Length() / 15f));
+                    NPC.velocity = NPC.DirectionFrom(target.Center) * CalculateCollisionBounceSpeed(0.8f);
+                    target.Velocity = target.Center.DirectionFrom(NPC.Center) * CalculateCollisionBounceSpeed(2f);
                     switchToCooldown(ref aimlessChargeCounter);
                 }
 
                 // Bump into any nearby asteroids if collision between the two occurs.
                 if (NearestAsteroid is not null && NPC.Hitbox.Intersects(NearestAsteroid.Hitbox))
                 {
-                    NPC.velocity = NPC.DirectionFrom(NearestAsteroid.Center) * (2f + (NPC.velocity.Length() / 15f));
-                    NearestAsteroid.velocity = NearestAsteroid.DirectionFrom(NPC.Center) * (2f + (NPC.velocity.Length() / 15f));
+                    NPC.velocity = NPC.DirectionFrom(NearestAsteroid.Center) * CalculateCollisionBounceSpeed(0.86f);
+                    NearestAsteroid.velocity = NearestAsteroid.DirectionFrom(NPC.Center) * CalculateCollisionBounceSpeed(1f);
 
                     int damageTaken = (int)(Main.rand.Next(1, 3) * NPC.velocity.Length());
                     NPC.SimpleStrikeNPC(damageTaken, NPC.direction, noPlayerInteraction: true);
@@ -380,11 +424,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         public void DoBehavior_ChargeTowardsAsteroid(NPCAimedTarget target, CometType cometType)
         {
             if (target.Invalid || NearestAsteroid is null)
-            {
-                Timer = 0f;
-                LocalAIState = 2f;
-                NPC.netUpdate = true;
-            }
+                SwitchAIState(CometpodBehavior.PassiveWandering, false);
 
             int lineUpTime = 75;
             int chargeTime = 240;
@@ -416,21 +456,22 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 // Bounce off of the target when collision is made.
                 if (NPC.Hitbox.Intersects(target.Hitbox))
                 {
-                    NPC.velocity = NPC.DirectionFrom(target.Center) * (2f + (NPC.velocity.Length() / 15f));
-                    target.Velocity = target.Center.DirectionFrom(NPC.Center) * (2f + (NPC.velocity.Length() / 15f));
+                    NPC.velocity = NPC.DirectionFrom(target.Center) * CalculateCollisionBounceSpeed(0.86f);
+                    target.Velocity = target.Center.DirectionFrom(NPC.Center) * CalculateCollisionBounceSpeed(1f);
 
                     int damageTaken = (int)(Main.rand.Next(1, 3) * NPC.velocity.Length());
                     NPC.SimpleStrikeNPC(damageTaken, NPC.direction, noPlayerInteraction: true);
                     NearestAsteroid.SimpleStrikeNPC(damageTaken * 8, -NPC.direction, noPlayerInteraction: true);
 
+                    NearestAsteroid = null;
                     SwitchAIState(CometpodBehavior.Starstruck, false);
                 }
 
                 // If no collision is made or the Cometpod is out of bounds, simply switch AI states.
-                if (leavingSpace || Timer >= chargeTime || Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
+                if (leavingSpace || Timer >= chargeTime || NPC.collideX || NPC.collideY)
                 {
-                    if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
-                        NPC.velocity = NPC.oldVelocity * -0.8f;
+                    if (NPC.collideX || NPC.collideY)
+                        NPC.velocity = NPC.oldVelocity * CalculateCollisionBounceSpeed(-0.42f);
 
                     SwitchAIState(CometpodBehavior.Starstruck, false);
                 }
@@ -448,7 +489,63 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public void DoBehavior_ChargeTowardsPlayer(NPCAimedTarget target, CometType cometType)
         {
+            if (target.Invalid)
+                SwitchAIState(CometpodBehavior.PassiveWandering, false);
 
+            int lineUpTime = 75;
+            int chargeTime = 240;
+
+            Vector2 centerAhead = NPC.Center + NPC.velocity * MaxTurnAroundCheckDistance;
+            bool leavingSpace = centerAhead.Y >= Main.maxTilesY + 750f || centerAhead.Y < Main.maxTilesY * 0.34f;
+
+            if (LocalAIState == 0f)
+            {
+                NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - Pi, 0.2f);
+                NPC.velocity *= 0.9f;
+
+                if (Timer >= lineUpTime)
+                {
+                    Timer = 0f;
+                    LocalAIState = 1f;
+                    NPC.velocity = NPC.SafeDirectionTo(target.Center);
+                    NPC.netUpdate = true;
+                }
+            }
+
+            if (LocalAIState == 1f)
+            {
+                NPC.rotation = NPC.velocity.ToRotation() - Pi;
+
+                if (NPC.velocity.Length() < 10f)
+                    NPC.velocity *= 1.06f;
+
+                // Bounce off of the target when collision is made.
+                if (NPC.Hitbox.Intersects(target.Hitbox))
+                {
+                    NPC.velocity = NPC.DirectionFrom(target.Center) * CalculateCollisionBounceSpeed(0.8f);
+                    target.Velocity = target.Center.DirectionFrom(NPC.Center) * CalculateCollisionBounceSpeed(2f);
+
+                    SwitchAIState(CometpodBehavior.Starstruck, false);
+                }
+
+                // If no collision is made or the Cometpod is out of bounds, simply switch AI states.
+                if (leavingSpace || Timer >= chargeTime || NPC.collideX || NPC.collideY)
+                {
+                    if (NPC.collideX || NPC.collideY)
+                        NPC.velocity = NPC.oldVelocity * CalculateCollisionBounceSpeed(-0.42f);
+
+                    SwitchAIState(CometpodBehavior.Starstruck, false);
+                }
+
+                // Bounce off of other Cometpods.
+                if (NearestCometpod is not null && NPC.Hitbox.Intersects(NearestCometpod.Hitbox))
+                {
+                    NPC.velocity = NPC.oldVelocity * -0.8f;
+                    NearestCometpod.velocity = NearestCometpod.DirectionFrom(NPC.Center) * NPC.velocity.Length();
+
+                    SwitchAIState(CometpodBehavior.Starstruck, false);
+                }
+            }
         }
 
         // @ zarachard
