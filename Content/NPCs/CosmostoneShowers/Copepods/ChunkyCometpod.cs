@@ -55,13 +55,9 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public const int MaxStarstruckTimeIndex = 5;
 
-        public const int PlayerTargettingChanceIndex = 6;
+        public const int PlayerTargettingChanceReductionIndex = 6;
 
-        public const int PlayerTargettingChanceReductionIndex = 7;
-
-        public const int NPCTargettingChanceIndex = 8;
-
-        public const int MaxPassiveWanderingTimeIndex = 9;
+        public const int MaxPassiveWanderingTimeIndex = 7;
 
         public ref float Timer => ref NPC.ai[0];
 
@@ -169,9 +165,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             ref float aimlessChargeCounter = ref NPC.Cascade().ExtraAI[AimlessChargeCounterIndex];
             ref float initialization = ref NPC.Cascade().ExtraAI[InitializationIndex];
             ref float maxStarstruckTime = ref NPC.Cascade().ExtraAI[MaxStarstruckTimeIndex];
-            ref float playerTargettingChance = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceIndex];
             ref float playerTargettingChanceReduction = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceReductionIndex];
-            ref float npcTargettingChance = ref NPC.Cascade().ExtraAI[NPCTargettingChanceIndex];
             ref float maxPassiveWanderingTime = ref NPC.Cascade().ExtraAI[MaxPassiveWanderingTimeIndex];
 
             CometType currentCometType = (CometType)CurrentCometType;
@@ -180,7 +174,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             switch ((CometpodBehavior)AIState)
             {
                 case CometpodBehavior.PassiveWandering:
-                    DoBehavior_PassiveWandering(target, ref playerAggroTimer, ref playerTargettingChance, ref playerTargettingChanceReduction, ref npcTargettingChance, ref maxPassiveWanderingTime);
+                    DoBehavior_PassiveWandering(target, ref playerAggroTimer, ref playerTargettingChanceReduction, ref maxPassiveWanderingTime);
                     break;
 
                 case CometpodBehavior.AimlessCharging:
@@ -226,13 +220,11 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone) => OnHit_HandleExtraVariables();
 
-        public void DoBehavior_PassiveWandering(NPCAimedTarget target, ref float playerAggroTimer, ref float playerTargettingChance, ref float playerTargettingChanceReduction, ref float npcTargettingChance, ref float maxPassiveWanderingTime)
+        public void DoBehavior_PassiveWandering(NPCAimedTarget target, ref float playerAggroTimer, ref float playerTargettingChanceReduction, ref float maxPassiveWanderingTime)
         {
             // Initialize a few values after each chance to switch AI.
             if (Timer is 0)
             {
-                playerTargettingChance = Main.rand.Next(750, 1501) - playerTargettingChanceReduction;
-                npcTargettingChance = Main.rand.Next(1200, 1801);
                 maxPassiveWanderingTime = Main.rand.Next(480, 1200);
                 return;
             }
@@ -424,7 +416,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         public void DoBehavior_ChargeTowardsAsteroid(NPCAimedTarget target, CometType cometType)
         {
             if (target.Invalid || NearestAsteroid is null)
-                SwitchAIState(CometpodBehavior.PassiveWandering, false);
+            {
+                SwitchAIState(CometpodBehavior.Starstruck, false);
+                return;
+            }
 
             int lineUpTime = 75;
             int chargeTime = 240;
@@ -490,7 +485,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         public void DoBehavior_ChargeTowardsPlayer(NPCAimedTarget target, CometType cometType)
         {
             if (target.Invalid)
-                SwitchAIState(CometpodBehavior.PassiveWandering, false);
+            {
+                SwitchAIState(CometpodBehavior.Starstruck, false);
+                return;
+            }
 
             int lineUpTime = 75;
             int chargeTime = 240;
