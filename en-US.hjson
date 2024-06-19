@@ -68,6 +68,7 @@ Mods: {
 			Manaphage.DisplayName: Manaphage
 			Miniphage.DisplayName: Miniphage
 			ChunkyCometpod.DisplayName: Chunky Cometpod
+			TerritorialCometpod.DisplayName: Territorial Cometpod
 		}
 
 		Projectiles: {

@@ -1,7 +1,7 @@
-﻿using CalamityMod.Items.Fishing;
+﻿using CalamityMod.DataStructures;
+using CalamityMod.Items.Weapons.Melee;
 using Cascade.Content.NPCs.CosmostoneShowers.Asteroids;
-using System.Runtime.InteropServices;
-using Terraria;
+using System.Data.Odbc;
 
 namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 {
@@ -81,7 +81,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
         {
             NPCID.Sets.UsesNewTargetting[Type] = true;
             NPCID.Sets.TrailCacheLength[Type] = 10;
-            NPCID.Sets.TrailingMode[Type] = 3;
+            NPCID.Sets.TrailingMode[Type] = 2;
         }
 
         public override void SetDefaults()
