@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing.Imaging;
+using System.Security.Permissions;
 
 namespace Cascade.Content.UI.Dialogue
 {
@@ -21,11 +22,11 @@ namespace Cascade.Content.UI.Dialogue
         public bool justOpened = false;
         public override void OnInitialize()
         {
-            Dialogue CurrentDilaogue = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex];
-            if (CurrentDilaogue.CharacterIndex != -1)
+            Dialogue CurrentDialogue = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex];
+            if (CurrentDialogue.CharacterIndex != -1)
             {
-                CurrentSpeaker = Characters[CurrentDilaogue.CharacterIndex];
-                string expressionID = CurrentSpeaker.ExpressionIDs[CurrentDilaogue.ExpressionIndex];
+                CurrentSpeaker = Characters[CurrentDialogue.CharacterIndex];
+                string expressionID = CurrentSpeaker.ExpressionIDs[CurrentDialogue.ExpressionIndex];
                 Asset <Texture2D> speakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{CurrentSpeaker.ID}/{CurrentSpeaker.ID}_{expressionID}");
                 Speaker = new(speakerTexture);
                 Speaker.ImageScale = CurrentSpeaker.Scale;
@@ -54,41 +55,43 @@ namespace Cascade.Content.UI.Dialogue
 
             DialogueText DialogueText = new DialogueText();
                 DialogueText.boxWidth = TextBox.Width.Pixels;
-                DialogueText.Text = CurrentDilaogue.Message;
-            if (CurrentDilaogue.TextDelay != -1)
-                DialogueText.textDelay = CurrentDilaogue.TextDelay;
-            else if (CurrentDilaogue.CharacterIndex == -1)
+                DialogueText.Text = CurrentDialogue.Message;
+            if (CurrentDialogue.TextDelay != -1)
+                DialogueText.textDelay = CurrentDialogue.TextDelay;
+            else if (CurrentDialogue.CharacterIndex == -1)
                 DialogueText.textDelay = 3;
             else
-                DialogueText.textDelay = Characters[CurrentDilaogue.CharacterIndex].TextDelay;
+                DialogueText.textDelay = Characters[CurrentDialogue.CharacterIndex].TextDelay;
             DialogueText.Top.Pixels = 25;
             DialogueText.Left.Pixels = 15;
             TextBox.Append(DialogueText);
 
             UIText NameText;
-            if (CurrentDilaogue.CharacterIndex == -1)
+            if (CurrentDialogue.CharacterIndex == -1)
                 NameText = new UIText("...");
             else
-                NameText = new UIText(Characters[CurrentDilaogue.CharacterIndex].Name, 1f, true);
+                NameText = new UIText(Characters[CurrentDialogue.CharacterIndex].Name, 1f, true);
             NameText.Width.Pixels = NameBox.Width.Pixels;
             NameText.HAlign = 0.5f;
             NameText.Top.Set(15, 0);
             NameBox.Append(NameText);
 
-            if (CurrentDilaogue.Responses != null)
+            if (CurrentDialogue.Responses != null)
             {
-                int responseCount = CurrentDilaogue.Responses.Count();
+                Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
+                int responseCount = availableResponses.Count();
+                
                 for (int i = 0; i < responseCount; i++)
                 {
                     UIPanel button = new UIPanel();
                     button.Width.Set(100, 0);
                     button.Height.Set(50, 0);
                     button.HAlign = 1f / (responseCount + 1) * (i + 1);
-                    button.Top.Set(TextBox.Height.Pixels - button.Height.Pixels, 0);
+                    button.Top.Set(2000, 0);
                     button.OnLeftClick += OnButtonClick;
                     TextBox.Append(button);
 
-                    UIText text = new UIText(CurrentDilaogue.Responses[i].Title);
+                    UIText text = new UIText(availableResponses[i].Title);
                     text.HAlign = text.VAlign = 0.5f;
                     button.Append(text);
                 }
@@ -115,6 +118,16 @@ namespace Cascade.Content.UI.Dialogue
                     if (TextBox.Top.Pixels - 650f < 1)
                         TextBox.Top.Pixels = 650f;
                 }
+                DialogueText dialogue = (DialogueText)TextBox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
+                if (!dialogue.crawling)
+                {
+                    UIElement[] responseButtons = TextBox.Children.Where(c => c.GetType() == typeof(UIPanel)).ToArray();
+                    for (int i = 0; i < responseButtons.Length; i++)
+                    {
+                        UIElement button = responseButtons[i];
+                        button.Top.Set(TextBox.Height.Pixels - button.Height.Pixels, 0);
+                    }
+                }
             }
             else
             {
@@ -138,12 +151,28 @@ namespace Cascade.Content.UI.Dialogue
         }
         private void OnBoxClick(UIMouseEvent evt, UIElement listeningElement)
         {
+            DialogueText dialogue = (DialogueText)TextBox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
             if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null)
             {
                 if(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
                 else
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
+            }
+            else if (dialogue.crawling)
+            {
+                /*
+                List<TextSnippet> fullSnippets = ChatManager.ParseMessage(DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Message, Color.White);
+                int textLength = 0;
+                for (int i = 0; i < fullSnippets.Count; i++)
+                {
+                    string text = fullSnippets[i].TextOriginal;
+                    if (text.Contains('['))
+                        text = fullSnippets[i].Text;
+                    textLength += text.Length;
+                }
+                */
+                dialogue.textIndex = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Message.Length;
             }
         }
         private void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
@@ -169,11 +198,12 @@ namespace Cascade.Content.UI.Dialogue
         }
         public class DialogueText : UIElement
         {           
-            public string Text = "";           
+            public string Text = "";
+            public bool crawling = true;
             internal float boxWidth = 0f;
             internal int textDelay = 10;
             internal Vector2 textScale = new(1.5f, 1.5f);
-            private int textIndex = 0;
+            internal int textIndex = 0;
             private int counter = -30;
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
@@ -192,7 +222,8 @@ namespace Cascade.Content.UI.Dialogue
                 List<TextSnippet> fullSnippets = ChatManager.ParseMessage(Text, Color.White);
                 List<TextSnippet> printedSnippets = new List<TextSnippet>();
                 if (textIndex < Text.Length)
-                {                   
+                {
+                    crawling = true;
                     int textLength = 0;
                     for (int i = 0; i < fullSnippets.Count; i++)
                     {
@@ -229,13 +260,19 @@ namespace Cascade.Content.UI.Dialogue
                                 break;
                             }
                         }
-                    } 
+                    }
                     else
+                    {
+                        crawling = false;
                         printedSnippets = fullSnippets;
+                    }
 
                 }
                 else
+                {
+                    crawling = false;
                     printedSnippets = fullSnippets;
+                }
 
                 string TextToPrint = "";
                 for(int i = 0; i < printedSnippets.Count; i++)

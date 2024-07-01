@@ -112,8 +112,8 @@ namespace Cascade.Content.UI.Dialogue
                             "Things are about to get [c/FF0000:Calamitous!] Tremble in fear!",
                             new Response[]
                             {
-                                new Response("What?", 1),
-                                new Response("Huh?", 1),
+                                new Response("What?", 1, Main.LocalPlayer.direction == 1),
+                                new Response("Huh?", 1, Main.LocalPlayer.direction == -1),
                             },
                             expressionIndex: 0
                         ),
