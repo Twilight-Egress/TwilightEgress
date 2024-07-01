@@ -152,7 +152,7 @@ namespace Cascade.Content.UI.Dialogue
         private void OnBoxClick(UIMouseEvent evt, UIElement listeningElement)
         {
             DialogueText dialogue = (DialogueText)TextBox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
-            if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null)
+            if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
             {
                 if(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
@@ -160,20 +160,7 @@ namespace Cascade.Content.UI.Dialogue
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             }
             else if (dialogue.crawling)
-            {
-                /*
-                List<TextSnippet> fullSnippets = ChatManager.ParseMessage(DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Message, Color.White);
-                int textLength = 0;
-                for (int i = 0; i < fullSnippets.Count; i++)
-                {
-                    string text = fullSnippets[i].TextOriginal;
-                    if (text.Contains('['))
-                        text = fullSnippets[i].Text;
-                    textLength += text.Length;
-                }
-                */
                 dialogue.textIndex = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Message.Length;
-            }
         }
         private void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
