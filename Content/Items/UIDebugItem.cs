@@ -30,7 +30,7 @@ namespace Cascade.Content.Items
             if(ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             else
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree((int)DialogueTreeID.TreeIDs.Calamitous);
+                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugID);
             return true;
         }
     }
