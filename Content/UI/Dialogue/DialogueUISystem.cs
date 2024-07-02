@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cascade.Content.EntityOverrides.Music;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,9 +98,11 @@ namespace Cascade.Content.UI.Dialogue
             new Character("TheCalamity", new string[] {"Normal", "Finality"}, "[c/FF0000:The Calamity]"),
             new Character("Ardiena", new string[] {"Default", "Happy"})
         };
-        public static DialogueTree[] DialogueTrees = PopulateDialogueTrees();
+        public static DialogueTree[] DialogueTrees;
+        
         public static DialogueTree[] PopulateDialogueTrees()
         {
+            Mod calamityMusic = ModLoader.GetMod("CalamityModMusic");
             return new DialogueTree[]
             {
                 //adding comments to denote which ID your tree matches up with is helpful for maintaining the order
@@ -116,7 +119,8 @@ namespace Cascade.Content.UI.Dialogue
                                 new Response("What?", 1, Main.LocalPlayer.direction == 1),
                                 new Response("Huh?", 1, Main.LocalPlayer.direction == -1),
                             },
-                            expressionIndex: 0
+                            expressionIndex: 0,
+                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
@@ -125,17 +129,20 @@ namespace Cascade.Content.UI.Dialogue
                             {
                                 new Response("[c/FF0000:Okay...?]", -2)
                             },
-                            expressionIndex: 1
+                            expressionIndex: 1,
+                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
                             "Fuck you.",
-                            expressionIndex: 1
+                            expressionIndex: 1,
+                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
                             "Bitch.",
-                            expressionIndex: 1
+                            expressionIndex: 1,
+                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                     },
                     new Character[]
@@ -230,7 +237,7 @@ namespace Cascade.Content.UI.Dialogue
                 ),
                 #endregion
             };
-        }
+        }       
     }
     public class DialogueUISystem : ModSystem
     {
@@ -246,7 +253,6 @@ namespace Cascade.Content.UI.Dialogue
         public Character CurrentSpeaker = new Character("None", new string[] { "None" });
         public Character SubSpeaker = new Character("None", new string[] { "None"});
         public int subSpeakerIndex = -1;
-
         public void DisplayDialogueTree(int TreeIndex, int DialogueIndex = 0)
         {
             SoundEngine.PlaySound(UseSound with
@@ -280,7 +286,10 @@ namespace Cascade.Content.UI.Dialogue
 
             DialogueUI?.SetState(DialogueUIState);
         }
-        
+        public override void PostSetupContent()
+        {
+            DialogueHolder.DialogueTrees = DialogueHolder.PopulateDialogueTrees();
+        }
         public void UpdateDialogueUI(int TreeIndex, int DialogueIndex)
         {
             int formerSpeakerIndex = DialogueHolder.DialogueTrees[DialogueUIState.DialogueTreeIndex].Dialogues[DialogueUIState.DialogueIndex].CharacterIndex;
