@@ -24,7 +24,6 @@ namespace Cascade.Content.Items
             Item.useTime = 1;
             Item.useStyle = ItemUseStyleID.HoldUp;
         }
-
         public override bool? UseItem(Player player)
         {
             if(ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)

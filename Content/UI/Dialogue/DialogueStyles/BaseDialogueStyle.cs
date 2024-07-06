@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using static Cascade.Content.UI.Dialogue.DialogueUIState;
 
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
@@ -35,7 +36,11 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
 
         }
-        public virtual void OnResponseButtonCreate(UIPanel button, int responseCount, int buttonCounter)
+        public virtual void OnDialogueTextCreate(DialogueText text)
+        {
+
+        }
+        public virtual void OnResponseButtonCreate(UIPanel button, MouseBlockingUIPanel textbox, int responseCount, int buttonCounter)
         {
 
         }
@@ -46,6 +51,10 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         public virtual void PostUICreate(int treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
 
+        }
+        public virtual bool TextboxOffScreen(UIPanel textbox)
+        {
+            return false;
         }
         #endregion
         #region Update Methods
