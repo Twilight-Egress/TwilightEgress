@@ -33,9 +33,26 @@ namespace Cascade.Content.UI.Dialogue
 
                 BaseDialogueStyle style = new BaseDialogueStyle();
                 if(CurrentDialogue.StyleID == -1)
-                    style = new DefaultDialogueStyle();
+                    switch(CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
+                    {
+                        case 0:
+                            style = new DefaultDialogueStyle();
+                            break;
+                        default
+                            : style = new DefaultDialogueStyle();
+                            break;
+                    }
                 else
-                    style = new DefaultDialogueStyle();
+                    switch (CurrentDialogue.StyleID)
+                    {
+                        case 0:
+                            style = new DefaultDialogueStyle();
+                            break;
+                        default
+                            :
+                            style = new DefaultDialogueStyle();
+                            break;
+                    }
 
                 if (ModContent.GetInstance<DialogueUISystem>() != null)
                 {
