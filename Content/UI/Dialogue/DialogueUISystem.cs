@@ -174,9 +174,7 @@ namespace Cascade.Content.UI.Dialogue
         internal DialogueUIState DialogueUIState;
         
         public UserInterface DialogueUI;
-        
-        public static readonly SoundStyle UseSound = new("Windfall/Assets/Sounds/Items/JournalPageTurn");
-        
+                
         public Character CurrentSpeaker = new Character("None", new string[] { "None" });
         
         public Character SubSpeaker = new Character("None", new string[] { "None" });
