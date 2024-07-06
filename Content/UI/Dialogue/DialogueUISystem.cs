@@ -37,7 +37,6 @@ namespace Cascade.Content.UI.Dialogue
         public Dialogue[] Dialogues = dialogues;
         public Character[] Characters = characters;
     }
-    /// <param name="message">The Text to be displayed.</param>
     /// <param name="responses">The array of <see cref="Response"/>s the player can give. If set to null, clicking on the Textbox itself will proceed to the next Dialogue within the <see cref="DialogueTree"/> or close the Dialogue if there are no more dialogues Defaults to <see cref="null"/>. </param>
     /// <param name="characterIndex">The index of a character within the <see cref="DialogueTree"/>'s <see cref="DialogueTree.Characters"/> array. Represents the character who will be speaking. Defaults to <see cref="0"/>, the first character in the <see cref="DialogueTree.Characters"/> array.</param>
     /// <param name="expressionIndex">The index of an expression within a <see cref="Character"/>'s <see cref="Character.ExpressionIDs"/> array. Represents the expression, or asset, the character will use while speaking. Defaults to <see cref="0"/>, the first expression in the <see cref="Character.ExpressionIDs"/> array.</param>
@@ -49,9 +48,8 @@ namespace Cascade.Content.UI.Dialogue
     /// <returns>
     /// Represents a single dialogue state within a <see cref="DialogueTree"/>.
     /// </returns>
-    public struct Dialogue(string message, Response[] responses = null, int characterIndex = 0, int expressionIndex = 0, int styleID = -1, float textScaleX = 1.5f, float textScaleY = 1.5f, int textDelay = -1, int musicID = -1)
+    public struct Dialogue(Response[] responses = null, int characterIndex = 0, int expressionIndex = 0, int styleID = -1, float textScaleX = 1.5f, float textScaleY = 1.5f, int textDelay = -1, int musicID = -1)
     {
-        public string Message = message;
         public Response[] Responses = responses;
         public int CharacterIndex = characterIndex;
         public int ExpressionIndex = expressionIndex;
@@ -75,7 +73,8 @@ namespace Cascade.Content.UI.Dialogue
     #endregion
     public static class DialogueHolder
     {
-        public static int DebugID = (int)TreeIDs.Calamitous;
+        public static int DebugID = (int)TreeIDs.Eeveelutions;
+        public static readonly string LocalizationPath = "Mods.Cascade.UI.Dialogue.";
         internal enum TreeIDs
         {
             #region The Calamity IDs
@@ -83,7 +82,7 @@ namespace Cascade.Content.UI.Dialogue
             #endregion
 
             #region Ardiena IDs
-            Eeveelution,
+            Eeveelutions,
             #endregion
         }
         internal enum CharacterIDs
@@ -103,44 +102,41 @@ namespace Cascade.Content.UI.Dialogue
         public static DialogueTree[] PopulateDialogueTrees()
         {
             Mod calamityMusic = ModLoader.GetMod("CalamityModMusic");
-            return new DialogueTree[]
+            DialogueTree[] trees = new DialogueTree[]
             {
                 //adding comments to denote which ID your tree matches up with is helpful for maintaining the order
                 #region The Calamity Trees
+                
                 new DialogueTree //Calamitous
                 (
                     new Dialogue[]
                     {
                         new Dialogue
                         (
-                            "Things are about to get [c/FF0000:Calamitous!] Tremble in fear!",
                             new Response[]
                             {
-                                new Response("What?", 1, Main.LocalPlayer.direction == 1),
-                                new Response("Huh?", 1, Main.LocalPlayer.direction == -1),
+                                new Response("What", 1, Main.LocalPlayer.direction == 1),
+                                new Response("Huh", 1, Main.LocalPlayer.direction == -1),
                             },
                             expressionIndex: 0,
                             musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
-                            "Witness the power of a [c/FF0000:Calamity!!!] MWAHAHAHAHAHA!!! SKIBDIDI [c/FF0000:TRISZ EDHEJF DHDJE DFHEDHFDJH] teehee",
                             new Response[]
                             {
-                                new Response("[c/FF0000:Okay...?]", -2)
+                                new Response("Okay", -2)
                             },
                             expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
-                            "Fuck you.",
                             expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
                         new Dialogue
                         (
-                            "Bitch.",
                             expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/SecondLaw")
                         ),
@@ -159,71 +155,63 @@ namespace Cascade.Content.UI.Dialogue
                     {
                         new Dialogue
                         (
-                            "What's your favorite Eeveelution?",
                             new Response[]
                             {
-                                new Response("[c/FF6339:Flareon]", 1),
-                                new Response("[c/F3FF39:Jolteon]", 2),
-                                new Response("[c/39A5FF:Vaporeon]", 3),
+                                new Response("Flareon", 1),
+                                new Response("Jolteon", 2),
+                                new Response("Vaporeon", 3),
                             },
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "That's a fire answer!",
                             new Response[]
                             {
-                                new Response("Thanks!")
+                                new Response("Thanks")
                             },
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "Quite a shocking choice!",
                             new Response[]
                             {
-                                new Response("Thanks!")
+                                new Response("Thanks")
                             },
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "Okay, I'm dropping this.",
                             new Response[]
                             {
-                                new Response("Oh..."),
-                                new Response("Did you know-", 4)
+                                new Response("Oh"),
+                                new Response("DidYouKnow", 4)
                             },
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "[c/FF0000:You shall come to regret that choice.]",
                             new Response[]
                             {
-                                new Response("[c/FF0000:Okay...?]", 5)
+                                new Response("Who", 5)
                             },
                             1,
                             1
                         ),
                         new Dialogue
                         (
-                            "Who the hell are you?",
                             characterIndex: 0,
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "...and why do you look like an Ogscule?",
                             characterIndex: 0,
                             expressionIndex: 0
                         ),
                         new Dialogue
                         (
-                            "[c/FF0000:...]",
                             new Response[]
                             {
-                                new Response("[c/FF0000:Okay...?]", -1)
+                                new Response("Weirdo", -1)
                             },
                             1,
                             1
@@ -237,6 +225,7 @@ namespace Cascade.Content.UI.Dialogue
                 ),
                 #endregion
             };
+            return trees;
         }       
     }
     public class DialogueUISystem : ModSystem

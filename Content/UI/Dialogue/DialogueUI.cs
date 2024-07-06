@@ -105,7 +105,7 @@ namespace Cascade.Content.UI.Dialogue
 
                 DialogueText DialogueText = new DialogueText();
                 DialogueText.boxWidth = TextBox.Width.Pixels;
-                DialogueText.Text = CurrentDialogue.Message;
+                DialogueText.Text = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex);
                 if (CurrentDialogue.TextDelay != -1)
                     DialogueText.textDelay = CurrentDialogue.TextDelay;
                 else if (CurrentDialogue.CharacterIndex == -1)
@@ -129,7 +129,7 @@ namespace Cascade.Content.UI.Dialogue
                 if (CurrentDialogue.Responses != null)
                 {
                     Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
-                    int responseCount = availableResponses.Count();
+                    int responseCount = availableResponses.Length;
 
                     for (int i = 0; i < responseCount; i++)
                     {
@@ -141,7 +141,7 @@ namespace Cascade.Content.UI.Dialogue
                         button.OnLeftClick += OnButtonClick;
                         TextBox.Append(button);
 
-                        UIText text = new UIText(availableResponses[i].Title);
+                        UIText text = new UIText(Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + availableResponses[i].Title));
                         text.HAlign = text.VAlign = 0.5f;
                         button.Append(text);
                     }
@@ -285,7 +285,7 @@ namespace Cascade.Content.UI.Dialogue
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             }
             else if (dialogue.crawling)
-                dialogue.textIndex = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Message.Length;
+                dialogue.textIndex = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex).Length;
         }
         private void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
