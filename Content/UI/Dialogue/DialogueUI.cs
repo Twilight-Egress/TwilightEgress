@@ -2,13 +2,13 @@
 using Terraria.UI;
 using static Cascade.Content.UI.Dialogue.DialogueHolder;
 using Terraria.UI.Chat;
+using Cascade.Content.UI.Dialogue.DialogueStyles;
 
 namespace Cascade.Content.UI.Dialogue
 {
     internal class DialogueUIState : UIState
     {
-        public MouseBlockingUIPanel TextBox;
-        public MouseBlockingUIPanel NameBox;
+        public MouseBlockingUIPanel Textbox;
         public UIImage Speaker;
         public UIImage SubSpeaker;
 
@@ -23,12 +23,20 @@ namespace Cascade.Content.UI.Dialogue
                 Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
                 Character CurrentSpeaker;
                 Character CurrentSubSpeaker;
+
                 int subSpeakerIndex = -1;
                 bool justOpened = true;
                 bool newSpeaker = false;
                 bool newSubSpeaker = false;
                 bool returningSpeaker = false;
                 bool speakerRight = true;
+
+                BaseDialogueStyle style = new BaseDialogueStyle();
+                if(CurrentDialogue.StyleID == -1)
+                    style = new DefaultDialogueStyle();
+                else
+                    style = new DefaultDialogueStyle();
+
                 if (ModContent.GetInstance<DialogueUISystem>() != null)
                 {
                     CurrentSpeaker = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
@@ -45,7 +53,7 @@ namespace Cascade.Content.UI.Dialogue
                     CurrentSpeaker = Characters[CurrentDialogue.CharacterIndex];
                     CurrentSubSpeaker = new Character("None", new string[] { "None" });
                 }
-
+                style.PreUICreate(DialogueTreeIndex, DialogueIndex);
                 if (CurrentDialogue.CharacterIndex != -1)
                 {
                     //Main.NewText("Create Speaker: " + CurrentDialogue.CharacterIndex);
@@ -64,8 +72,9 @@ namespace Cascade.Content.UI.Dialogue
                         SetRectangle(Speaker, left: startPositionX, top: 1200f, width: speakerTexture.Width(), height: speakerTexture.Height());
                     else
                         SetRectangle(Speaker, left: startPositionX, top: 500f, width: speakerTexture.Width(), height: speakerTexture.Height());
-
+                    style.PreSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
                     Append(Speaker);
+                    style.PostSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
                 }
                 if (subSpeakerIndex != -1)
                 {
@@ -81,30 +90,18 @@ namespace Cascade.Content.UI.Dialogue
                     else
                         startPositionX = newSpeaker || returningSpeaker ? 1500f : 1700f;
                     SetRectangle(SubSpeaker, left: startPositionX, top: 500f, width: subSpeakerTexture.Width(), height: subSpeakerTexture.Height());
+                    style.PreSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
                     Append(SubSpeaker);
+                    style.PostSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
                 }
 
-                TextBox = new MouseBlockingUIPanel();
-                TextBox.SetPadding(0);
-                float startX = 0;
-                if (newSubSpeaker)
-                    startX = speakerRight ? 600f : 125f;
-                else
-                    startX = speakerRight ? 125f : 600f;
-                SetRectangle(TextBox, left: startX, top: justOpened ? 1200f : 650f, width: 1200f, height: 300f);
-
-                TextBox.BackgroundColor = new Color(73, 94, 171);
-                TextBox.OnLeftClick += OnBoxClick;
-                Append(TextBox);
-
-                NameBox = new MouseBlockingUIPanel();
-                NameBox.SetPadding(0);
-                SetRectangle(NameBox, left: -25f, top: -25f, width: 300f, height: 60f);
-                NameBox.BackgroundColor = new Color(73, 94, 171);
-                TextBox.Append(NameBox);
+                Textbox = new MouseBlockingUIPanel();
+                style.OnTextboxCreate(Textbox, Speaker, SubSpeaker);
+                Textbox.OnLeftClick += OnBoxClick;
+                Append(Textbox);
 
                 DialogueText DialogueText = new DialogueText();
-                DialogueText.boxWidth = TextBox.Width.Pixels;
+                DialogueText.boxWidth = Textbox.Width.Pixels;
                 DialogueText.Text = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex);
                 if (CurrentDialogue.TextDelay != -1)
                     DialogueText.textDelay = CurrentDialogue.TextDelay;
@@ -114,17 +111,7 @@ namespace Cascade.Content.UI.Dialogue
                     DialogueText.textDelay = Characters[CurrentDialogue.CharacterIndex].TextDelay;
                 DialogueText.Top.Pixels = 25;
                 DialogueText.Left.Pixels = 15;
-                TextBox.Append(DialogueText);
-
-                UIText NameText;
-                if (CurrentDialogue.CharacterIndex == -1)
-                    NameText = new UIText("...");
-                else
-                    NameText = new UIText(CurrentTree.Characters[CurrentDialogue.CharacterIndex].Name, 1f, true);
-                NameText.Width.Pixels = NameBox.Width.Pixels;
-                NameText.HAlign = 0.5f;
-                NameText.Top.Set(15, 0);
-                NameBox.Append(NameText);
+                Textbox.Append(DialogueText);
 
                 if (CurrentDialogue.Responses != null)
                 {
@@ -134,18 +121,18 @@ namespace Cascade.Content.UI.Dialogue
                     for (int i = 0; i < responseCount; i++)
                     {
                         UIPanel button = new UIPanel();
-                        button.Width.Set(100, 0);
-                        button.Height.Set(50, 0);
-                        button.HAlign = 1f / (responseCount + 1) * (i + 1);
-                        button.Top.Set(2000, 0);
+                        style.OnResponseButtonCreate(button, responseCount, i);
                         button.OnLeftClick += OnButtonClick;
-                        TextBox.Append(button);
+                        Textbox.Append(button);
 
                         UIText text = new UIText(Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + availableResponses[i].Title));
-                        text.HAlign = text.VAlign = 0.5f;
+                        style.OnResponseTextCreate(text);
                         button.Append(text);
                     }
                 }
+
+                style.PostUICreate(DialogueTreeIndex, DialogueIndex, Textbox, Speaker, SubSpeaker);
+
                 justOpened = false;
             }
         }
@@ -153,130 +140,22 @@ namespace Cascade.Content.UI.Dialogue
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            BaseDialogueStyle style = new BaseDialogueStyle();
+            style = new DefaultDialogueStyle();
             
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
             {
-                if (TextBox.Top.Pixels > 650f)
-                {
-                    TextBox.Top.Pixels -= (TextBox.Top.Pixels - 650f) / 10;
-                    if (TextBox.Top.Pixels - 650f < 1)
-                        TextBox.Top.Pixels = 650f;
-
-                }
-                if (ModContent.GetInstance<DialogueUISystem>().speakerRight && TextBox.Left.Pixels > 125f)
-                {
-                    TextBox.Left.Pixels -= (TextBox.Left.Pixels - 125f) / 20;
-                    if (TextBox.Left.Pixels - 125f < 1)
-                        TextBox.Left.Pixels = 125f;
-                }
-                else if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && TextBox.Left.Pixels < 600f)
-                {
-                    TextBox.Left.Pixels += (600f - TextBox.Left.Pixels) / 20;
-                    if (600f - TextBox.Left.Pixels < 1)
-                        TextBox.Left.Pixels = 600f;
-                }
-                if (Speaker != null)
-                {
-                    if (Speaker.Top.Pixels > 500f)
-                    {
-                        Speaker.Top.Pixels -= (Speaker.Top.Pixels - 500f) / 15;
-                        if (TextBox.Top.Pixels - 650f < 1)
-                            TextBox.Top.Pixels = 650f;
-                    }
-                    if(ModContent.GetInstance<DialogueUISystem>().speakerRight && Speaker.Left.Pixels > 1500f)
-                    {
-                        Speaker.Left.Pixels -= (Speaker.Left.Pixels - 1500f) / 20;
-                        if (Speaker.Left.Pixels - 1500f < 1)
-                            Speaker.Left.Pixels = 1500f;
-                    }
-                    else if(!ModContent.GetInstance<DialogueUISystem>().speakerRight && Speaker.Left.Pixels < 200f)
-                    {
-                        Speaker.Left.Pixels += (200f - Speaker.Left.Pixels) / 20;
-                        if (200f - Speaker.Left.Pixels < 1)
-                            Speaker.Left.Pixels = 200f;
-                    }
-                }
-                if(SubSpeaker != null)
-                {
-                    if (ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels > 0f)
-                    {
-                        SubSpeaker.Left.Pixels -= (SubSpeaker.Left.Pixels - 0f) / 20;
-                        if (SubSpeaker.Left.Pixels - 0f < 1)
-                            SubSpeaker.Left.Pixels = 0f;
-                    }
-                    else if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels < 1700f)
-                    {
-                        SubSpeaker.Left.Pixels += (1700f - SubSpeaker.Left.Pixels) / 20;
-                        if (1700f - SubSpeaker.Left.Pixels < 1)
-                            SubSpeaker.Left.Pixels = 1700f;
-
-                    }
-                }
-                DialogueText dialogue = (DialogueText)TextBox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
-                if (!dialogue.crawling)
-                {
-                    UIElement[] responseButtons = TextBox.Children.Where(c => c.GetType() == typeof(UIPanel)).ToArray();
-                    for (int i = 0; i < responseButtons.Length; i++)
-                    {
-                        UIElement button = responseButtons[i];
-                        button.Top.Set(TextBox.Height.Pixels - button.Height.Pixels, 0);
-                    }
-                }
+                style.PostUpdateActive(Textbox, Speaker, SubSpeaker);               
             }
             else
             {
-                if (TextBox.Top.Pixels < 1200f)
-                {
-                    TextBox.Top.Pixels += (1200f - TextBox.Top.Pixels) / 20;
-                    if (1100f - TextBox.Top.Pixels < 10)
-                        TextBox.Top.Pixels = 1200f;
-
-                }
-                if (Speaker != null)
-                {
-                    if (ModContent.GetInstance<DialogueUISystem>().speakerRight && Speaker.Left.Pixels < 2200f)
-                    {
-                        Speaker.Left.Pixels += (2200 - Speaker.Left.Pixels) / 20;
-                        if (2100f - Speaker.Left.Pixels < 10)
-                            Speaker.Left.Pixels = 2100f;
-                    }
-                    else if(!ModContent.GetInstance<DialogueUISystem>().speakerRight && Speaker.Left.Pixels > -600)
-                    {
-                        Speaker.Left.Pixels -= (Speaker.Left.Pixels + 600) / 20;
-                        if (Speaker.Left.Pixels + 500 < 10)
-                            Speaker.Left.Pixels = -600;
-                    }
-                }
-                if (SubSpeaker != null)
-                {
-                    if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels < 2200f)
-                    {
-                        SubSpeaker.Left.Pixels += (2200 - SubSpeaker.Left.Pixels) / 20;
-                        if (2100f - SubSpeaker.Left.Pixels < 10)
-                            SubSpeaker.Left.Pixels = 2100f;
-                    }
-                    else if (ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels > -600)
-                    {
-                        SubSpeaker.Left.Pixels -= (SubSpeaker.Left.Pixels + 600) / 20;
-                        if (SubSpeaker.Left.Pixels + 500 < 10)
-                            SubSpeaker.Left.Pixels = -600;
-                    }
-                }
-                if 
-                (
-                    (Speaker == null || (Speaker.Left.Pixels == 2100f && ModContent.GetInstance<DialogueUISystem>().speakerRight) || (Speaker.Left.Pixels == -600 && !ModContent.GetInstance<DialogueUISystem>().speakerRight)) 
-                    &&
-                    (SubSpeaker == null || (SubSpeaker.Left.Pixels == 2100f && !ModContent.GetInstance<DialogueUISystem>().speakerRight) || (SubSpeaker.Left.Pixels == -600 && ModContent.GetInstance<DialogueUISystem>().speakerRight))
-                    &&
-                    TextBox.Top.Pixels == 1200f
-                )
-                    ModContent.GetInstance<DialogueUISystem>().HideDialogueUI();
+                style.PostUpdateClosing(Textbox, Speaker, SubSpeaker);
             }
             counter++;
         }
         private void OnBoxClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            DialogueText dialogue = (DialogueText)TextBox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
+            DialogueText dialogue = (DialogueText)Textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
             if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
             {
                 if(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
@@ -301,7 +180,7 @@ namespace Cascade.Content.UI.Dialogue
             else
                 ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, heading);
         }
-        private static void SetRectangle(UIElement uiElement, float left, float top, float width, float height)
+        public static void SetRectangle(UIElement uiElement, float left, float top, float width, float height)
         {
         uiElement.Left.Set(left, 0f);
         uiElement.Top.Set(top, 0f);
