@@ -1,6 +1,7 @@
 ﻿using static Cascade.Content.UI.Dialogue.DialogueUIState;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using Cascade.Content.UI.Dialogue.UIElements;
 
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
@@ -11,7 +12,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
             bool justOpened = ModContent.GetInstance<DialogueUISystem>().justOpened;
             bool newSubSpeaker = ModContent.GetInstance<DialogueUISystem>().newSubSpeaker;
-            textbox.SetPadding(0);
+            textbox.SetPadding(0f);
             float startX;
             if (newSubSpeaker)
                 startX = speakerRight ? 500f : 600f;
@@ -19,7 +20,10 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 startX = speakerRight ? 600f : 500f;
             SetRectangle(textbox, left: startX, top: justOpened ? 1200f : 500f, width: 600f, height: 200f);
 
-            textbox.BackgroundColor = Color.Violet;
+            textbox.BackgroundColor = Color.Orange;
+
+            ArdienaTextboxPrimitives textboxPrims = new();
+            textbox.Append(textboxPrims);
         }
         public override void OnDialogueTextCreate(DialogueText text)
         {
@@ -61,6 +65,13 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 if (600f - textbox.Left.Pixels < 1)
                     textbox.Left.Pixels = 600f;
             }
+
+            // Ensure the primitives follow the textbox itself.
+            // Why do you not work >:(
+            ArdienaTextboxPrimitives textboxPrimitives = (ArdienaTextboxPrimitives)textbox.Children.Where(c => c.GetType() == typeof(ArdienaTextboxPrimitives)).First();
+            textboxPrimitives.Top.Pixels = textbox.Top.Pixels;
+            textboxPrimitives.Left.Pixels = textbox.Left.Pixels;
+
             DialogueText dialogue = (DialogueText)textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
             UIElement[] responseButtons = ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
             for (int i = 0; i < responseButtons.Length; i++)

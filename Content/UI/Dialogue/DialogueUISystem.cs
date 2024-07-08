@@ -237,13 +237,13 @@ namespace Cascade.Content.UI.Dialogue
         
         public void DisplayDialogueTree(int TreeIndex, int DialogueIndex = 0)
         {
-            SoundEngine.PlaySound(UseSound with
+            /*SoundEngine.PlaySound(UseSound with
             {
                 Pitch = -0.25f,
                 PitchVariance = 0.5f,
                 MaxInstances = 5,
                 SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
-            });
+            });*/
             isDialogueOpen = true;
             justOpened = true;
             speakerRight = true;
@@ -320,13 +320,13 @@ namespace Cascade.Content.UI.Dialogue
         
         public void HideDialogueUI()
         {
-            SoundEngine.PlaySound(UseSound with
+            /*SoundEngine.PlaySound(UseSound with
             {
                 Pitch = -0.25f,
                 PitchVariance = 0.5f,
                 MaxInstances = 5,
                 SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
-            });
+            });*/
             isDialogueOpen = false;
             DialogueUI?.SetState(null);           
         }
