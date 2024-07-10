@@ -20,7 +20,9 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 startX = speakerRight ? 600f : 500f;
             SetRectangle(textbox, left: startX, top: justOpened ? 1200f : 500f, width: 600f, height: 200f);
 
-            textbox.BackgroundColor = Color.Orange;
+            // No auto-drawn Terraria textbox cause this one is entirely drawn with prims.
+            textbox.BackgroundColor = Color.Transparent;
+            textbox.BorderColor = Color.Transparent;
 
             ArdienaTextboxPrimitives textboxPrims = new();
             textbox.Append(textboxPrims);
@@ -65,12 +67,6 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 if (600f - textbox.Left.Pixels < 1)
                     textbox.Left.Pixels = 600f;
             }
-
-            // Ensure the primitives follow the textbox itself.
-            // Why do you not work >:(
-            ArdienaTextboxPrimitives textboxPrimitives = (ArdienaTextboxPrimitives)textbox.Children.Where(c => c.GetType() == typeof(ArdienaTextboxPrimitives)).First();
-            textboxPrimitives.Top.Pixels = textbox.Top.Pixels;
-            textboxPrimitives.Left.Pixels = textbox.Left.Pixels;
 
             DialogueText dialogue = (DialogueText)textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
             UIElement[] responseButtons = ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
@@ -123,7 +119,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     Vector2 rotation = Vector2.UnitY;
                     rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
                     button.HAlign = 0f;
-                    button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
+                    button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels /  2), 0);
                     button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
 
                     button.Top.Pixels -= rotation.Y * (textbox.Height.Pixels / 1.5f);
