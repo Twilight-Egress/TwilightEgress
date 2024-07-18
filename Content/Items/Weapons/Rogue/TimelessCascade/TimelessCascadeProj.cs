@@ -54,15 +54,14 @@ public class TimelessCascadeProj : ModProjectile
         public override void AI()
         {
             Player owner = Main.player[Projectile.owner];
-            if (saveVel == null)
+            if (saveVel == null && Projectile.ai[0] >= 0)
             {
                 Projectile.ai[0] = 1;
                 Projectile.ai[2] = 0;
-                Projectile.ai[1] = 5;
                 saveVel = Projectile.velocity;
             }
             
-            if (Math.Abs(Projectile.ai[2] - 10) < .01f)
+            if (Math.Abs(Projectile.ai[2] - 10) < .01f && Projectile.ai[1] != 1)
             {
                 int proj = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimelessCascadeExplode>(), (int)(Projectile.damage * explosionDamageMod), Projectile.knockBack, Projectile.owner);
                 Main.projectile[proj].rotation = Projectile.rotation;
@@ -73,32 +72,30 @@ public class TimelessCascadeProj : ModProjectile
  
             }
 
-            if (Projectile.ai[1] < 0)
+
+
+            Projectile.rotation += .07f;
+
+
+            Projectile.ai[0] -= .01f;
+
+            if (Projectile.ai[0] < 0)
             {
-                Projectile.Kill();
+                Projectile.tileCollide = false;
+                Projectile.velocity = (-Projectile.Center + owner.Center).SafeNormalize(Vector2.Zero) * 10 * -(Projectile.ai[0]);
+
+                Projectile.Opacity -= 0.005f;
+
+
+                if (Projectile.Distance(owner.Center) < 20)
+                    Projectile.Kill();
+
             }
             else
             {
-
-                Projectile.rotation += .07f;
                 Projectile.velocity = (Vector2)saveVel * Projectile.ai[0];
-
-
-                Projectile.ai[0] -= .01f;
-
-                if (Projectile.ai[0] < 0)
-                {
-                    Projectile.tileCollide = false;
-                    Projectile.velocity = (-Projectile.Center + owner.Center).SafeNormalize(Vector2.Zero) * 10 * -(Projectile.ai[0]);
-
-                    Projectile.Opacity -= 0.005f;
-
-
-                    if (Projectile.Distance(owner.Center) < 20)
-                        Projectile.Kill();
-
-                }
             }
+          
         }
 
         public override bool PreDraw(ref Color lightColor)

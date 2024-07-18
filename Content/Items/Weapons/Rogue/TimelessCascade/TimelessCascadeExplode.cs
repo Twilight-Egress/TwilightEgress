@@ -41,18 +41,18 @@ public class TimelessCascadeExplode : ModProjectile
        
                         if (i % 6 == 0)
                         {
-                            Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, circular, ModContent.ProjectileType<TimelessCascadeShards>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner, ai0: i / 6, ai1:Projectile.Center.X, ai2:Projectile.Center.Y);
+                            Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPos, circular*3, ModContent.ProjectileType<TimelessCascadeShards>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner, ai0: i / 6, ai1:Projectile.Center.X, ai2:Projectile.Center.Y);
                         }
                   
                         if (i % 3 == 0)
                         {
-                            Color color = Color.LightBlue;
-                            float colorMod = i % 6 == 0 ? .76f : .35f;
+                            Color color = i % 6 == 0 ? new Color(114, 187, 232) : new Color(154, 130, 227);
+                            float colorMod = i % 6 == 0 ? .7f : .6f;
                             float scale = 1;
                             int lifespan = 100;
                             float velMod = i % 6 == 0 ? 4.5f : 4;
             
-                            SparkleParticle sparkleParticle = new(spawnPos, circular* velMod, color, color * colorMod, scale, lifespan, 0.25f, 1.25f);
+                            SparkleParticle sparkleParticle = new(spawnPos, circular* velMod, color, color * .3f, scale, lifespan, 0.05f, 1.25f);
                             sparkleParticle.SpawnCasParticle(); 
                         }
                         spawnPos = Projectile.Center + circular;

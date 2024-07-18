@@ -33,9 +33,18 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
             spawnTime--;
 
             Vector2 targetPos = new Vector2(Projectile.ai[1], Projectile.ai[2]);
-            if (spawnTime < 0 && Projectile.Distance(targetPos) < 1)
+            if (spawnTime < 0 && Projectile.Distance(targetPos) < 20)
             {
-                Projectile.Kill();
+                Projectile.Opacity -= .04f;
+                if (Projectile.Distance(targetPos) < 3)
+                {
+                    if (Projectile.ai[0] == 1)
+                    {
+                        Vector2 initVel = (Main.player[Projectile.owner].Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 4;
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, initVel, ModContent.ProjectileType<TimelessCascadeProj>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner, ai0: -0.1f, ai1: 1);
+                    }
+                    Projectile.Kill();
+                }
             }
 
             initVel = initVel ?? Projectile.velocity;
@@ -54,6 +63,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
 
         public override bool PreDraw(ref Color lightColor)
         {
+            //lightColor = Color.White;    
             return Projectile.ai[0] > 0;
         }
 
