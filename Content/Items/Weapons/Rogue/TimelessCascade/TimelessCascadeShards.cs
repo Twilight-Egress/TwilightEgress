@@ -38,7 +38,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
                 Projectile.Opacity -= .04f;
                 if (Projectile.Distance(targetPos) < 3)
                 {
-                    if (Projectile.ai[0] == 1)
+                    if (Projectile.ai[0] == 1) //Reform the hourglass
                     {
                         Vector2 initVel = (Main.player[Projectile.owner].Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 4;
                         Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, initVel, ModContent.ProjectileType<TimelessCascadeProj>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner, ai0: -0.1f, ai1: 1);
@@ -50,7 +50,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
             initVel = initVel ?? Projectile.velocity;
             if (Projectile.ai[0] < 1)
                 return false;
-            Projectile.frame = (int)Projectile.ai[0]-1;
+            Projectile.frame = (int)Projectile.ai[0]-1; //Frame in this case is static and determines which shard texture to use
             return base.PreAI();
         }
         public override void AI()

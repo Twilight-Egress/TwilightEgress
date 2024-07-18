@@ -36,7 +36,6 @@ public class TimelessCascade : ModItem
 
         if (player.Calamity().StealthStrikeAvailable() && calamityGlobalItem.Charge > 0)
         {
-            //This thing becomes an absolute monstrosity if its damage isn't heavily nerfed for the Stealth Strike
             int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             if (p.WithinBounds(1000))
             {

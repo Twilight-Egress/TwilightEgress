@@ -6,6 +6,8 @@ public class TimelessCascadeProj : ModProjectile
         public float explosionDamageMod = 0.95f;
 
         Vector2? saveVel = null;
+
+    
     
         public override void SetDefaults()
         {
@@ -21,8 +23,10 @@ public class TimelessCascadeProj : ModProjectile
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            //If Projectile.ai[0] is 0 or less it returns to the player
             Projectile.ai[0] = Projectile.ai[0] > 0 ? 0 : Projectile.ai[0];
 
+            //If Projectile.ai[2] is 10, it explodes
             Projectile.ai[2] = 10;
             Projectile.netUpdate = true;
             return false;
@@ -61,6 +65,7 @@ public class TimelessCascadeProj : ModProjectile
                 saveVel = Projectile.velocity;
             }
             
+            //If Projectile.ai[1] is 1, that means it was reformed from shards and must return
             if (Math.Abs(Projectile.ai[2] - 10) < .01f && Projectile.ai[1] != 1)
             {
                 int proj = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimelessCascadeExplode>(), (int)(Projectile.damage * explosionDamageMod), Projectile.knockBack, Projectile.owner);
@@ -79,6 +84,8 @@ public class TimelessCascadeProj : ModProjectile
 
             Projectile.ai[0] -= .01f;
 
+
+            //Home back in on player
             if (Projectile.ai[0] < 0)
             {
                 Projectile.tileCollide = false;
