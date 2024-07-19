@@ -10,8 +10,8 @@ namespace Cascade.Content.UI.Dialogue
         
         public static readonly Character[] Characters =
         {
-            new Character("TheCalamity", new string[] {"Normal", "Finality"}, "[c/FF0000:The Calamity]", styleID: 0),
-            new Character("Ardiena", new string[] {"Default", "Happy"}, styleID: 1)
+            new Character("TheCalamity", new Expression[] { new Expression("Normal", 1, 0), new Expression("Finality",  1, 0) }, "[c/FF0000:The Calamity]", styleID: 0),
+            new Character("Ardiena", new Expression[] { new Expression("Default",  1, 0), new Expression("Blunt",  3, 10)}, styleID: 1)
         };
         
         public static DialogueTree[] DialogueTrees; //Can be marked readonly once testing is done. Isnt so that it can be updated everytime dialogue is called for testing purposes.
@@ -106,7 +106,7 @@ namespace Cascade.Content.UI.Dialogue
                             {
                                 new Response("Thanks")
                             },
-                            expressionIndex: 0,
+                            expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
                         ),
                         new Dialogue
@@ -175,9 +175,9 @@ namespace Cascade.Content.UI.Dialogue
         
         public UserInterface DialogueUI;
                 
-        public Character CurrentSpeaker = new Character("None", new string[] { "None" });
+        public Character? CurrentSpeaker = null;
         
-        public Character SubSpeaker = new Character("None", new string[] { "None" });
+        public Character? SubSpeaker = null;
         
         public bool justOpened = true;
         
@@ -255,7 +255,7 @@ namespace Cascade.Content.UI.Dialogue
             Dialogue currentDialogue = currentTree.Dialogues[DialogueIndex];
 
             CurrentSpeaker = currentTree.Characters[currentDialogue.CharacterIndex];
-            SubSpeaker = new Character("None", new string[] { "None" });
+            SubSpeaker = null;
             subSpeakerIndex = -1;
 
             DialogueUI = new UserInterface();
@@ -275,14 +275,14 @@ namespace Cascade.Content.UI.Dialogue
             //Main.NewText("Correct Speaker ID: " + currentTree.Characters[currentDialogue.CharacterIndex].ID);
             //Main.NewText("Current ID: " + CurrentSpeaker.ID);
             //Main.NewText("Subspeaker ID: " + SubSpeaker.ID);
-            if (currentTree.Characters[currentDialogue.CharacterIndex].ID == CurrentSpeaker.ID)
+            if (currentTree.Characters[currentDialogue.CharacterIndex].ID == ((Character)CurrentSpeaker).ID)
             {
                 //Main.NewText("Speaker Unchanged");
                 newSpeaker = false;
                 newSubSpeaker = false;
                 returningSpeaker = false;
             }
-            else if (SubSpeaker.ID == "None")
+            else if (SubSpeaker == null)
             {
                 //Main.NewText("New speaker! No subspeaker");
                 newSpeaker = true;
@@ -299,7 +299,7 @@ namespace Cascade.Content.UI.Dialogue
                 newSpeaker = false;
                 newSubSpeaker = true;
                 returningSpeaker = true;
-                Character temp = SubSpeaker;
+                Character temp = (Character)SubSpeaker;
                 SubSpeaker = CurrentSpeaker;
                 subSpeakerIndex = formerSpeakerIndex;
                 CurrentSpeaker = temp;
@@ -340,12 +340,12 @@ namespace Cascade.Content.UI.Dialogue
     /// <returns>
     /// Represents a character able to be used within a <see cref="DialogueTree"/>.
     /// </returns>
-    public struct Character(string ID, string[] expressions, string name = null, float scale = 2f, int styleID = 0, int textDelay = 3)
+    public struct Character(string ID, Expression[] expressions, string name = null, float scale = 2f, int styleID = 0, int textDelay = 3)
     {
         public string ID = ID;
         public string Name = name ?? ID;
         public float Scale = scale;
-        public string[] ExpressionIDs = expressions;
+        public Expression[] Expressions = expressions;
         public int StyleID = styleID;
         public int TextDelay = textDelay;
     }
@@ -363,7 +363,7 @@ namespace Cascade.Content.UI.Dialogue
     
     /// <param name="responses">The array of <see cref="Response"/>s the player can give. If set to null, clicking on the Textbox itself will proceed to the next Dialogue within the <see cref="DialogueTree"/> or close the Dialogue if there are no more dialogues Defaults to <see cref="null"/>. </param>
     /// <param name="characterIndex">The index of a character within the <see cref="DialogueTree"/>'s <see cref="DialogueTree.Characters"/> array. Represents the character who will be speaking. Defaults to <see cref="0"/>, the first character in the <see cref="DialogueTree.Characters"/> array.</param>
-    /// <param name="expressionIndex">The index of an expression within a <see cref="Character"/>'s <see cref="Character.ExpressionIDs"/> array. Represents the expression, or asset, the character will use while speaking. Defaults to <see cref="0"/>, the first expression in the <see cref="Character.ExpressionIDs"/> array.</param>
+    /// <param name="expressionIndex">The index of an expression within a <see cref="Character"/>'s <see cref="Character.Expressions"/> array. Represents the expression, or asset, the character will use while speaking. Defaults to <see cref="0"/>, the first expression in the <see cref="Character.Expressions"/> array.</param>
     /// <param name="styleID">The ID of the Textbox Style associated with this Dialogue. Is able to differ from that of its Character's Defaults to 0.</param>
     /// <param name="textScaleX">Scales the size of the text horizontally. Defaults to <see cref="1.5f"/>.</param>
     /// <param name="textScaleY">Scales the size of the text vertically. Defaults to <see cref="1.5f"/>.</param>
@@ -394,6 +394,14 @@ namespace Cascade.Content.UI.Dialogue
         public string Title = title;
         public int DialogueIndex = dialogueIndex;
         public bool Requirement = requirement;
+    }
+
+    public struct Expression(string title, int frameCount, int frameRate, bool loop = true)
+    {
+        public string Title = title;
+        public int FrameCount = frameCount;
+        public int FrameRate = frameRate;
+        public bool Loop = loop;
     }
     #endregion
 }

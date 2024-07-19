@@ -3,7 +3,8 @@ using Terraria.UI;
 using static Cascade.Content.UI.Dialogue.DialogueHolder;
 using Terraria.UI.Chat;
 using Cascade.Content.UI.Dialogue.DialogueStyles;
-using CalamityMod.Items.Weapons.Ranged;
+using Terraria;
+using System.Linq.Expressions;
 
 namespace Cascade.Content.UI.Dialogue
 {
@@ -33,7 +34,7 @@ namespace Cascade.Content.UI.Dialogue
                 if (++counter % textDelay == 0 && counter >= 0)
                     textIndex++;
                 List<TextSnippet> fullSnippets = ChatManager.ParseMessage(Text, Color.White);
-                List<TextSnippet> printedSnippets = new List<TextSnippet>();
+                List<TextSnippet> printedSnippets = new();
                 if (textIndex < Text.Length)
                 {
                     crawling = true;
@@ -141,7 +142,7 @@ namespace Cascade.Content.UI.Dialogue
                     }
                 }
 
-                List<List<TextSnippet>> dialogLines = new List<List<TextSnippet>>();
+                List<List<TextSnippet>> dialogLines = new();
                 for (int i = 0; i < textLines.Count; i++)
                 {
                     dialogLines.Add(ChatManager.ParseMessage(textLines[i], Color.White));
@@ -167,10 +168,13 @@ namespace Cascade.Content.UI.Dialogue
         public int DialogueTreeIndex;
         public int DialogueIndex;
         private int counter = 0;
+        private int frameCounter = 1;
         public override void OnInitialize()
         {
             if (DialogueTrees != null)
             {
+                counter = 0;
+
                 DialogueTree CurrentTree = DialogueTrees[DialogueTreeIndex];
                 Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
                 Character CurrentSpeaker;
@@ -183,7 +187,7 @@ namespace Cascade.Content.UI.Dialogue
                 bool returningSpeaker = false;
                 bool speakerRight = true;
 
-                BaseDialogueStyle style = new BaseDialogueStyle();
+                BaseDialogueStyle style = new();
                 if(CurrentDialogue.StyleID == -1)
                     switch(CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
                     {
@@ -213,8 +217,8 @@ namespace Cascade.Content.UI.Dialogue
 
                 if (ModContent.GetInstance<DialogueUISystem>() != null)
                 {
-                    CurrentSpeaker = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
-                    CurrentSubSpeaker = ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
+                    CurrentSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+                    CurrentSubSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
                     subSpeakerIndex = ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex;
                     justOpened = ModContent.GetInstance<DialogueUISystem>().justOpened;
                     newSpeaker = ModContent.GetInstance<DialogueUISystem>().newSpeaker;
@@ -225,17 +229,27 @@ namespace Cascade.Content.UI.Dialogue
                 else
                 {
                     CurrentSpeaker = Characters[CurrentDialogue.CharacterIndex];
-                    CurrentSubSpeaker = new Character("None", new string[] { "None" });
+                    CurrentSubSpeaker = new Character("None", new Expression[] { new() });
                 }
                 style.PreUICreate(DialogueTreeIndex, DialogueIndex);
                 if (CurrentDialogue.CharacterIndex != -1)
                 {
                     //Main.NewText("Create Speaker: " + CurrentDialogue.CharacterIndex);
                     CurrentSpeaker = CurrentTree.Characters[CurrentDialogue.CharacterIndex];
-                    string expressionID = CurrentSpeaker.ExpressionIDs[CurrentDialogue.ExpressionIndex];
-                    Asset<Texture2D> speakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{CurrentSpeaker.ID}/{CurrentSpeaker.ID}_{expressionID}");
-                    Speaker = new(speakerTexture);
-                    Speaker.ImageScale = CurrentSpeaker.Scale;
+                    string expressionID = CurrentSpeaker.Expressions[CurrentDialogue.ExpressionIndex].Title;
+                    
+                    Texture2D speakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{CurrentSpeaker.ID}/{CurrentSpeaker.ID}_{expressionID}", AssetRequestMode.ImmediateLoad).Value;
+                    Rectangle speakerFrame = new Rectangle(0, 0, speakerTexture.Bounds.Width, speakerTexture.Bounds.Height / CurrentSpeaker.Expressions[CurrentDialogue.ExpressionIndex].FrameCount);
+
+                    Texture2D speakerFrameTexture = new(Main.graphics.GraphicsDevice, speakerFrame.Width, speakerFrame.Height);
+                    Color[] data = new Color[speakerFrame.Width * speakerFrame.Height];
+                    speakerTexture.GetData(0, speakerFrame, data, 0, data.Length);
+                    speakerFrameTexture.SetData(data);
+
+                    Speaker = new(speakerFrameTexture)
+                    {
+                        ImageScale = CurrentSpeaker.Scale
+                    };
                     float startPositionX = 0;
                     if (speakerRight)
                         startPositionX = returningSpeaker ? 1600f : 1500f;
@@ -243,9 +257,9 @@ namespace Cascade.Content.UI.Dialogue
                         startPositionX = returningSpeaker ? 100f : 200f;
 
                     if (justOpened || newSpeaker)
-                        SetRectangle(Speaker, left: startPositionX, top: 1200f, width: speakerTexture.Width(), height: speakerTexture.Height());
+                        SetRectangle(Speaker, left: startPositionX, top: 1200f, width: speakerFrameTexture.Width, height: speakerFrameTexture.Height);
                     else
-                        SetRectangle(Speaker, left: startPositionX, top: 500f, width: speakerTexture.Width(), height: speakerTexture.Height());
+                        SetRectangle(Speaker, left: startPositionX, top: 500f, width: speakerFrameTexture.Width, height: speakerFrameTexture.Height);
                     style.PreSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
                     Append(Speaker);
                     style.PostSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
@@ -254,16 +268,25 @@ namespace Cascade.Content.UI.Dialogue
                 {
                     //Main.NewText("Create Sub-Speaker: " + subSpeakerIndex);
                     CurrentSubSpeaker = CurrentTree.Characters[subSpeakerIndex];
-                    string expressionID = CurrentSubSpeaker.ExpressionIDs[0];
-                    Asset<Texture2D> subSpeakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{CurrentSubSpeaker.ID}/{CurrentSubSpeaker.ID}_{expressionID}");
-                    SubSpeaker = new(subSpeakerTexture);
-                    SubSpeaker.ImageScale = CurrentSubSpeaker.Scale;
+                    string expressionID = CurrentSubSpeaker.Expressions[0].Title;
+                    Texture2D subSpeakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{CurrentSubSpeaker.ID}/{CurrentSubSpeaker.ID}_{expressionID}", AssetRequestMode.ImmediateLoad).Value;
+                    Rectangle subSpeakerFrame = new Rectangle(0, 0, subSpeakerTexture.Bounds.Width, subSpeakerTexture.Bounds.Height / CurrentSubSpeaker.Expressions[0].FrameCount);
+
+                    Texture2D subSpeakerFrameTexture = new(Main.graphics.GraphicsDevice, subSpeakerFrame.Width, subSpeakerFrame.Height);
+                    Color[] data = new Color[subSpeakerFrame.Width * subSpeakerFrame.Height];
+                    subSpeakerTexture.GetData(0, subSpeakerFrame, data, 0, data.Length);
+                    subSpeakerFrameTexture.SetData(data);
+
+                    SubSpeaker = new(subSpeakerFrameTexture)
+                    {
+                        ImageScale = CurrentSubSpeaker.Scale
+                    };
                     float startPositionX = 0;
                     if (speakerRight)
                         startPositionX = newSpeaker || returningSpeaker ? 200f : 0f;
                     else
                         startPositionX = newSpeaker || returningSpeaker ? 1500f : 1700f;
-                    SetRectangle(SubSpeaker, left: startPositionX, top: 500f, width: subSpeakerTexture.Width(), height: subSpeakerTexture.Height());
+                    SetRectangle(SubSpeaker, left: startPositionX, top: 500f, width: subSpeakerFrameTexture.Width, height: subSpeakerFrameTexture.Height);
                     style.PreSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
                     Append(SubSpeaker);
                     style.PostSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
@@ -274,9 +297,11 @@ namespace Cascade.Content.UI.Dialogue
                 Textbox.OnLeftClick += OnBoxClick;
                 Append(Textbox);
 
-                DialogueText DialogueText = new DialogueText();
-                DialogueText.boxWidth = Textbox.Width.Pixels;
-                DialogueText.Text = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex);
+                DialogueText DialogueText = new()
+                {
+                    boxWidth = Textbox.Width.Pixels,
+                    Text = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex)
+                };
                 if (CurrentDialogue.TextDelay != -1)
                     DialogueText.textDelay = CurrentDialogue.TextDelay;
                 else if (CurrentDialogue.CharacterIndex == -1)
@@ -293,12 +318,12 @@ namespace Cascade.Content.UI.Dialogue
 
                     for (int i = 0; i < responseCount; i++)
                     {
-                        UIPanel button = new UIPanel();
+                        UIPanel button = new();
                         style.OnResponseButtonCreate(button, Textbox, responseCount, i);
                         button.OnLeftClick += OnButtonClick;
                         Append(button);
 
-                        UIText text = new UIText(Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + availableResponses[i].Title));                       
+                        UIText text = new(Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + availableResponses[i].Title));                       
                         style.OnResponseTextCreate(text);
                         button.Append(text);
                     }
@@ -345,8 +370,7 @@ namespace Cascade.Content.UI.Dialogue
 
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
             {
-                style.PostUpdateActive(Textbox, Speaker, SubSpeaker);
-
+                style.PostUpdateActive(Textbox, Speaker, SubSpeaker);                
                 if (Speaker != null)
                 {
                     if (Speaker.Top.Pixels > 500f)
@@ -366,6 +390,28 @@ namespace Cascade.Content.UI.Dialogue
                         Speaker.Left.Pixels += (200f - Speaker.Left.Pixels) / 20;
                         if (200f - Speaker.Left.Pixels < 1)
                             Speaker.Left.Pixels = 200f;
+                    }
+                    Character speakerCharacter = CurrentTree.Characters[CurrentDialogue.CharacterIndex];
+                    Expression currentExpression = speakerCharacter.Expressions[CurrentDialogue.ExpressionIndex];                   
+                    if (currentExpression.FrameRate != 0 && counter % currentExpression.FrameRate == 0)
+                    {
+                        frameCounter++;
+                        if (frameCounter > currentExpression.FrameCount)
+                        {
+                            if (currentExpression.Loop)
+                                frameCounter = 1;
+                            else
+                                frameCounter = currentExpression.FrameCount;
+                        }
+                        Texture2D speakerTexture = ModContent.Request<Texture2D>($"{nameof(Cascade)}/Content/UI/Dialogue/CharacterAssets/{speakerCharacter.ID}/{speakerCharacter.ID}_{currentExpression.Title}", AssetRequestMode.ImmediateLoad).Value;
+                        Rectangle speakerFrame = speakerTexture.Frame(1, speakerCharacter.Expressions[CurrentDialogue.ExpressionIndex].FrameCount, 0, frameCounter - 1);
+
+                        Texture2D speakerFrameTexture = new(Main.graphics.GraphicsDevice, speakerFrame.Width, speakerFrame.Height);
+                        Color[] data = new Color[speakerFrame.Width * speakerFrame.Height];
+                        speakerTexture.GetData(0, speakerFrame, data, 0, data.Length);
+                        speakerFrameTexture.SetData(data);
+
+                        Speaker.SetImage(speakerFrameTexture);
                     }
                 }
                 if (SubSpeaker != null)
