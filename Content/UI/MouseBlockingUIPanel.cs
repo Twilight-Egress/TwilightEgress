@@ -11,9 +11,7 @@ namespace Cascade.Content.UI
             // Checking ContainsPoint and then setting mouseInterface to true is very common
             // This causes clicks on this UIElement to not cause the player to use current items
             if (ContainsPoint(Main.MouseScreen))
-            {
                 Main.LocalPlayer.mouseInterface = true;
-            }
         }
     }
 }

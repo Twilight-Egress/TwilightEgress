@@ -43,9 +43,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
             text.HAlign = text.VAlign = 0.5f;
         }
-        public override void PostUICreate(int treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
-        {
-        }
+
         public override void PostUpdateActive(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
             if (textbox.Top.Pixels > 500f)
@@ -127,9 +125,6 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 }
             }
         }
-        public override bool TextboxOffScreen(UIPanel textbox)
-        {
-            return textbox.Top.Pixels == 1200f;
-        }
+        public override bool TextboxOffScreen(UIPanel textbox) => textbox.Top.Pixels == 1200f;
     }
 }
