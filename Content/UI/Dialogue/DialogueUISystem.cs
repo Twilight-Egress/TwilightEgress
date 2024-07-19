@@ -169,6 +169,9 @@ namespace Cascade.Content.UI.Dialogue
             return trees;
         }       
     }
+
+    public delegate void DialogueNotifier(int treeID, int dialogueID, int buttonID);
+
     public class DialogueUISystem : ModSystem
     {       
         internal DialogueUIState DialogueUIState;
@@ -178,7 +181,13 @@ namespace Cascade.Content.UI.Dialogue
         public Character? CurrentSpeaker = null;
         
         public Character? SubSpeaker = null;
-        
+
+        public DialogueNotifier ButtonClick;
+
+        public DialogueNotifier DialogueOpen;
+
+        public DialogueNotifier DialogueClose;
+
         public bool justOpened = true;
         
         public bool isDialogueOpen = false;
@@ -257,6 +266,8 @@ namespace Cascade.Content.UI.Dialogue
             CurrentSpeaker = currentTree.Characters[currentDialogue.CharacterIndex];
             SubSpeaker = null;
             subSpeakerIndex = -1;
+
+            DialogueOpen?.Invoke(TreeIndex, DialogueIndex, 0);
 
             DialogueUI = new UserInterface();
             DialogueUIState = new DialogueUIState();

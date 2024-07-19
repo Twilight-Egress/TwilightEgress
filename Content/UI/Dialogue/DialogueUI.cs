@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 
 namespace Cascade.Content.UI.Dialogue
 {
+    
     public class DialogueUIState : UIState
     {
         public class DialogueText : UIElement
@@ -160,7 +161,7 @@ namespace Cascade.Content.UI.Dialogue
                     }
             }
         }
-        
+
         public MouseBlockingUIPanel Textbox;
         public UIImage Speaker;
         public UIImage SubSpeaker;
@@ -217,8 +218,10 @@ namespace Cascade.Content.UI.Dialogue
 
                 if (ModContent.GetInstance<DialogueUISystem>() != null)
                 {
-                    CurrentSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
-                    CurrentSubSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
+                    if(ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker != null)
+                        CurrentSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+                    if(ModContent.GetInstance<DialogueUISystem>().SubSpeaker != null)
+                        CurrentSubSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
                     subSpeakerIndex = ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex;
                     justOpened = ModContent.GetInstance<DialogueUISystem>().justOpened;
                     newSpeaker = ModContent.GetInstance<DialogueUISystem>().newSpeaker;
@@ -489,10 +492,15 @@ namespace Cascade.Content.UI.Dialogue
             DialogueText dialogue = (DialogueText)Textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
             if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
             {
-                if(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
+                ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(DialogueTreeIndex, DialogueIndex, 0);
+
+                if (DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
                 else
+                {
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
+                    ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(DialogueTreeIndex, DialogueIndex, 0);
+                }
             }
             else if (dialogue.crawling)
                 dialogue.textIndex = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex).Length;
@@ -507,9 +515,15 @@ namespace Cascade.Content.UI.Dialogue
                 if (text.Text == Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses[i].Title))
                     buttonID = i;
             }
+
+            ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(DialogueTreeIndex, DialogueIndex, buttonID);
+            
             int heading = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses[buttonID].DialogueIndex;
             if (heading == -1 || (heading == -2 && !(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)))
+            {
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
+                ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(DialogueTreeIndex, DialogueIndex, buttonID);
+            }
             else if (heading == -2 && DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
                 ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
             else

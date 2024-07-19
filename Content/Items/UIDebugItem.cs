@@ -1,12 +1,4 @@
-﻿using CalamityMod.Events;
-using Cascade.Content.Events.CosmostoneShowers;
-using Cascade.Content.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cascade.Content.UI.Dialogue;
+﻿using Cascade.Content.UI.Dialogue;
 
 namespace Cascade.Content.Items
 {
@@ -14,7 +6,10 @@ namespace Cascade.Content.Items
     {
         public new string LocalizationCategory => "Items.Misc";
         public override string Texture => "CalamityMod/Items/Weapons/Magic/LightGodsBrilliance";
-
+        public override void SetStaticDefaults()
+        {
+            ModContent.GetInstance<DialogueUISystem>().ButtonClick += ClickEffect;
+        }
         public override void SetDefaults()
         {
             Item.width = 108;
@@ -22,15 +17,21 @@ namespace Cascade.Content.Items
             Item.noMelee = true;
             Item.useAnimation = 1;
             Item.useTime = 1;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.HoldUp;            
         }
         public override bool? UseItem(Player player)
         {
-            if(ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
+            if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             else
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugID);
+            {
+                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugID);               
+            }
             return true;
+        }
+        private static void ClickEffect(int treeID, int dialogueID, int buttonID)
+        {
+            Main.NewText("A button has been clicked!");
         }
     }
 }
