@@ -12,23 +12,23 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
     public class BaseDialogueStyle
     {
         #region UI Creation Methods
-        public virtual void PreUICreate(int treeIndex, int dialogueIndex)
+        public virtual void PreUICreate(string treeIndex, int dialogueIndex)
         {
 
         }
-        public virtual void PreSpeakerCreate(int treeIndex, int dialogueIndex, UIImage speaker)
+        public virtual void PreSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker)
         {
 
         }
-        public virtual void PostSpeakerCreate(int treeIndex, int dialogueIndex, UIImage speaker)
+        public virtual void PostSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker)
         {
 
         }
-        public virtual void PreSubSpeakerCreate(int treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
+        public virtual void PreSubSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
         {
 
         }
-        public virtual void PostSubSpeakerCreate(int treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
+        public virtual void PostSubSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
         {
 
         }
@@ -48,7 +48,9 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
 
         }
-        public virtual void PostUICreate(int treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public virtual void OnResponseCostCreate(UIText text, UIPanel costHolder)
+        { }
+        public virtual void PostUICreate(string treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
 
         }

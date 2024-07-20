@@ -39,9 +39,9 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
             text.HAlign = text.VAlign = 0.5f;
         }
-        public override void PostUICreate(int treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public override void PostUICreate(string treeKey, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
-            DialogueTree CurrentTree = DialogueHolder.DialogueTrees[treeIndex];
+            DialogueTree CurrentTree = DialogueHolder.DialogueTrees[treeKey];
             Dialogue CurrentDialogue = CurrentTree.Dialogues[dialogueIndex];
 
             MouseBlockingUIPanel NameBox;

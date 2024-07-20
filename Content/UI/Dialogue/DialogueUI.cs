@@ -166,7 +166,7 @@ namespace Cascade.Content.UI.Dialogue
         public UIImage Speaker;
         public UIImage SubSpeaker;
 
-        public int DialogueTreeIndex;
+        public string TreeKey;
         public int DialogueIndex;
         private int counter = 0;
         private int frameCounter = 1;
@@ -176,7 +176,7 @@ namespace Cascade.Content.UI.Dialogue
             {
                 counter = 0;
 
-                DialogueTree CurrentTree = DialogueTrees[DialogueTreeIndex];
+                DialogueTree CurrentTree = DialogueTrees[TreeKey];
                 Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
                 Character CurrentSpeaker;
                 Character CurrentSubSpeaker;
@@ -234,7 +234,7 @@ namespace Cascade.Content.UI.Dialogue
                     CurrentSpeaker = Characters[CurrentDialogue.CharacterIndex];
                     CurrentSubSpeaker = new Character("None", new Expression[] { new() });
                 }
-                style.PreUICreate(DialogueTreeIndex, DialogueIndex);
+                style.PreUICreate(TreeKey, DialogueIndex);
                 if (CurrentDialogue.CharacterIndex != -1)
                 {
                     //Main.NewText("Create Speaker: " + CurrentDialogue.CharacterIndex);
@@ -263,9 +263,9 @@ namespace Cascade.Content.UI.Dialogue
                         SetRectangle(Speaker, left: startPositionX, top: 1200f, width: speakerFrameTexture.Width, height: speakerFrameTexture.Height);
                     else
                         SetRectangle(Speaker, left: startPositionX, top: 500f, width: speakerFrameTexture.Width, height: speakerFrameTexture.Height);
-                    style.PreSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
+                    style.PreSpeakerCreate(TreeKey, DialogueIndex, Speaker);
                     Append(Speaker);
-                    style.PostSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker);
+                    style.PostSpeakerCreate(TreeKey, DialogueIndex, Speaker);
                 }
                 if (subSpeakerIndex != -1)
                 {
@@ -290,9 +290,9 @@ namespace Cascade.Content.UI.Dialogue
                     else
                         startPositionX = newSpeaker || returningSpeaker ? 1500f : 1700f;
                     SetRectangle(SubSpeaker, left: startPositionX, top: 500f, width: subSpeakerFrameTexture.Width, height: subSpeakerFrameTexture.Height);
-                    style.PreSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
+                    style.PreSubSpeakerCreate(TreeKey, DialogueIndex, Speaker, SubSpeaker);
                     Append(SubSpeaker);
-                    style.PostSubSpeakerCreate(DialogueTreeIndex, DialogueIndex, Speaker, SubSpeaker);
+                    style.PostSubSpeakerCreate(TreeKey, DialogueIndex, Speaker, SubSpeaker);
                 }
 
                 Textbox = new MouseBlockingUIPanel();
@@ -303,7 +303,7 @@ namespace Cascade.Content.UI.Dialogue
                 DialogueText DialogueText = new()
                 {
                     boxWidth = Textbox.Width.Pixels,
-                    Text = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex)
+                    Text = Language.GetTextValue(LocalizationPath + TreeKey + ".Messages." + DialogueIndex)
                 };
                 if (CurrentDialogue.TextDelay != -1)
                     DialogueText.textDelay = CurrentDialogue.TextDelay;
@@ -318,7 +318,7 @@ namespace Cascade.Content.UI.Dialogue
                 {
                     Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
                     int responseCount = availableResponses.Length;
-
+                    
                     for (int i = 0; i < responseCount; i++)
                     {
                         UIPanel button = new();
@@ -326,13 +326,44 @@ namespace Cascade.Content.UI.Dialogue
                         button.OnLeftClick += OnButtonClick;
                         Append(button);
 
-                        UIText text = new(Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + availableResponses[i].Title));                       
+                        UIText text = new(Language.GetTextValue(LocalizationPath + TreeKey + ".Responses." + availableResponses[i].Title));
                         style.OnResponseTextCreate(text);
                         button.Append(text);
+                        if (availableResponses[i].Cost != null)
+                        {
+                            ItemStack cost = (ItemStack)availableResponses[i].Cost;
+                            UIPanel costHolder = new();
+                            costHolder.BorderColor = Color.Transparent;
+                            costHolder.BackgroundColor = Color.Transparent;
+
+                            UIText stackText = new($"x{cost.Stack}");
+                            stackText.HAlign = 1f;
+                            stackText.VAlign = 0.5f;
+
+                            Texture2D itemTexture = (Texture2D)ModContent.Request<Texture2D>(ItemLoader.GetItem(cost.Type).Texture);
+                            UIImage itemIcon = new(itemTexture);
+                            itemIcon.Width.Pixels = itemTexture.Width;
+                            itemIcon.Height.Pixels = itemTexture.Height;
+                            itemIcon.ImageScale = 18f / itemIcon.Height.Pixels;
+
+                            itemIcon.Top.Pixels -= itemIcon.Height.Pixels / 2;
+                            itemIcon.Left.Pixels -= itemIcon.Width.Pixels / 2;
+
+                            costHolder.Height.Pixels = itemIcon.Height.Pixels > stackText.Height.Pixels ? itemIcon.Height.Pixels : stackText.Height.Pixels;
+                            costHolder.Height.Pixels *= 10;
+                            costHolder.Width.Pixels = (itemIcon.Width.Pixels * itemIcon.ImageScale) + (15 * stackText.Text.Length);
+
+                            costHolder.Append(itemIcon);
+                            costHolder.Append(stackText);
+
+                            style.OnResponseCostCreate(text, costHolder);
+                            
+                            button.Append(costHolder);
+                        }
                     }
                 }
 
-                style.PostUICreate(DialogueTreeIndex, DialogueIndex, Textbox, Speaker, SubSpeaker);
+                style.PostUICreate(TreeKey, DialogueIndex, Textbox, Speaker, SubSpeaker);
 
                 justOpened = false;
             }
@@ -341,7 +372,7 @@ namespace Cascade.Content.UI.Dialogue
         {
             base.Update(gameTime);
 
-            DialogueTree CurrentTree = DialogueTrees[DialogueTreeIndex];
+            DialogueTree CurrentTree = DialogueTrees[TreeKey];
             Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
             BaseDialogueStyle style;
             if (CurrentDialogue.StyleID == -1)
@@ -490,46 +521,83 @@ namespace Cascade.Content.UI.Dialogue
         internal void OnBoxClick(UIMouseEvent evt, UIElement listeningElement)
         {
             DialogueText dialogue = (DialogueText)Textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
-            if (DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
+            if (DialogueTrees[TreeKey].Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
             {
-                ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(DialogueTreeIndex, DialogueIndex, 0);
+                ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, 0);
 
-                if (DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
-                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
+                if (DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex + 1)
+                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, DialogueIndex + 1);
                 else
                 {
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
-                    ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(DialogueTreeIndex, DialogueIndex, 0);
+                    ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(TreeKey, DialogueIndex, 0);
                 }
             }
             else if (dialogue.crawling)
-                dialogue.textIndex = Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Messages." + DialogueIndex).Length;
+                dialogue.textIndex = Language.GetTextValue(LocalizationPath + TreeKey + ".Messages." + DialogueIndex).Length;
         }
         internal void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {            
-            int responseCount = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses.Count();
+            int responseCount = DialogueTrees[TreeKey].Dialogues[DialogueIndex].Responses.Count();
             UIText text = (UIText)listeningElement.Children.ToArray().First();
             int buttonID = 0;
             for (int i = 0; i < responseCount; i++)
             {
-                if (text.Text == Language.GetTextValue(DialogueHolder.LocalizationPath + (TreeIDs)DialogueTreeIndex + ".Responses." + DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses[i].Title))
+                if (text.Text == Language.GetTextValue(LocalizationPath + TreeKey + ".Responses." + DialogueTrees[TreeKey].Dialogues[DialogueIndex].Responses[i].Title))
                     buttonID = i;
             }
-
-            ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(DialogueTreeIndex, DialogueIndex, buttonID);
-            
-            int heading = DialogueTrees[DialogueTreeIndex].Dialogues[DialogueIndex].Responses[buttonID].DialogueIndex;
-            if (heading == -1 || (heading == -2 && !(DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)))
+            Response response = DialogueTrees[TreeKey].Dialogues[DialogueIndex].Responses[buttonID];
+            if (response.Cost == null || CanAffordCost(Main.LocalPlayer, response.Cost.Value))
             {
-                ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
-                ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(DialogueTreeIndex, DialogueIndex, buttonID);
+                ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, buttonID);
+
+                int heading = response.DialogueIndex;
+                if (heading == -1 || (heading == -2 && !(DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex + 1)))
+                {
+                    ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
+                    ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(TreeKey, DialogueIndex, buttonID);
+                }
+                else if (heading == -2 && DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex + 1)
+                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, DialogueIndex + 1);
+                else
+                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, heading);
             }
-            else if (heading == -2 && DialogueTrees[DialogueTreeIndex].Dialogues.Length > DialogueIndex + 1)
-                ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, DialogueIndex + 1);
-            else
-                ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(DialogueTreeIndex, heading);
         }
-        
+        private static bool CanAffordCost(Player player, ItemStack price)
+        {
+            int amount = price.Stack;
+            foreach (Item item in player.inventory.Where(i => i.type == price.Type))
+            {
+                if (item.stack >= amount)
+                {
+                    amount = 0;
+                    break;
+                }
+                else
+                    amount -= item.stack;
+            }
+            if (amount == 0)
+            {
+                foreach (Item item in player.inventory.Where(i => i.type == price.Type))
+                {
+                    amount = price.Stack;
+                    if (item.stack >= amount)
+                    {
+                        item.stack -= amount;
+                        amount = 0;
+                        break;
+                    }
+                    else
+                    {
+                        amount -= item.stack;
+                        item.stack = 0;
+                    }
+                }
+                return true;
+            }
+            else
+                return false;
+        }
         
     }
 }

@@ -1,32 +1,24 @@
-﻿using Terraria.UI;
+﻿using CalamityMod.Items.Materials;
+using CalamityMod.Items.Placeables.Ores;
+using CalamityMod.Items.Weapons.Melee;
+using Terraria.UI;
 
 namespace Cascade.Content.UI.Dialogue
 {
     public static class DialogueHolder
     {
-        public static int DebugID = (int)TreeIDs.Eeveelutions; //The ID used by the UIDebugItem. Update to the ID of the tree you're testing
+        public static string DebugKey = "Eeveelutions"; //The ID used by the UIDebugItem. Update to the ID of the tree you're testing
         
         public static readonly string LocalizationPath = "Mods.Cascade.UI.Dialogue.";
         
         public static readonly Character[] Characters =
-        {
-            new Character("TheCalamity", new Expression[] { new Expression("Normal", 1, 0), new Expression("Finality",  1, 0) }, "[c/FF0000:The Calamity]", styleID: 0),
-            new Character("Ardiena", new Expression[] { new Expression("Default",  1, 0), new Expression("Blunt",  3, 10)}, styleID: 1)
-        };
+        [
+            new Character("TheCalamity", [new Expression("Normal", 1, 0), new Expression("Finality",  1, 0)], "[c/FF0000:The Calamity]", styleID: 0),
+            new Character("Ardiena", [new Expression("Default",  1, 0), new Expression("Blunt",  3, 10)], styleID: 1)
+        ];
         
-        public static DialogueTree[] DialogueTrees; //Can be marked readonly once testing is done. Isnt so that it can be updated everytime dialogue is called for testing purposes.
-        
-        internal enum TreeIDs
-        {
-            #region The Calamity IDs
-            Calamitous,
-            #endregion
-
-            #region Ardiena IDs
-            Eeveelutions,
-            #endregion
-        }
-        
+        public static Dictionary<string, DialogueTree> DialogueTrees; //Can be marked readonly once testing is done. Isnt so that it can be updated everytime dialogue is called for testing purposes.
+                
         internal enum CharacterIDs
         {
             //These work similarly to TreeIDs, but coorispond to the characters within the Characters array instead.
@@ -34,35 +26,31 @@ namespace Cascade.Content.UI.Dialogue
             TheCalamity,
             Ardiena,
         }
-        
-        public static DialogueTree[] PopulateDialogueTrees()
+
+        public static Dictionary<string, DialogueTree> PopulateDialogueTrees()
         {
             Mod calamityMusic = ModLoader.GetMod("CalamityModMusic");
-            DialogueTree[] trees = new DialogueTree[]
+            Dictionary<string, DialogueTree> dialogueTrees = new Dictionary<string, DialogueTree>
             {
-                //adding comments to denote which ID your tree matches up with is helpful for maintaining the order
                 #region The Calamity Trees
-                
-                new DialogueTree //Calamitous
-                (
-                    new Dialogue[]
-                    {
+                {
+                    "Calamitous",
+                    new DialogueTree(
+                    [
                         new Dialogue
                         (
-                            new Response[]
-                            {
+                            [
                                 new Response("What", 1, Main.LocalPlayer.direction == 1),
                                 new Response("Huh", 1, Main.LocalPlayer.direction == -1),
-                            },
+                            ],
                             expressionIndex: 0,
                             musicID: MusicLoader.GetMusicSlot(calamityMusic, "Sounds/Music/CalamitasClone")
                         ),
                         new Dialogue
                         (
-                            new Response[]
-                            {
+                            [
                                 new Response("Okay", -2)
-                            },
+                            ],
                             expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(calamityMusic, "Sounds/Music/CalamitasClone")
                         ),
@@ -76,101 +64,94 @@ namespace Cascade.Content.UI.Dialogue
                             expressionIndex: 1,
                             musicID: MusicLoader.GetMusicSlot(calamityMusic, "Sounds/Music/CalamitasClone")
                         ),
-                    },
-                    new Character[]
-                    {
+                    ],
+                    [
                         Characters[(int)CharacterIDs.TheCalamity]
-                    }
-                ),              
+                    ])
+                },
                 #endregion
-
                 #region Ardiena Trees
-                new DialogueTree //Eeveelutions
-                (
-                    new Dialogue[]
-                    {
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Flareon", 1),
-                                new Response("Jolteon", 2),
-                                new Response("Vaporeon", 3),
-                            },
-                            expressionIndex: 0,
-                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
-                        ),
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Thanks")
-                            },
-                            expressionIndex: 1,
-                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
-                        ),
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Thanks")
-                            },
-                            expressionIndex: 0,
-                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
-                        ),
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Oh"),
-                                new Response("DidYouKnow", 4)
-                            },
-                            expressionIndex: 0,
-                            musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
-                        ),
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Who", 5)
-                            },
-                            1,
-                            1,
-                            musicID: MusicLoader.GetMusicSlot(calamityMusic, "Sounds/Music/CalamitasClone")
-                        ),
-                        new Dialogue
-                        (
-                            characterIndex: 0,
-                            expressionIndex: 0
-                        ),
-                        new Dialogue
-                        (
-                            characterIndex: 0,
-                            expressionIndex: 0
-                        ),
-                        new Dialogue
-                        (
-                            new Response[]
-                            {
-                                new Response("Weirdo", -1)
-                            },
-                            1,
-                            1
-                        ),
-                    },
-                    new Character[]
-                    {
-                        Characters[(int)CharacterIDs.Ardiena],
-                        Characters[(int)CharacterIDs.TheCalamity],
-                    }
-                ),
+                {
+                    "Eeveelutions",
+                    new DialogueTree
+                    (
+                        [
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Flareon", 1),
+                                    new Response("Jolteon", 2, cost: new ItemStack(ModContent.ItemType<Exoblade>(), 10)),
+                                    new Response("Vaporeon", 3),
+                                ],
+                                expressionIndex: 0,
+                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                            ),
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Thanks")
+                                ],
+                                expressionIndex: 1,
+                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                            ),
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Thanks")
+                                ],
+                                expressionIndex: 0,
+                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                            ),
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Oh"),
+                                    new Response("DidYouKnow", 4)
+                                ],
+                                expressionIndex: 0,
+                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                            ),
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Who", 5)
+                                ],
+                                1,
+                                1,
+                                musicID: MusicLoader.GetMusicSlot(calamityMusic, "Sounds/Music/CalamitasClone")
+                            ),
+                            new Dialogue
+                            (
+                                characterIndex: 0,
+                                expressionIndex: 0
+                            ),
+                            new Dialogue
+                            (
+                                characterIndex: 0,
+                                expressionIndex: 0
+                            ),
+                            new Dialogue
+                            (
+                                [
+                                    new Response("Weirdo", -1)
+                                ],
+                                1,
+                                1
+                            ),
+                        ],
+                        [
+                            Characters[(int)CharacterIDs.Ardiena],
+                            Characters[(int)CharacterIDs.TheCalamity],
+                        ]
+                    )
+                }
                 #endregion
             };
-            return trees;
+            return dialogueTrees;
         }       
     }
 
-    public delegate void DialogueNotifier(int treeID, int dialogueID, int buttonID);
+    public delegate void DialogueNotifier(string treeKey, int dialogueID, int buttonID);
 
     public class DialogueUISystem : ModSystem
     {       
@@ -242,7 +223,7 @@ namespace Cascade.Content.UI.Dialogue
             }
         }
         
-        public void DisplayDialogueTree(int TreeIndex, int DialogueIndex = 0)
+        public void DisplayDialogueTree(string TreeKey, int DialogueIndex = 0)
         {
             /*SoundEngine.PlaySound(UseSound with
             {
@@ -260,28 +241,28 @@ namespace Cascade.Content.UI.Dialogue
 
             //Update the DialogueTree array with any new changes (use Hot Reload to apply changes to the function). Use this while testing out your dialogue so you dont have to restart the program every time you add something!
             DialogueHolder.DialogueTrees = DialogueHolder.PopulateDialogueTrees(); //Can be removed once tesating is done
-            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeIndex];
+            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeKey];
             Dialogue currentDialogue = currentTree.Dialogues[DialogueIndex];
 
             CurrentSpeaker = currentTree.Characters[currentDialogue.CharacterIndex];
             SubSpeaker = null;
             subSpeakerIndex = -1;
 
-            DialogueOpen?.Invoke(TreeIndex, DialogueIndex, 0);
+            DialogueOpen?.Invoke(TreeKey, DialogueIndex, 0);
 
             DialogueUI = new UserInterface();
             DialogueUIState = new DialogueUIState();
-            DialogueUIState.DialogueTreeIndex = TreeIndex;
+            DialogueUIState.TreeKey = TreeKey;
             DialogueUIState.DialogueIndex = DialogueIndex;
             DialogueUIState.Activate();
 
             DialogueUI?.SetState(DialogueUIState);
         }
         
-        public void UpdateDialogueUI(int TreeIndex, int DialogueIndex)
+        public void UpdateDialogueUI(string TreeKey, int DialogueIndex)
         {
-            int formerSpeakerIndex = DialogueHolder.DialogueTrees[DialogueUIState.DialogueTreeIndex].Dialogues[DialogueUIState.DialogueIndex].CharacterIndex;
-            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeIndex];
+            int formerSpeakerIndex = DialogueHolder.DialogueTrees[DialogueUIState.TreeKey].Dialogues[DialogueUIState.DialogueIndex].CharacterIndex;
+            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeKey];
             Dialogue currentDialogue = currentTree.Dialogues[DialogueIndex];
             //Main.NewText("Correct Speaker ID: " + currentTree.Characters[currentDialogue.CharacterIndex].ID);
             //Main.NewText("Current ID: " + CurrentSpeaker.ID);
@@ -321,7 +302,7 @@ namespace Cascade.Content.UI.Dialogue
             DialogueUI?.SetState(null);
             DialogueUI = new UserInterface();
             DialogueUIState = new DialogueUIState();
-            DialogueUIState.DialogueTreeIndex = TreeIndex;
+            DialogueUIState.TreeKey = TreeKey;
             DialogueUIState.DialogueIndex = DialogueIndex;
 
             DialogueUI?.SetState(DialogueUIState);
@@ -400,11 +381,12 @@ namespace Cascade.Content.UI.Dialogue
     /// <returns>
     /// Represents a response the player is able to give to a <see cref="Dialogue"/>./>s.
     /// </returns>
-    public struct Response(string title, int dialogueIndex = -1, bool requirement = true)
+    public struct Response(string title, int dialogueIndex = -1, bool requirement = true, ItemStack? cost = null)
     {
         public string Title = title;
         public int DialogueIndex = dialogueIndex;
-        public bool Requirement = requirement;
+        public bool Requirement = requirement;    
+        public ItemStack? Cost = cost;
     }
 
     public struct Expression(string title, int frameCount, int frameRate, bool loop = true)
@@ -413,6 +395,12 @@ namespace Cascade.Content.UI.Dialogue
         public int FrameCount = frameCount;
         public int FrameRate = frameRate;
         public bool Loop = loop;
+    }
+
+    public struct ItemStack(int id, int stack)
+    {
+        public int Type = id;
+        public int Stack = stack;
     }
     #endregion
 }

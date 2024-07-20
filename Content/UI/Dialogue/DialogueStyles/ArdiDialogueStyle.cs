@@ -43,7 +43,11 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
             text.HAlign = text.VAlign = 0.5f;
         }
-
+        public override void OnResponseCostCreate(UIText text, UIPanel costHolder)
+        {
+            text.VAlign = 0f;
+            costHolder.HAlign = 0.5f;
+        }
         public override void PostUpdateActive(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
             if (textbox.Top.Pixels > 500f)
@@ -84,17 +88,25 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
 
                     button.Width.Pixels += 2;
                     button.Height.Pixels += 1;
-
-                    if (button.Children.Any())
+                    foreach(UIElement child in button.Children)
                     {
-                        UIText oldText = (UIText)button.Children.First();
-                        button.RemoveAllChildren();
-
-                        UIText text = new UIText(oldText.Text, button.Width.Pixels / 100);
-                        text.HAlign = 0.5f;
-                        text.VAlign = 0.5f;
-                        button.Append(text);
+                        if (child.GetType() == typeof(UIText))
+                        {
+                            UIText textChild = (UIText)child;
+                            textChild.SetText(textChild.Text, button.Width.Pixels / 100f, false);
+                            if (button.Children.Count() > 1)
+                                textChild.Top.Pixels = -4;
+                        }
+                        else
+                        {
+                            child.Top.Pixels = -2500;
+                        }
                     }
+                }
+                else if(button.Children.Count() > 1)
+                {
+                    UIElement child = (UIElement)button.Children.Where(c => c.GetType() == typeof(UIPanel)).First();
+                    child.Top.Pixels = child.Parent.Height.Pixels / 4;
                 }
                 if (button.ContainsPoint(Main.MouseScreen))
                     Main.LocalPlayer.mouseInterface = true;
