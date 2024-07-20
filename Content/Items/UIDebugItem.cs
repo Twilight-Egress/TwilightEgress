@@ -25,11 +25,11 @@ namespace Cascade.Content.Items
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             else
             {
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugID);               
+                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugKey);               
             }
             return true;
         }
-        private static void ClickEffect(int treeID, int dialogueID, int buttonID)
+        private static void ClickEffect(string treeKey, int dialogueID, int buttonID)
         {
             Main.NewText("A button has been clicked!");
         }

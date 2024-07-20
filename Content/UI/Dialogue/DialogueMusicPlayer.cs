@@ -15,7 +15,7 @@ namespace Cascade.Content.UI.Dialogue
             
             DialogueUISystem dialogueUISystem = ModContent.GetInstance<DialogueUISystem>();
             DialogueUIState UI = dialogueUISystem.DialogueUIState;
-            Dialogue CurrentDialogue = DialogueHolder.DialogueTrees[UI.DialogueTreeIndex].Dialogues[UI.DialogueIndex];
+            Dialogue CurrentDialogue = DialogueHolder.DialogueTrees[UI.TreeKey].Dialogues[UI.DialogueIndex];
             if (CurrentDialogue.MusicID == -1 || !(!Main.gameMenu && !Main.dedServ))
                 return;
             
