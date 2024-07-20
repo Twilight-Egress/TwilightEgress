@@ -49,8 +49,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             costHolder.HAlign = 0.5f;
         }
         public override void PostUpdateActive(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
-        {
-            Main.NewText("Active");
+        {            
             if (textbox.Top.Pixels > 500f)
             {
                 textbox.Top.Pixels -= (textbox.Top.Pixels - 500f) / 10;

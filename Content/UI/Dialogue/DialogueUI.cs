@@ -424,7 +424,8 @@ namespace Cascade.Content.UI.Dialogue
 
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
             {
-                style.PostUpdateActive(Textbox, Speaker, SubSpeaker);                
+                style.PostUpdateActive(Textbox, Speaker, SubSpeaker);
+                //Main.NewText(SubSpeaker == null);
                 if (Speaker != null)
                 {
                     if (Speaker.Top.Pixels > 500f)
@@ -470,18 +471,42 @@ namespace Cascade.Content.UI.Dialogue
                 }
                 if (SubSpeaker != null)
                 {
-                    if (ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels > 0f)
+                    if (ModContent.GetInstance<DialogueUISystem>().dismissSubSpeaker)
                     {
-                        SubSpeaker.Left.Pixels -= (SubSpeaker.Left.Pixels - 0f) / 20;
-                        if (SubSpeaker.Left.Pixels - 0f < 1)
-                            SubSpeaker.Left.Pixels = 0f;
+                        if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels < 2200f)
+                        {
+                            SubSpeaker.Left.Pixels += (2200 - SubSpeaker.Left.Pixels) / 20;
+                            if (2100f - SubSpeaker.Left.Pixels < 10)
+                                SubSpeaker.Left.Pixels = 2100f;
+                        }
+                        else if (ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels > -600)
+                        {
+                            SubSpeaker.Left.Pixels -= (SubSpeaker.Left.Pixels + 600) / 20;
+                            if (SubSpeaker.Left.Pixels + 500 < 10)
+                                SubSpeaker.Left.Pixels = -600;
+                        }
+                        if(SubSpeaker.Left.Pixels <= -600 || SubSpeaker.Left.Pixels >= 2100f)
+                        {
+                            ModContent.GetInstance<DialogueUISystem>().dismissSubSpeaker = false;
+                            SubSpeaker.Remove();
+                            SubSpeaker = null;
+                            ModContent.GetInstance<DialogueUISystem>().SubSpeaker = null;
+                        }
                     }
-                    else if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels < 1700f)
+                    else
                     {
-                        SubSpeaker.Left.Pixels += (1700f - SubSpeaker.Left.Pixels) / 20;
-                        if (1700f - SubSpeaker.Left.Pixels < 1)
-                            SubSpeaker.Left.Pixels = 1700f;
-
+                        if (ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels > 0f)
+                        {
+                            SubSpeaker.Left.Pixels -= (SubSpeaker.Left.Pixels - 0f) / 20;
+                            if (SubSpeaker.Left.Pixels - 0f < 1)
+                                SubSpeaker.Left.Pixels = 0f;
+                        }
+                        else if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && SubSpeaker.Left.Pixels < 1700f)
+                        {
+                            SubSpeaker.Left.Pixels += (1700f - SubSpeaker.Left.Pixels) / 20;
+                            if (1700f - SubSpeaker.Left.Pixels < 1)
+                                SubSpeaker.Left.Pixels = 1700f;
+                        }
                     }
                 }
             }
@@ -570,6 +595,9 @@ namespace Cascade.Content.UI.Dialogue
             if (response.Cost == null || CanAffordCost(Main.LocalPlayer, response.Cost.Value))
             {
                 ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, buttonID);
+
+                if(response.DismissSubSpeaker)
+                    ModContent.GetInstance<DialogueUISystem>().dismissSubSpeaker = true;
 
                 int heading = response.DialogueIndex;
                 if (heading == -1 || (heading == -2 && !(DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex + 1)))

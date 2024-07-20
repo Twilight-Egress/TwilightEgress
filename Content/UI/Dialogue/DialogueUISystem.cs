@@ -105,7 +105,7 @@ namespace Cascade.Content.UI.Dialogue
                             (
                                 [
                                     new Response("Oh"),
-                                    new Response("DidYouKnow", 4)
+                                    new Response("DidYouKnow", 4, dismissSubSpeaker: true)
                                 ],
                                 expressionIndex: 0,
                                 musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
@@ -177,6 +177,8 @@ namespace Cascade.Content.UI.Dialogue
         public bool newSubSpeaker = false;
         
         public bool returningSpeaker = false;
+
+        public bool dismissSubSpeaker = false;
         
         public bool speakerRight = true;       
         
@@ -237,6 +239,7 @@ namespace Cascade.Content.UI.Dialogue
             newSpeaker = false;
             newSubSpeaker = false;
             returningSpeaker = false;
+            dismissSubSpeaker = false;
 
             //Update the DialogueTree array with any new changes (use Hot Reload to apply changes to the function). Use this while testing out your dialogue so you dont have to restart the program every time you add something!
             DialogueHolder.DialogueTrees = DialogueHolder.PopulateDialogueTrees(); //Can be removed once tesating is done
@@ -351,7 +354,7 @@ namespace Cascade.Content.UI.Dialogue
         public Dialogue[] Dialogues = dialogues;
         public Character[] Characters = characters;
     }
-    
+
     /// <param name="responses">The array of <see cref="Response"/>s the player can give. If set to null, clicking on the Textbox itself will proceed to the next Dialogue within the <see cref="DialogueTree"/> or close the Dialogue if there are no more dialogues Defaults to <see cref="null"/>. </param>
     /// <param name="characterIndex">The index of a character within the <see cref="DialogueTree"/>'s <see cref="DialogueTree.Characters"/> array. Represents the character who will be speaking. Defaults to <see cref="0"/>, the first character in the <see cref="DialogueTree.Characters"/> array.</param>
     /// <param name="expressionIndex">The index of an expression within a <see cref="Character"/>'s <see cref="Character.Expressions"/> array. Represents the expression, or asset, the character will use while speaking. Defaults to <see cref="0"/>, the first expression in the <see cref="Character.Expressions"/> array.</param>
@@ -359,7 +362,7 @@ namespace Cascade.Content.UI.Dialogue
     /// <param name="textScaleX">Scales the size of the text horizontally. Defaults to <see cref="1.5f"/>.</param>
     /// <param name="textScaleY">Scales the size of the text vertically. Defaults to <see cref="1.5f"/>.</param>
     /// <param name="textDelay">The Text Delay associated with this character. Affects how long between characters appearing in the Textbox. Defaults to <see cref="-1"/>, causing it to use the delay associated with the current <see cref="Character"/> if no Character is speaking, it defaults to <see cref="3"/>.</param>
-    /// <param name="musicID">Unimplemented.</param>
+    /// <param name="musicID">The ID of the music that will play during this dialogue. This shouldn't change too often throughout a tree. Defaults to <see cref="-1"/>, which wont interupt the current background music. </param>
     /// <returns>
     /// Represents a single dialogue state within a <see cref="DialogueTree"/>.
     /// </returns>
@@ -373,19 +376,22 @@ namespace Cascade.Content.UI.Dialogue
         public int TextDelay = textDelay;
         public int MusicID = musicID;
     }
-    
+
     /// <param name="title">The text displayed on the Response Button.</param>
     /// <param name="dialogueIndex">The index within the <see cref="DialogueTree.Dialogues"/>s array this response leads to. Defaults to <see cref="-1"/>, which closes the dialogue.</param>
     /// <param name="requirement">A <see cref="Boolean"/> which determines whether or not this response can appear as an option Defaults to <see cref="true"/>.</param>
+    /// <param name="cost">A <see cref="ItemStack"/> which applys a cost that is needed in order to select that response Defaults to <see cref="null"/>, meaning there is no cost.</param>
+    /// <param name="dismissSubSpeaker">A <see cref="Boolean"/> which will remove the current SubSpeaker, if there is one, from the dialogue when this response is selected.</param>
     /// <returns>
     /// Represents a response the player is able to give to a <see cref="Dialogue"/>./>s.
     /// </returns>
-    public struct Response(string title, int dialogueIndex = -1, bool requirement = true, ItemStack? cost = null)
+    public struct Response(string title, int dialogueIndex = -1, bool requirement = true, ItemStack? cost = null, bool dismissSubSpeaker = false)
     {
         public string Title = title;
         public int DialogueIndex = dialogueIndex;
         public bool Requirement = requirement;    
         public ItemStack? Cost = cost;
+        public bool DismissSubSpeaker = dismissSubSpeaker;
     }
 
     public struct Expression(string title, int frameCount, int frameRate, bool loop = true)
