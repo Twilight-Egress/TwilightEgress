@@ -248,7 +248,8 @@ namespace Cascade.Content.UI.Dialogue
                     Color[] data = new Color[speakerFrame.Width * speakerFrame.Height];
                     speakerTexture.GetData(0, speakerFrame, data, 0, data.Length);
                     speakerFrameTexture.SetData(data);
-
+                    if (!speakerRight)
+                        speakerFrameTexture = CascadeUtilities.FlipTexture2D(speakerFrameTexture, false, true);
                     Speaker = new(speakerFrameTexture)
                     {
                         ImageScale = CurrentSpeaker.Scale
@@ -278,12 +279,22 @@ namespace Cascade.Content.UI.Dialogue
                     Texture2D subSpeakerFrameTexture = new(Main.graphics.GraphicsDevice, subSpeakerFrame.Width, subSpeakerFrame.Height);
                     Color[] data = new Color[subSpeakerFrame.Width * subSpeakerFrame.Height];
                     subSpeakerTexture.GetData(0, subSpeakerFrame, data, 0, data.Length);
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        if (data[i].A != 0)
+                        {
+                            byte alpha = data[i].A;
+                            data[i] *= 0.5f;
+                            data[i].A = alpha;
+                        }
+                    }
                     subSpeakerFrameTexture.SetData(data);
-
+                    if (speakerRight)
+                        subSpeakerFrameTexture = CascadeUtilities.FlipTexture2D(subSpeakerTexture, false, true);
                     SubSpeaker = new(subSpeakerFrameTexture)
                     {
                         ImageScale = CurrentSubSpeaker.Scale
-                    };
+                    };                   
                     float startPositionX = 0;
                     if (speakerRight)
                         startPositionX = newSpeaker || returningSpeaker ? 200f : 0f;
@@ -296,6 +307,8 @@ namespace Cascade.Content.UI.Dialogue
                 }
 
                 Textbox = new MouseBlockingUIPanel();
+                Textbox.BackgroundColor = style.BackgroundColor;
+                Textbox.BorderColor = style.BackgroundBorderColor;
                 style.OnTextboxCreate(Textbox, Speaker, SubSpeaker);
                 Textbox.OnLeftClick += OnBoxClick;
                 Append(Textbox);
@@ -322,6 +335,8 @@ namespace Cascade.Content.UI.Dialogue
                     for (int i = 0; i < responseCount; i++)
                     {
                         UIPanel button = new();
+                        button.BackgroundColor = style.ButtonColor;
+                        button.BorderColor = style.ButtonBorderColor;
                         style.OnResponseButtonCreate(button, Textbox, responseCount, i);
                         button.OnLeftClick += OnButtonClick;
                         Append(button);
@@ -335,6 +350,7 @@ namespace Cascade.Content.UI.Dialogue
                             UIPanel costHolder = new();
                             costHolder.BorderColor = Color.Transparent;
                             costHolder.BackgroundColor = Color.Transparent;
+                            costHolder.VAlign = 0.75f;
 
                             UIText stackText = new($"x{cost.Stack}");
                             stackText.HAlign = 1f;
@@ -349,8 +365,12 @@ namespace Cascade.Content.UI.Dialogue
                             itemIcon.Top.Pixels -= itemIcon.Height.Pixels / 2;
                             itemIcon.Left.Pixels -= itemIcon.Width.Pixels / 2;
 
-                            costHolder.Height.Pixels = itemIcon.Height.Pixels > stackText.Height.Pixels ? itemIcon.Height.Pixels : stackText.Height.Pixels;
-                            costHolder.Height.Pixels *= 10;
+                            //itemIcon.HAlign = 0f;
+                            //stackText.VAlign = 0.5f;
+                            
+
+                            costHolder.Height.Pixels = 18f > stackText.Height.Pixels ? 24f : stackText.Height.Pixels;
+                            //costHolder.Height.Pixels *= 10;
                             costHolder.Width.Pixels = (itemIcon.Width.Pixels * itemIcon.ImageScale) + (15 * stackText.Text.Length);
 
                             costHolder.Append(itemIcon);
@@ -597,7 +617,6 @@ namespace Cascade.Content.UI.Dialogue
             }
             else
                 return false;
-        }
-        
+        }       
     }
 }

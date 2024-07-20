@@ -6,7 +6,7 @@ using Terraria.ModLoader.UI;
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
     public class DefaultDialogueStyle : BaseDialogueStyle
-    {        
+    {
         public override void OnTextboxCreate(UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
             bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
@@ -21,7 +21,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 startX = speakerRight ? 125f : 600f;
             SetRectangle(textbox, left: startX, top: justOpened ? 1200f : 650f, width: 1200f, height: 300f);
 
-            textbox.BackgroundColor = new Color(73, 94, 171);
+            textbox.BackgroundColor = BackgroundColor;
         }
         public override void OnDialogueTextCreate(DialogueText text)
         {
@@ -38,6 +38,11 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         public override void OnResponseTextCreate(UIText text)
         {
             text.HAlign = text.VAlign = 0.5f;
+        }
+        public override void OnResponseCostCreate(UIText text, UIPanel costHolder)
+        {
+            text.VAlign = 0f;
+            costHolder.HAlign = 0.5f;
         }
         public override void PostUICreate(string treeKey, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
@@ -92,33 +97,40 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             for (int i = 0; i < responseButtons.Length; i++)
             {
                 UIElement button = responseButtons[i];
-                if (!dialogue.crawling && button.Width.Pixels < 100)
+                if (!dialogue.crawling && button.Width.Pixels < ButtonSize.X)
                 {
                     if(!textbox.HasChild(button))
                         textbox.AddOrRemoveChild(button, true);
                     button.Top.Set(0, 0);
                     button.HAlign = 1f / (responseButtons.Length + 1) * (i + 1);
                     button.VAlign = 0.8f;
-                    button.Width.Pixels += 2;
-                    button.Height.Pixels += 1;
+                    button.Width.Pixels += ButtonSize.X / 50;
+                    button.Height.Pixels += ButtonSize.Y / 50;
                     button.Top.Pixels += button.Height.Pixels / 2;
 
-                    if (button.Children.Any())
+                    foreach (UIElement child in button.Children)
                     {
-                        UIText oldText = (UIText)button.Children.First();
-                        button.RemoveAllChildren();
-
-                        UIText text = new UIText(oldText.Text, button.Width.Pixels / 100);
-                        text.HAlign = 0.5f;
-                        text.VAlign = 0.5f;
-                        button.Append(text);
+                        if (child.GetType() == typeof(UIText))
+                        {
+                            UIText textChild = (UIText)child;
+                            textChild.SetText(textChild.Text, button.Width.Pixels / 100f, false);
+                            if (button.Children.Count() > 1)
+                                textChild.Top.Pixels = -4;
+                        }
+                        else
+                            child.Top.Pixels = -2500;
                     }
+                }
+                else if (button.Children.Count() > 1)
+                {
+                    UIElement child = (UIElement)button.Children.Where(c => c.GetType() == typeof(UIPanel)).First();
+                    child.Top.Pixels = child.Parent.Height.Pixels / 4;
                 }
             }
         }
         public override void PostUpdateClosing(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
-            if (textbox.Top.Pixels < 1200f)
+            if (!TextboxOffScreen(textbox))
             {
                 textbox.Top.Pixels += (1200f - textbox.Top.Pixels) / 20;
                 if (1100f - textbox.Top.Pixels < 10)

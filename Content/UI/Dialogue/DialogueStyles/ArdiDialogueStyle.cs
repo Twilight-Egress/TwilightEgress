@@ -6,7 +6,11 @@ using Cascade.Content.UI.Dialogue.UIElements;
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
     public class ArdiDialogueStyle : BaseDialogueStyle
-    {        
+    {
+        public override Color BackgroundColor => Color.Transparent;
+        public override Color BackgroundBorderColor => Color.Transparent;
+        public override Color ButtonColor => new(144, 115, 225);
+        public override Color ButtonBorderColor => new(247, 135, 89);
         public override void OnTextboxCreate(UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
             bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
@@ -18,11 +22,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 startX = speakerRight ? 500f : 600f;
             else
                 startX = speakerRight ? 600f : 500f;
-            SetRectangle(textbox, left: startX, top: justOpened ? 1200f : 500f, width: 600f, height: 200f);
-
-            // No auto-drawn Terraria textbox cause this one is entirely drawn with prims.
-            textbox.BackgroundColor = Color.Transparent;
-            textbox.BorderColor = Color.Transparent;
+            SetRectangle(textbox, left: startX, top: justOpened ? 1200f : 500f, width: 600f, height: 200f);            
 
             ArdienaTextboxPrimitives textboxPrims = new();
             textbox.Append(textboxPrims);
@@ -50,6 +50,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         }
         public override void PostUpdateActive(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
+            Main.NewText("Active");
             if (textbox.Top.Pixels > 500f)
             {
                 textbox.Top.Pixels -= (textbox.Top.Pixels - 500f) / 10;
@@ -75,7 +76,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             for (int i = 0; i < responseButtons.Length; i++)
             {
                 UIElement button = responseButtons[i];
-                if (!dialogue.crawling && button.Width.Pixels < 100)
+                if (!dialogue.crawling && button.Width.Pixels < ButtonSize.X)
                 {
                     Vector2 rotation = Vector2.UnitY;
                     rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
@@ -86,21 +87,19 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     button.Top.Pixels -= rotation.Y * (textbox.Height.Pixels/1.5f);
                     button.Left.Pixels += rotation.X * (textbox.Width.Pixels/1.5f);
 
-                    button.Width.Pixels += 2;
-                    button.Height.Pixels += 1;
+                    button.Width.Pixels += ButtonSize.X / 50;
+                    button.Height.Pixels += ButtonSize.Y / 50;
                     foreach(UIElement child in button.Children)
                     {
                         if (child.GetType() == typeof(UIText))
                         {
                             UIText textChild = (UIText)child;
-                            textChild.SetText(textChild.Text, button.Width.Pixels / 100f, false);
+                            textChild.SetText(textChild.Text, button.Width.Pixels / ButtonSize.X, false);
                             if (button.Children.Count() > 1)
                                 textChild.Top.Pixels = -4;
                         }
                         else
-                        {
                             child.Top.Pixels = -2500;
-                        }
                     }
                 }
                 else if(button.Children.Count() > 1)
@@ -109,12 +108,64 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     child.Top.Pixels = child.Parent.Height.Pixels / 4;
                 }
                 if (button.ContainsPoint(Main.MouseScreen))
+                {
                     Main.LocalPlayer.mouseInterface = true;
+                    if(!dialogue.crawling && button.Width.Pixels >= ButtonSize.X && button.Width.Pixels < ButtonSize.X * 1.25f)
+                    {
+                        Vector2 rotation = Vector2.UnitY;
+                        rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                        button.HAlign = 0f;
+                        button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
+                        button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
+
+                        button.Top.Pixels -= rotation.Y * (textbox.Height.Pixels / 1.5f);
+                        button.Left.Pixels += rotation.X * (textbox.Width.Pixels / 1.5f);
+
+                        button.Width.Pixels += 2f;
+                        button.Height.Pixels += 1f;
+
+                        foreach (UIElement child in button.Children)
+                        {
+                            if (child.GetType() == typeof(UIText))
+                            {
+                                UIText textChild = (UIText)child;
+                                textChild.SetText(textChild.Text, button.Width.Pixels / ButtonSize.X, false);
+                                if (button.Children.Count() > 1)
+                                    textChild.Top.Pixels = -4;
+                            }
+                        }
+                    }
+                }
+                else if(!dialogue.crawling && button.Width.Pixels > ButtonSize.X)
+                {
+                    Vector2 rotation = Vector2.UnitY;
+                    rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                    button.HAlign = 0f;
+                    button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
+                    button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
+
+                    button.Top.Pixels -= rotation.Y * (textbox.Height.Pixels / 1.5f);
+                    button.Left.Pixels += rotation.X * (textbox.Width.Pixels / 1.5f);
+
+                    button.Width.Pixels -= 2f;
+                    button.Height.Pixels -= 1f;
+
+                    foreach (UIElement child in button.Children)
+                    {
+                        if (child.GetType() == typeof(UIText))
+                        {
+                            UIText textChild = (UIText)child;
+                            textChild.SetText(textChild.Text, button.Width.Pixels / ButtonSize.X, false);
+                            if (button.Children.Count() > 1)
+                                textChild.Top.Pixels = -4;
+                        }
+                    }
+                }
             }
         }
         public override void PostUpdateClosing(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
-            if (textbox.Top.Pixels < 1200f)
+            if (!TextboxOffScreen(textbox))
             {
                 textbox.Top.Pixels += (1200f - textbox.Top.Pixels) / 20;
                 if (1100f - textbox.Top.Pixels < 10)

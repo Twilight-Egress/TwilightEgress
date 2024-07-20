@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.GameContent.UI.Elements;
+﻿using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using static Cascade.Content.UI.Dialogue.DialogueUIState;
 
@@ -11,6 +6,11 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
     public class BaseDialogueStyle
     {
+        public virtual Vector2 ButtonSize => new(100, 50);
+        public virtual Color ButtonColor => new Color(73, 94, 171, 125);
+        public virtual Color ButtonBorderColor => Color.Black;
+        public virtual Color BackgroundColor => new Color(73, 94, 171);
+        public virtual Color BackgroundBorderColor => Color.Black;
         #region UI Creation Methods
         public virtual void PreUICreate(string treeIndex, int dialogueIndex)
         {

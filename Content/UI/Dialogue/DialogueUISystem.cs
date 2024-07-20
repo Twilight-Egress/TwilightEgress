@@ -21,8 +21,7 @@ namespace Cascade.Content.UI.Dialogue
                 
         internal enum CharacterIDs
         {
-            //These work similarly to TreeIDs, but coorispond to the characters within the Characters array instead.
-            // Same as the TreeIDs: Make sure the order of these matches the order of the Characters array
+            //Make sure the order of these matches the order of the Characters array
             TheCalamity,
             Ardiena,
         }
