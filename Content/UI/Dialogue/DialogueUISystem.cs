@@ -180,7 +180,11 @@ namespace Cascade.Content.UI.Dialogue
 
         public bool dismissSubSpeaker = false;
         
-        public bool speakerRight = true;       
+        public bool speakerRight = true;
+
+        public bool swappingStyle = false;
+
+        public bool styleSwapped = false;
         
         public int subSpeakerIndex = -1;     
         
@@ -240,6 +244,8 @@ namespace Cascade.Content.UI.Dialogue
             newSubSpeaker = false;
             returningSpeaker = false;
             dismissSubSpeaker = false;
+            swappingStyle = false;
+            styleSwapped = false;
 
             //Update the DialogueTree array with any new changes (use Hot Reload to apply changes to the function). Use this while testing out your dialogue so you dont have to restart the program every time you add something!
             DialogueHolder.DialogueTrees = DialogueHolder.PopulateDialogueTrees(); //Can be removed once tesating is done
@@ -269,6 +275,10 @@ namespace Cascade.Content.UI.Dialogue
             //Main.NewText("Correct Speaker ID: " + currentTree.Characters[currentDialogue.CharacterIndex].ID);
             //Main.NewText("Current ID: " + CurrentSpeaker.ID);
             //Main.NewText("Subspeaker ID: " + SubSpeaker.ID);
+
+            if (currentTree.Characters[currentDialogue.CharacterIndex].StyleID != ((Character)CurrentSpeaker).StyleID)
+                swappingStyle = true;
+
             if (currentTree.Characters[currentDialogue.CharacterIndex].ID == ((Character)CurrentSpeaker).ID)
             {
                 //Main.NewText("Speaker Unchanged");
@@ -299,6 +309,7 @@ namespace Cascade.Content.UI.Dialogue
                 CurrentSpeaker = temp;
                 speakerRight = !speakerRight;
             }
+
 
             justOpened = false;
             DialogueUI?.SetState(null);
@@ -366,13 +377,12 @@ namespace Cascade.Content.UI.Dialogue
     /// <returns>
     /// Represents a single dialogue state within a <see cref="DialogueTree"/>.
     /// </returns>
-    public struct Dialogue(Response[] responses = null, int characterIndex = 0, int expressionIndex = 0, int styleID = -1, float textScaleX = 1.5f, float textScaleY = 1.5f, int textDelay = -1, int musicID = -1)
+    public struct Dialogue(Response[] responses = null, int characterIndex = 0, int expressionIndex = 0, float textScaleX = 1.5f, float textScaleY = 1.5f, int textDelay = -1, int musicID = -1)
     {
         public Response[] Responses = responses;
         public int CharacterIndex = characterIndex;
         public int ExpressionIndex = expressionIndex;
         public Vector2 TextScale = new(textScaleX, textScaleY);
-        public int StyleID = styleID;
         public int TextDelay = textDelay;
         public int MusicID = musicID;
     }

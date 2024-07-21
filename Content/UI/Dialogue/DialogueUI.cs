@@ -189,8 +189,7 @@ namespace Cascade.Content.UI.Dialogue
                 bool speakerRight = true;
 
                 BaseDialogueStyle style = new();
-                if(CurrentDialogue.StyleID == -1)
-                    switch(CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
+                switch(CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
                     {
                         case 0:
                             style = new DefaultDialogueStyle();
@@ -199,19 +198,6 @@ namespace Cascade.Content.UI.Dialogue
                             style = new ArdiDialogueStyle();
                             break;
                         default: 
-                            style = new DefaultDialogueStyle();
-                            break;
-                    }
-                else
-                    switch (CurrentDialogue.StyleID)
-                    {
-                        case 0:
-                            style = new DefaultDialogueStyle();
-                            break;
-                        case 1:
-                            style = new ArdiDialogueStyle();
-                            break;
-                        default:
                             style = new DefaultDialogueStyle();
                             break;
                     }
@@ -306,84 +292,7 @@ namespace Cascade.Content.UI.Dialogue
                     style.PostSubSpeakerCreate(TreeKey, DialogueIndex, Speaker, SubSpeaker);
                 }
 
-                Textbox = new MouseBlockingUIPanel();
-                Textbox.BackgroundColor = style.BackgroundColor;
-                Textbox.BorderColor = style.BackgroundBorderColor;
-                style.OnTextboxCreate(Textbox, Speaker, SubSpeaker);
-                Textbox.OnLeftClick += OnBoxClick;
-                Append(Textbox);
-
-                DialogueText DialogueText = new()
-                {
-                    boxWidth = Textbox.Width.Pixels,
-                    Text = Language.GetTextValue(LocalizationPath + TreeKey + ".Messages." + DialogueIndex)
-                };
-                if (CurrentDialogue.TextDelay != -1)
-                    DialogueText.textDelay = CurrentDialogue.TextDelay;
-                else if (CurrentDialogue.CharacterIndex == -1)
-                    DialogueText.textDelay = 3;
-                else
-                    DialogueText.textDelay = Characters[CurrentDialogue.CharacterIndex].TextDelay;
-                style.OnDialogueTextCreate(DialogueText);
-                Textbox.Append(DialogueText);
-
-                if (CurrentDialogue.Responses != null)
-                {
-                    Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
-                    int responseCount = availableResponses.Length;
-                    
-                    for (int i = 0; i < responseCount; i++)
-                    {
-                        UIPanel button = new();
-                        button.BackgroundColor = style.ButtonColor;
-                        button.BorderColor = style.ButtonBorderColor;
-                        style.OnResponseButtonCreate(button, Textbox, responseCount, i);
-                        button.OnLeftClick += OnButtonClick;
-                        Append(button);
-
-                        UIText text = new(Language.GetTextValue(LocalizationPath + TreeKey + ".Responses." + availableResponses[i].Title));
-                        style.OnResponseTextCreate(text);
-                        button.Append(text);
-                        if (availableResponses[i].Cost != null)
-                        {
-                            ItemStack cost = (ItemStack)availableResponses[i].Cost;
-                            UIPanel costHolder = new();
-                            costHolder.BorderColor = Color.Transparent;
-                            costHolder.BackgroundColor = Color.Transparent;
-                            costHolder.VAlign = 0.75f;
-
-                            UIText stackText = new($"x{cost.Stack}");
-                            stackText.HAlign = 1f;
-                            stackText.VAlign = 0.5f;
-
-                            Texture2D itemTexture = (Texture2D)ModContent.Request<Texture2D>(ItemLoader.GetItem(cost.Type).Texture);
-                            UIImage itemIcon = new(itemTexture);
-                            itemIcon.Width.Pixels = itemTexture.Width;
-                            itemIcon.Height.Pixels = itemTexture.Height;
-                            itemIcon.ImageScale = 18f / itemIcon.Height.Pixels;
-
-                            itemIcon.Top.Pixels -= itemIcon.Height.Pixels / 2;
-                            itemIcon.Left.Pixels -= itemIcon.Width.Pixels / 2;
-
-                            //itemIcon.HAlign = 0f;
-                            //stackText.VAlign = 0.5f;
-                            
-
-                            costHolder.Height.Pixels = 18f > stackText.Height.Pixels ? 24f : stackText.Height.Pixels;
-                            //costHolder.Height.Pixels *= 10;
-                            costHolder.Width.Pixels = (itemIcon.Width.Pixels * itemIcon.ImageScale) + (15 * stackText.Text.Length);
-
-                            costHolder.Append(itemIcon);
-                            costHolder.Append(stackText);
-
-                            style.OnResponseCostCreate(text, costHolder);
-                            
-                            button.Append(costHolder);
-                        }
-                    }
-                }
-
-                style.PostUICreate(TreeKey, DialogueIndex, Textbox, Speaker, SubSpeaker);
+                SpawnTextBox(style);
 
                 justOpened = false;
             }
@@ -395,21 +304,7 @@ namespace Cascade.Content.UI.Dialogue
             DialogueTree CurrentTree = DialogueTrees[TreeKey];
             Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
             BaseDialogueStyle style;
-            if (CurrentDialogue.StyleID == -1)
-                switch (CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
-                {
-                    case 0:
-                        style = new DefaultDialogueStyle();
-                        break;
-                    case 1:
-                        style = new ArdiDialogueStyle();
-                        break;
-                    default:
-                        style = new DefaultDialogueStyle();
-                        break;
-                }
-            else
-                switch (CurrentDialogue.StyleID)
+            switch (CurrentTree.Characters[CurrentDialogue.CharacterIndex].StyleID)
                 {
                     case 0:
                         style = new DefaultDialogueStyle();
@@ -570,7 +465,7 @@ namespace Cascade.Content.UI.Dialogue
             {
                 ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, 0);
 
-                if (DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex + 1)
+                if (DialogueTrees[TreeKey].Dialogues.Length > DialogueIndex)
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, DialogueIndex + 1);
                 else
                 {
@@ -611,6 +506,104 @@ namespace Cascade.Content.UI.Dialogue
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, heading);
             }
         }
+        public void SpawnTextBox(BaseDialogueStyle style)
+        {
+            DialogueTree CurrentTree = DialogueTrees[TreeKey];
+            Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
+
+            if(ModContent.GetInstance<DialogueUISystem>().swappingStyle)
+            {
+                switch (CurrentTree.Characters[ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex].StyleID)
+                {
+                    case 0:
+                        style = new DefaultDialogueStyle();
+                        break;
+                    case 1:
+                        style = new ArdiDialogueStyle();
+                        break;
+                    default:
+                        style = new DefaultDialogueStyle();
+                        break;
+                }
+            }
+
+            Textbox = new MouseBlockingUIPanel();
+            Textbox.BackgroundColor = style.BackgroundColor;
+            Textbox.BorderColor = style.BackgroundBorderColor;
+            style.OnTextboxCreate(Textbox, Speaker, SubSpeaker);
+            Textbox.OnLeftClick += OnBoxClick;
+            Append(Textbox);
+            if (!ModContent.GetInstance<DialogueUISystem>().swappingStyle)
+            {
+                DialogueText DialogueText = new()
+                {
+                    boxWidth = Textbox.Width.Pixels,
+                    Text = Language.GetTextValue(LocalizationPath + TreeKey + ".Messages." + DialogueIndex)
+                };
+                if (CurrentDialogue.TextDelay != -1)
+                    DialogueText.textDelay = CurrentDialogue.TextDelay;
+                else if (CurrentDialogue.CharacterIndex == -1)
+                    DialogueText.textDelay = 3;
+                else
+                    DialogueText.textDelay = Characters[CurrentDialogue.CharacterIndex].TextDelay;
+                style.OnDialogueTextCreate(DialogueText);
+                Textbox.Append(DialogueText);
+
+                if (CurrentDialogue.Responses != null)
+                {
+                    Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
+                    int responseCount = availableResponses.Length;
+
+                    for (int i = 0; i < responseCount; i++)
+                    {
+                        UIPanel button = new();
+                        button.BackgroundColor = style.ButtonColor;
+                        button.BorderColor = style.ButtonBorderColor;
+                        style.OnResponseButtonCreate(button, Textbox, responseCount, i);
+                        button.OnLeftClick += OnButtonClick;
+                        Append(button);
+
+                        UIText text = new(Language.GetTextValue(LocalizationPath + TreeKey + ".Responses." + availableResponses[i].Title));
+                        style.OnResponseTextCreate(text);
+                        button.Append(text);
+                        if (availableResponses[i].Cost != null)
+                        {
+                            ItemStack cost = (ItemStack)availableResponses[i].Cost;
+                            UIPanel costHolder = new();
+                            costHolder.BorderColor = Color.Transparent;
+                            costHolder.BackgroundColor = Color.Transparent;
+                            costHolder.VAlign = 0.75f;
+
+                            UIText stackText = new($"x{cost.Stack}");
+                            stackText.HAlign = 1f;
+                            stackText.VAlign = 0.5f;
+
+                            Texture2D itemTexture = (Texture2D)ModContent.Request<Texture2D>(ItemLoader.GetItem(cost.Type).Texture);
+                            UIImage itemIcon = new(itemTexture);
+                            itemIcon.Width.Pixels = itemTexture.Width;
+                            itemIcon.Height.Pixels = itemTexture.Height;
+                            itemIcon.ImageScale = 18f / itemIcon.Height.Pixels;
+
+                            itemIcon.Top.Pixels -= itemIcon.Height.Pixels / 2;
+                            itemIcon.Left.Pixels -= itemIcon.Width.Pixels / 2;
+
+                            costHolder.Height.Pixels = 18f > stackText.Height.Pixels ? 24f : stackText.Height.Pixels;
+                            costHolder.Width.Pixels = (itemIcon.Width.Pixels * itemIcon.ImageScale) + (15 * stackText.Text.Length);
+
+                            costHolder.Append(itemIcon);
+                            costHolder.Append(stackText);
+
+                            style.OnResponseCostCreate(text, costHolder);
+
+                            button.Append(costHolder);
+                        }
+                    }
+                }
+
+                style.PostUICreate(TreeKey, DialogueIndex, Textbox, Speaker, SubSpeaker);
+                ModContent.GetInstance<DialogueUISystem>().styleSwapped = false;
+            }
+        }
         private static bool CanAffordCost(Player player, ItemStack price)
         {
             int amount = price.Stack;
@@ -645,6 +638,7 @@ namespace Cascade.Content.UI.Dialogue
             }
             else
                 return false;
-        }       
+        }
+
     }
 }
