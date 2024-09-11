@@ -1,4 +1,4 @@
-﻿using Cascade.Content.UI.Dialogue;
+﻿using DialogueHelper.Content.UI.Dialogue;
 
 namespace Cascade.Content.Items
 {
@@ -20,13 +20,7 @@ namespace Cascade.Content.Items
             Item.useStyle = ItemUseStyleID.HoldUp;            
         }
         public override bool? UseItem(Player player)
-        {
-            if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
-                ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
-            else
-            {
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(DialogueHolder.DebugKey);               
-            }
+        {            
             return true;
         }
         private static void ClickEffect(string treeKey, int dialogueID, int buttonID)

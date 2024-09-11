@@ -1,0 +1,65 @@
+Mods: {
+	TwilightEgress: {
+		Items: {
+			BurningQuasar: {
+				DisplayName: Burning Quasar
+				Tooltip: ""
+			}
+
+			CometstoneBrick: {
+				Tooltip: ""
+				DisplayName: Cometstone Brick
+			}
+
+			Placeables: {
+				SilicateClusterBrick: {
+					DisplayName: Silicate Cluster Brick
+					Tooltip: ""
+				}
+
+				ManaGrassSeeds: {
+					DisplayName: Mana Grass Seeds
+					Tooltip: ""
+				}
+
+				SilicateClusterBrickItem: {
+					DisplayName: Silicate Cluster Brick Item
+					Tooltip: ""
+				}
+			}
+
+			SailorsSingularity: {
+				DisplayName: Sailors Singularity
+				Tooltip: ""
+			}
+
+			SilicateCluster: {
+				DisplayName: Silicate Cluster
+				Tooltip: ""
+			}
+
+			Stellascope: {
+				DisplayName: Stellascope
+				Tooltip: ""
+			}
+		}
+
+		NPCs: {
+			Manaphage.DisplayName: Manaphage
+			Miniphage.DisplayName: Miniphage
+			ArdienaNPC.DisplayName: Ardiena N P C
+		}
+
+		Projectiles: {
+			SailorsSingularityHoldout.DisplayName: Sailors Singularity Holdout
+			SailorStar.DisplayName: Sailor Star
+			SailorVortex.DisplayName: Sailor Vortex
+			SailorBlast.DisplayName: Sailor Blast
+			StellascopeStar.DisplayName: Stellascope Star
+			StellascopeHoldout.DisplayName: Stellascope Holdout
+			SailorsSingularityBlast.DisplayName: Sailors Singularity Blast
+			SailorsSingularityStar.DisplayName: Sailors Singularity Star
+			SailorsSingularityVortex.DisplayName: Sailors Singularity Vortex
+		}
+	}
+}

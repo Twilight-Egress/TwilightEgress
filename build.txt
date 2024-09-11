@@ -1,7 +1,7 @@
 displayName = Twilight Egress
 author = fryzahh and the CCC
 version = 0.1
-modReferences = CalamityMod, Luminance
+modReferences = CalamityMod, Luminance, DialogueHelper
 hideCode = false
 hideResources = false
 includeSource = true

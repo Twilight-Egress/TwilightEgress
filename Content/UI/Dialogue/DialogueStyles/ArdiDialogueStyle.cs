@@ -1,33 +1,36 @@
-﻿using static Cascade.Content.UI.Dialogue.DialogueUIState;
+﻿using static DialogueHelper.Content.UI.Dialogue.DialogueUIState;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Cascade.Content.UI.Dialogue.UIElements;
+using DialogueHelper.Content.UI.Dialogue;
+using DialogueHelper.Content.UI.Dialogue.DialogueStyles;
+using DialogueHelper.Content.UI;
 
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
     public class ArdiDialogueStyle : BaseDialogueStyle
     {
-        public override Color BackgroundColor => Color.Transparent;
-        public override Color BackgroundBorderColor => Color.Transparent;
-        public override Color ButtonColor => new(144, 115, 225);
-        public override Color ButtonBorderColor => new(247, 135, 89);
+        public override Color? BackgroundColor => Color.Transparent;
+        public override Color? BackgroundBorderColor => Color.Transparent;
+        public override Color? ButtonColor => new(144, 115, 225);
+        public override Color? ButtonBorderColor => new(247, 135, 89);
         public override void OnTextboxCreate(UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
             bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
             bool spawnBottom = ModContent.GetInstance<DialogueUISystem>().justOpened || ModContent.GetInstance<DialogueUISystem>().styleSwapped;
             bool newSubSpeaker = ModContent.GetInstance<DialogueUISystem>().newSubSpeaker;
             textbox.SetPadding(0f);
-            float startX;
+
+            SetRectangle(textbox, left: 0, top: spawnBottom ? Main.screenHeight * 1.1f : Main.screenHeight / 1.75f, width: Main.screenWidth / 2.5f, height: Main.screenHeight / 4f);
+
             if (newSubSpeaker && !ModContent.GetInstance<DialogueUISystem>().styleSwapped)
-                startX = speakerRight ? 500f : 600f;
+                textbox.Left.Pixels = speakerRight ? Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f : Main.screenWidth / 5f;
             else
-                startX = speakerRight ? 600f : 500f;
-            SetRectangle(textbox, left: startX, top: spawnBottom ? 1200f : 500f, width: 600f, height: 200f);            
+                textbox.Left.Pixels = speakerRight ? Main.screenWidth / 5f : Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f;
 
             ArdienaTextboxPrimitives textboxPrims = new();
             textbox.Append(textboxPrims);
             textboxPrims.OnInitialize();
-
         }
         public override void OnDialogueTextCreate(DialogueText text)
         {
@@ -56,9 +59,10 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             {
                 if (!TextboxOffScreen(textbox))
                 {
-                    textbox.Top.Pixels += (1200f - textbox.Top.Pixels) / 20;
-                    if (1100f - textbox.Top.Pixels < 10)
-                        textbox.Top.Pixels = 1200f;
+                    float goalHeight = Main.screenHeight * 1.55f;
+                    textbox.Top.Pixels += (goalHeight - textbox.Top.Pixels) / 20;
+                    if (goalHeight - textbox.Top.Pixels < 10)
+                        textbox.Top.Pixels = goalHeight;
                 }
                 else
                 {
@@ -67,31 +71,32 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     textbox.RemoveAllChildren();
                     textbox.Remove();
 
-                    ModContent.GetInstance<DialogueUISystem>().DialogueUIState.SpawnTextBox(this);
+                    ModContent.GetInstance<DialogueUISystem>().DialogueUIState.SpawnTextBox();
                 }
             }
             else
             {
-                if (textbox.Top.Pixels > 500f)
+                if (textbox.Top.Pixels > Main.screenHeight / 1.75f)
                 {
-                    textbox.Top.Pixels -= (textbox.Top.Pixels - 500f) / 10;
-                    if (textbox.Top.Pixels - 500f < 1)
-                        textbox.Top.Pixels = 500f;
+                    textbox.Top.Pixels -= (textbox.Top.Pixels - Main.screenHeight / 1.75f) / 10;
+                    if (textbox.Top.Pixels - Main.screenHeight / 1.75f < 1)
+                        textbox.Top.Pixels = Main.screenHeight / 1.75f;
 
                 }
-                if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels > 500f)
+                float goalRight = Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f;
+                float goalLeft = Main.screenWidth / 5f;
+                if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels > goalRight)
                 {
-                    textbox.Left.Pixels -= (textbox.Left.Pixels - 500f) / 20;
-                    if (textbox.Left.Pixels - 500f < 1)
-                        textbox.Left.Pixels = 500f;
+                    textbox.Left.Pixels -= (textbox.Left.Pixels - goalRight) / 20;
+                    if (textbox.Left.Pixels - goalRight < 1)
+                        textbox.Left.Pixels = goalRight;
                 }
-                else if (ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels < 600f)
+                else if (ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels < goalLeft)
                 {
-                    textbox.Left.Pixels += (600f - textbox.Left.Pixels) / 20;
-                    if (600f - textbox.Left.Pixels < 1)
-                        textbox.Left.Pixels = 600f;
+                    textbox.Left.Pixels += (goalLeft - textbox.Left.Pixels) / 20;
+                    if (goalLeft - textbox.Left.Pixels < 1)
+                        textbox.Left.Pixels = goalLeft;
                 }
-
                 DialogueText dialogue = (DialogueText)textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
                 UIElement[] responseButtons = ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
                 for (int i = 0; i < responseButtons.Length; i++)
@@ -116,6 +121,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                             {
                                 UIText textChild = (UIText)child;
                                 textChild.SetText(textChild.Text, button.Width.Pixels / ButtonSize.X, false);
+                                textChild.IsWrapped = false;
                                 if (button.Children.Count() > 1)
                                     textChild.Top.Pixels = -4;
                             }
@@ -189,9 +195,10 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         {
             if (!TextboxOffScreen(textbox))
             {
-                textbox.Top.Pixels += (1200f - textbox.Top.Pixels) / 20;
-                if (1100f - textbox.Top.Pixels < 10)
-                    textbox.Top.Pixels = 1200f;
+                float goalHeight = Main.screenHeight * 1.15f;
+                textbox.Top.Pixels += (goalHeight - textbox.Top.Pixels) / 20;
+                if (goalHeight - textbox.Top.Pixels < 10)
+                    textbox.Top.Pixels = goalHeight;
             }
             if (ModContent.GetInstance<DialogueUISystem>().DialogueUI?.CurrentState != null && ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).Any())
             {
@@ -210,6 +217,6 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 }
             }
         }
-        public override bool TextboxOffScreen(UIPanel textbox) => textbox.Top.Pixels == 1200f;
+        public override bool TextboxOffScreen(UIPanel textbox) => textbox.Top.Pixels >= Main.screenHeight * 1.1f;
     }
 }
