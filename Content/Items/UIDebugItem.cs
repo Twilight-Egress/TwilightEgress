@@ -1,4 +1,4 @@
-﻿using DialogueHelper.Content.UI.Dialogue;
+﻿using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
 
 namespace Cascade.Content.Items
 {

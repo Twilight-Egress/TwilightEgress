@@ -1,4 +1,4 @@
-﻿using DialogueHelper.Content.UI.Dialogue;
+﻿using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
 using System;
 using System.Collections.Generic;
 using System.Linq;

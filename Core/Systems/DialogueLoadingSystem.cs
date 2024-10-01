@@ -1,7 +1,7 @@
 ﻿using CalamityMod.Items.Weapons.Melee;
 using MonoMod.Utils;
-using DialogueHelper.Content.UI.Dialogue;
 using Cascade.Content.UI.Dialogue.DialogueStyles;
+using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
 
 namespace Cascade.Core.Systems
 {

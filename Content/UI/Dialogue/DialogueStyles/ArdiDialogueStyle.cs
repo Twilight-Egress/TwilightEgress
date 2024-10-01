@@ -1,10 +1,10 @@
-﻿using static DialogueHelper.Content.UI.Dialogue.DialogueUIState;
+﻿using static Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueUIState;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Cascade.Content.UI.Dialogue.UIElements;
-using DialogueHelper.Content.UI.Dialogue;
-using DialogueHelper.Content.UI.Dialogue.DialogueStyles;
-using DialogueHelper.Content.UI;
+using Cascade.SubModules.DialogueHelper.Content.UI;
+using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
+using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles;
 
 namespace Cascade.Content.UI.Dialogue.DialogueStyles
 {
