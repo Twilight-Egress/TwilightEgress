@@ -1,0 +1,55 @@
+{
+  "Dialogue": [ //This is the Dialogue Array, and it stores every piece of dialogue in a set order, allowing for us to move between them in our Dialogue Tree!
+    /*0*/ {
+      "Text": "Hi! I'm Ardiena!", //Pretty self explanitory, this is the text that shows up for this dialogue!
+      "Responese": [ //This is the Response Array. It stores all the respones that player can have to the above dialogue!
+        {
+          "Title": "Goodbye!", //This is the text that'll appear on the response button.
+          "Heading": -1, //Heading values are what determine which dialogue pressing this response will lead to. In this case, -1 means that the dialogue will end, closing the dialogue box. This is also the Default value, meaning you don't actually need to set it.
+          "TextColor": "#FFFFFF", //This is the color of the response text, it defaults to White
+          "TextBorderColor": "#000000", //this is the color of text's border/shadow. it defaults to Black
+          "SwapToTreeKey": null, //This value can take a TreeKey (the file path of a tree), and swap to that tree instead of continuing through the current one. This can be useful if multiple unique dialogues all lead to a similar end point, such as a unique conversation leading into a character's repeatable dialogue instead of just closing.
+          "HasRequirement": false, //Determines if this response is locked behind a unique condition, such as a certain boss being defeated or a quest being completed.
+          "Cost": { //The Cost of a response can be used to make the player pay to be able to select a response in the form of items
+            "ItemID": 5, //For vanilla items, their ItemID can be inputted directly. In this case, the cost is in the form of a Mushroom
+            "SourceMod": null, //For modded items however, we need both the name of the mod and the name of the item. For example, if we wanted a calamity item the source mod would be "CalamityMod"
+            "ItemName": null, //Item Names come in the form of the name of the item's Type. To find these, it's best to check the mod's Github and find the item you're looking for. These will be found in the form of "ItemName.cs" files.
+            "Stack": 1 //Simply the amount of the item required. In this case the cost is 1 mushroom.
+          },
+          //Subspeakers are characters that were formerly speaking, however aren't now as a new character is instead. They will move off to the side and become darkened whilst the new speaker is talking.
+          "DismissSubspeaker": false //If set to true, any currently active Subspeakers will move off screen and disappear when this response is selected.
+        },
+        //Here is a what a typical response would actually look like
+        {
+          "Title": "How are you?",
+          "Heading": 1 //The value set when one wants to move to the next dialogue is the Array Index of that dialogue. At the start of each new dialogue, I've added comments which denote the index of that dialogue, however those won't always be there.
+        }
+      ],
+      "CharacterIndex": 0, //Represents the index of this character within this Tree's Character Array. More on this will be seen once we get to the Tree's Character Array, however for Dialogues with only one character this doesn't need to be defined.
+      "ExpressionIndex": 0, //The index of the Expression that this character will use during this Dialogue. Expressions can be found in the character's own .json file, and are also an Array just like Dialogues and Responses, meaning you must know the index that coorisponds to the desired expression. 0 typically represents a characters Default expression and is the default value for ExpressionIndex.
+      "TextScale": 1.5, //Scales up or down the text depending on the value. Defaults to 1.5.
+      "TextDelay": -1, //Determines the delay between characters appearing during the text crawl. Setting this will override the Character's TextDelay. Defaults to -1, causing the Character's TextDelay to be used instead.
+      "Music": { //Music can be used to cause Music to play whilst this dialogue is active. Typically, the music shouldnt change too frequently between dialogues.
+        "ModName": "Cascade", //The mod name the music comes from. To use calamity music, set this to "CalamityModMusic".
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme" //The file path of the desired music.
+      }
+    }, //Here is a look at what a typical Ardiena dialogue might look like. Also see "Eeveelutions.json"!
+    /*1*/{
+      "Text": "I'm doing quite good! Thanks for asking.",
+      "Responses": [
+        {
+          "Title": "Goodbye!"
+        }
+      ],
+      "ExpressionIndex": 2,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    }
+  ],
+  "Characters": [ //The characters array is used so that the tree knows what characters may appear during it. Typically there is only one, but for dialogues where two or more characters interact, multiple can be added
+    "Ardiena" //All that's needed is the file name of the character's json
+  ],
+  "Important": true //An admitably currently unused variable. In the future it will be used to determine whether the player can close out of the dialogue at any time through an X icon or not. Important dialogue won't be able to be closed this way. Repeatable dialogue should typically be marked false here.
+}

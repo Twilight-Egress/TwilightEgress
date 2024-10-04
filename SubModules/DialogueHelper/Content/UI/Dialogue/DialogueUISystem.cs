@@ -320,7 +320,7 @@ namespace DialogueHelper.Content.UI.Dialogue
         public int CharacterIndex { get; set; } = 0;
         public int ExpressionIndex { get; set; } = 0;
         public float TextScale { get; set; } = 1.5f;
-        public int TextDelay { get; set; } = 3;
+        public int TextDelay { get; set; } = -1;
         public Music Music { get; set; } = null;
     }
 
