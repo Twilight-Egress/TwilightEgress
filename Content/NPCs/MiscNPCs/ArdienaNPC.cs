@@ -1,4 +1,4 @@
-﻿using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
+﻿using DialogueHelper.Content.UI.Dialogue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace Cascade.Content.NPCs.MiscNPCs
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             else
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree("Cascade/Eeveelutions");
+                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(Cascade.Instance, "Ardiena/Eeveelutions");
 
             return ":P";
         }

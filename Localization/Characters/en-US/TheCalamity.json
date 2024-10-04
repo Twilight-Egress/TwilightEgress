@@ -1,0 +1,17 @@
+{
+  "Name": "[c/FF0000:The Calamity]",
+  "Scale": 2,
+
+  "Expressions": [
+    {
+      "Title": "Default",
+      "Path": "Windfall/Assets/UI/CharacterAssets/TheCalamity/Default"
+    },
+    {
+      "Title": "Finality",
+      "Path": "Windfall/Assets/UI/CharacterAssets/TheCalamity/Finality"
+    }
+  ],
+  "PrimaryColor": "#000000",
+  "SecondaryColor": "#FF0000"
+}

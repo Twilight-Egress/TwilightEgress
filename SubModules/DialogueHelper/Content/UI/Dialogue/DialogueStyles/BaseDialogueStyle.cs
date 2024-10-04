@@ -1,10 +1,8 @@
-﻿using Cascade.SubModules.DialogueHelper.Content.UI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using static Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueUIState;
+using static DialogueHelper.Content.UI.Dialogue.DialogueUIState;
 
-namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles
+namespace DialogueHelper.Content.UI.Dialogue.DialogueStyles
 {
     public class BaseDialogueStyle
     {
@@ -14,23 +12,23 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles
         public virtual Color? BackgroundColor => null;
         public virtual Color? BackgroundBorderColor => null;
         #region UI Creation Methods
-        public virtual void PreUICreate(string treeIndex, int dialogueIndex)
+        public virtual void PreUICreate(int dialogueIndex)
         {
 
         }
-        public virtual void PreSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker)
+        public virtual void PreSpeakerCreate(int dialogueIndex, UIImage speaker)
         {
 
         }
-        public virtual void PostSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker)
+        public virtual void PostSpeakerCreate(int dialogueIndex, UIImage speaker)
         {
 
         }
-        public virtual void PreSubSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
+        public virtual void PreSubSpeakerCreate(int dialogueIndex, UIImage speaker, UIImage subSpeaker)
         {
 
         }
-        public virtual void PostSubSpeakerCreate(string treeIndex, int dialogueIndex, UIImage speaker, UIImage subSpeaker)
+        public virtual void PostSubSpeakerCreate(int dialogueIndex, UIImage speaker, UIImage subSpeaker)
         {
 
         }
@@ -52,7 +50,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles
         }
         public virtual void OnResponseCostCreate(UIText text, UIPanel costHolder)
         { }
-        public virtual void PostUICreate(string treeIndex, int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public virtual void PostUICreate(int dialogueIndex, UIPanel textbox, UIImage speaker, UIImage subSpeaker)
         {
 
         }

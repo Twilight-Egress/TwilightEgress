@@ -1,7 +1,7 @@
 ﻿using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueHolder;
 using Terraria.UI.Chat;
+using DialogueHelper.Content.UI.Dialogue.DialogueStyles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,12 +12,9 @@ using Terraria.GameContent;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Localization;
-using Cascade.SubModules.DialogueHelper.Content.UI;
-using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles;
 
-namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
+namespace DialogueHelper.Content.UI.Dialogue
 {
-
     public class DialogueUIState : UIState
     {
         public class DialogueText : UIElement
@@ -104,7 +101,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                 {
                     TextToPrint += printedSnippets[i].TextOriginal;
                 }
-                List<string> textLines = [.. Utils.WordwrapString(TextToPrint, FontAssets.MouseText.Value, (int)((Parent.Width.Pixels + Width.Pixels) / 1.5f), 250, out _)];
+                List<string> textLines = [.. Utils.WordwrapString(TextToPrint, FontAssets.MouseText.Value, (int)((Parent.Width.Pixels + Width.Pixels) / 1.55f), 250, out _)];
                 textLines.RemoveAll(text => string.IsNullOrEmpty(text));
 
                 string PreviousLineColorHex = "";
@@ -176,43 +173,41 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
         public UIImage Speaker;
         public UIImage SubSpeaker;
 
+        public delegate bool DialogueNotifier(string treeKey, int dialogueID, int buttonID);
+        public DialogueNotifier ResponseRequirementCheck;
+
+        public delegate bool CharacterNotifier(string characterName, string expressionName);
+        public CharacterNotifier AnimationConditionCheck;
+
         public string TreeKey;
         public int DialogueIndex = 0;
         private int counter = 0;
         private int frameCounter = 1;
         public override void OnInitialize()
         {
-            if (DialogueTrees.Count == 0)
+            if (ModContent.GetInstance<DialogueUISystem>() == null)
                 return;
-            if (DialogueTrees.Count != 0)
+            else
             {
                 counter = 0;
 
-                DialogueTree CurrentTree = DialogueTrees[TreeKey];
+                DialogueTree CurrentTree = ModContent.GetInstance<DialogueUISystem>().CurrentTree;
                 Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
-                Character CurrentSpeaker;
-                Character CurrentSubSpeaker;
+                Character CurrentCharacter = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+                Character FormerCharacter = ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
 
-                int subSpeakerIndex = -1;
                 bool justOpened = true;
                 bool newSpeaker = false;
                 bool newSubSpeaker = false;
                 bool returningSpeaker = false;
                 bool speakerRight = true;
 
-                BaseDialogueStyle style;
-                if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
-                    style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex]].Style);
-                else
-                    style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]].Style);
-
                 if (ModContent.GetInstance<DialogueUISystem>() != null)
                 {
                     if (ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker != null)
-                        CurrentSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+                        CurrentCharacter = (Character)ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
                     if (ModContent.GetInstance<DialogueUISystem>().SubSpeaker != null)
-                        CurrentSubSpeaker = (Character)ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
-                    subSpeakerIndex = ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex;
+                        FormerCharacter = (Character)ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
                     justOpened = ModContent.GetInstance<DialogueUISystem>().justOpened;
                     newSpeaker = ModContent.GetInstance<DialogueUISystem>().newSpeaker;
                     newSubSpeaker = ModContent.GetInstance<DialogueUISystem>().newSubSpeaker;
@@ -221,20 +216,24 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                 }
                 else
                 {
-                    CurrentSpeaker = Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]];
-                    CurrentSubSpeaker = new Character("Bill", [new()]);
+                    CurrentCharacter = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+                    FormerCharacter = null;
                 }
-                style.PreUICreate(TreeKey, DialogueIndex);
-                if (CurrentDialogue.CharacterID != -1)
+
+                BaseDialogueStyle style;
+                if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
+                    style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(FormerCharacter.Style));
+                else
+                    style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(CurrentCharacter.Style) ?? typeof(DefaultDialogueStyle));
+
+                style.PreUICreate(DialogueIndex);
+                if (CurrentDialogue.CharacterIndex != -1)
                 {
                     //Main.NewText("Create Speaker: " + CurrentDialogue.CharacterIndex);
-                    CurrentSpeaker = Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]];
-                    string expressionID = CurrentSpeaker.Expressions[CurrentDialogue.ExpressionIndex].Title;
+                    CurrentCharacter = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
 
-                    string AssetPath = CharacterAssetPathes[Characters.First(c => c.Value == CurrentSpeaker).Key.Split("/")[0].Replace("/", "")];
-                    string SpeakerID = Characters.First(c => c.Value == CurrentSpeaker).Key.Split("/")[1];
-                    Texture2D speakerTexture = ModContent.Request<Texture2D>($"{AssetPath}/{SpeakerID}/{SpeakerID}_{expressionID}", AssetRequestMode.ImmediateLoad).Value;
-                    Rectangle speakerFrame = new(0, 0, speakerTexture.Bounds.Width, speakerTexture.Bounds.Height / CurrentSpeaker.Expressions[CurrentDialogue.ExpressionIndex].FrameCount);
+                    Texture2D speakerTexture = ModContent.Request<Texture2D>(CurrentCharacter.Expressions[CurrentDialogue.ExpressionIndex].Path, AssetRequestMode.ImmediateLoad).Value;
+                    Rectangle speakerFrame = new(0, 0, speakerTexture.Bounds.Width, speakerTexture.Bounds.Height / CurrentCharacter.Expressions[CurrentDialogue.ExpressionIndex].FrameCount);
 
                     Texture2D speakerFrameTexture = new(Main.graphics.GraphicsDevice, speakerFrame.Width, speakerFrame.Height);
                     Color[] data = new Color[speakerFrame.Width * speakerFrame.Height];
@@ -244,7 +243,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         speakerFrameTexture = FlipTexture2D(speakerFrameTexture, false, true);
                     Speaker = new(speakerFrameTexture)
                     {
-                        ImageScale = CurrentSpeaker.Scale
+                        ImageScale = CurrentCharacter.Scale
                     };
 
                     if (justOpened || newSpeaker)
@@ -253,24 +252,20 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         SetRectangle(Speaker, left: 0, top: Main.screenHeight - Speaker.Height.Pixels + 16, width: speakerFrameTexture.Width, height: speakerFrameTexture.Height);
 
                     if (speakerRight)
-                        Speaker.Left.Pixels = returningSpeaker ? Main.screenWidth / 1.2f - Speaker.Width.Pixels / 2f : Main.screenWidth / 1.25f - Speaker.Width.Pixels / 2f;
+                        Speaker.Left.Pixels = returningSpeaker ? Main.screenWidth / 1.2f - (Speaker.Width.Pixels / 2f) : Main.screenWidth / 1.25f - (Speaker.Width.Pixels / 2f);
                     else
-                        Speaker.Left.Pixels = returningSpeaker ? 0f + Speaker.Width.Pixels / 2f : Main.screenWidth * 0.05f + Speaker.Width.Pixels / 2f;
+                        Speaker.Left.Pixels = returningSpeaker ? 0f + (Speaker.Width.Pixels / 2f) : Main.screenWidth * 0.05f + (Speaker.Width.Pixels / 2f);
 
                     //Main.NewText(Main.screenWidth);
-                    style.PreSpeakerCreate(TreeKey, DialogueIndex, Speaker);
+                    style.PreSpeakerCreate(DialogueIndex, Speaker);
                     Append(Speaker);
-                    style.PostSpeakerCreate(TreeKey, DialogueIndex, Speaker);
+                    style.PostSpeakerCreate(DialogueIndex, Speaker);
                 }
-                if (subSpeakerIndex != -1)
+                if (FormerCharacter != null)
                 {
                     //Main.NewText("Create Sub-Speaker: " + subSpeakerIndex);
-                    CurrentSubSpeaker = Characters[CurrentTree.Characters[subSpeakerIndex]];
-                    string AssetPath = CharacterAssetPathes[Characters.First(c => c.Value == CurrentSubSpeaker).Key.Split("/")[0].Replace("/", "")];
-                    string subSpeakerID = Characters.First(c => c.Value == CurrentSubSpeaker).Key.Split("/")[1];
-                    string expressionID = CurrentSubSpeaker.Expressions[0].Title;
-                    Texture2D subSpeakerTexture = ModContent.Request<Texture2D>($"{AssetPath}/{subSpeakerID}/{subSpeakerID}_{expressionID}", AssetRequestMode.ImmediateLoad).Value;
-                    Rectangle subSpeakerFrame = new(0, 0, subSpeakerTexture.Bounds.Width, subSpeakerTexture.Bounds.Height / CurrentSubSpeaker.Expressions[0].FrameCount);
+                    Texture2D subSpeakerTexture = ModContent.Request<Texture2D>(FormerCharacter.Expressions[0].Path, AssetRequestMode.ImmediateLoad).Value;
+                    Rectangle subSpeakerFrame = new(0, 0, subSpeakerTexture.Bounds.Width, subSpeakerTexture.Bounds.Height / FormerCharacter.Expressions[0].FrameCount);
 
                     Texture2D subSpeakerFrameTexture = new(Main.graphics.GraphicsDevice, subSpeakerFrame.Width, subSpeakerFrame.Height);
                     Color[] data = new Color[subSpeakerFrame.Width * subSpeakerFrame.Height];
@@ -289,19 +284,19 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         subSpeakerFrameTexture = FlipTexture2D(subSpeakerTexture, false, true);
                     SubSpeaker = new(subSpeakerFrameTexture)
                     {
-                        ImageScale = CurrentSubSpeaker.Scale
+                        ImageScale = FormerCharacter.Scale
                     };
 
                     SetRectangle(SubSpeaker, left: 0, top: Main.screenHeight - SubSpeaker.Height.Pixels + 16, width: subSpeakerFrameTexture.Width, height: subSpeakerFrameTexture.Height);
 
                     if (speakerRight)
-                        SubSpeaker.Left.Pixels = newSpeaker || returningSpeaker ? Main.screenWidth * 0.05f + SubSpeaker.Width.Pixels / 2f : 0f + SubSpeaker.Width.Pixels / 2f;
+                        SubSpeaker.Left.Pixels = newSpeaker || returningSpeaker ? Main.screenWidth * 0.05f + (SubSpeaker.Width.Pixels / 2f) : 0f + (SubSpeaker.Width.Pixels / 2f);
                     else
-                        SubSpeaker.Left.Pixels = newSpeaker || returningSpeaker ? Main.screenWidth / 1.25f - SubSpeaker.Width.Pixels / 2f : Main.screenWidth / 1.35f - SubSpeaker.Width.Pixels / 2f;
+                        SubSpeaker.Left.Pixels = newSpeaker || returningSpeaker ? Main.screenWidth / 1.25f - (SubSpeaker.Width.Pixels / 2f) : Main.screenWidth / 1.35f - (SubSpeaker.Width.Pixels / 2f);
 
-                    style.PreSubSpeakerCreate(TreeKey, DialogueIndex, Speaker, SubSpeaker);
+                    style.PreSubSpeakerCreate(DialogueIndex, Speaker, SubSpeaker);
                     Append(SubSpeaker);
-                    style.PostSubSpeakerCreate(TreeKey, DialogueIndex, Speaker, SubSpeaker);
+                    style.PostSubSpeakerCreate(DialogueIndex, Speaker, SubSpeaker);
                 }
 
                 SpawnTextBox();
@@ -312,16 +307,19 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            //Main.NewText(Main.screenWidth);
 
-            DialogueTree CurrentTree = DialogueTrees[TreeKey];
+            DialogueTree CurrentTree = ModContent.GetInstance<DialogueUISystem>().CurrentTree;
             Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
+            Character CurrentCharacter = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+            Character FormerCharacter = ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
+
+            //Main.NewText(CurrentDialogue.Responses[1].Cost.TypePath);
 
             BaseDialogueStyle style;
             if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
-                style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex]].Style);
+                style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(FormerCharacter.Style));
             else
-                style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]].Style);
+                style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(CurrentCharacter.Style) ?? typeof(DefaultDialogueStyle));
 
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
             {
@@ -336,8 +334,8 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         if (Speaker.Top.Pixels - goalHeight < 1)
                             Speaker.Top.Pixels = goalHeight;
                     }
-                    float goalLeft = Main.screenWidth * 0.05f + Speaker.Width.Pixels / 2f;
-                    float goalRight = Main.screenWidth / 1.25f - Speaker.Width.Pixels / 2f;
+                    float goalLeft = Main.screenWidth * 0.05f + (Speaker.Width.Pixels / 2f);
+                    float goalRight = Main.screenWidth / 1.25f - (Speaker.Width.Pixels / 2f);
                     //Main.NewText(ModContent.GetInstance<DialogueUISystem>().speakerRight);
                     if (ModContent.GetInstance<DialogueUISystem>().speakerRight && Speaker.Left.Pixels > goalRight)
                     {
@@ -351,9 +349,8 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         if (goalLeft - Speaker.Left.Pixels < 1)
                             Speaker.Left.Pixels = goalLeft;
                     }
-                    Character speakerCharacter = Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]];
-                    Expression currentExpression = speakerCharacter.Expressions[CurrentDialogue.ExpressionIndex];
-                    if (currentExpression.FrameCount != 1 && currentExpression.AnimateCondition && currentExpression.FrameRate != 0 && counter % currentExpression.FrameRate == 0)
+                    Expression currentExpression = CurrentCharacter.Expressions[CurrentDialogue.ExpressionIndex];
+                    if (currentExpression.FrameCount != 1 && currentExpression.FrameRate != 0 && (!currentExpression.HasAnimateCondition || AnimationConditionCheck.Invoke(CurrentCharacter.Name, currentExpression.Title)) && counter % currentExpression.FrameRate == 0)
                     {
                         frameCounter++;
                         if (frameCounter > currentExpression.FrameCount)
@@ -363,11 +360,9 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                             else
                                 frameCounter = currentExpression.FrameCount;
                         }
-                        string AssetPath = CharacterAssetPathes[Characters.First(c => c.Value == speakerCharacter).Key.Split("/")[0].Replace("/", "")];
-                        string speakerID = Characters.First(c => c.Value == speakerCharacter).Key.Split("/")[1];
 
-                        Texture2D speakerTexture = ModContent.Request<Texture2D>($"{AssetPath}/{speakerID}/{speakerID}_{currentExpression.Title}", AssetRequestMode.ImmediateLoad).Value;
-                        Rectangle speakerFrame = speakerTexture.Frame(1, speakerCharacter.Expressions[CurrentDialogue.ExpressionIndex].FrameCount, 0, frameCounter - 1);
+                        Texture2D speakerTexture = ModContent.Request<Texture2D>(currentExpression.Path, AssetRequestMode.ImmediateLoad).Value;
+                        Rectangle speakerFrame = speakerTexture.Frame(1, CurrentCharacter.Expressions[CurrentDialogue.ExpressionIndex].FrameCount, 0, frameCounter - 1);
 
                         Texture2D speakerFrameTexture = new(Main.graphics.GraphicsDevice, speakerFrame.Width, speakerFrame.Height);
                         Color[] data = new Color[speakerFrame.Width * speakerFrame.Height];
@@ -483,8 +478,9 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
         internal void OnBoxClick(UIMouseEvent evt, UIElement listeningElement)
         {
             DialogueText dialogue = (DialogueText)Textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
-            DialogueTree CurrentTree = DialogueTrees[TreeKey];
-            if (CurrentTree.Dialogues[DialogueIndex].Responses == null && !dialogue.crawling)
+            DialogueTree CurrentTree = ModContent.GetInstance<DialogueUISystem>().CurrentTree;
+            Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
+            if (CurrentDialogue.Responses.Length == 0 && !dialogue.crawling)
             {
                 ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, 0);
 
@@ -494,54 +490,40 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                     ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(TreeKey, DialogueIndex, 0);
                 }
                 else
-                {
                     ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, DialogueIndex + 1);
-                }
             }
             else if (dialogue.crawling)
-            {
-                string key = TreeKey.Split("/")[1];
-                dialogue.textIndex = Language.GetTextValue(CurrentTree.LocalizationPath + key + ".Messages." + DialogueIndex).Length;
-            }
+                dialogue.textIndex = CurrentDialogue.Text.Length;
         }
         internal void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            DialogueTree CurrentTree = DialogueTrees[TreeKey];
+            DialogueTree CurrentTree = ModContent.GetInstance<DialogueUISystem>().CurrentTree;
             int responseCount = CurrentTree.Dialogues[DialogueIndex].Responses.Length;
             UIText text = (UIText)listeningElement.Children.ToArray().First();
             int buttonID = 0;
             for (int i = 0; i < responseCount; i++)
             {
-                if (CurrentTree.Dialogues[DialogueIndex].Responses[i].Localize)
-                {
-                    string key = TreeKey.Split("/")[1];
-                    if (text.Text == Language.GetTextValue(CurrentTree.LocalizationPath + key + ".Responses." + CurrentTree.Dialogues[DialogueIndex].Responses[i].Title))
-                        buttonID = i;
-                }
-                else
-                {
-                    if (text.Text == CurrentTree.Dialogues[DialogueIndex].Responses[i].Title)
-                        buttonID = i;
-                }
+                if (text.Text == CurrentTree.Dialogues[DialogueIndex].Responses[i].Title)
+                    buttonID = i;
             }
             Response response = CurrentTree.Dialogues[DialogueIndex].Responses[buttonID];
-            if (response.Cost == null || CanAffordCost(Main.LocalPlayer, response.Cost.Value))
+            if (response.Cost == null || CanAffordCost(Main.LocalPlayer, response.Cost))
             {
                 ModContent.GetInstance<DialogueUISystem>().ButtonClick?.Invoke(TreeKey, DialogueIndex, buttonID);
 
                 if (response.DismissSubSpeaker)
                     ModContent.GetInstance<DialogueUISystem>().dismissSubSpeaker = true;
 
-                int heading = response.DialogueIndex;
+                int heading = response.Heading;
                 if (heading == -1 || heading == -2 && !(CurrentTree.Dialogues.Length > DialogueIndex + 1))
                 {
                     ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
                     ModContent.GetInstance<DialogueUISystem>().DialogueClose?.Invoke(TreeKey, DialogueIndex, buttonID);
                 }
                 else if (heading == -2 && CurrentTree.Dialogues.Length > DialogueIndex + 1)
-                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, DialogueIndex + 1);
+                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(response.SwapToTreeKey ?? TreeKey, DialogueIndex + 1);
                 else
-                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(TreeKey, heading);
+                    ModContent.GetInstance<DialogueUISystem>().UpdateDialogueUI(response.SwapToTreeKey ?? TreeKey, heading);
             }
         }
         public void SpawnTextBox()
@@ -550,29 +532,29 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             float xResolutionScale = Main.screenWidth / 2560f;
             float yResolutionScale = Main.screenHeight / 1440f;
 
-            DialogueTree CurrentTree = DialogueTrees[TreeKey];
+            DialogueTree CurrentTree = ModContent.GetInstance<DialogueUISystem>().CurrentTree;
             Dialogue CurrentDialogue = CurrentTree.Dialogues[DialogueIndex];
-            Character CurrentCharacter = Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]];
+            Character CurrentCharacter = ModContent.GetInstance<DialogueUISystem>().CurrentSpeaker;
+            Character FormerCharacter = ModContent.GetInstance<DialogueUISystem>().SubSpeaker;
 
             if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
-                style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex]].Style);
+                style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(FormerCharacter.Style));
             else
-                style = (BaseDialogueStyle)Activator.CreateInstance(Characters[CurrentTree.Characters[CurrentDialogue.CharacterID]].Style);
+                style = (BaseDialogueStyle)Activator.CreateInstance(Type.GetType(CurrentCharacter.Style) ?? typeof(DefaultDialogueStyle));
             Textbox = new MouseBlockingUIPanel();
             if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
             {
-                Character FormerCharacter = Characters[CurrentTree.Characters[ModContent.GetInstance<DialogueUISystem>().subSpeakerIndex]];
                 if (style.BackgroundColor.HasValue)
                     Textbox.BackgroundColor = style.BackgroundColor.Value;
-                else if (FormerCharacter.PrimaryColor.HasValue)
-                    Textbox.BackgroundColor = FormerCharacter.PrimaryColor.Value;
+                else if (FormerCharacter.PrimaryColor != null)
+                    Textbox.BackgroundColor = FormerCharacter.getPrimaryColor();
                 else
                     Textbox.BackgroundColor = new Color(73, 94, 171);
 
                 if (style.BackgroundBorderColor.HasValue)
                     Textbox.BorderColor = style.BackgroundBorderColor.Value;
-                else if (FormerCharacter.SecondaryColor.HasValue)
-                    Textbox.BorderColor = FormerCharacter.SecondaryColor.Value;
+                else if (FormerCharacter.SecondaryColor != null)
+                    Textbox.BorderColor = FormerCharacter.getSecondaryColor();
                 else
                     Textbox.BorderColor = Color.Black;
             }
@@ -580,15 +562,15 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             {
                 if (style.BackgroundColor.HasValue)
                     Textbox.BackgroundColor = style.BackgroundColor.Value;
-                else if (CurrentCharacter.PrimaryColor.HasValue)
-                    Textbox.BackgroundColor = CurrentCharacter.PrimaryColor.Value;
+                else if (CurrentCharacter.PrimaryColor != null)
+                    Textbox.BackgroundColor = CurrentCharacter.getPrimaryColor();
                 else
                     Textbox.BackgroundColor = new Color(73, 94, 171);
 
                 if (style.BackgroundBorderColor.HasValue)
                     Textbox.BorderColor = style.BackgroundBorderColor.Value;
-                else if (CurrentCharacter.SecondaryColor.HasValue)
-                    Textbox.BorderColor = CurrentCharacter.SecondaryColor.Value;
+                else if (CurrentCharacter.SecondaryColor != null)
+                    Textbox.BorderColor = CurrentCharacter.getSecondaryColor();
                 else
                     Textbox.BorderColor = Color.Black;
             }
@@ -597,11 +579,10 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             Append(Textbox);
             if (!ModContent.GetInstance<DialogueUISystem>().swappingStyle)
             {
-                string key = TreeKey.Split("/")[1];
                 DialogueText DialogueText = new()
                 {
                     boxWidth = Textbox.Width.Pixels,
-                    Text = Language.GetTextValue(CurrentTree.LocalizationPath + key + ".Messages." + DialogueIndex)
+                    Text = CurrentDialogue.Text
                 };
                 if (CurrentDialogue.TextDelay > 0)
                     DialogueText.textDelay = CurrentDialogue.TextDelay;
@@ -614,9 +595,13 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
                 if (CurrentDialogue.Responses != null)
                 {
-                    Response[] availableResponses = CurrentDialogue.Responses.Where(r => r.Requirement).ToArray();
-                    int responseCount = availableResponses.Length;
-
+                    List<Response> availableResponses = [];
+                    for(int i = 0; i < CurrentDialogue.Responses.Length; i++)
+                    {
+                        if (!CurrentDialogue.Responses[i].HasRequirement || ResponseRequirementCheck.Invoke(TreeKey, DialogueIndex, i))
+                            availableResponses.Add(CurrentDialogue.Responses[i]);
+                    }
+                    int responseCount = availableResponses.Count;             
                     for (int i = 0; i < responseCount; i++)
                     {
                         UIPanel button = new();
@@ -624,8 +609,8 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
                         if (style.ButtonColor.HasValue)
                             color = style.ButtonColor.Value;
-                        else if (CurrentCharacter.PrimaryColor.HasValue)
-                            color = CurrentCharacter.PrimaryColor.Value;
+                        else if (CurrentCharacter.PrimaryColor != null)
+                            color = CurrentCharacter.getPrimaryColor();
                         else
                             color = new Color(73, 94, 171);
                         color.A = 125;
@@ -633,8 +618,8 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
                         if (style.ButtonBorderColor.HasValue)
                             button.BorderColor = style.ButtonBorderColor.Value;
-                        else if (CurrentCharacter.SecondaryColor.HasValue)
-                            button.BorderColor = CurrentCharacter.SecondaryColor.Value;
+                        else if (CurrentCharacter.SecondaryColor != null)
+                            button.BorderColor = CurrentCharacter.getSecondaryColor();
                         else
                             button.BorderColor = Color.Black;
 
@@ -643,12 +628,11 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         Append(button);
 
                         UIText text;
-
-                        key = TreeKey.Split("/")[1];
-                        if (availableResponses[i].Localize)
-                            text = new(Language.GetTextValue(CurrentTree.LocalizationPath + key + ".Responses." + availableResponses[i].Title), 0f);
-                        else
-                            text = new(availableResponses[i].Title, 0f);
+                        text = new(availableResponses[i].Title, 0f)
+                        {
+                            TextColor = availableResponses[i].getTextColor(),
+                            ShadowColor = availableResponses[i].getTextBorderColor()
+                        };
 
                         text.Width.Pixels = style.ButtonSize.X;
                         text.IsWrapped = true;
@@ -657,7 +641,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                         button.Append(text);
                         if (availableResponses[i].Cost != null)
                         {
-                            ItemStack cost = (ItemStack)availableResponses[i].Cost;
+                            ItemStack cost = availableResponses[i].Cost;
                             UIPanel costHolder = new()
                             {
                                 BorderColor = Color.Transparent,
@@ -671,7 +655,17 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                                 VAlign = 0.5f
                             };
 
-                            Texture2D itemTexture = (Texture2D)ModContent.Request<Texture2D>(ItemLoader.GetItem(cost.Type).Texture);
+                            int itemID = cost.ItemID;
+                            if (itemID == -1)
+                                itemID = cost.FetchItemID();
+                            if (itemID == -1) //If the ItemType is unable to be found, then break.
+                            {
+                                costHolder = null;
+                                stackText = null;
+                                continue;
+                            }
+
+                            Texture2D itemTexture = (Texture2D)ModContent.Request<Texture2D>(ItemLoader.GetItem(itemID).Texture);
                             UIImage itemIcon = new(itemTexture);
                             itemIcon.Width.Pixels = itemTexture.Width;
                             itemIcon.Height.Pixels = itemTexture.Height;
@@ -679,6 +673,9 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
                             itemIcon.Top.Pixels -= itemIcon.Height.Pixels / 2;
                             itemIcon.Left.Pixels -= itemIcon.Width.Pixels / 2;
+
+                            itemIcon.Left.Pixels -= (itemIcon.Width.Pixels * itemIcon.ImageScale) / 2;
+                            stackText.Left.Pixels += (itemIcon.Width.Pixels * itemIcon.ImageScale) / 2;
 
                             costHolder.Height.Pixels = 18f > stackText.Height.Pixels ? 24f : stackText.Height.Pixels;
                             costHolder.Width.Pixels = itemIcon.Width.Pixels * itemIcon.ImageScale + 15 * stackText.Text.Length;
@@ -693,16 +690,21 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                     }
                 }
 
-                style.PostUICreate(TreeKey, DialogueIndex, Textbox, Speaker, SubSpeaker);
+                style.PostUICreate(DialogueIndex, Textbox, Speaker, SubSpeaker);
                 ModContent.GetInstance<DialogueUISystem>().styleSwapped = false;
             }
             else
-                style.PostUICreate(TreeKey, DialogueIndex, Textbox, Speaker, SubSpeaker);
+                style.PostUICreate(DialogueIndex, Textbox, Speaker, SubSpeaker);
         }
         private static bool CanAffordCost(Player player, ItemStack price)
         {
             int amount = price.Stack;
-            foreach (Item item in player.inventory.Where(i => i.type == price.Type))
+            int itemID = price.ItemID;
+            if (itemID == -1)
+                itemID = price.FetchItemID();
+            if (itemID == -1) //If the ItemType is unable to be found, then returns false; as the player can't pay with something that doesn't exist :P
+                return false;
+            foreach (Item item in player.inventory.Where(i => i.type == itemID))
             {
                 if (item.stack >= amount)
                 {
@@ -714,7 +716,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             }
             if (amount == 0)
             {
-                foreach (Item item in player.inventory.Where(i => i.type == price.Type))
+                foreach (Item item in player.inventory.Where(i => i.type == itemID))
                 {
                     amount = price.Stack;
                     if (item.stack >= amount)
@@ -740,7 +742,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             Color[] data = new Color[input.Width * input.Height];
             Color[] flipped_data = new Color[data.Length];
 
-            input.GetData(data);
+            input.GetData<Color>(data);
 
             for (int x = 0; x < input.Width; x++)
             {
@@ -760,7 +762,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                 }
             }
 
-            flipped.SetData(flipped_data);
+            flipped.SetData<Color>(flipped_data);
 
             return flipped;
         }

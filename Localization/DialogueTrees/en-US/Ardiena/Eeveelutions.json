@@ -1,0 +1,123 @@
+{
+  "Dialogues": [
+    {
+      "Text": "What's your favorite Eeveelution?",
+      "Responses": [
+        {
+          "Title": "Flareon",
+          "Heading": 1,
+          "TextColor": "#FF6339"
+        },
+        {
+          "Title": "Jolteon",
+          "Heading": 2,
+          "TextColor": "#F3FF39",
+          "Cost": {
+            "SourceMod": "CalamityMod",
+            "ItemName": "Exoblade",
+            "Stack": 2
+          }
+        },
+        {
+          "Title": "Vaporeon",
+          "Heading": 3,
+          "TextColor": "#39A5FF"
+        }
+      ],
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "Aww, right on man. Totally tubular choice! A Flareon would be real helpful to have around, y'know.",
+      "Responses": [
+        {
+          "Title": "Thanks!"
+        }
+      ],
+      "ExpressionIndex": 1,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "Wow! Quite a shocking choice!",
+      "Responses": [
+        {
+          "Title": "Thanks!"
+        }
+      ],
+      "ExpressionIndex": 5,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "Okay, I'm dropping this.",
+      "Responses": [
+        {
+          "Title": "Oh..."
+        },
+        {
+          "Title": "Did you know-",
+          "Heading": 4
+
+        }
+      ],
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "[c/FF0000:You shall come to regret that choice.]",
+      "Responses": [
+        {
+          "Title": "You are...?",
+          "Heading": 5
+        }
+      ],
+      "CharacterIndex": 1,
+      "Music": {
+        "ModName": "CalamityModMusic",
+        "FilePath": "Sounds/Music/CalamitasClone"
+      }
+    },
+    {
+      "Text": "Who the hell are you?",
+      "ExpressionIndex": 4,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "...and why do you look like an Ogscule?",
+      "ExpressionIndex": 3,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    },
+    {
+      "Text": "[c/FF0000:...]",
+      "Responses": [
+        {
+          "Title": "What a weirdo, huh."
+        }
+      ],
+      "CharacterIndex": 1,
+      "Music": {
+        "ModName": "Cascade",
+        "FilePath": "Assets/Sounds/Music/ArdienaTheme"
+      }
+    }
+  ],
+  "Characters": [
+    "Ardiena",
+    "TheCalamity"
+  ]
+}

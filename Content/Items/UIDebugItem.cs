@@ -1,4 +1,4 @@
-﻿using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue;
+﻿using DialogueHelper.Content.UI.Dialogue;
 
 namespace Cascade.Content.Items
 {
@@ -6,10 +6,6 @@ namespace Cascade.Content.Items
     {
         public new string LocalizationCategory => "Items.Misc";
         public override string Texture => "CalamityMod/Items/Weapons/Magic/LightGodsBrilliance";
-        public override void SetStaticDefaults()
-        {
-            ModContent.GetInstance<DialogueUISystem>().ButtonClick += ClickEffect;
-        }
         public override void SetDefaults()
         {
             Item.width = 108;
@@ -22,10 +18,6 @@ namespace Cascade.Content.Items
         public override bool? UseItem(Player player)
         {            
             return true;
-        }
-        private static void ClickEffect(string treeKey, int dialogueID, int buttonID)
-        {
-            Main.NewText("A button has been clicked!");
         }
     }
 }

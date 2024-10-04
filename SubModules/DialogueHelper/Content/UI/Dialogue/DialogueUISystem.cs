@@ -1,23 +1,18 @@
-﻿using Cascade.SubModules.DialogueHelper.Content.UI.Dialogue.DialogueStyles;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria;
-using Terraria.ModLoader;
+﻿using DialogueHelper.Content.UI.Dialogue.DialogueStyles;
+using DialogueHelper.Content.UI.Dialogue;
+using System.Text.Json;
 using Terraria.UI;
+using System.IO;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria;
+using Steamworks;
 
-namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
+namespace DialogueHelper.Content.UI.Dialogue
 {
-    public static class DialogueHolder
-    {
-        public static Dictionary<string, Character> Characters = [];
-
-        public static Dictionary<string, string> CharacterAssetPathes = [];
-
-        public static Dictionary<string, DialogueTree> DialogueTrees = [];
-    }
-
     public delegate void DialogueNotifier(string treeKey, int dialogueID, int buttonID);
 
     public class DialogueUISystem : ModSystem
@@ -26,9 +21,13 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
         public UserInterface DialogueUI;
 
-        public Character? CurrentSpeaker = null;
+        public Mod DialogueSource = null;
 
-        public Character? SubSpeaker = null;
+        public DialogueTree CurrentTree = null;
+
+        public Character CurrentSpeaker = null;
+
+        public Character SubSpeaker = null;
 
         public DialogueNotifier ButtonClick;
 
@@ -53,8 +52,6 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
         public bool swappingStyle = false;
 
         public bool styleSwapped = false;
-
-        public int subSpeakerIndex = -1;
 
         public override void Load()
         {
@@ -97,7 +94,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             }
         }
 
-        public void DisplayDialogueTree(string TreeKey, int DialogueIndex = 0)
+        public void DisplayDialogueTree(Mod mod, string TreeKey, int DialogueIndex = 0)
         {
             isDialogueOpen = true;
             justOpened = true;
@@ -110,12 +107,44 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             styleSwapped = false;
 
             //Update the DialogueTree array with any new changes (use Hot Reload to apply changes to the function). Use this while testing out your dialogue so you dont have to restart the program every time you add something!
-            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeKey];
-            Dialogue currentDialogue = currentTree.Dialogues[DialogueIndex];
+            DialogueSource = mod;
+            string activeExtension = LanguageManager.Instance.ActiveCulture.Name;
+            string path = Path.Combine("Localization/DialogueTrees", activeExtension, TreeKey + ".json");
 
-            CurrentSpeaker = DialogueHolder.Characters[currentTree.Characters[currentDialogue.CharacterID]];
+            // Fall back to english if not found
+            if (!DialogueSource.FileExists(path))
+                path = Path.Combine("Localization/DialogueTrees", "en-US", TreeKey + ".json");
+
+            // Throw if we cant find english either
+            if (!DialogueSource.FileExists(path))
+                throw new FileNotFoundException($"Could not find the dialog file {path}.");
+
+            Stream stream = DialogueSource.GetFileStream(path);
+
+            CurrentTree = JsonSerializer.Deserialize<DialogueTree>(stream);
+
+            stream.Close();
+
+            Dialogue currentDialogue = CurrentTree.Dialogues[DialogueIndex];
+
+            activeExtension = LanguageManager.Instance.ActiveCulture.Name;
+            path = Path.Combine("Localization/Characters", activeExtension, CurrentTree.Characters[currentDialogue.CharacterIndex] + ".json");
+
+            // Fall back to english if not found
+            if (!DialogueSource.FileExists(path))
+                path = Path.Combine("Localization/Characters", "en-US", CurrentTree.Characters[currentDialogue.CharacterIndex] + ".json");
+
+            // Throw if we cant find english either
+            if (!DialogueSource.FileExists(path))
+                throw new FileNotFoundException($"Could not find the dialog file {path}.");
+
+            stream = DialogueSource.GetFileStream(path);
+
+            CurrentSpeaker = JsonSerializer.Deserialize<Character>(stream);
+
+            stream.Close();
+
             SubSpeaker = null;
-            subSpeakerIndex = -1;
 
             DialogueOpen?.Invoke(TreeKey, DialogueIndex, 0);
 
@@ -130,20 +159,56 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             DialogueUI?.SetState(DialogueUIState);
         }
 
-        public void UpdateDialogueUI(string TreeKey, int DialogueIndex)
+        public void UpdateDialogueUI(string treeKey, int DialogueIndex)
         {
-            int formerSpeakerIndex = DialogueHolder.DialogueTrees[DialogueUIState.TreeKey].Dialogues[DialogueUIState.DialogueIndex].CharacterID;
-            DialogueTree currentTree = DialogueHolder.DialogueTrees[TreeKey];
+            string activeExtension;
+            string path;
+            Stream stream;
+            #region Update Tree if new tree
+            if (treeKey != DialogueUIState.TreeKey)
+            {
+                activeExtension = LanguageManager.Instance.ActiveCulture.Name;
+                path = Path.Combine("Localization/DialogueTrees", activeExtension, treeKey + ".json");
 
-            Dialogue currentDialogue = currentTree.Dialogues[DialogueIndex];
-            //Main.NewText("Correct Speaker ID: " + currentTree.Characters[currentDialogue.CharacterIndex].ID);
-            //Main.NewText("Current ID: " + CurrentSpeaker.ID);
-            //Main.NewText("Subspeaker ID: " + SubSpeaker.ID);
+                // Fall back to english if not found
+                if (!DialogueSource.FileExists(path))
+                    path = Path.Combine("Localization/DialogueTrees", "en-US", "rizz.json");
 
-            if (DialogueHolder.Characters[currentTree.Characters[currentDialogue.CharacterID]].Style != ((Character)CurrentSpeaker).Style)
+                // Throw if we cant find english either
+                if (!DialogueSource.FileExists(path))
+                    throw new FileNotFoundException($"Could not find the dialog file {path}.");
+
+                stream = DialogueSource.GetFileStream(path);
+
+                CurrentTree = JsonSerializer.Deserialize<DialogueTree>(stream);
+
+                stream.Close();
+            }
+            #endregion
+            Dialogue currentDialogue = CurrentTree.Dialogues[DialogueIndex];
+
+            #region UpcomingSpeaker Assignment
+            activeExtension = LanguageManager.Instance.ActiveCulture.Name;
+            path = Path.Combine("Localization/Characters", activeExtension, CurrentTree.Characters[currentDialogue.CharacterIndex] + ".json");
+
+            // Fall back to english if not found
+            if (!DialogueSource.FileExists(path))
+                path = Path.Combine("Localization/Characters", "en-US", CurrentTree.Characters[currentDialogue.CharacterIndex] + ".json");
+
+            // Throw if we cant find english either
+            if (!DialogueSource.FileExists(path))
+                throw new FileNotFoundException($"Could not find the dialog file {path}.");
+            stream = DialogueSource.GetFileStream(path);
+
+            Character upcomingSpeaker = JsonSerializer.Deserialize<Character>(stream);
+
+            stream.Close();
+            #endregion
+
+            if (upcomingSpeaker.Style != CurrentSpeaker.Style)
                 swappingStyle = true;
 
-            if (currentTree.Characters[currentDialogue.CharacterID] == DialogueHolder.Characters.First(c => c.Value == CurrentSpeaker).Key)
+            if (upcomingSpeaker.Name == CurrentSpeaker.Name)
             {
                 //Main.NewText("Speaker Unchanged");
                 newSpeaker = false;
@@ -157,8 +222,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                 newSubSpeaker = true;
                 returningSpeaker = false;
                 SubSpeaker = CurrentSpeaker;
-                subSpeakerIndex = formerSpeakerIndex;
-                CurrentSpeaker = DialogueHolder.Characters[currentTree.Characters[currentDialogue.CharacterID]];
+                CurrentSpeaker = upcomingSpeaker;
                 speakerRight = !speakerRight;
             }
             else
@@ -169,7 +233,6 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
                 returningSpeaker = true;
                 Character temp = (Character)SubSpeaker;
                 SubSpeaker = CurrentSpeaker;
-                subSpeakerIndex = formerSpeakerIndex;
                 CurrentSpeaker = temp;
                 speakerRight = !speakerRight;
             }
@@ -180,7 +243,7 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
             DialogueUI = new();
             DialogueUIState = new()
             {
-                TreeKey = TreeKey,
+                TreeKey = treeKey,
                 DialogueIndex = DialogueIndex
             };
 
@@ -205,100 +268,111 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
     /// <returns>
     /// Represents a character able to be used within a <see cref="DialogueTree"/>.
     /// </returns>
-    public struct Character(string name, Expression[] expressions, float scale = 1f, Type style = null, int textDelay = 3, Color? primaryColor = null, Color? secondaryColor = null)
+    public class Character
     {
-        public string Name = name;
-        public float Scale = scale;
-        public Expression[] Expressions = expressions;
-        public Type Style = style ?? typeof(DefaultDialogueStyle);
-        public int TextDelay = textDelay;
-        public Color? PrimaryColor = primaryColor;
-        public Color? SecondaryColor = secondaryColor;
+        public string Name { get; set; }        
+        public Expression[] Expressions { get; set; }
+        public float Scale { get; set; } = 1f;
+        public string Style { get; set; } = "DialogueHelper.Content.UI.Dialogue.DialogueStyles.DefaultDialogueStyle";
+        public int TextDelay { get; set; } = 3;
+        public string PrimaryColor { get; set; } = null;
+        public string SecondaryColor { get; set; } = null;
 
-        public static bool operator ==(Character c1, Character c2) => c1.Equals(c2);
-
-        public static bool operator !=(Character c1, Character c2) => !c1.Equals(c2);
-
-        public override bool Equals(object obj)
+        public Color getPrimaryColor()
         {
-            if (obj == null) return false;
-            if (obj.GetType() != typeof(Character)) return false;
-            if (((Character)obj).Name != Name) return false;
-            if (((Character)obj).Scale != Scale) return false;
-            if (((Character)obj).Expressions != Expressions) return false;
-            if (((Character)obj).Style != Style) return false;
-            return true;
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(PrimaryColor);
+            int r = Convert.ToInt16(color.R);
+            int g = Convert.ToInt16(color.G);
+            int b = Convert.ToInt16(color.B);
+            return new Color(r, g, b);
         }
-
-        public override int GetHashCode()
+        public Color getSecondaryColor()
         {
-            throw new NotImplementedException();
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(SecondaryColor);
+            int r = Convert.ToInt16(color.R);
+            int g = Convert.ToInt16(color.G);
+            int b = Convert.ToInt16(color.B);
+            return new Color(r, g, b);
         }
     }
 
-    /// <param name="dialogues">The array of <see cref="Dialogue"/>s the Tree manages.</param>
-    /// <param name="characters">The array of <see cref="Character"/>s the Tree is able to use.</param>
-    /// <returns>
-    /// Represents a Dialogue Tree able to be displayed via the <see cref="DialogueUISystem.DisplayDialogueTree(int, int)"/> function./>s.
-    /// </returns>
-    public struct DialogueTree(Dialogue[] dialogues, string[] characters, string localizationPath)
+    public class Expression
     {
-        public Dialogue[] Dialogues = dialogues;
-        public string[] Characters = characters;
-        public string LocalizationPath = localizationPath;
+        public string Title { get; set; }
+        public string Path { get; set; }
+        public int FrameCount { get; set; } = 1;
+        public int FrameRate { get; set; } = 0;
+        public bool Loop { get; set; } = false;
+        public bool HasAnimateCondition { get; set; } = false;
     }
 
-    /// <param name="responses">The array of <see cref="Response"/>s the player can give. If set to null, clicking on the Textbox itself will proceed to the next Dialogue within the <see cref="DialogueTree"/> or close the Dialogue if there are no more dialogues Defaults to <see cref="null"/>. </param>
-    /// <param name="characterIndex">The index of a character within the <see cref="DialogueTree"/>'s <see cref="DialogueTree.Characters"/> array. Represents the character who will be speaking. Defaults to <see cref="0"/>, the first character in the <see cref="DialogueTree.Characters"/> array.</param>
-    /// <param name="expressionIndex">The index of an expression within a <see cref="Character"/>'s <see cref="Character.Expressions"/> array. Represents the expression, or asset, the character will use while speaking. Defaults to <see cref="0"/>, the first expression in the <see cref="Character.Expressions"/> array.</param>
-    /// <param name="textScaleX">Scales the size of the text horizontally. Defaults to <see cref="1.5f"/>.</param>
-    /// <param name="textScaleY">Scales the size of the text vertically. Defaults to <see cref="1.5f"/>.</param>
-    /// <param name="textDelay">The Text Delay associated with this character. Affects how long between characters appearing in the Textbox. Defaults to <see cref="-1"/>, causing it to use the delay associated with the current <see cref="Character"/> if no Character is speaking, it defaults to <see cref="3"/>.</param>
-    /// <param name="musicID">The ID of the music that will play during this dialogue. This shouldn't change too often throughout a tree. Defaults to <see cref="-1"/>, which wont interupt the current background music. </param>
-    /// <returns>
-    /// Represents a single dialogue state within a <see cref="DialogueTree"/>.
-    /// </returns>
-    public struct Dialogue(Response[] responses = null, int characterIndex = 0, int expressionIndex = 0, float textScaleX = 1.5f, float textScaleY = 1.5f, int textDelay = -1, int musicID = -1)
+    public class DialogueTree
     {
-        public Response[] Responses = responses;
-        public int CharacterID = characterIndex;
-        public int ExpressionIndex = expressionIndex;
-        public Vector2 TextScale = new(textScaleX, textScaleY);
-        public int TextDelay = textDelay;
-        public int MusicID = musicID;
+        public Dialogue[] Dialogues { get; set; }
+        public string[] Characters { get; set; }
+        public bool Important { get; set; } = true;
     }
 
-    /// <param name="title">The text displayed on the Response Button.</param>
-    /// <param name="dialogueIndex">The index within the <see cref="DialogueTree.Dialogues"/> array this response leads to. Defaults to <see cref="-1"/>, which closes the dialogue.</param>
-    /// <param name="requirement">A <see cref="bool"/> which determines whether or not this response can appear as an option Defaults to <see cref="true"/>.</param>
-    /// <param name="cost">A <see cref="ItemStack"/> which applys a cost that is needed in order to select that response Defaults to <see cref="null"/>, meaning there is no cost.</param>
-    /// <param name="dismissSubSpeaker">A <see cref="bool"/> which will remove the current SubSpeaker, if there is one, from the dialogue when this response is selected.</param>
-    /// <returns>
-    /// Represents a response the player is able to give to a <see cref="Dialogue"/>./>s.
-    /// </returns>
-    public struct Response(string title, int dialogueIndex = -1, bool requirement = true, ItemStack? cost = null, bool dismissSubSpeaker = false, bool localize = true)
+    public class Dialogue
     {
-        public string Title = title;
-        public bool Localize = localize;
-        public int DialogueIndex = dialogueIndex;
-        public bool Requirement = requirement;
-        public ItemStack? Cost = cost;
-        public bool DismissSubSpeaker = dismissSubSpeaker;
+        public string Text { get; set; }
+        public Response[] Responses { get; set; } = [];
+        public int CharacterIndex { get; set; } = 0;
+        public int ExpressionIndex { get; set; } = 0;
+        public float TextScale { get; set; } = 1.5f;
+        public int TextDelay { get; set; } = 3;
+        public Music Music { get; set; } = null;
     }
 
-    public struct Expression(string title, int frameCount, int frameRate, bool loop = true, bool animateCondition = true)
+    public class Response
     {
-        public string Title = title;
-        public int FrameCount = frameCount;
-        public int FrameRate = frameRate;
-        public bool Loop = loop;
-        public bool AnimateCondition = frameCount != 1 && animateCondition;
+        public string Title { get; set; }
+        public int Heading { get; set; } = -1;
+        public string TextColor { get; set; } = "#FFFFFF";
+        public string TextBorderColor { get; set; } = "#000000";
+        public string SwapToTreeKey { get; set; } = null;
+        public bool HasRequirement { get; set; } = false;
+        public ItemStack Cost { get; set; } = null;
+        public bool DismissSubSpeaker { get; set; } = false;
+        
+        public Color getTextColor()
+        {
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(TextColor);
+            int r = Convert.ToInt16(color.R);
+            int g = Convert.ToInt16(color.G);
+            int b = Convert.ToInt16(color.B);
+            return new Color(r, g, b);
+        }
+        public Color getTextBorderColor()
+        {
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(TextBorderColor);
+            int r = Convert.ToInt16(color.R);
+            int g = Convert.ToInt16(color.G);
+            int b = Convert.ToInt16(color.B);
+            return new Color(r, g, b);
+        }
     }
-
-    public struct ItemStack(int id, int stack)
+    public class Music
     {
-        public int Type = id;
-        public int Stack = stack;
+        public string ModName { get; set; }
+        public string FilePath { get; set; }
+    }
+    public class ItemStack
+    {
+        public int ItemID { get; set; } = -1;
+        public string SourceMod { get; set; } = null;
+        public string ItemName { get; set; } = null;
+        public int Stack { get; set; } = 1;
+
+        public int FetchItemID()
+        {
+            if(ItemID != -1)
+                return ItemID;
+            Mod mod = ModLoader.GetMod(SourceMod);
+            if (!mod.TryFind<ModItem>(ItemName, out ModItem item))
+                return -1;
+            return item.Type;
+        }
     }
     #endregion
 }

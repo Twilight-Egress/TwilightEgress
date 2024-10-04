@@ -1,7 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
+using Terraria;
 
-namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
+namespace DialogueHelper.Content.UI.Dialogue
 {
     public class DialogueMusicPlayer : ModPlayer
     {
@@ -12,10 +12,11 @@ namespace Cascade.SubModules.DialogueHelper.Content.UI.Dialogue
 
             DialogueUISystem dialogueUISystem = ModContent.GetInstance<DialogueUISystem>();
             DialogueUIState UI = dialogueUISystem.DialogueUIState;
-            Dialogue CurrentDialogue = DialogueHolder.DialogueTrees[UI.TreeKey].Dialogues[UI.DialogueIndex];
-            if (CurrentDialogue.MusicID == -1 || !(!Main.gameMenu && !Main.dedServ))
+            Dialogue CurrentDialogue = dialogueUISystem.CurrentTree.Dialogues[UI.DialogueIndex];
+            if (CurrentDialogue.Music == null || !(!Main.gameMenu && !Main.dedServ))
                 return;
-            Main.musicBox2 = CurrentDialogue.MusicID;
+            int MusicID = MusicLoader.GetMusicSlot(ModLoader.GetMod(CurrentDialogue.Music.ModName), CurrentDialogue.Music.FilePath);
+            Main.musicBox2 = MusicID;
         }
     }
 }

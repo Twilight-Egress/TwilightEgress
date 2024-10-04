@@ -1,3 +1,6 @@
-[submodule "DialogueHelper"]
+[submodule "SubModules/DialogueHelper"]
 	path = SubModules/DialogueHelper
+	url = https://github.com/BigE957/DialogueHelper
+[submodule "SubModules/Dialoguehelper"]
+	path = SubModules/Dialoguehelper
 	url = https://github.com/BigE957/DialogueHelper

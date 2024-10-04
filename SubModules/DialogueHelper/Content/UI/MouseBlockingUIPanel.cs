@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 
-namespace Cascade.SubModules.DialogueHelper.Content.UI
+namespace DialogueHelper.Content.UI
 {
     public class MouseBlockingUIPanel : UIPanel
     {
