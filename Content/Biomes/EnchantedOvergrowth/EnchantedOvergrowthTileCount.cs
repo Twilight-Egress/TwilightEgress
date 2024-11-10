@@ -7,19 +7,9 @@ namespace TwilightEgress.Content.Biomes.EnchantedOvergrowth
     {
         public int overgrowthTileCount;
 
-        public int[] overgrowthTiles = 
-        [
-            ModContent.TileType<OvergrowthDirt>(),
-            ModContent.TileType<OvergrowthGrass>(),
-            ModContent.TileType<Manastone>()
-        ];
-
         public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
         {
-            foreach (int tileType in overgrowthTiles) 
-            {
-                overgrowthTileCount += tileCounts[tileType];
-            }
+            overgrowthTileCount = tileCounts[ModContent.TileType<OvergrowthDirt>()];
         }
     }
 }

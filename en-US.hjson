@@ -111,5 +111,12 @@ Mods: {
 				TownNPCDialogueName: the Enchanted Overgrowth
 			}
 		}
+
+		Biomes: {
+			EnchantedOvergrowth: {
+				DisplayName: Enchanted Overgrowth
+				TownNPCDialogueName: the Enchanted Overgrowth
+			}
+		}
 	}
 }
