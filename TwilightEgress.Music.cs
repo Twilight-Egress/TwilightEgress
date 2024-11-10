@@ -25,6 +25,7 @@ namespace TwilightEgress
                 AddMusic("Assets/Sounds/Music/SupercellRogue", "Supercell Rogue", "Sidetracked");
                 AddMusic("Assets/Sounds/Music/YourSilhouette", "Your Silhouette", "Sidetracked");
                 AddMusic("Assets/Sounds/Music/CosmostoneShowers", "Comet Dust", "ENNWAY!");
+                AddMusic("Assets/Sounds/Music/Overgrowth", "Just a Sprinkle of Mercury", "Sidetracked");
             }
         }
     }

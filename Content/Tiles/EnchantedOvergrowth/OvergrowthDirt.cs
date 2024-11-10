@@ -2,7 +2,6 @@
 {
     public class OvergrowthDirt : ModTile
     {
-
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
