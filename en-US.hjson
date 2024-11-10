@@ -22,8 +22,8 @@ Mods: {
 					Tooltip: ""
 				}
 
-				SilicateClusterBrickItem: {
-					DisplayName: Silicate Cluster Brick Item
+				OvergrowthGrassSeeds: {
+					DisplayName: Overgrowth Grass Seeds
 					Tooltip: ""
 				}
 			}
