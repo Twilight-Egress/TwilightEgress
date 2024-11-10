@@ -1,11 +1,17 @@
-using Terraria.ID;
+<<<<<<<< HEAD:Content/Items/EnchantedOvergrowth/ManaGrassSeeds.cs
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.EnchantedOvergrowth
+========
+﻿namespace TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth
+>>>>>>>> 3546090 (add overgrowth dirt):Content/Items/Placeable/EnchantedOvergrowth/OvergrowthGrassSeeds.cs
 {
     public class OvergrowthGrassSeeds : ModItem, ILocalizedModType
     {
-        public override string LocalizationCategory => "Items.EnchantedOvergrowth";
+        public new string LocalizationCategory => "Items.Placeables";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
