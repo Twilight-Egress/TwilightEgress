@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Buffs.Minions;
+﻿using TwilightEgress.Content.Buffs.Minions;
 
-namespace Cascade.Content.Items.Dedicated.MPG
+namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class UnderworldLantern : ModProjectile, ILocalizedModType
     {
@@ -98,7 +98,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
         public void DoBehavior_Idle()
         {
             int timeBeforeSwitchingAI = 30;
-            ref float idleAngle = ref Projectile.Cascade().ExtraAI[IdleAngleIndex];
+            ref float idleAngle = ref Projectile.TwilightEgress().ExtraAI[IdleAngleIndex];
 
             // Get a list of all active Underworld Lanterns and sort them according to their 
             // minionPos field. Then, get the proper order of each minion and space them
@@ -136,7 +136,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
             if (foundTarget)
             {
                 TargetToChase = target;
-                Projectile.Cascade().SpecificNPCTypeToCheckOnHit = target.type;
+                Projectile.TwilightEgress().SpecificNPCTypeToCheckOnHit = target.type;
             }
 
             if (Timer >= timeBeforeSwitchingAI && !foundTarget)
@@ -202,7 +202,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
                     Projectile.AdjustProjectileHitboxByScale(42f, 50f);
 
                     // Switch if time is up or the Lantern has hit the target.
-                    if (Timer == chaseTime || !TargetToChase.active || Projectile.Cascade().HasStruckSpecificNPC)
+                    if (Timer == chaseTime || !TargetToChase.active || Projectile.TwilightEgress().HasStruckSpecificNPC)
                     {
                         LocalAIState = 2f;
                         Timer = 0f;
@@ -220,9 +220,9 @@ namespace Cascade.Content.Items.Dedicated.MPG
                 // Ease back to the player and fade out.
                 if (Timer <= returnTime)
                 {
-                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, CascadeUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.scale = Lerp(Projectile.scale, 1f, CascadeUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, CascadeUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
                 }
 
                 // Head back to usual idle AI.
@@ -253,7 +253,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (target.type == Projectile.Cascade().SpecificNPCTypeToCheckOnHit.Value)
+            if (target.type == Projectile.TwilightEgress().SpecificNPCTypeToCheckOnHit.Value)
             {
                 SoundEngine.PlaySound(CommonCalamitySounds.LouderSwingWoosh);
 
@@ -278,8 +278,8 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public void AnimateSpirit()
         {
-            ref float undeadSpiritFrame = ref Projectile.Cascade().ExtraAI[UndeadSpiritFrameIndex];
-            ref float undeadSpiritFrameCounter = ref Projectile.Cascade().ExtraAI[UndeadSpiritFrameCounterIndex];
+            ref float undeadSpiritFrame = ref Projectile.TwilightEgress().ExtraAI[UndeadSpiritFrameIndex];
+            ref float undeadSpiritFrameCounter = ref Projectile.TwilightEgress().ExtraAI[UndeadSpiritFrameCounterIndex];
 
             undeadSpiritFrameCounter++;
             if (undeadSpiritFrameCounter >= 4f)
@@ -293,8 +293,8 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float undeadSpiritFrame = ref Projectile.Cascade().ExtraAI[UndeadSpiritFrameIndex];
-            ref float undeadSpiritFrameCounter = ref Projectile.Cascade().ExtraAI[UndeadSpiritFrameCounterIndex];
+            ref float undeadSpiritFrame = ref Projectile.TwilightEgress().ExtraAI[UndeadSpiritFrameIndex];
+            ref float undeadSpiritFrameCounter = ref Projectile.TwilightEgress().ExtraAI[UndeadSpiritFrameCounterIndex];
 
             Texture2D baseTexture = TextureAssets.Projectile[Type].Value;
             Texture2D spiritTexture = TextureAssets.Npc[NPCID.PirateGhost].Value;

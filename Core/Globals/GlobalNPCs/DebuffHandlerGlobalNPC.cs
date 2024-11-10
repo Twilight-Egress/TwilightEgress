@@ -1,4 +1,4 @@
-﻿namespace Cascade.Core.Globals.GlobalNPCs
+﻿namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
     public class DebuffHandlerGlobalNPC : GlobalNPC
     {

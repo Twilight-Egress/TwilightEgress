@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Buffs.Debuffs
+﻿namespace TwilightEgress.Content.Buffs.Debuffs
 {
     public class CurseOfNecromancy : ModBuff, ILocalizedModType
     {
@@ -16,7 +16,7 @@
 
         public override void Update(Player Player, ref int buffIndex)
         {
-            Player.Cascade_Buffs().CurseOfNecromancy = true;
+            Player.TwilightEgress_Buffs().CurseOfNecromancy = true;
             if (Main.CurrentFrameFlags.AnyActiveBossNPC)
                 Player.buffTime[buffIndex] = 18000;
 

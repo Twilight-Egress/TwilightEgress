@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cascade.Content.Items.Weapons.Ranged.SailorsSingularity
+namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {
     public class SailorBlast : ModProjectile
     {

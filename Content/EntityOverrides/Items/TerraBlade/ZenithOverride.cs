@@ -1,6 +1,6 @@
 using CalamityMod.Items.Materials;
 
-namespace Cascade.Content.EntityOverrides.Items.TerraBlade
+namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {
     public class ZenithOverride : ItemOverride
     {

@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Weapons.Melee
+﻿namespace TwilightEgress.Content.Items.Weapons.Melee
 {
     public class TestSword : ModItem, ILocalizedModType
     {

@@ -1,14 +1,14 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Projectiles.Ambient
+namespace TwilightEgress.Content.Projectiles.Ambient
 {
     public class Comet : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
         public new string LocalizationCategory => "Projectiles.Ambient";
 
-        public override string Texture => "Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall";
+        public override string Texture => "TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall";
 
-        public override string GlowTexture => "Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask";
+        public override string GlowTexture => "TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask";
 
         public override void SetStaticDefaults()
         {
@@ -90,10 +90,10 @@ namespace Cascade.Content.Projectiles.Ambient
 
             Main.spriteBatch.PrepareForShaders();
 
-            ManagedShader shader = ShaderManager.GetShader("Cascade.ManaPaletteShader");
+            ManagedShader shader = ShaderManager.GetShader("TwilightEgress.ManaPaletteShader");
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
-            shader.TrySetParameter("palette", CascadeUtilities.CosmostonePalette);
+            shader.TrySetParameter("palette", TwilightEgressUtilities.CosmostonePalette);
             shader.Apply();
             Main.spriteBatch.Draw(glowmask, position, sourceRectangle, color, rotation, origin, scale, effects, worthless);
             Main.spriteBatch.ResetToDefault();
@@ -108,7 +108,7 @@ namespace Cascade.Content.Projectiles.Ambient
 
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
             smoothTrail.SetTexture(TextureAssets.Extra[ExtrasID.FlameLashTrailShape], 1);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly * 2.5f);
 

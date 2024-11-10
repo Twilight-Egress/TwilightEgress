@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class SpiritFlame : ModProjectile, ILocalizedModType
     {
@@ -46,8 +46,8 @@
             if (Timer <= fadeinTime)
             {
                 Projectile.velocity *= 0.9f;
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, CascadeUtilities.SineEaseInOut(Timer / fadeinTime));
-                Projectile.scale = Lerp(Projectile.scale, 1f, CascadeUtilities.SineEaseInOut(Timer / fadeinTime));
+                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
+                Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
             }
 
             // Move towards nearby targets.
@@ -56,7 +56,7 @@
                 Projectile.SimpleMove(closestTarget.Center, 20f, 60f);
 
                 Vector2 dustPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
-                CascadeUtilities.CreateDustLoop(2, dustPosition, Vector2.Zero, DustID.Shadowflame);
+                TwilightEgressUtilities.CreateDustLoop(2, dustPosition, Vector2.Zero, DustID.Shadowflame);
             }
 
             Timer++;
@@ -66,7 +66,7 @@
 
         public override void OnKill(int timeLeft)
         {
-            CascadeUtilities.CreateRandomizedDustExplosion(20, Projectile.Center, DustID.Shadowflame);
+            TwilightEgressUtilities.CreateRandomizedDustExplosion(20, Projectile.Center, DustID.Shadowflame);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
         }
 

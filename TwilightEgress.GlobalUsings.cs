@@ -26,11 +26,11 @@ global using ReLogic.Content;
 global using CalamityMod;
 global using CalamityMod.Sounds;
 
-global using Cascade.Assets.Sounds;
-global using Cascade.Assets.ExtraTextures;
-global using Cascade.Core.EntityOverridingSystem;
-global using Cascade.Core.Graphics.GraphicalObjects.Particles;
-global using Cascade.Content.Particles;
+global using TwilightEgress.Assets.Sounds;
+global using TwilightEgress.Assets.ExtraTextures;
+global using TwilightEgress.Core.EntityOverridingSystem;
+global using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+global using TwilightEgress.Content.Particles;
 global using Luminance.Assets;
 global using Luminance.Common.Easings;
 global using Luminance.Common.Utilities;

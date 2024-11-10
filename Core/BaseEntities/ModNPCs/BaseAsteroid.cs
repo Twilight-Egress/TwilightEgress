@@ -1,10 +1,10 @@
-﻿namespace Cascade.Core.BaseEntities.ModNPCs
+﻿namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
     public abstract class BaseAsteroid : ModNPC
     {
-        public ref float RotationSpeedSpawnFactor => ref NPC.Cascade().ExtraAI[0];
+        public ref float RotationSpeedSpawnFactor => ref NPC.TwilightEgress().ExtraAI[0];
 
-        public ref float MaxTime => ref NPC.Cascade().ExtraAI[1];
+        public ref float MaxTime => ref NPC.TwilightEgress().ExtraAI[1];
 
         public ref float Timer => ref NPC.ai[0];
 
@@ -18,7 +18,7 @@
         public override bool PreAI()
         {
             // Add to the global list of classes that inherit this base class.
-            Cascade.BaseAsteroidInheriters.AddWithCondition(NPC, !Cascade.BaseAsteroidInheriters.Contains(NPC));
+            TwilightEgress.BaseAsteroidInheriters.AddWithCondition(NPC, !TwilightEgress.BaseAsteroidInheriters.Contains(NPC));
             SafePreAI();
             return true;
         }
@@ -90,7 +90,7 @@
 
         public sealed override bool? CanBeHitByProjectile(Projectile projectile)
         {
-            if (!Cascade.PickaxeProjectileIDs.Contains(projectile.type))
+            if (!TwilightEgress.PickaxeProjectileIDs.Contains(projectile.type))
                 return false;
             return null;
         }

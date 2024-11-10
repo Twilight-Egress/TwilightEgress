@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Events.CosmostoneShowers;
+﻿using TwilightEgress.Content.Events.CosmostoneShowers;
 
-namespace Cascade.Content.Skies
+namespace TwilightEgress.Content.Skies
 {
     public class CosmostoneShowersSceneEffect : ModSceneEffect
     {
@@ -10,7 +10,7 @@ namespace Cascade.Content.Skies
 
         public override bool IsSceneEffectActive(Player player) => player.ZoneCosmostoneShowers();
 
-        public override void SpecialVisuals(Player player, bool isActive) => player.ManageSpecialBiomeVisuals("Cascade:CosmostoneShowers", isActive);
+        public override void SpecialVisuals(Player player, bool isActive) => player.ManageSpecialBiomeVisuals("TwilightEgress:CosmostoneShowers", isActive);
     }
 
     public class CosmostoneShowersSky : CustomSky

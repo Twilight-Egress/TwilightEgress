@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Dedicated.Fluffy;
+﻿using TwilightEgress.Content.Items.Dedicated.Fluffy;
 
-namespace Cascade.Content.Items.Dedicated.Jacob
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class Tanksplosion : Bastsplosion, ILocalizedModType
     {

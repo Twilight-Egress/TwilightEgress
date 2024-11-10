@@ -1,9 +1,9 @@
 ﻿using Terraria.Utilities;
 using static Terraria.Utilities.NPCUtils;
 
-namespace Cascade
+namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
         /// <summary>
         /// A method used for spawning projectiles that also caters for updating projectiles on the network and playing sounds.

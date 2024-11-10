@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Players;
+﻿using TwilightEgress.Core.Players;
 
-namespace Cascade.Core.Systems
+namespace TwilightEgress.Core.Systems
 {
     public class OrbitalGravitySystem : ModSystem
     {

@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Fluffy
+﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class GiantBastStatue : ModProjectile, ILocalizedModType
     {
@@ -10,7 +10,7 @@
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => "Cascade/Content/Items/Dedicated/Fluffy/HomingBastStatue";
+        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Fluffy/HomingBastStatue";
 
         public override void SetStaticDefaults()
         {

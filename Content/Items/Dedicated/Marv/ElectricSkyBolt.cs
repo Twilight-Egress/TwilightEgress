@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Items.Dedicated.Marv
+namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ElectricSkyBolt : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -14,7 +14,7 @@ namespace Cascade.Content.Items.Dedicated.Marv
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "Cascade/Assets/ExtraTextures/GreyscaleObjects/SoftStar";
+        public override string Texture => "TwilightEgress/Assets/ExtraTextures/GreyscaleObjects/SoftStar";
 
         public override void SetStaticDefaults() => ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
 
@@ -45,7 +45,7 @@ namespace Cascade.Content.Items.Dedicated.Marv
             if (Timer is 1f)
             {
                 // Generate the positions for the lightning bolt.
-                StrikePositions = CascadeUtilities.CreateLightningBoltPoints(Projectile.Center, StrikePosition);
+                StrikePositions = TwilightEgressUtilities.CreateLightningBoltPoints(Projectile.Center, StrikePosition);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), StrikePosition, Vector2.Zero, ModContent.ProjectileType<ElectricSkyBoltExplosion>(), Projectile.damage, Projectile.knockBack, Owner: Projectile.owner);
                 int numOfMist = Main.rand.Next(5, 10);
@@ -56,7 +56,7 @@ namespace Cascade.Content.Items.Dedicated.Marv
                 }
 
                 bool correctPlayerName = owner.name == "Marv" || owner.name == "EmolgaLover";
-                SoundStyle lightning = correctPlayerName ? CascadeSoundRegistry.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
+                SoundStyle lightning = correctPlayerName ? TwilightEgressSoundRegistry.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(lightning, StrikePosition);
                 Projectile.netUpdate = true;
             }

@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Cooldowns;
 
-namespace Cascade.Content.Cooldowns
+namespace TwilightEgress.Content.Cooldowns
 {
     public class MechonSlayerArtSelection : CooldownHandler
     {
@@ -10,9 +10,9 @@ namespace Cascade.Content.Cooldowns
 
         public override bool ShouldPlayEndSound => true;
 
-        public override LocalizedText DisplayName => Language.GetText($"Mods.Cascade.UI.Cooldowns.{ID}");
+        public override LocalizedText DisplayName => Language.GetText($"Mods.TwilightEgress.UI.Cooldowns.{ID}");
 
-        public override string Texture => "Cascade/Content/Cooldowns/MechonSlayerArtSelection";
+        public override string Texture => "TwilightEgress/Content/Cooldowns/MechonSlayerArtSelection";
 
         public override Color OutlineColor => Color.DarkBlue;
 

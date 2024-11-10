@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class SwordSlashParticle : CasParticle
     {
@@ -10,7 +10,7 @@
 
         private Color BloomColor;
 
-        public override string AtlasTextureName => "Cascade.LightStreak.png";
+        public override string AtlasTextureName => "TwilightEgress.LightStreak.png";
 
         public override BlendState BlendState => BlendState.Additive;
 

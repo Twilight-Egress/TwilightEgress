@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Skies
+﻿namespace TwilightEgress.Content.Skies
 {
     public class IceQueenSceneEffect : ModSceneEffect
     {
@@ -8,7 +8,7 @@
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Cascade:IceQueen", isActive);
+            player.ManageSpecialBiomeVisuals("TwilightEgress:IceQueen", isActive);
         }
     }
 
@@ -90,7 +90,7 @@
 
         public override void OnLoad()
         {
-            GlowStarTexture = CascadeTextureRegistry.SoftStar.Value;
+            GlowStarTexture = TwilightEgressTextureRegistry.SoftStar.Value;
         }
 
         public override void Update(GameTime gameTime)
@@ -131,11 +131,11 @@
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Asset<Texture2D> noiseTexture = CascadeTextureRegistry.PerlinNoise3;
+            Asset<Texture2D> noiseTexture = TwilightEgressTextureRegistry.PerlinNoise3;
             Asset<Texture2D> noiseTexture2 = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
             CalamityUtils.EnterShaderRegion(Main.spriteBatch, BlendState.Additive);
 
-            ManagedShader shader = ShaderManager.GetShader("Cascade.NoisyVignette");
+            ManagedShader shader = ShaderManager.GetShader("TwilightEgress.NoisyVignette");
             shader.SetTexture(noiseTexture, 1);
             shader.SetTexture(noiseTexture2, 2);
             shader.TrySetParameter("time", Main.GlobalTimeWrappedHourly / 10f);
@@ -156,7 +156,7 @@
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.Additive);
                 Vector2 drawPosition = GlowStars[i].Position - Main.screenPosition;
                 spriteBatch.Draw(TextureAssets.Extra[49].Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 2f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(CascadeTextureRegistry.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
+                spriteBatch.Draw(TwilightEgressTextureRegistry.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.AlphaBlend);
             }
         }

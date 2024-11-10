@@ -4,10 +4,10 @@ using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using Cascade.Content.Buffs.Debuffs;
-using Cascade.Content.Projectiles.Misc;
+using TwilightEgress.Content.Buffs.Debuffs;
+using TwilightEgress.Content.Projectiles.Misc;
 
-namespace Cascade.Content.Items.Dedicated.MPG
+namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MoonSpiritKhakkhara : ModItem, ILocalizedModType
     {
@@ -68,7 +68,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
             if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<UnderworldLantern>()] > 0)
             {
                 SpawnSkulls(player);
-                player.Cascade_Buffs().CurseOfNecromancyMinionSlotStack++;
+                player.TwilightEgress_Buffs().CurseOfNecromancyMinionSlotStack++;
                 player.AddBuff(ModContent.BuffType<CurseOfNecromancy>(), 3600);
                 lantern.Kill();
             }

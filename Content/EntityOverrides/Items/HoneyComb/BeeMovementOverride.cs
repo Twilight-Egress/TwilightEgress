@@ -1,4 +1,4 @@
-namespace Cascade.Content.EntityOverrides.Items.HoneyComb
+namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 {
     public class BeeMovementOverride : ItemOverride
     {
@@ -11,7 +11,7 @@ namespace Cascade.Content.EntityOverrides.Items.HoneyComb
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
 	    {
-            player.Cascade_BeeFlightTimeBoost().BeeFlightBoost = 2; 
+            player.TwilightEgress_BeeFlightTimeBoost().BeeFlightBoost = 2; 
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

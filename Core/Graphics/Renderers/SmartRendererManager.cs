@@ -1,4 +1,4 @@
-﻿namespace Cascade.Core.Graphics.Renderers
+﻿namespace TwilightEgress.Core.Graphics.Renderers
 {
     public class SmartRendererManager : ModSystem
     {

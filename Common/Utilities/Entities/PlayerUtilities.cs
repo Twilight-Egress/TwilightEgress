@@ -1,9 +1,9 @@
-﻿using Cascade.Content.Events;
-using Cascade.Content.Events.CosmostoneShowers;
+﻿using TwilightEgress.Content.Events;
+using TwilightEgress.Content.Events.CosmostoneShowers;
 
-namespace Cascade
+namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
         public static bool ZoneCosmostoneShowers(this Player player) => EventHandlerManager.SpecificEventIsActive<CosmostoneShowerEvent>() && (player.ZoneOverworldHeight || player.ZoneSkyHeight);
 

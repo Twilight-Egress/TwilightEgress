@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Particles
+namespace TwilightEgress.Content.Particles
 {
     public class LightningArcParticle : CasParticle
     {
@@ -18,7 +18,7 @@ namespace Cascade.Content.Particles
 
         public List<Vector2> LightningPoints;
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public LightningArcParticle(Vector2 basePosition, Vector2 endPosition, float pointDisplacementVariance, float jaggednessNumerator, float scale, Color color, int lifespan, bool useSmoothening = false, bool additiveBlending = true)
         {
@@ -38,7 +38,7 @@ namespace Cascade.Content.Particles
             if (!Initialized)
             {
                 Initialized = true;
-                LightningPoints = CascadeUtilities.CreateLightningBoltPoints(Position, EndPosition, PointDisplacementVariance, JaggednessNumerator);
+                LightningPoints = TwilightEgressUtilities.CreateLightningBoltPoints(Position, EndPosition, PointDisplacementVariance, JaggednessNumerator);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Cascade.Content.Particles
         public override void Draw(SpriteBatch spriteBatch)
         {
             ShaderManager.TryGetShader("Luminance.StandardPrimitiveShader", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.ThinGlowStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.ThinGlowStreak, 1, SamplerState.LinearWrap);
 
             PrimitiveSettings settings = new(LightningWidthFunction, LightningColorFunction, null, false, false, smoothTrail);
             PrimitiveRenderer.RenderTrail(LightningPoints, settings, LightningPoints.Count);

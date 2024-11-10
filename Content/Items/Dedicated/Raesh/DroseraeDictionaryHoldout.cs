@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Raesh
+﻿namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class DroseraeDictionaryHoldout : ModProjectile, ILocalizedModType
     {
@@ -16,7 +16,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => CascadeUtilities.EmptyPixelPath;
+        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
 
         public override void SetStaticDefaults()
         {
@@ -40,9 +40,9 @@
 
         public override void AI()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleRotation = ref Projectile.Cascade().ExtraAI[RitualCircleRotationIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleRotation = ref Projectile.TwilightEgress().ExtraAI[RitualCircleRotationIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             bool manaIsAvailable = Owner.CheckMana(Owner.HeldItem.mana);
             bool weaponIsInUse = manaIsAvailable && Owner.PlayerIsChannelingWithItem(ModContent.ItemType<DroseraeDictionary>());
@@ -81,7 +81,7 @@
 
                 float damageScaleFactor = Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
                 int damage = Projectile.originalDamage.GetPercentageOfInteger(damageScaleFactor);
-                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, CascadeSoundRegistry.FlytrapMawSpawn, null, Projectile.owner);
+                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, TwilightEgressSoundRegistry.FlytrapMawSpawn, null, Projectile.owner);
 
                 Owner.ConsumeManaManually(Owner.HeldItem.mana);
                 ParticleBurst();
@@ -123,7 +123,7 @@
                 Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.375f, Projectile.height * 0.485f);
                 Color dustColor = Color.Lerp(Color.Crimson, Color.DarkRed, Main.rand.NextFloat());
                 float dustScale = Main.rand.NextFloat(0.65f, 1f);
-                CascadeUtilities.CreateDustLoop(3, spawnPosition, Vector2.Zero, 264, dustScale: dustScale, dustColor: dustColor);
+                TwilightEgressUtilities.CreateDustLoop(3, spawnPosition, Vector2.Zero, 264, dustScale: dustScale, dustColor: dustColor);
             }
         }
 
@@ -146,9 +146,9 @@
 
         public void DrawRitualCircle()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleRotation = ref Projectile.Cascade().ExtraAI[RitualCircleRotationIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleRotation = ref Projectile.TwilightEgress().ExtraAI[RitualCircleRotationIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             Texture2D ritualCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredRitualCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;

@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Jacob
+﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class DetonatingDraedonHeart : ModProjectile, ILocalizedModType
     {
@@ -54,13 +54,13 @@
 
         public override void AI()
         {
-            ref float pulseRingInitialScale = ref Projectile.Cascade().ExtraAI[PulseRingInitialScaleIndex];
-            ref float heartBackglowOpacity = ref Projectile.Cascade().ExtraAI[HeartBackglowOpacityIndex];
-            ref float heartBackglowRadius = ref Projectile.Cascade().ExtraAI[HeartBackglowRadiusIndex];
+            ref float pulseRingInitialScale = ref Projectile.TwilightEgress().ExtraAI[PulseRingInitialScaleIndex];
+            ref float heartBackglowOpacity = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowOpacityIndex];
+            ref float heartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowRadiusIndex];
 
             if (Timer <= MaxChargeTime)
             {
-                Projectile.scale = Lerp(Projectile.scale, 1.5f, CascadeUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.scale = Lerp(Projectile.scale, 1.5f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
             }
 
             if (Timer >= MaxChargeTime && Timer <= MaxChargeTime + DetonationDelay + (int)RandomizedExplosionDelay && Timer % 5 == 0)
@@ -69,7 +69,7 @@
                 PulseRingParticle detonantionRing = new(Projectile.Center, Vector2.Zero, Color.Red, pulseRingInitialScale, 0.01f, 45);
                 detonantionRing.SpawnCasParticle();
 
-                SoundEngine.PlaySound(CascadeSoundRegistry.AsrielTargetBeep, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.AsrielTargetBeep, Projectile.Center);
 
                 for (int i = 0; i < 36; i++)
                 {
@@ -82,8 +82,8 @@
                 }
 
                 // Backglow visuals.
-                heartBackglowOpacity = Lerp(heartBackglowOpacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
-                heartBackglowRadius = Lerp(0f, 5f, CascadeUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowOpacity = Lerp(heartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowRadius = Lerp(0f, 5f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
 
                 // Decrease the frame speed to make the animation appear faster.
                 FrameSpeed = Clamp(FrameSpeed - 1f, 1f, 10f);
@@ -145,11 +145,11 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float heartBackglowOpacity = ref Projectile.Cascade().ExtraAI[HeartBackglowOpacityIndex];
-            ref float heartBackglowRadius = ref Projectile.Cascade().ExtraAI[HeartBackglowRadiusIndex];
-            ref float heartBackglowSpin = ref Projectile.Cascade().ExtraAI[HeartBackglowSpinIndex];
+            ref float heartBackglowOpacity = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowOpacityIndex];
+            ref float heartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowRadiusIndex];
+            ref float heartBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowSpinIndex];
 
-            Texture2D heartGlow = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Jacob/DetonatingDraedonHeartGlow").Value;
+            Texture2D heartGlow = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/DetonatingDraedonHeartGlow").Value;
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)

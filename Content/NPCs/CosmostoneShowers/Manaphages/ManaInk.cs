@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Particles;
+﻿using TwilightEgress.Content.Particles;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
     public class ManaInk : ModProjectile, ILocalizedModType
     {
@@ -8,7 +8,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public ref float Timer => ref Projectile.ai[0];
 
-        public override string Texture => "Cascade/Assets/ExtraTextures/EmptyPixel";
+        public override string Texture => "TwilightEgress/Assets/ExtraTextures/EmptyPixel";
 
         public override void SetDefaults()
         {

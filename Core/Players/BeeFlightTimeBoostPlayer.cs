@@ -1,4 +1,4 @@
-namespace Cascade.Core.Players
+namespace TwilightEgress.Core.Players
 {
     public class BeeFlightTimeBoostPlayer : ModPlayer
     {

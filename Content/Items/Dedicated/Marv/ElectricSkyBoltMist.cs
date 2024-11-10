@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Marv
+﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ElectricSkyBoltMist : ModProjectile, ILocalizedModType
     {

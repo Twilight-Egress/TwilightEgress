@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
     internal class AsteroidUtil
     {

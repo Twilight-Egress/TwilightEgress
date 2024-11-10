@@ -1,6 +1,6 @@
-﻿namespace Cascade
+﻿namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
 
         public static void DrawTextureOnProjectile(this Projectile projectile, Color lightColor, float rotation, float scale, SpriteEffects spriteEffects = SpriteEffects.None, bool animated = false, Texture2D texture = null)

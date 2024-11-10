@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Projectiles.Magic;
+﻿using TwilightEgress.Content.Projectiles.Magic;
 
-namespace Cascade.Content.Items.Weapons.Magic
+namespace TwilightEgress.Content.Items.Weapons.Magic
 {
     public class Stellascope : ModItem
     {

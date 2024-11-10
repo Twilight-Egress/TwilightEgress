@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
-namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
+namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 {
     public class StationaryCosmostoneAsteroidLarge : SkyEntity
     {
@@ -20,7 +20,7 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
             ShaderTimeMultiplier = Main.rand.NextFloat(0.1f, 1.5f) * Main.rand.NextBool().ToDirectionInt();
         }
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public override void Update()
         {
@@ -37,8 +37,8 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D asteroid = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge").Value;
-            Texture2D glowmask = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge_Glowmask").Value;
+            Texture2D asteroid = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge").Value;
+            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge_Glowmask").Value;
 
             Vector2 mainOrigin = asteroid.Size() / 2f;
             Color color = Color.Lerp(Color.White, Color.Black, 0.15f + Depth / 10f) * Opacity;
@@ -47,11 +47,11 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
             spriteBatch.Draw(asteroid, GetDrawPositionBasedOnDepth(), null, color, Rotation, mainOrigin, Scale / Depth, 0, 0f);
 
             spriteBatch.PrepareForShaders();
-            ManagedShader shader = ShaderManager.GetShader("Cascade.ManaPaletteShader");
+            ManagedShader shader = ShaderManager.GetShader("TwilightEgress.ManaPaletteShader");
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
             shader.TrySetParameter("timeMultiplier", ShaderTimeMultiplier);
-            shader.TrySetParameter("palette", CascadeUtilities.CosmostonePalette);
+            shader.TrySetParameter("palette", TwilightEgressUtilities.CosmostonePalette);
             shader.TrySetParameter("opacity", Opacity);
             shader.Apply();
 

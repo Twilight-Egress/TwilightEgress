@@ -1,8 +1,8 @@
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
-using Cascade.Content.Items.Materials;
+using TwilightEgress.Content.Items.Materials;
 
-namespace Cascade.Content.Items.Weapons.Ranged
+namespace TwilightEgress.Content.Items.Weapons.Ranged
 {
     public class BurningQuasar : ModItem
     {

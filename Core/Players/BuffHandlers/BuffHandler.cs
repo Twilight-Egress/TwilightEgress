@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Cooldowns;
+﻿using TwilightEgress.Content.Cooldowns;
 
-namespace Cascade.Core.Players.BuffHandlers
+namespace TwilightEgress.Core.Players.BuffHandlers
 {
     public partial class BuffHandler : ModPlayer
     {

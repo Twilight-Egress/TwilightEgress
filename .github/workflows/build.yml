@@ -42,7 +42,7 @@ jobs:
           curl --create-dirs -O --output-dir "${{ env.MODREADER_DIR }}/CalamityMod/" -sL "https://github.com/SpencerDawg/CalamityModPublic/releases/download/testing/CalamityMod.dll" -o CalamityMod.dll
           
           cd ..
-          cd ./Cascade
+          cd ./TwilightEgress
 #          cd ..
 #          mkdir ./Steam
 #          cd ./Steam
@@ -56,7 +56,7 @@ jobs:
 #          tmlpatcher extract "${{ env.STEAM_INSTALL_DIR }}/2824688072/2024.4/CalamityMod.tmod" -o "${{ env.MODREADER_DIR }}/CalamityMod"
 
       - name: Build mod solution
-        run: dotnet build Cascade.csproj --configuration Release
+        run: dotnet build TwilightEgress.csproj --configuration Release
 
       - name: Create github release
         uses: actions/create-release@v1
@@ -77,15 +77,15 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/Saves/tModLoader/Mods/Cascade.tmod
-          asset_name: Cascade.tmod
+          asset_path: ./bin/Saves/tModLoader/Mods/TwilightEgress.tmod
+          asset_name: TwilightEgress.tmod
           asset_content_type: application/octet-stream
 
       - name: Archive .tmod artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Cascade.tmod
-          path: ./bin/Saves/tModLoader/Mods/Cascade.tmod
+          name: TwilightEgress.tmod
+          path: ./bin/Saves/tModLoader/Mods/TwilightEgress.tmod
 
       - name: Deploy action into Discord
         uses: sarisia/actions-status-discord@v1  

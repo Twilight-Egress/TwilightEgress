@@ -1,7 +1,7 @@
-﻿using Cascade.Content.Buffs.Debuffs;
-using Cascade.Content.Buffs.Pets;
+﻿using TwilightEgress.Content.Buffs.Debuffs;
+using TwilightEgress.Content.Buffs.Pets;
 
-namespace Cascade.Content.Items.Dedicated.Lynel
+namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
     public class EarPiercingBellbird : ModProjectile, ILocalizedModType
     {
@@ -90,14 +90,14 @@ namespace Cascade.Content.Items.Dedicated.Lynel
             // Chirp occasionally.
             if (canChirp)
             {
-                SoundEngine.PlaySound(CascadeSoundRegistry.BellbirdChirp, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.BellbirdChirp, Projectile.Center);
 
                 Vector2 velocity = new(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-4f, -2f));
                 new MusicNoteParticle(Projectile.Center, velocity).Spawn();
             }
 
             // Stop perching if the player inverts their gravity.
-            bool orbitalGravity = Owner.Cascade_OrbitalGravity().Planetoid is not null && Owner.Cascade_OrbitalGravity().Planetoid.NPC.active;
+            bool orbitalGravity = Owner.TwilightEgress_OrbitalGravity().Planetoid is not null && Owner.TwilightEgress_OrbitalGravity().Planetoid.NPC.active;
             bool shouldStopPerching = Owner.gravDir == -1 || orbitalGravity;
             if (shouldStopPerching && AIState == (float)BellbirdStates.Perching)
             {
@@ -164,8 +164,8 @@ namespace Cascade.Content.Items.Dedicated.Lynel
 
         public void DoBehavior_CryOfGod()
         {
-            ref float screamChargeVisualScale = ref Projectile.Cascade().ExtraAI[ScreamChargeVisualScaleIndex];
-            ref float screamChargeVisualOpacity = ref Projectile.Cascade().ExtraAI[ScreamChargeVisualOpacityIndex];
+            ref float screamChargeVisualScale = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualScaleIndex];
+            ref float screamChargeVisualOpacity = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualOpacityIndex];
 
             // Launch away from the player quickly.
             if (Timer == 0f)
@@ -197,10 +197,10 @@ namespace Cascade.Content.Items.Dedicated.Lynel
             {
                 // Make the player's ears bleed.
                 if (Timer is ScreamChargeTime)
-                    SoundEngine.PlaySound(CascadeSoundRegistry.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
+                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
 
                 // Visual effects.
-                //CascadeCameraSystem.Screenshake(8, 30, Projectile.Center);
+                //TwilightEgressCameraSystem.Screenshake(8, 30, Projectile.Center);
                 ScreenShakeSystem.StartShakeAtPoint(Projectile.Center, 8f, shakeStrengthDissipationIncrement: 0.26f, intensityTaperEndDistance: 2000);
                 Projectile.UpdateProjectileAnimationFrames(0, 0, 1);
                 if (Timer % 10 == 0)
@@ -247,8 +247,8 @@ namespace Cascade.Content.Items.Dedicated.Lynel
             SpriteEffects effects = AIState == 1f && LocalAIState == 1f ? Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None
                 : Projectile.DirectionBasedSpriteEffects();
 
-            ref float screamChargeVisualScale = ref Projectile.Cascade().ExtraAI[ScreamChargeVisualScaleIndex];
-            ref float screamChargeVisualOpacity = ref Projectile.Cascade().ExtraAI[ScreamChargeVisualOpacityIndex];
+            ref float screamChargeVisualScale = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualScaleIndex];
+            ref float screamChargeVisualOpacity = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualOpacityIndex];
 
             int individualFrameHeight = texture.Height / Main.projFrames[Type];
             int currentYFrame = individualFrameHeight * Projectile.frame;

@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class PulseRingParticle : CasParticle
     {
@@ -12,7 +12,7 @@
 
         private AtlasTexture RingTextureToDraw;
 
-        public override string AtlasTextureName => "Cascade.HollowCircleHardEdge.png";
+        public override string AtlasTextureName => "TwilightEgress.HollowCircleHardEdge.png";
 
         public override BlendState BlendState => BlendState.Additive;
 
@@ -47,7 +47,7 @@
 
         public override void Update()
         {
-            Scale = new(Lerp(InitialScale, MaxScale, CascadeUtilities.QuartEaseOut(LifetimeRatio)));
+            Scale = new(Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
             Opacity = Sin(PiOver2 + LifetimeRatio * PiOver2);
 
             Velocity *= 0.98f;
@@ -55,7 +55,7 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            RingTextureToDraw = UseSoftTexture ? AtlasManager.GetTexture("Cascade.HollowCircleSoftEdge.png") : Texture;
+            RingTextureToDraw = UseSoftTexture ? AtlasManager.GetTexture("TwilightEgress.HollowCircleSoftEdge.png") : Texture;
             spriteBatch.Draw(RingTextureToDraw, Position - Main.screenPosition, Frame, DrawColor * Opacity, Rotation, null, Scale * Squish);
         }
     }

@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Configs;
+﻿using TwilightEgress.Core.Configs;
 
-namespace Cascade.Core.Graphics.GraphicalObjects.SkyEntities
+namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {
     public abstract class SkyEntity
     {
@@ -78,7 +78,7 @@ namespace Cascade.Core.Graphics.GraphicalObjects.SkyEntities
         public AtlasTexture Texture { get; private set; }
 
         /// <summary>
-        /// The texture name of this sky entity on the sky entity atlas. Should be prefixed with "Cascade."
+        /// The texture name of this sky entity on the sky entity atlas. Should be prefixed with "TwilightEgress."
         /// </summary>
         public abstract string AtlasTextureName { get; } 
 

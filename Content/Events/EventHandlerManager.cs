@@ -1,11 +1,11 @@
 ﻿using Terraria.ModLoader.Core;
 using System.Runtime.Serialization;
-using Cascade.Content.Events.CosmostoneShowers;
+using TwilightEgress.Content.Events.CosmostoneShowers;
 using System;
 using Terraria.ModLoader.IO;
 using Stubble.Core.Classes;
 
-namespace Cascade.Content.Events
+namespace TwilightEgress.Content.Events
 {
     public class EventHandlerManager : ModSystem
     {
@@ -14,7 +14,7 @@ namespace Cascade.Content.Events
         public override void OnModLoad()
         {
             Events = [];
-            foreach (Type type in AssemblyManager.GetLoadableTypes(Cascade.Instance.Code))
+            foreach (Type type in AssemblyManager.GetLoadableTypes(TwilightEgress.Instance.Code))
             {
                 if (type.IsSubclassOf(typeof(EventHandler)) && !type.IsAbstract)
                 {

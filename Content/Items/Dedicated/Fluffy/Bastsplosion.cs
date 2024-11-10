@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Fluffy
+﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class Bastsplosion : ModProjectile, ILocalizedModType
     {

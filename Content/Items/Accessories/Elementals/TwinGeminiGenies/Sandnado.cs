@@ -1,6 +1,6 @@
 ﻿using ReLogic.Utilities;
 
-namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class Sandnado : ModProjectile, ILocalizedModType
     {
@@ -86,15 +86,15 @@ namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
                     d.noGravity = true;
                 }
 
-                CascadeUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f);
+                TwilightEgressUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f);
             }
 
             // Fade in.
             if (Timer <= 60f)
             {
                 Projectile.velocity *= 0.98f;
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 60f));
-                Projectile.scale = Lerp(Projectile.scale, 1f, CascadeUtilities.SineEaseInOut(Timer / 60f));
+                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+                Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
             }
 
             // Home in on targets, though very sloppily.

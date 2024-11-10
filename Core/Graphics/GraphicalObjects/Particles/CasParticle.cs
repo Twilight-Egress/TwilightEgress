@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Configs;
+﻿using TwilightEgress.Core.Configs;
 
-namespace Cascade.Core.Graphics.GraphicalObjects.Particles
+namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
 {
     /// <summary>
     /// A wrapper of Luminance's <see cref="Particle"/> class which some of its own extra built-in utilities, such as foreground parallax and

@@ -1,8 +1,8 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class RoaringShockwaveParticle : CasParticle
     {
-        public override string AtlasTextureName => "Cascade.DistortedShockwave2.png";
+        public override string AtlasTextureName => "TwilightEgress.DistortedShockwave2.png";
 
         public RoaringShockwaveParticle(int lifespan, Vector2 position, Vector2 velocity, Color color, float scale, float rotation = 1f)
         {

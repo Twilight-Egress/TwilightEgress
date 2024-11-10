@@ -1,9 +1,9 @@
 ﻿using CalamityMod.Rarities;
-using Cascade.Common.Physics.Gravity;
-using Cascade.Common.Physics.VerletIntegration;
+using TwilightEgress.Common.Physics.Gravity;
+using TwilightEgress.Common.Physics.VerletIntegration;
 using Terraria;
 
-namespace Cascade.Core.Systems
+namespace TwilightEgress.Core.Systems
 {
     public class PlanetoidSystem : ModSystem
     {
@@ -53,7 +53,7 @@ namespace Cascade.Core.Systems
         {
             orig(self, behildTiles);
 
-            Texture2D galileoTexture = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid").Value;
+            Texture2D galileoTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid").Value;
 
             foreach (MassiveObject? planetoid in planetoids)
             {

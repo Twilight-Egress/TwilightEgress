@@ -1,7 +1,7 @@
 ﻿using CalamityMod.Buffs.DamageOverTime;
-using Cascade.Core.Graphics;
+using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
+namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 {
     public class ResplendentRoarHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -157,7 +157,7 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
             float distanceToMiddle = Distance(SwingRatio(true), 0.5f);
             if (Timer == SmallSwingMaxTime / 2)
             {
-                SoundEngine.PlaySound(CascadeSoundRegistry.YharonHurt with { PitchVariance = 1f }, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.YharonHurt with { PitchVariance = 1f }, Projectile.Center);
                 SoundEngine.PlaySound(CommonCalamitySounds.LouderSwingWoosh, Projectile.Center);
             }
 
@@ -185,7 +185,7 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
             float distanceToMiddle = Distance(SwingRatio(false), 0.5f);
             if (Timer == LargeSwingMaxTime / 2)
             {
-                SoundEngine.PlaySound(CascadeSoundRegistry.YharonRoarShort with { PitchVariance = 0.15f }, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.YharonRoarShort with { PitchVariance = 0.15f }, Projectile.Center);
                 SoundEngine.PlaySound(CommonCalamitySounds.LouderPhantomPhoenix, Projectile.Center);
             }
 
@@ -194,10 +194,10 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
 
         public void FinalDyingRoar()
         {
-            ref float yharonFrame = ref Projectile.Cascade().ExtraAI[YharonFrameIndex];
-            ref float yharonFrameCounter = ref Projectile.Cascade().ExtraAI[YharonFrameCounterIndex];
-            ref float yharonOpacity = ref Projectile.Cascade().ExtraAI[YharonOpacityIndex];
-            ref float yharonScale = ref Projectile.Cascade().ExtraAI[YharonScaleIndex];
+            ref float yharonFrame = ref Projectile.TwilightEgress().ExtraAI[YharonFrameIndex];
+            ref float yharonFrameCounter = ref Projectile.TwilightEgress().ExtraAI[YharonFrameCounterIndex];
+            ref float yharonOpacity = ref Projectile.TwilightEgress().ExtraAI[YharonOpacityIndex];
+            ref float yharonScale = ref Projectile.TwilightEgress().ExtraAI[YharonScaleIndex];
 
             if (!Initialized)
             {
@@ -206,7 +206,7 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                 Direction.Normalize();
                 BaseRotation = Projectile.velocity.ToRotation();
                 Projectile.rotation = BaseRotation;
-                SoundEngine.PlaySound(CascadeSoundRegistry.YharonRoarShort with { PitchVariance = 1f }, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.YharonRoarShort with { PitchVariance = 1f }, Projectile.Center);
                 Projectile.netUpdate = true;
                 Projectile.netSpam = 0;
             }
@@ -222,8 +222,8 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                     yharonFrameCounter = 0f;
                 }
 
-                float maximumOpacity = 1f * Utils.GetLerpValue(0f, 1f, Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f, true);
-                float maximumScale = 1.35f * Utils.GetLerpValue(0f, 1f, Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f, true);
+                float maximumOpacity = 1f * Utils.GetLerpValue(0f, 1f, Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f, true);
+                float maximumScale = 1.35f * Utils.GetLerpValue(0f, 1f, Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f, true);
                 yharonOpacity = Lerp(yharonOpacity, maximumOpacity, Timer / 90f);
                 yharonScale = Lerp(yharonScale, maximumScale, Timer / 90f);
 
@@ -231,7 +231,7 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                 {
                     AIState = 1f;
                     Timer = 0f;
-                    SoundEngine.PlaySound(CascadeSoundRegistry.YharonRoar with { Volume = 4f }, Projectile.Center);
+                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.YharonRoar with { Volume = 4f }, Projectile.Center);
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -274,15 +274,15 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                 if (Timer >= 30f)
                 {
                     Projectile.Kill();
-                    Owner.Cascade_ResplendentRoar().ResplendentRazeCharge = 0f;
+                    Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge = 0f;
                 }
             }
-            Owner.Cascade_ResplendentRoar().ResplendentRazeUpdateTimer = 0;
+            Owner.TwilightEgress_ResplendentRoar().ResplendentRazeUpdateTimer = 0;
         }
 
         public void ParticleVisuals()
         {
-            if (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge >= 25f)
+            if (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge >= 25f)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -294,8 +294,8 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                     Color fireColor = Color.Lerp(colorGroup, secondColorGroup, Main.rand.NextFloat(0.2f, 0.8f));
 
                     int lifespan = Main.rand.Next(15, 30);
-                    float scale = Main.rand.NextFloat(0.25f, 0.85f) * (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f) - 2.5f;
-                    float opacity = Main.rand.NextFloat(0.9f, 4f) * (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f) - 1f;
+                    float scale = Main.rand.NextFloat(0.25f, 0.85f) * (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f) - 2.5f;
+                    float opacity = Main.rand.NextFloat(0.9f, 4f) * (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f) - 1f;
 
                     HeavySmokeParticle flames = new(spawnPosition, Vector2.Zero, fireColor, lifespan, scale, opacity, 0.03f, true);
                     flames.SpawnCasParticle();
@@ -311,8 +311,8 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                     Color sparkleColor = Color.Lerp(colorGroup, secondColorGroup, Main.rand.NextFloat(0.2f, 0.8f));
 
                     int lifespan = Main.rand.Next(15, 30);
-                    float scale = Main.rand.NextFloat(0.45f, 1f) * (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f) - 3f;
-                    float opacity = Main.rand.NextFloat(0.65f, 2f) * (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge / 100f) - 1f;
+                    float scale = Main.rand.NextFloat(0.45f, 1f) * (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f) - 3f;
+                    float opacity = Main.rand.NextFloat(0.65f, 2f) * (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge / 100f) - 1f;
 
                     SparkleParticle sparkles = new(spawnPosition, Vector2.Zero, sparkleColor * opacity, sparkleColor * 1.05f * opacity, scale, lifespan);
                     sparkles.SpawnCasParticle();
@@ -323,12 +323,12 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             // Charge the resplendant raze.
-            Owner.Cascade_ResplendentRoar().ResplendentRazeCharge += 2f;
+            Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge += 2f;
             if (hit.Crit)
-                Owner.Cascade_ResplendentRoar().ResplendentRazeCharge += 4f;
+                Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge += 4f;
 
             // Add the Dragonfire Debuff after the charge reaches 75%
-            if (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge >= 75f)
+            if (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge >= 75f)
             {
                 target.AddBuff(ModContent.BuffType<Dragonfire>(), 180);
                 SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath with { PitchVariance = 1f, MaxInstances = 0 }, target.Center);
@@ -350,7 +350,7 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
                 sparks.SpawnCasParticle();
             }
 
-            if (Owner.Cascade_ResplendentRoar().ResplendentRazeCharge >= 75f)
+            if (Owner.TwilightEgress_ResplendentRoar().ResplendentRazeCharge >= 75f)
             {
                 for (int i = 0; i < Main.rand.Next(10, 12); i++)
                 {
@@ -386,8 +386,8 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float yharonOpacity = ref Projectile.Cascade().ExtraAI[YharonOpacityIndex];
-            ref float yharonScale = ref Projectile.Cascade().ExtraAI[YharonScaleIndex];
+            ref float yharonOpacity = ref Projectile.TwilightEgress().ExtraAI[YharonOpacityIndex];
+            ref float yharonScale = ref Projectile.TwilightEgress().ExtraAI[YharonScaleIndex];
 
             // This sets the starting position of the primitive trail so that the other positions follow it accordingly
             Projectile.oldPos[0] = Projectile.position + Projectile.rotation.ToRotationVector2() * 128f * Projectile.scale;
@@ -430,13 +430,13 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
 
         /*public void DrawYharon(On_Main.orig_DrawInfernoRings orig, Main self)
         {
-            ref float yharonFrame = ref Projectile.Cascade().ExtraAI[YharonFrameIndex];
-            ref float yharonOpacity = ref Projectile.Cascade().ExtraAI[YharonOpacityIndex];
-            ref float yharonScale = ref Projectile.Cascade().ExtraAI[YharonScaleIndex];
-            ref float yharonImageRotation = ref Projectile.Cascade().ExtraAI[YharonDrawImageRotationIndex];
-            ref float yharonImageRadius = ref Projectile.Cascade().ExtraAI[YharonDrawImageRadiusIndex];
+            ref float yharonFrame = ref Projectile.TwilightEgress().ExtraAI[YharonFrameIndex];
+            ref float yharonOpacity = ref Projectile.TwilightEgress().ExtraAI[YharonOpacityIndex];
+            ref float yharonScale = ref Projectile.TwilightEgress().ExtraAI[YharonScaleIndex];
+            ref float yharonImageRotation = ref Projectile.TwilightEgress().ExtraAI[YharonDrawImageRotationIndex];
+            ref float yharonImageRadius = ref Projectile.TwilightEgress().ExtraAI[YharonDrawImageRadiusIndex];
 
-            Texture2D baseTexture = ModContent.Request<Texture2D>("Cascade/Content/Projectiles/Melee/ResplendentRoarYharon").Value;
+            Texture2D baseTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Projectiles/Melee/ResplendentRoarYharon").Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             Rectangle projRec = baseTexture.Frame(1, 7, 0, (int)(yharonFrame % 7));
@@ -473,8 +473,8 @@ namespace Cascade.Content.Items.Weapons.Melee.ResplendentRoar
             // This sets the starting position of the primitive trail so that the other positions follow it accordingly
             Projectile.oldPos[0] = Projectile.position + Projectile.rotation.ToRotationVector2() * 128f * Projectile.scale;
 
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.FlameStreak, 1, SamplerState.LinearWrap);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.FlameStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => Projectile.Size * 0.5f, true, true, smoothTrail);

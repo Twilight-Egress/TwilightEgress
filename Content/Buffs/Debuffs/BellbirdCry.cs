@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Buffs.Debuffs
+﻿namespace TwilightEgress.Content.Buffs.Debuffs
 {
     public class BellbirdCry : ModBuff, ILocalizedModType
     {
@@ -13,8 +13,8 @@
             Main.buffNoSave[Type] = true;
         }
 
-        public override void Update(Player Player, ref int buffIndex) => Player.Cascade_Buffs().BellbirdStun = true;
+        public override void Update(Player Player, ref int buffIndex) => Player.TwilightEgress_Buffs().BellbirdStun = true;
 
-        public override void Update(NPC npc, ref int buffIndex) => npc.Cascade_Buffs().BellbirdStun = true;
+        public override void Update(NPC npc, ref int buffIndex) => npc.TwilightEgress_Buffs().BellbirdStun = true;
     }
 }

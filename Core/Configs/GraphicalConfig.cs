@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace Cascade.Core.Configs
+namespace TwilightEgress.Core.Configs
 {
     public class GraphicalConfig : ModConfig
     {

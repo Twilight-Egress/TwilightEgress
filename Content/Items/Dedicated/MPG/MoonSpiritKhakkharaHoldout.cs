@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Buffs.Minions;
+﻿using TwilightEgress.Content.Buffs.Minions;
 
-namespace Cascade.Content.Items.Dedicated.MPG
+namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MoonSpiritKhakkharaHoldout : ModProjectile, ILocalizedModType
     {
@@ -49,7 +49,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public new string LocalizationCategory => "Projectiles.Summon";
 
-        public override string Texture => "Cascade/Content/Items/Dedicated/MPG/MoonSpiritKhakkhara";
+        public override string Texture => "TwilightEgress/Content/Items/Dedicated/MPG/MoonSpiritKhakkhara";
 
         public override void SetStaticDefaults()
         {
@@ -73,9 +73,9 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public override void AI()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleRotation = ref Projectile.Cascade().ExtraAI[RitualCircleRotationIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleRotation = ref Projectile.TwilightEgress().ExtraAI[RitualCircleRotationIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             if (ShouldDespawn)
             {
@@ -104,8 +104,8 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public void DoBehavior_SummoningLanterns()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             bool isChanneling = Owner.channel && Owner.active && Owner.HeldItem.type == ModContent.ItemType<MoonSpiritKhakkhara>();
             if (!isChanneling)
@@ -125,20 +125,20 @@ namespace Cascade.Content.Items.Dedicated.MPG
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<UnderworldLantern>(), Projectile.damage, 0f, SoundID.DD2_BetsyFireballShot, null, Projectile.owner);
 
                 // Some light dust visuals.
-                CascadeUtilities.CreateRandomizedDustExplosion(15, spawnPosition, 267, dustScale: 2f, dustColor: Color.LightSkyBlue);
+                TwilightEgressUtilities.CreateRandomizedDustExplosion(15, spawnPosition, 267, dustScale: 2f, dustColor: Color.LightSkyBlue);
             }
         }
 
         public void DoBehavior_RequiemBouquet()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             // Ritual circle visuals.
             if (Timer <= 60f)
-                ritualCircleOpacity = Lerp(1f, 0f, CascadeUtilities.SineEaseOut(Timer / 60f));
+                ritualCircleOpacity = Lerp(1f, 0f, TwilightEgressUtilities.SineEaseOut(Timer / 60f));
             if (Timer <= 75f)
-                ritualCircleScale = Lerp(0f, 3f, CascadeUtilities.SineEaseOut(Timer / 75f));
+                ritualCircleScale = Lerp(0f, 3f, TwilightEgressUtilities.SineEaseOut(Timer / 75f));
 
             if (Timer == 1)
             {
@@ -155,7 +155,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
                 if (ViableEasterEggNames.Contains(Owner.name))
                 {
                     CombatText.NewText(Owner.Hitbox, Color.SkyBlue, "Requiem Bouquet", true);
-                    SoundEngine.PlaySound(CascadeSoundRegistry.RequiemBouquetPerish, Owner.Center);
+                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.RequiemBouquetPerish, Owner.Center);
                 }
             }
 
@@ -174,7 +174,7 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
 
             DrawStaff();
             DrawRitualCircle();
@@ -225,9 +225,9 @@ namespace Cascade.Content.Items.Dedicated.MPG
 
         public void DrawRitualCircle()
         {
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float ritualCircleRotation = ref Projectile.Cascade().ExtraAI[RitualCircleRotationIndex];
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleRotation = ref Projectile.TwilightEgress().ExtraAI[RitualCircleRotationIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             Texture2D ritualCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredRitualCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;

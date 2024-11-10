@@ -1,8 +1,8 @@
 ﻿using Terraria.ModLoader.IO;
 
-namespace Cascade.Core.Globals
+namespace TwilightEgress.Core.Globals
 {
-    public partial class CascadeGlobalProjectile
+    public partial class TwilightEgressGlobalProjectile
     {
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
         {

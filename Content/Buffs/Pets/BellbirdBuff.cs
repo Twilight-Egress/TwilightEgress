@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Dedicated.Lynel;
+﻿using TwilightEgress.Content.Items.Dedicated.Lynel;
 
-namespace Cascade.Content.Buffs.Pets
+namespace TwilightEgress.Content.Buffs.Pets
 {
     public class BellbirdBuff : ModBuff
     {

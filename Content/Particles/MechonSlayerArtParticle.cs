@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class MechonSlayerArtParticle : CasParticle
     {
@@ -8,7 +8,7 @@
 
         private readonly int ArtType;
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public MechonSlayerArtParticle(Vector2 position, float baseScale, float newScale, int artType, int lifespan)
         {
@@ -22,7 +22,7 @@
         public override void Update()
         {
             Opacity = Lerp(1f, 0f, LifetimeRatio);
-            Scale = new(Lerp(BaseScale, NewScale, CascadeUtilities.SineEaseOut(LifetimeRatio)));
+            Scale = new(Lerp(BaseScale, NewScale, TwilightEgressUtilities.SineEaseOut(LifetimeRatio)));
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -32,11 +32,11 @@
 
             List<string> ArtTexturePaths = new()
             {
-                "Cascade/Content/Items/Dedicated/Enchilada/ArmorArt",
-                "Cascade/Content/Items/Dedicated/Enchilada/EaterArt",
-                "Cascade/Content/Items/Dedicated/Enchilada/EnchantArt",
-                "Cascade/Content/Items/Dedicated/Enchilada/PurgeArt",
-                "Cascade/Content/Items/Dedicated/Enchilada/SpeedArt",
+                "TwilightEgress/Content/Items/Dedicated/Enchilada/ArmorArt",
+                "TwilightEgress/Content/Items/Dedicated/Enchilada/EaterArt",
+                "TwilightEgress/Content/Items/Dedicated/Enchilada/EnchantArt",
+                "TwilightEgress/Content/Items/Dedicated/Enchilada/PurgeArt",
+                "TwilightEgress/Content/Items/Dedicated/Enchilada/SpeedArt",
             };
 
             Texture2D artTexture = ModContent.Request<Texture2D>(ArtTexturePaths[ArtType]).Value;

@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Jacob
+﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class TomeOfTheTankHoldout : ModProjectile, ILocalizedModType
     {
@@ -18,7 +18,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "Cascade/Content/Items/Dedicated/Jacob/TomeOfTheTank";
+        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Jacob/TomeOfTheTank";
 
         public override void SetStaticDefaults()
         {
@@ -74,9 +74,9 @@
 
         public void PerformAttack()
         {
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float pulseRingInitialScale = ref Projectile.Cascade().ExtraAI[PulseRingInitialScaleIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float pulseRingInitialScale = ref Projectile.TwilightEgress().ExtraAI[PulseRingInitialScaleIndex];
 
             if (ChargeTimer == 0f)
             {
@@ -109,8 +109,8 @@
                 // Start to make the ritual circle visible after 3 seconds.
                 if (ChargeTimer >= 60)
                 {
-                    ritualCircleScale = Lerp(0f, 1f, CascadeUtilities.SineEaseInOut(ChargeTimer / 175f));
-                    ritualCircleOpacity = Lerp(0f, 1f, CascadeUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleScale = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleOpacity = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
                 }
             }
 
@@ -130,8 +130,8 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
 
             // Only draw the ritual circle if necessary.
             if (ritualCircleOpacity > 0 && ritualCircleScale > 0)
@@ -146,12 +146,12 @@
 
         public void DrawRitualCircle()
         {
-            ref float ritualCircleScale = ref Projectile.Cascade().ExtraAI[RitualCircleScaleIndex];
-            ref float ritualCircleOpacity = ref Projectile.Cascade().ExtraAI[RitualCircleOpacityIndex];
-            ref float orbitingSummoningCircleRotation = ref Projectile.Cascade().ExtraAI[OrbitingSummoningCircleRotationIndex];
+            ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
+            ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
+            ref float orbitingSummoningCircleRotation = ref Projectile.TwilightEgress().ExtraAI[OrbitingSummoningCircleRotationIndex];
 
-            Texture2D outerCircle = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
-            Texture2D innerCircle = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
+            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
+            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
             Texture2D orbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredOrbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 

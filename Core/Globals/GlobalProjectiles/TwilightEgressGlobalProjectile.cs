@@ -1,6 +1,6 @@
-﻿namespace Cascade.Core.Globals
+﻿namespace TwilightEgress.Core.Globals
 {
-    public partial class CascadeGlobalProjectile : GlobalProjectile
+    public partial class TwilightEgressGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 

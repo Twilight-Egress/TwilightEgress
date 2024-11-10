@@ -1,6 +1,6 @@
-﻿using Cascade.Common.Physics.Gravity;
+﻿using TwilightEgress.Common.Physics.Gravity;
 
-namespace Cascade.Common.Physics.VerletIntegration
+namespace TwilightEgress.Common.Physics.VerletIntegration
 {
     public abstract class VerletObject
     {

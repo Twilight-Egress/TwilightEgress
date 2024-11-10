@@ -1,7 +1,7 @@
 ﻿
-namespace Cascade.Core.Globals.GlobalNPCs
+namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
-    public partial class CascadeGlobalNPC : GlobalNPC
+    public partial class TwilightEgressGlobalNPC : GlobalNPC
     {
         public float[] ExtraAI = new float[100];
 

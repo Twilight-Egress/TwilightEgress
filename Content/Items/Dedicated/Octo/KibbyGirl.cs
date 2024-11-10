@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Octo
+﻿namespace TwilightEgress.Content.Items.Dedicated.Octo
 {
     public class KibbyGirl : ModProjectile, ILocalizedModType
     {

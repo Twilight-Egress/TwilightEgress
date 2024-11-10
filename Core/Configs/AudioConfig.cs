@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader.Config;
 
-namespace Cascade.Core.Configs
+namespace TwilightEgress.Core.Configs
 {
     public class AudioConfig : ModConfig
     {

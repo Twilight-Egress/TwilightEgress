@@ -1,7 +1,7 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 using Terraria.Map;
 
-namespace Cascade.Content.Items.Dedicated.Raesh
+namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class FlytrapMaw : ModProjectile, ILocalizedModType
     {
@@ -63,7 +63,7 @@ namespace Cascade.Content.Items.Dedicated.Raesh
                 /* Add the whoAmI indexes of each hit NPC to the list. 
                  * This is how we'll keep track of which NPCs we shouldn't target. */
                 NPCsWhoHaveBeenHit.Add(target);
-                SoundEngine.PlaySound(CascadeSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
             }
 
             // Find the closest target in range and bounce to them from the last enemy.
@@ -86,7 +86,7 @@ namespace Cascade.Content.Items.Dedicated.Raesh
             int dustCount = 15 * (int)Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float speed = Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float scale = Main.rand.NextFloat(0.65f, 1.25f) * Projectile.scale;
-            CascadeUtilities.CreateRandomizedDustExplosion(dustCount, Projectile.Center, DustID.Plantera_Green, speed, dustScale: scale);
+            TwilightEgressUtilities.CreateRandomizedDustExplosion(dustCount, Projectile.Center, DustID.Plantera_Green, speed, dustScale: scale);
 
             for (int i = 0; i < 2; i++)
             {
@@ -107,7 +107,7 @@ namespace Cascade.Content.Items.Dedicated.Raesh
             else
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(CascadeSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
 
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     Projectile.velocity.X = -oldVelocity.X;
@@ -132,10 +132,10 @@ namespace Cascade.Content.Items.Dedicated.Raesh
 
         public void DrawPrims()
         {
-            Asset<Texture2D> trailTexture = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
+            Asset<Texture2D> trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
 
             Main.spriteBatch.EnterShaderRegion();
-            ShaderManager.TryGetShader("Cascade.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
+            ShaderManager.TryGetShader("TwilightEgress.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
             textureMapTrailShader.SetTexture(trailTexture, 1);
             textureMapTrailShader.TrySetParameter("mapTextureSize", trailTexture.Size());
             textureMapTrailShader.TrySetParameter("textureScaleFactor", 600f);

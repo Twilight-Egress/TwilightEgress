@@ -1,5 +1,5 @@
-﻿using Cascade.Content.Items.Materials;
-using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Content.Items.Materials;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.ItemDropRules;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
     public class SilicateAsteroidSmall : BaseAsteroid, ILocalizedModType
     {

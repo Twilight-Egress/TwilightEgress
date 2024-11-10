@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Fluffy
+﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class HomingBastStatue : ModProjectile, ILocalizedModType
     {
@@ -12,9 +12,9 @@
 
         private ref float BounceLimit => ref Projectile.ai[1];
 
-        private ref float RotationDirection => ref Projectile.Cascade().ExtraAI[0];
+        private ref float RotationDirection => ref Projectile.TwilightEgress().ExtraAI[0];
 
-        private ref float RotationSpeed => ref Projectile.Cascade().ExtraAI[1];
+        private ref float RotationSpeed => ref Projectile.TwilightEgress().ExtraAI[1];
 
         private bool CollidedWithTheOwner = false;
 
@@ -136,7 +136,7 @@
             Timer++;
             Projectile.scale = Clamp(Projectile.scale + 0.05f, 0f, 1f);
             if (Main.rand.NextBool(3))
-                CascadeUtilities.CreateDustLoop(2, Main.rand.NextVector2Circular(Projectile.width, Projectile.height), Vector2.Zero, DustID.FireworkFountain_Yellow, shouldDefyGravity: true);
+                TwilightEgressUtilities.CreateDustLoop(2, Main.rand.NextVector2Circular(Projectile.width, Projectile.height), Vector2.Zero, DustID.FireworkFountain_Yellow, shouldDefyGravity: true);
         }
 
         public override void OnKill(int timeLeft)

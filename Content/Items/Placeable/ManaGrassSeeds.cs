@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Placeable
+﻿namespace TwilightEgress.Content.Items.Placeable
 {
     public class ManaGrassSeeds : ModItem, ILocalizedModType
     {

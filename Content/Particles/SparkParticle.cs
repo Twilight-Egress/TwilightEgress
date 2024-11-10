@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class SparkParticle : CasParticle
     {
@@ -6,7 +6,7 @@
 
         public bool AffectedByGravity;
 
-        public override string AtlasTextureName => "Cascade.LightStreak.png";
+        public override string AtlasTextureName => "TwilightEgress.LightStreak.png";
 
         public override BlendState BlendState => BlendState.Additive;
 

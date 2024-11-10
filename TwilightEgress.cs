@@ -1,14 +1,14 @@
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Placeables.FurnitureAuric;
-using Cascade.Core.Players.BuffHandlers;
+using TwilightEgress.Core.Players.BuffHandlers;
 
-namespace Cascade
+namespace TwilightEgress
 {
-    public partial class Cascade : Mod
+    public partial class TwilightEgress : Mod
     {
         internal static Mod CalamityMod;
 
-        internal static Cascade Instance { get; private set; }
+        internal static TwilightEgress Instance { get; private set; }
 
         public override void Load()
         {
@@ -16,7 +16,7 @@ namespace Cascade
             CalamityMod = null;
             ModLoader.TryGetMod("CalamityMod", out CalamityMod);
 
-            // Cascade-specific loading.
+            // TwilightEgress-specific loading.
             LoadLists();
         }
 

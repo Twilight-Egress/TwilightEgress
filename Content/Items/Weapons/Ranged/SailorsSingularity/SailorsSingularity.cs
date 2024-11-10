@@ -1,12 +1,12 @@
 ﻿using CalamityMod.Buffs.StatBuffs;
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
-using Cascade.Content.Items.Materials;
+using TwilightEgress.Content.Items.Materials;
 using Mono.Cecil;
 using Terraria;
 using Terraria.ID;
 
-namespace Cascade.Content.Items.Weapons.Ranged.SailorsSingularity
+namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {
     public class SailorsSingularity : ModItem
     {

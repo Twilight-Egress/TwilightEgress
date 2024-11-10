@@ -1,6 +1,6 @@
 ﻿using EasingType = Luminance.Common.Easings.EasingType;
 
-namespace Cascade.Content.Items.Dedicated.Enchilada
+namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
     public class MechonSlayerHoldout : ModProjectile, ILocalizedModType
     {
@@ -50,7 +50,7 @@ namespace Cascade.Content.Items.Dedicated.Enchilada
             if (Timer == SwingTime / 2)
             {
                 // Apply the art specific buffs.
-                Owner.Cascade_Buffs().ApplyMechonSlayerArt((int)WeaponState);
+                Owner.TwilightEgress_Buffs().ApplyMechonSlayerArt((int)WeaponState);
 
                 // Visuals.
                 for (int i = 0; i < 15; i++)
@@ -147,7 +147,7 @@ namespace Cascade.Content.Items.Dedicated.Enchilada
         public void DrawBlade()
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Enchilada/MechonSlayer").Value;
+            Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Enchilada/MechonSlayer").Value;
 
             float baseDrawAngle = Projectile.rotation;
             float drawRotation = baseDrawAngle + PiOver4;

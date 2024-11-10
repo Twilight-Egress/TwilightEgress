@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Items;
 
-namespace Cascade.Content.Items.Dedicated.Raesh
+namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class DroseraeDictionary : ModItem, ILocalizedModType
     {

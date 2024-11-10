@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Projectiles.Ranged.Ammo
+﻿namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {
     public class StingerRoundStinger : ModProjectile, ILocalizedModType
     {
@@ -23,7 +23,7 @@
         public override void AI()
         {
             Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
-            CascadeUtilities.CreateDustLoop(1, spawnPosition, Vector2.Zero, 18);
+            TwilightEgressUtilities.CreateDustLoop(1, spawnPosition, Vector2.Zero, 18);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -31,7 +31,7 @@
             int chance = hit.Crit ? 1 : 12;
             if (Main.rand.NextBool(chance))
             {
-                CascadeUtilities.CreateDustCircle(15, Projectile.Center, 18, 6f);
+                TwilightEgressUtilities.CreateDustCircle(15, Projectile.Center, 18, 6f);
                 target.AddBuff(BuffID.Poisoned, 360);
             }
         }

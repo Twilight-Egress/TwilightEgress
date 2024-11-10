@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
+﻿namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalberdIceShockSnowflake : ModProjectile, ILocalizedModType
     {
@@ -42,7 +42,7 @@
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
-            CascadeUtilities.CreateRandomizedDustExplosion(12, Projectile.Center, DustID.IceTorch, dustScale: 5f);
+            TwilightEgressUtilities.CreateRandomizedDustExplosion(12, Projectile.Center, DustID.IceTorch, dustScale: 5f);
         }
 
         public override bool PreDraw(ref Color lightColor)

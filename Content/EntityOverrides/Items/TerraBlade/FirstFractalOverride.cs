@@ -3,7 +3,7 @@ using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
 using Terraria.GameContent.Creative;
 
-namespace Cascade.Content.EntityOverrides.Items.TerraBlade
+namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {
     public class FirstFractalOverride : ItemOverride
     {

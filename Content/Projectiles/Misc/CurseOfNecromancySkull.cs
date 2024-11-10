@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Buffs.Debuffs;
+﻿using TwilightEgress.Content.Buffs.Debuffs;
 
-namespace Cascade.Content.Projectiles.Misc
+namespace TwilightEgress.Content.Projectiles.Misc
 {
     public class CurseOfNecromancySkull : ModProjectile, ILocalizedModType
     {

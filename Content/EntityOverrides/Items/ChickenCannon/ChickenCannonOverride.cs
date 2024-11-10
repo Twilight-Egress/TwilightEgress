@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
+﻿namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonOverride : ItemOverride
     {

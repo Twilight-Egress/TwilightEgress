@@ -1,4 +1,4 @@
-﻿namespace Cascade.Core.Graphics.Renderers.ScreenRenderers
+﻿namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
 {
     public class DarkVignetteRenderer : SmartRenderer
     {
@@ -63,7 +63,7 @@
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             //var shader = Utilities.TryGetScreenShader("EllipticalVignetteShader");
-            ManagedScreenFilter shader = ShaderManager.GetFilter("Cascade.EllipticalVignette");
+            ManagedScreenFilter shader = ShaderManager.GetFilter("TwilightEgress.EllipticalVignette");
             shader.TrySetParameter("vignettePower", VignettePower);
             shader.TrySetParameter("vignetteBrightness", VignetteBrightness);
             shader.Apply();

@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Materials;
+﻿using TwilightEgress.Content.Items.Materials;
 
-namespace Cascade.Content.Items.Placeable
+namespace TwilightEgress.Content.Items.Placeable
 {
     public class SilicateClusterBrick : ModItem, ILocalizedModType
     {

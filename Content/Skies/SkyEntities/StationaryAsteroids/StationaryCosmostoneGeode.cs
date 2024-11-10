@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
-namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
+namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 {
     public class StationaryCosmostoneGeode : SkyEntity
     {
@@ -17,7 +17,7 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
         }
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public override void Update()
         {
@@ -34,8 +34,8 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D asteroid = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode").Value;
-            Texture2D glow = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
+            Texture2D asteroid = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
 
             Vector2 mainOrigin = asteroid.Size() / 2f;
             Color color = Color.Lerp(Color.White, Color.Black, 0.15f + Depth / 10f) * Opacity;

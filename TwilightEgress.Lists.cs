@@ -1,9 +1,9 @@
 ﻿using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 
-namespace Cascade
+namespace TwilightEgress
 {
-    public partial class Cascade
+    public partial class TwilightEgress
     {
         #region NPC Lists
         public static List<NPC> BasePlanetoidInheriters { get; set; }

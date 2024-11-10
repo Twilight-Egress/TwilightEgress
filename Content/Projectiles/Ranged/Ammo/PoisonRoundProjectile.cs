@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Projectiles.Ranged.Ammo
+﻿namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {
     public class PoisonRoundProjectile : ModProjectile, ILocalizedModType
     {
@@ -24,7 +24,7 @@
             int chance = hit.Crit ? 1 : 4;
             if (Main.rand.NextBool(chance))
             {
-                CascadeUtilities.CreateDustCircle(15, Projectile.Center, 18, 3f);
+                TwilightEgressUtilities.CreateDustCircle(15, Projectile.Center, 18, 3f);
                 target.AddBuff(BuffID.Poisoned, 120);
             }
         }

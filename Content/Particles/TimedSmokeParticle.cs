@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class TimedSmokeParticle : CasParticle
     {
@@ -10,7 +10,7 @@
 
         public int FrameVariant;
 
-        public override string AtlasTextureName => "Cascade.MediumSmoke.png";
+        public override string AtlasTextureName => "TwilightEgress.MediumSmoke.png";
 
         public override int FrameCount => 3;
 

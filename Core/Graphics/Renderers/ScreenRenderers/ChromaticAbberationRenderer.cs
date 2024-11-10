@@ -1,4 +1,4 @@
-﻿namespace Cascade.Core.Graphics.Renderers.ScreenRenderers
+﻿namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
 {
     public class ChromaticAbberationRenderer : SmartRenderer
     {
@@ -47,7 +47,7 @@
         {           
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            ManagedScreenFilter shader = ShaderManager.GetFilter("Cascade.ChromaticAbberation");
+            ManagedScreenFilter shader = ShaderManager.GetFilter("TwilightEgress.ChromaticAbberation");
             shader.TrySetParameter("distortionAmount", (1f - ChromaLifespanRatio) * ChromaStrength);
             shader.TrySetParameter("impactPosition", ChromaPosition - Main.screenPosition);
             shader.Apply();

@@ -1,6 +1,6 @@
-﻿using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Planetoids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
 {
     public class ShatteredPlanetoid : BasePlanetoid, ILocalizedModType
     {
@@ -25,7 +25,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Planetoids
             float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
             Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(totalAttractionRadius, totalAttractionRadius);
             if (Main.rand.NextBool(2))
-                CascadeUtilities.CreateDustLoop(15, dustPosition, Vector2.UnitX, DustID.Electric);
+                TwilightEgressUtilities.CreateDustLoop(15, dustPosition, Vector2.UnitX, DustID.Electric);
 
             NPC.rotation += Tau / 600f;
             NPC.ShowNameOnHover = false;

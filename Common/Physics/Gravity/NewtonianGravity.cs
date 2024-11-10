@@ -1,4 +1,4 @@
-﻿namespace Cascade.Common.Physics.Gravity
+﻿namespace TwilightEgress.Common.Physics.Gravity
 {
     public static class NewtonianGravity
     {

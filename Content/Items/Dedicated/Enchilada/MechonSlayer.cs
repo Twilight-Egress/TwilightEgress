@@ -3,7 +3,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
 
-namespace Cascade.Content.Items.Dedicated.Enchilada
+namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
     public class MechonSlayer : ModItem, ILocalizedModType
     {

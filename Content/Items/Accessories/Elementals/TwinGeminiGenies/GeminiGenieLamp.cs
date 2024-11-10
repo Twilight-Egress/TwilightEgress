@@ -1,7 +1,7 @@
 ﻿using CalamityMod.Items;
-using Cascade.Content.Buffs.Minions;
+using TwilightEgress.Content.Buffs.Minions;
 
-namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class GeminiGenieLamp : ModItem, ILocalizedModType
     {
@@ -41,7 +41,7 @@ namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
 
         public override void UpdateVanity(Player player)
         {
-            player.Cascade_Buffs().GeminiGeniesVanity = true;
+            player.TwilightEgress_Buffs().GeminiGeniesVanity = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGenieSandy>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<GeminiGenieSandy>(), 0, 0f, player.whoAmI);
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGeniePsychic>()] < 1)

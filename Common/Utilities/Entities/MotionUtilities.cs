@@ -1,6 +1,6 @@
-﻿namespace Cascade
+﻿namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
         /// <summary>
         /// Moves an <see cref="Entity"/> towards a Vector2.

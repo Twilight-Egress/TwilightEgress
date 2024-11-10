@@ -1,5 +1,5 @@
-﻿using Cascade.Content.Items.Materials;
-using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Content.Items.Materials;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.ItemDropRules;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
     public class CosmostoneGeode : BaseAsteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -154,7 +154,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D glow = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
 
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;
@@ -171,8 +171,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
 
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.MagicStreak, 1, SamplerState.LinearWrap);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.MagicStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => NPC.Size * 0.5f, true, true, smoothTrail);

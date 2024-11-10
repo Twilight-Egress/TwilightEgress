@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class AmbientStarParticle : CasParticle
     {
@@ -6,7 +6,7 @@
 
         public float MaxOpacity;
 
-        public override string AtlasTextureName => "Cascade.Sparkle.png";
+        public override string AtlasTextureName => "TwilightEgress.Sparkle.png";
 
         public override BlendState BlendState => BlendState.Additive;
 

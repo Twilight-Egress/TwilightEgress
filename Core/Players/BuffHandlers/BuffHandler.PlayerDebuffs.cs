@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics.Renderers.ScreenRenderers;
+﻿using TwilightEgress.Core.Graphics.Renderers.ScreenRenderers;
 
-namespace Cascade.Core.Players.BuffHandlers
+namespace TwilightEgress.Core.Players.BuffHandlers
 {
     public partial class BuffHandler
     {
@@ -68,8 +68,8 @@ namespace Cascade.Core.Players.BuffHandlers
                     float abberationInterpolant = Lerp(0f, 25f, BellbirdStunTimeRatio);
                     ChromaticAbberationRenderer.ApplyChromaticAbberation(Main.LocalPlayer.Center, abberationInterpolant, 240);
 
-                    float vignettePowerInterpolant = Lerp(20f, 2f, CascadeUtilities.SineEaseInOut(BellbirdStunTimeRatio));
-                    float vignetteBrightnessInterpolant = Lerp(0f, 3f, CascadeUtilities.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignettePowerInterpolant = Lerp(20f, 2f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignetteBrightnessInterpolant = Lerp(0f, 3f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
                     DarkVignetteRenderer.ApplyDarkVignette(Main.LocalPlayer.Center, vignettePowerInterpolant, vignetteBrightnessInterpolant, 180);
                 }
 

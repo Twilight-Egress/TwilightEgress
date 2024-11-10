@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Projectiles;
 
-namespace Cascade.Content.Projectiles.Ranged.Ammo
+namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {
     public class StingerRoundProjectile : ModProjectile, ILocalizedModType
     {

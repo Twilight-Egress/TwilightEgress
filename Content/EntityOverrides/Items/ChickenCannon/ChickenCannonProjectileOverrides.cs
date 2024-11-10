@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Projectiles.Ranged;
 
-namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonProjectileOverrides : GlobalProjectile
     {

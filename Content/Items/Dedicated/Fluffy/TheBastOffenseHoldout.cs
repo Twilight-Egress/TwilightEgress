@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Fluffy
+﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class TheBastOffenseHoldout : ModProjectile, ILocalizedModType
     {
@@ -32,7 +32,7 @@
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => "Cascade/Content/Items/Dedicated/Fluffy/TheBastOffense";
+        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Fluffy/TheBastOffense";
 
         public override void SetDefaults()
         {
@@ -50,11 +50,11 @@
 
         public override void AI()
         {
-            ref float bastIncreaseDelay = ref Projectile.Cascade().ExtraAI[BastIncreaseDelayIndex];
-            ref float bastCatCount = ref Projectile.Cascade().ExtraAI[BastCatCountIndex];
-            ref float weaponShakeAngle = ref Projectile.Cascade().ExtraAI[WeaponShakeAngleIndex];
-            ref float oldRotation = ref Projectile.Cascade().ExtraAI[OldRotationIndex];
-            ref float recoilStrength = ref Projectile.Cascade().ExtraAI[RecoilStrengthIndex];
+            ref float bastIncreaseDelay = ref Projectile.TwilightEgress().ExtraAI[BastIncreaseDelayIndex];
+            ref float bastCatCount = ref Projectile.TwilightEgress().ExtraAI[BastCatCountIndex];
+            ref float weaponShakeAngle = ref Projectile.TwilightEgress().ExtraAI[WeaponShakeAngleIndex];
+            ref float oldRotation = ref Projectile.TwilightEgress().ExtraAI[OldRotationIndex];
+            ref float recoilStrength = ref Projectile.TwilightEgress().ExtraAI[RecoilStrengthIndex];
 
             bool shouldDespawn = !Owner.active || Owner.dead || Owner.CCed || Owner.HeldItem.type != ModContent.ItemType<TheBastOffense>();
             if (shouldDespawn)
@@ -120,7 +120,7 @@
                     // Play a different sound and a spawn a dust circle to indicate it's done charging.
                     if (bastCatCount == maxBastCatCount)
                     {
-                        CascadeUtilities.CreateDustCircle(30, Projectile.Center, DustID.Firework_Yellow, 10f, shouldDefyGravity: true);
+                        TwilightEgressUtilities.CreateDustCircle(30, Projectile.Center, DustID.Firework_Yellow, 10f, shouldDefyGravity: true);
                         SoundEngine.PlaySound(SoundID.ResearchComplete with { MaxInstances = 0 }, Projectile.Center);
                     }
                     bastIncreaseDelay = (int)Clamp(bastIncreaseDelay - 2f, 5f, 60f);
@@ -206,7 +206,7 @@
                 ResetAnimationTimer++;
                 if (ResetAnimationTimer <= 45f)
                 {
-                    Projectile.rotation = Lerp(Projectile.rotation, oldRotation + ToRadians(-85f) * Owner.direction * recoilStrength, CascadeUtilities.ExpoEaseOut(ResetAnimationTimer / 25f));
+                    Projectile.rotation = Lerp(Projectile.rotation, oldRotation + ToRadians(-85f) * Owner.direction * recoilStrength, TwilightEgressUtilities.ExpoEaseOut(ResetAnimationTimer / 25f));
                 }
 
                 if (ResetAnimationTimer >= 45f)
@@ -260,7 +260,7 @@
                 // Recoil animation.
                 ResetAnimationTimer++;
                 if (ResetAnimationTimer <= 45f)
-                    Projectile.rotation = Lerp(Projectile.rotation, oldRotation + ToRadians(-135f) * Owner.direction, CascadeUtilities.ExpoEaseOut(ResetAnimationTimer / 35f));
+                    Projectile.rotation = Lerp(Projectile.rotation, oldRotation + ToRadians(-135f) * Owner.direction, TwilightEgressUtilities.ExpoEaseOut(ResetAnimationTimer / 35f));
 
                 if (ResetAnimationTimer >= 45f)
                     Projectile.Kill();
@@ -269,12 +269,12 @@
 
         public void FuckingExplode()
         {
-            ref float bastCatCount = ref Projectile.Cascade().ExtraAI[BastCatCountIndex];
+            ref float bastCatCount = ref Projectile.TwilightEgress().ExtraAI[BastCatCountIndex];
 
             // Hurt the player in the explosion.       
             Player.HurtInfo hurtInfo = new()
             {
-                DamageSource = PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.Cascade.Status.DeathReasons.BastOffenseExplosion")),
+                DamageSource = PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.TwilightEgress.Status.DeathReasons.BastOffenseExplosion")),
                 Dodgeable = false,
                 Damage = Main.zenithWorld ? 9000 : 150
             };
@@ -285,7 +285,7 @@
             for (int i = 0; i < bastCatCount; i++)
             {
                 Vector2 velocity = Vector2.UnitX.RotatedByRandom(Tau) * Main.rand.NextFloat(10f, 15f);
-                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, CascadeSoundRegistry.KibbyExplosion, null, Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, TwilightEgressSoundRegistry.KibbyExplosion, null, Projectile.owner);
             }
 
             // Particle effects.
@@ -334,7 +334,7 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float backglowRotation = ref Projectile.Cascade().ExtraAI[BackglowRotationIndex];
+            ref float backglowRotation = ref Projectile.TwilightEgress().ExtraAI[BackglowRotationIndex];
 
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -345,7 +345,7 @@
             for (int i = 0; i < 4; i++)
             {
                 backglowRotation += TwoPi / 300f;
-                float backglowRadius = Lerp(2f, 5f, CascadeUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + TwoPi * i / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);

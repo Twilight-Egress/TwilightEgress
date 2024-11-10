@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Dedicated.Fluffy;
+﻿using TwilightEgress.Content.Items.Dedicated.Fluffy;
 
-namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonMiniBoom : Bastsplosion, ILocalizedModType
     {

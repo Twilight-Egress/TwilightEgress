@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.MPG
+﻿namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MassiveUnderworldLantern : ModProjectile, ILocalizedModType
     {
@@ -64,7 +64,7 @@
 
             if (AIState == 0f)
             {
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, CascadeUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
+                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
                 Projectile.rotation = Projectile.AngleTo(closestTarget.Center);
                 Projectile.velocity *= 0.9f;
 

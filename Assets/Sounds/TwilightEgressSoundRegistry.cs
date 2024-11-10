@@ -1,54 +1,54 @@
-﻿namespace Cascade.Assets.Sounds
+﻿namespace TwilightEgress.Assets.Sounds
 {
     // Why does regular calamity not have some type of proper sound registry grahhhhh
     // no im NOT going to cache them as fields in each individual npc file i want EASY ACCESS TO ALL ACROSS THE ENTIRE PROJECT.
     // frickyoy john calamity
 
-    public static class CascadeSoundRegistry
+    public static class TwilightEgressSoundRegistry
     {
-        #region Cascade Sounds
+        #region TwilightEgress Sounds
 
-        public static readonly SoundStyle GasterGone = new SoundStyle("Cascade/Assets/Sounds/Misc/MysteryManDisappear");
+        public static readonly SoundStyle GasterGone = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/MysteryManDisappear");
 
-        public static readonly SoundStyle UndertaleExplosion = new SoundStyle("Cascade/Assets/Sounds/Misc/UndertaleExplosion");
+        public static readonly SoundStyle UndertaleExplosion = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/UndertaleExplosion");
 
-        public static readonly SoundStyle PokemonThunderbolt = new SoundStyle("Cascade/Assets/Sounds/Items/MarvWeapon/PokemonThunderbolt");
+        public static readonly SoundStyle PokemonThunderbolt = new SoundStyle("TwilightEgress/Assets/Sounds/Items/MarvWeapon/PokemonThunderbolt");
 
-        public static readonly SoundStyle SuperEffective = new SoundStyle("Cascade/Assets/Sounds/Items/MarvWeapon/SuperEffective");
+        public static readonly SoundStyle SuperEffective = new SoundStyle("TwilightEgress/Assets/Sounds/Items/MarvWeapon/SuperEffective");
 
-        public static readonly SoundStyle PikachuCry = new SoundStyle("Cascade/Assets/Sounds/Items/MarvWeapon/PikachuCry");
+        public static readonly SoundStyle PikachuCry = new SoundStyle("TwilightEgress/Assets/Sounds/Items/MarvWeapon/PikachuCry");
 
-        public static readonly SoundStyle ZekromCry = new SoundStyle("Cascade/Assets/Sounds/Items/MarvWeapon/ZekromCry");
+        public static readonly SoundStyle ZekromCry = new SoundStyle("TwilightEgress/Assets/Sounds/Items/MarvWeapon/ZekromCry");
 
-        public static readonly SoundStyle BellbirdChirp = new SoundStyle("Cascade/Assets/Sounds/Items/LynelBirb/NotSoStunningBellbirdScream");
+        public static readonly SoundStyle BellbirdChirp = new SoundStyle("TwilightEgress/Assets/Sounds/Items/LynelBirb/NotSoStunningBellbirdScream");
 
-        public static readonly SoundStyle BellbirdStunningScream = new SoundStyle("Cascade/Assets/Sounds/Items/LynelBirb/TheCryOfGod");
+        public static readonly SoundStyle BellbirdStunningScream = new SoundStyle("TwilightEgress/Assets/Sounds/Items/LynelBirb/TheCryOfGod");
 
-        public static readonly SoundStyle AsrielTargetBeep = new SoundStyle("Cascade/Assets/Sounds/Items/JacobWeapon/DraedonBombBeep");
+        public static readonly SoundStyle AsrielTargetBeep = new SoundStyle("TwilightEgress/Assets/Sounds/Items/JacobWeapon/DraedonBombBeep");
 
-        public static readonly SoundStyle AnvilHit = new SoundStyle("Cascade/Assets/Sounds/Items/JacobWeapon/AnvilCompleteHit");
+        public static readonly SoundStyle AnvilHit = new SoundStyle("TwilightEgress/Assets/Sounds/Items/JacobWeapon/AnvilCompleteHit");
 
-        public static readonly SoundStyle RequiemBouquetPerish = new SoundStyle("Cascade/Assets/Sounds/Items/MPGWeapon/RequiemBouquetPerish");
+        public static readonly SoundStyle RequiemBouquetPerish = new SoundStyle("TwilightEgress/Assets/Sounds/Items/MPGWeapon/RequiemBouquetPerish");
 
-        public static readonly SoundStyle IceShock = new SoundStyle("Cascade/Assets/Sounds/Items/IceShock");
+        public static readonly SoundStyle IceShock = new SoundStyle("TwilightEgress/Assets/Sounds/Items/IceShock");
 
-        public static readonly SoundStyle IceShockPetrify =  new SoundStyle("Cascade/Assets/Sounds/Items/IceShockPetrify");
+        public static readonly SoundStyle IceShockPetrify =  new SoundStyle("TwilightEgress/Assets/Sounds/Items/IceShockPetrify");
 
-        public static readonly SoundStyle FleshySwordStab = new SoundStyle("Cascade/Assets/Sounds/Misc/FleshySwordStab");
+        public static readonly SoundStyle FleshySwordStab = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/FleshySwordStab");
 
-        public static readonly SoundStyle FleshySwordStab2 = new SoundStyle("Cascade/Assets/Sounds/Misc/FleshySwordStab2");
+        public static readonly SoundStyle FleshySwordStab2 = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/FleshySwordStab2");
 
-        public static readonly SoundStyle FleshySwordStab3 = new SoundStyle("Cascade/Assets/Sounds/Misc/FleshySwordStab3");
+        public static readonly SoundStyle FleshySwordStab3 = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/FleshySwordStab3");
 
-        public static readonly SoundStyle FleshySwordRip = new SoundStyle("Cascade/Assets/Sounds/Misc/FleshySwordRip");
+        public static readonly SoundStyle FleshySwordRip = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/FleshySwordRip");
 
-        public static readonly SoundStyle FleshySwordRip2 = new SoundStyle("Cascade/Assets/Sounds/Misc/FleshySwordRip2");
+        public static readonly SoundStyle FleshySwordRip2 = new SoundStyle("TwilightEgress/Assets/Sounds/Misc/FleshySwordRip2");
 
-        public static readonly SoundStyle FlytrapMawSpawn = new SoundStyle("Cascade/Assets/Sounds/Items/RaeshWeapon/FlytrapMawSpawn");
+        public static readonly SoundStyle FlytrapMawSpawn = new SoundStyle("TwilightEgress/Assets/Sounds/Items/RaeshWeapon/FlytrapMawSpawn");
 
-        public static readonly SoundStyle FlytrapMawBounce = new SoundStyle("Cascade/Assets/Sounds/Items/RaeshWeapon/FlytrapMawBounce");
+        public static readonly SoundStyle FlytrapMawBounce = new SoundStyle("TwilightEgress/Assets/Sounds/Items/RaeshWeapon/FlytrapMawBounce");
 
-        public static readonly SoundStyle KibbyExplosion = new SoundStyle("Cascade/Assets/Sounds/Items/KibbyExplosion");
+        public static readonly SoundStyle KibbyExplosion = new SoundStyle("TwilightEgress/Assets/Sounds/Items/KibbyExplosion");
 
         #endregion
 

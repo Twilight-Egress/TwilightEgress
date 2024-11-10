@@ -1,7 +1,7 @@
 ﻿using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 using CalamityMod.Projectiles.Ranged;
 
-namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonHoldout : ModProjectile, ILocalizedModType
     {
@@ -55,7 +55,7 @@ namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
 
         public void DoBehavior()
         {
-            ref float oldRotation = ref Projectile.Cascade().ExtraAI[OldRotationIndex];
+            ref float oldRotation = ref Projectile.TwilightEgress().ExtraAI[OldRotationIndex];
 
             Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter, true);
 
@@ -70,9 +70,9 @@ namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
                     chargeUpRing.SpawnCasParticle();
 
                     // Play a different yharon sound at every interval.
-                    SoundStyle sound = CascadeSoundRegistry.YharonHurt;
+                    SoundStyle sound = TwilightEgressSoundRegistry.YharonHurt;
                     if (Timer >= 180f)
-                        sound = CascadeSoundRegistry.YharonRoarShort;
+                        sound = TwilightEgressSoundRegistry.YharonRoarShort;
                     SoundEngine.PlaySound(sound, Projectile.Center);
                 }
 
@@ -111,7 +111,7 @@ namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float backglowRotation = ref Projectile.Cascade().ExtraAI[BackglowRotationIndex];
+            ref float backglowRotation = ref Projectile.TwilightEgress().ExtraAI[BackglowRotationIndex];
 
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -127,7 +127,7 @@ namespace Cascade.Content.EntityOverrides.Items.ChickenCannon
             for (int i = 0; i < 4; i++)
             {
                 backglowRotation += TwoPi / 300f;
-                float backglowRadius = Lerp(2f, 5f, CascadeUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + TwoPi * i / 4) * backglowRadius;
 
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, projRec, Projectile.GetAlpha(Color.Orange), rotation, projRec.Size() / 2f, Projectile.scale, effects, 0);

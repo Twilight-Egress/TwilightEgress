@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.NPCs.MiscNPCs
+﻿namespace TwilightEgress.Content.NPCs.MiscNPCs
 {
     public class NoxusVision : ModNPC, ILocalizedModType
     {
@@ -31,7 +31,7 @@
             if (NPC.ai[0] != 1f)
             {
                 // ooooooooooo spoooooooky
-                SoundEngine.PlaySound(CascadeSoundRegistry.GasterGone with { Volume = 3f }, NPC.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.GasterGone with { Volume = 3f }, NPC.Center);
                 NPC.ai[0] = 1f;
                 NPC.life = 1;
                 NPC.dontTakeDamage = true;
@@ -43,9 +43,9 @@
 
         public override void AI()
         {
-            ref float glowingBackIllusionsAngle = ref NPC.Cascade().ExtraAI[GlowingBackIllusionsAngleIndex];
-            ref float glowingBackIllusionsOutwardness = ref NPC.Cascade().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
-            ref float eyeGlareScale = ref NPC.Cascade().ExtraAI[EyeGlareScaleIndex];
+            ref float glowingBackIllusionsAngle = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsAngleIndex];
+            ref float glowingBackIllusionsOutwardness = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
+            ref float eyeGlareScale = ref NPC.TwilightEgress().ExtraAI[EyeGlareScaleIndex];
 
             // Vanish into thin air.
             if (NPC.ai[0] == 1f)
@@ -69,12 +69,12 @@
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            ref float glowingBackIllusionsAngle = ref NPC.Cascade().ExtraAI[GlowingBackIllusionsAngleIndex];
-            ref float glowingBackIllusionsOutwardness = ref NPC.Cascade().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
-            ref float eyeGlareScale = ref NPC.Cascade().ExtraAI[EyeGlareScaleIndex];
+            ref float glowingBackIllusionsAngle = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsAngleIndex];
+            ref float glowingBackIllusionsOutwardness = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
+            ref float eyeGlareScale = ref NPC.TwilightEgress().ExtraAI[EyeGlareScaleIndex];
 
             Texture2D noxus = TextureAssets.Npc[NPC.type].Value;
-            Texture2D eyeGlare = CascadeTextureRegistry.SoftStar.Value;
+            Texture2D eyeGlare = TwilightEgressTextureRegistry.SoftStar.Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY);
 
             // Lerp between magenta and blue.

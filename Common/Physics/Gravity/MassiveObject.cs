@@ -1,6 +1,6 @@
-﻿using Cascade.Common.Physics.VerletIntegration;
+﻿using TwilightEgress.Common.Physics.VerletIntegration;
 
-namespace Cascade.Common.Physics.Gravity
+namespace TwilightEgress.Common.Physics.Gravity
 {
     public class MassiveObject : VerletObject
     {

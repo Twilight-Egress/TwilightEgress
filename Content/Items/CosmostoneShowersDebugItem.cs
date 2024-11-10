@@ -1,8 +1,8 @@
 ﻿using CalamityMod.Events;
-using Cascade.Content.Events;
-using Cascade.Content.Events.CosmostoneShowers;
+using TwilightEgress.Content.Events;
+using TwilightEgress.Content.Events.CosmostoneShowers;
 
-namespace Cascade.Content.Items
+namespace TwilightEgress.Content.Items
 {
     public class CosmostoneShowersDebugItem : ModItem, ILocalizedModType
     {

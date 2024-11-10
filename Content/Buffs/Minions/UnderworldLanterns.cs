@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Dedicated.MPG;
+﻿using TwilightEgress.Content.Items.Dedicated.MPG;
 
-namespace Cascade.Content.Buffs.Minions
+namespace TwilightEgress.Content.Buffs.Minions
 {
     public class UnderworldLanterns : ModBuff, ILocalizedModType
     {
@@ -16,7 +16,7 @@ namespace Cascade.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Cascade_Buffs().MoonSpiritLantern = true;
+            player.TwilightEgress_Buffs().MoonSpiritLantern = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<UnderworldLantern>()] < 1)
             {
                 player.DelBuff(buffIndex);

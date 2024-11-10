@@ -10,7 +10,7 @@
 
 	<!-- General -->
 	<PropertyGroup>
-		<AssemblyName>Cascade</AssemblyName>
+		<AssemblyName>TwilightEgress</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		
 		<!-- for github workflows -->

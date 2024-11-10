@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Projectiles.Ranged.Ammo;
+﻿using TwilightEgress.Content.Projectiles.Ranged.Ammo;
 
-namespace Cascade.Content.Items.Ammo
+namespace TwilightEgress.Content.Items.Ammo
 {
     public class StingerRound : ModItem, ILocalizedModType
     {

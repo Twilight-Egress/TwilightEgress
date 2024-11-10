@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     internal class ShiningStarParticle : CasParticle
     {
@@ -12,7 +12,7 @@
 
         private int TextureIndex;
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public override BlendState BlendState => BlendState.Additive;
 
@@ -47,7 +47,7 @@
             int timeToDisappear = Lifetime - 120;
             int timeToAppear = 120;
             float appearInterpolant = Time / (float)timeToAppear;
-            float twinkleInterpolant = CascadeUtilities.SineEaseInOut(Time / 120f);
+            float twinkleInterpolant = TwilightEgressUtilities.SineEaseInOut(Time / 120f);
             float disappearInterpolant = (Time - timeToDisappear) / 120f;
 
             Scale = new(Lerp(MinScale, MaxScale, twinkleInterpolant));
@@ -62,8 +62,8 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(CascadeTextureRegistry.FourPointedStars_Atlas[TextureIndex]);
-            AtlasTexture bloomTexture = AtlasManager.GetTexture("Cascade.BloomFlare.png");
+            AtlasTexture starTextures = AtlasManager.GetTexture(TwilightEgressTextureRegistry.FourPointedStars_Atlas[TextureIndex]);
+            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = starTextures.Size / 2f;
             Vector2 bloomOrigin = bloomTexture.Size / 2f;

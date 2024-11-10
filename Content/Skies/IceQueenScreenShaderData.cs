@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Skies
+﻿namespace TwilightEgress.Content.Skies
 {
     public class IceQueenScreenShaderData : ScreenShaderData
     {

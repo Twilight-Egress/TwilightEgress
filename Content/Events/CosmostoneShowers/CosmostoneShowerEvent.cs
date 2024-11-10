@@ -1,18 +1,18 @@
 ﻿using CalamityMod.Events;
 using CalamityMod.NPCs.NormalNPCs;
-using Cascade.Content.NPCs.CosmostoneShowers.Asteroids;
-using Cascade.Content.NPCs.CosmostoneShowers.Manaphages;
-using Cascade.Content.NPCs.CosmostoneShowers.Planetoids;
-using Cascade.Content.Projectiles;
-using Cascade.Content.Skies.SkyEntities;
-using Cascade.Content.Skies.SkyEntities.StationaryAsteroids;
-using Cascade.Content.Skies.SkyEntities.TravellingAsteroid;
-using Cascade.Core.Graphics.GraphicalObjects.SkyEntities;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
+using TwilightEgress.Content.Projectiles;
+using TwilightEgress.Content.Skies.SkyEntities;
+using TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids;
+using TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid;
+using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Events;
 using Terraria.Graphics;
 
-namespace Cascade.Content.Events.CosmostoneShowers
+namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
     public class CosmostoneShowerEvent : EventHandler
     {
@@ -88,7 +88,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
             bool shouldIncreaseSpawnRate = LanternNight.NextNightIsLanternNight;
 
             // Start and stop the event.
-            if (CascadeUtilities.JustTurnedToNight && !shouldStopEvent && !EventIsActive && Main.rand.NextBool(shouldIncreaseSpawnRate ? 7 : 15))
+            if (TwilightEgressUtilities.JustTurnedToNight && !shouldStopEvent && !EventIsActive && Main.rand.NextBool(shouldIncreaseSpawnRate ? 7 : 15))
             {
                 Main.NewText("A mana-rich asteroid belt is travelling through the astrasphere...", Color.DeepSkyBlue);
                 EventHandlerManager.StartEvent<CosmostoneShowerEvent>();
@@ -158,7 +158,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
             int asteroidSpawnChance = 125;
             int planetoidSpawnChance = 500;
 
-            List<NPC> activePlanetoids = Cascade.BasePlanetoidInheriters.Where(p => p.active).ToList();
+            List<NPC> activePlanetoids = TwilightEgress.BasePlanetoidInheriters.Where(p => p.active).ToList();
             List<NPC> activePlanetoidsOnScreen = new();
 
             // Get all active planetoids that are on-screen.
@@ -207,7 +207,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
                     asteroidSpawnPosition = planetoidPositionWithRadius;
                 }
 
-                if (CascadeUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
+                if (TwilightEgressUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
                 {
                     int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), asteroidSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, asteroids.RandomElementByWeight(e => e.Value).Key);
                     if (Main.projectile.IndexInRange(p))
@@ -230,7 +230,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
                     }
                 }
 
-                if (CascadeUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(planetoidSpawnPosition, 1600, 1600) && activePlanetoids.Count < 10)
+                if (TwilightEgressUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(planetoidSpawnPosition, 1600, 1600) && activePlanetoids.Count < 10)
                 {
                     int[] planetoidTypes =
                     {
@@ -259,30 +259,30 @@ namespace Cascade.Content.Events.CosmostoneShowers
             float fadeOutInterpolant = Lerp(2f, 0.1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
 
             // Bakcground nebula.
-            Texture2D skyTexture = CascadeTextureRegistry.CosmostoneShowersNebulaColors.Value;
+            Texture2D skyTexture = TwilightEgressTextureRegistry.CosmostoneShowersNebulaColors.Value;
 
-            ShaderManager.TryGetShader("Cascade.CosmostoneShowersSkyShader", out ManagedShader cosmoSkyShader);
+            ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersSkyShader", out ManagedShader cosmoSkyShader);
             cosmoSkyShader.TrySetParameter("galaxyOpacity", globalOpacity);
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
-            cosmoSkyShader.SetTexture(CascadeTextureRegistry.RealisticClouds, 1, samplerState);
-            cosmoSkyShader.SetTexture(CascadeTextureRegistry.RealisticClouds, 2, samplerState);
-            cosmoSkyShader.SetTexture(CascadeTextureRegistry.PerlinNoise2, 3, samplerState);
+            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 1, samplerState);
+            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 2, samplerState);
+            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.PerlinNoise2, 3, samplerState);
             cosmoSkyShader.Apply();
 
             spriteBatch.Draw(skyTexture, new Rectangle(0, (int)(Main.worldSurface * gradientHeightInterpolant + 50f), (int)(Main.screenWidth * 1.5f), (int)(Main.screenHeight * 1.5f)), Color.White * globalOpacity);
 
             // Clouds below the nebula.
-            Texture2D cloudTexture = CascadeTextureRegistry.NeuronNebulaGalaxyBlurred.Value;
+            Texture2D cloudTexture = TwilightEgressTextureRegistry.NeuronNebulaGalaxyBlurred.Value;
 
-            ShaderManager.TryGetShader("Cascade.CosmostoneShowersCloudsShader", out ManagedShader cosmoCloudsShader);
+            ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersCloudsShader", out ManagedShader cosmoCloudsShader);
             cosmoCloudsShader.TrySetParameter("cloudOpacity", globalOpacity * 0.6f);
             cosmoCloudsShader.TrySetParameter("fadeOutMarginTop", 0.92f);
             cosmoCloudsShader.TrySetParameter("fadeOutMarginBottom", 0.75f);
             cosmoCloudsShader.TrySetParameter("erosionStrength", 0.8f);
             cosmoCloudsShader.TrySetParameter("textureSize", cloudTexture.Size());
-            cosmoCloudsShader.SetTexture(CascadeTextureRegistry.RealisticClouds, 1, samplerState);
-            cosmoCloudsShader.SetTexture(CascadeTextureRegistry.PerlinNoise3, 2, samplerState);
+            cosmoCloudsShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 1, samplerState);
+            cosmoCloudsShader.SetTexture(TwilightEgressTextureRegistry.PerlinNoise3, 2, samplerState);
             cosmoCloudsShader.SetTexture(MiscTexturesRegistry.WavyBlotchNoise.Value, 3, samplerState);
             cosmoCloudsShader.Apply();
 
@@ -302,7 +302,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
                 float starScale = Main.rand.NextFloat(0.10f, 0.20f) * 2f;
                 float parallaxStrength = Main.rand.NextFloat(1f, 5f);
                 int starLifetime = Main.rand.Next(240, 360);
-                Color starColor = CascadeUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
+                Color starColor = TwilightEgressUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
 
                 new AmbientStarParticle(starSpawnPos, starVelocity, starScale, 0f, 1f, parallaxStrength, starLifetime, starColor).SpawnCasParticle();
 
@@ -339,7 +339,7 @@ namespace Cascade.Content.Events.CosmostoneShowers
 
                     float depth = Main.rand.NextFloat(1f, 20f) * 10f;
 
-                    Color starColor = CascadeUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
+                    Color starColor = TwilightEgressUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
 
                     new ShiningStar(position, starColor, maxScale, depth, new Vector2(xStrectch, yStretch), lifespan).Spawn();
                 }

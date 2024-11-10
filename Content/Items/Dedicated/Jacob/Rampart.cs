@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Jacob
+﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class Rampart : ModProjectile, ILocalizedModType
     {
@@ -53,28 +53,28 @@
 
         public override void AI()
         {
-            ref float anvilAndSummoningCricleOpacity = ref Projectile.Cascade().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
-            ref float rampartBackglowOpacity = ref Projectile.Cascade().ExtraAI[RampartBackglowOpacityIndex];
-            ref float rampartBackglowRadius = ref Projectile.Cascade().ExtraAI[RampartBackglowRadiusIndex];
+            ref float anvilAndSummoningCricleOpacity = ref Projectile.TwilightEgress().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
+            ref float rampartBackglowOpacity = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowOpacityIndex];
+            ref float rampartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowRadiusIndex];
 
             if (Timer <= MaxChargeTime)
             {
                 Projectile.velocity *= 0.9f;
-                Projectile.Opacity = Lerp(0f, 1f, CascadeUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.Opacity = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
                 Projectile.rotation += TwoPi / 120f * RotationDirection;
 
                 // Backglow visuals.
                 if (Timer <= 100)
                 {
-                    rampartBackglowOpacity = Lerp(rampartBackglowOpacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 100f));
-                    rampartBackglowRadius = Lerp(175f, 3f, CascadeUtilities.SineEaseInOut(Timer / 100f));
+                    rampartBackglowOpacity = Lerp(rampartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
+                    rampartBackglowRadius = Lerp(175f, 3f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
                 }
 
                 // Handle the anvil and summoning circle drawing.
                 if (Timer <= 30f)
-                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 30f));
+                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
                 if (Timer >= MaxChargeTime - 25 && Timer <= MaxChargeTime)
-                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 0f, CascadeUtilities.SineEaseInOut(Timer / 25f));
+                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 25f));
 
                 // Dust visuals.
                 if (Timer <= MaxChargeTime - 45)
@@ -93,8 +93,8 @@
                 if (Timer == MaxChargeTime)
                 {
                     int dustType = Utils.SelectRandom(Main.rand, DustID.BlueTorch, DustID.Enchanted_Gold);
-                    CascadeUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f, dustScale: 3f);
-                    SoundEngine.PlaySound(CascadeSoundRegistry.AnvilHit, Projectile.Center);
+                    TwilightEgressUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f, dustScale: 3f);
+                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.AnvilHit, Projectile.Center);
                 }
             }
 
@@ -155,7 +155,7 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float anvilAndSummoningCricleOpacity = ref Projectile.Cascade().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
+            ref float anvilAndSummoningCricleOpacity = ref Projectile.TwilightEgress().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
             if (anvilAndSummoningCricleOpacity > 0f)
                 DrawAnvilAndSummoningCircle();
 
@@ -166,11 +166,11 @@
 
         public void DrawRampart()
         {
-            ref float rampartBackglowOpacity = ref Projectile.Cascade().ExtraAI[RampartBackglowOpacityIndex];
-            ref float rampartBackglowRadius = ref Projectile.Cascade().ExtraAI[RampartBackglowRadiusIndex];
-            ref float rampartBackglowSpin = ref Projectile.Cascade().ExtraAI[RampartBackglowSpinIndex];
+            ref float rampartBackglowOpacity = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowOpacityIndex];
+            ref float rampartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowRadiusIndex];
+            ref float rampartBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowSpinIndex];
 
-            Texture2D rampartGlow = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Jacob/RampartGlow").Value;
+            Texture2D rampartGlow = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/RampartGlow").Value;
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)
@@ -190,10 +190,10 @@
 
         public void DrawAnvilAndSummoningCircle()
         {
-            ref float anvilAndSummoningCricleOpacity = ref Projectile.Cascade().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
-            ref float cosmicAnvilBackglowSpin = ref Projectile.Cascade().ExtraAI[CosmicAnvilBackglowSpinIndex];
+            ref float anvilAndSummoningCricleOpacity = ref Projectile.TwilightEgress().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
+            ref float cosmicAnvilBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[CosmicAnvilBackglowSpinIndex];
 
-            Texture2D cosmicAnvil = ModContent.Request<Texture2D>("Cascade/Content/Items/Dedicated/Jacob/CosmicAnvil").Value;
+            Texture2D cosmicAnvil = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/CosmicAnvil").Value;
             Texture2D summoningCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredSummoningCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 

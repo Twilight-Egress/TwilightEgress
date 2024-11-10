@@ -1,6 +1,6 @@
-﻿using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
 
-namespace Cascade.Core.Players
+namespace TwilightEgress.Core.Players
 {
     public class OrbitalGravityPlayer : ModPlayer
     {

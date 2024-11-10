@@ -1,7 +1,7 @@
-﻿using Cascade.Content.NPCs.CosmostoneShowers.Asteroids;
-using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
     public class Manaphage : BasePhage
     {
@@ -18,7 +18,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public override void AI()
         {
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance, 
                 ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>());
@@ -67,13 +67,13 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
         #region AI Methods
         public void DoBehavior_JellyfishPropulsionIdle(NPCAimedTarget target)
         {
-            ref float jellyfishMovementInterval = ref NPC.Cascade().ExtraAI[JellyfishMovementIntervalIndex];
-            ref float jellyfishMovementAngle = ref NPC.Cascade().ExtraAI[JellyfishMovementAngleIndex];
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
-            ref float jellyfishPropulsionCount = ref NPC.Cascade().ExtraAI[JellyfishPropulsionCountIndex];
-            ref float maxPropulsions = ref NPC.Cascade().ExtraAI[MaxPropulsionsIndex];
-            ref float frameSpeed = ref NPC.Cascade().ExtraAI[FrameSpeedIndex];
+            ref float jellyfishMovementInterval = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementIntervalIndex];
+            ref float jellyfishMovementAngle = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementAngleIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
+            ref float jellyfishPropulsionCount = ref NPC.TwilightEgress().ExtraAI[JellyfishPropulsionCountIndex];
+            ref float maxPropulsions = ref NPC.TwilightEgress().ExtraAI[MaxPropulsionsIndex];
+            ref float frameSpeed = ref NPC.TwilightEgress().ExtraAI[FrameSpeedIndex];
 
             float propulsionSpeed = Main.rand.NextFloat(5f, 7f);
             CheckForTurnAround(out bool turnAround);
@@ -94,8 +94,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
                     // Squash the sprite slightly before the propulsion movement to give a
                     // more cartoony, jellyfish-like feeling to the movement.
                     float stretchInterpolant = Utils.GetLerpValue(0f, 1f, Timer / jellyfishMovementInterval, true);
-                    spriteStretchX = Lerp(spriteStretchX, 1.25f, CascadeUtilities.SineEaseInOut(stretchInterpolant));
-                    spriteStretchY = Lerp(spriteStretchY, 0.75f, CascadeUtilities.SineEaseInOut(stretchInterpolant));
+                    spriteStretchX = Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                    spriteStretchY = Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
 
                     int frameY = (int)Floor(Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
@@ -129,7 +129,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
                     UpdateAnimationFrames(default, 0f, 2);
 
                     // Spawn some lil' visual particles everytime it ejects.
-                    CascadeUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
+                    TwilightEgressUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
                     PulseRingParticle propulsionRing = new(NPC.Center - NPC.SafeDirectionTo(NPC.Center) * 60f, NPC.SafeDirectionTo(NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), NPC.velocity.ToRotation(), 45);
                     propulsionRing.SpawnCasParticle();
 
@@ -143,7 +143,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
                 if (Timer >= jellyfishMovementInterval + 30)
                 {
                     float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - jellyfishMovementInterval + 45) / jellyfishMovementInterval + 30, true);
-                    int frameY = (int)Floor(Lerp(1f, 4f, CascadeUtilities.SineEaseIn(animationInterpolant)));
+                    int frameY = (int)Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                     UpdateAnimationFrames(default, 0f, frameY);
                 }
 
@@ -170,10 +170,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DoBehavior_LazeAroundIdle(NPCAimedTarget target)
         {
-            ref float lazeMovementInterval = ref NPC.Cascade().ExtraAI[LazeMovementIntervalIndex];
-            ref float idleMovementDirection = ref NPC.Cascade().ExtraAI[IdleMovementDirectionIndex];
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
+            ref float lazeMovementInterval = ref NPC.TwilightEgress().ExtraAI[LazeMovementIntervalIndex];
+            ref float idleMovementDirection = ref NPC.TwilightEgress().ExtraAI[IdleMovementDirectionIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             int idleSwitchInterval = 1800;
             Vector2 velocity = Vector2.One.RotatedByRandom(TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
@@ -213,8 +213,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
                 SwitchBehaviorState(ManaphageBehavior.Idle_JellyfishPropulsion);
 
             // Squash and stretch the sprite passively.
-            spriteStretchX = Lerp(1f, 1.10f, CascadeUtilities.SineEaseInOut(Timer / 60f));
-            spriteStretchY = Lerp(1f, 0.8f, CascadeUtilities.SineEaseInOut(Timer / 120f));
+            spriteStretchX = Lerp(1f, 1.10f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+            spriteStretchY = Lerp(1f, 0.8f, TwilightEgressUtilities.SineEaseInOut(Timer / 120f));
 
             UpdateAnimationFrames(default, 10f);
 
@@ -225,10 +225,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DoBehavior_Fleeing(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
-            ref float jellyfishMovementAngle = ref NPC.Cascade().ExtraAI[JellyfishMovementAngleIndex];
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
+            ref float jellyfishMovementAngle = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementAngleIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             int maxTime = 45;
             int timeBeforePropulsion = 30;
@@ -248,8 +248,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer <= timeBeforePropulsion)
             {
                 float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(Timer / timeBeforePropulsion), true);
-                spriteStretchX = Lerp(spriteStretchX, 1.25f, CascadeUtilities.SineEaseInOut(stretchInterpolant));
-                spriteStretchY = Lerp(spriteStretchY, 0.75f, CascadeUtilities.SineEaseInOut(stretchInterpolant));
+                spriteStretchX = Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                spriteStretchY = Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
 
                 if (!FoundValidRotationAngle)
                 {
@@ -279,7 +279,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
                 UpdateAnimationFrames(default, 0f, 2);
 
-                CascadeUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
+                TwilightEgressUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
                 PulseRingParticle propulsionRing = new(NPC.Center - NPC.SafeDirectionTo(NPC.Center) * 60f, NPC.SafeDirectionTo(NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), NPC.velocity.ToRotation(), 45);
                 propulsionRing.SpawnCasParticle();
 
@@ -290,7 +290,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer >= timeBeforePropulsion)
             {
                 float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - maxTime) / timeBeforePropulsion + 30, true);
-                int frameY = (int)Floor(Lerp(1f, 4f, CascadeUtilities.SineEaseIn(animationInterpolant)));
+                int frameY = (int)Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                 UpdateAnimationFrames(default, 0f, frameY);
             }
 
@@ -308,9 +308,9 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DoBehavior_Latching(NPCAimedTarget target)
         {
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
-            ref float initialRotation = ref NPC.Cascade().ExtraAI[InitialRotationIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
+            ref float initialRotation = ref NPC.TwilightEgress().ExtraAI[InitialRotationIndex];
 
             Rectangle asteroidHitbox = new((int)AsteroidToSucc.position.X, (int)AsteroidToSucc.position.Y, (int)(AsteroidToSucc.width * 0.75f), (int)(AsteroidToSucc.height * 0.75f));
 
@@ -380,10 +380,10 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DoBehavior_Attacking(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
-            ref float manaSuckTimer = ref NPC.Cascade().ExtraAI[ManaSuckTimerIndex];
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
+            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             float aggroRange = 400f + additionalAggroRange;
             bool targetOutOfRange = NPC.Distance(target.Center) >= aggroRange;
@@ -414,16 +414,16 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
             }
 
             UpdateAnimationFrames(ManaphageAnimation.Attack, 5f);
-            spriteStretchX = Lerp(1f, 0.85f, CascadeUtilities.SineEaseInOut(Timer / 10f));
-            spriteStretchY = Lerp(0.95f, 1.05f, CascadeUtilities.SineEaseInOut(Timer / 10f));
+            spriteStretchX = Lerp(1f, 0.85f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
+            spriteStretchY = Lerp(0.95f, 1.05f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
 
             SwitchBehavior_Fleeing(target);
         }
 
         public void SwitchBehavior_Attacking(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
-            ref float manaSuckTimer = ref NPC.Cascade().ExtraAI[ManaSuckTimerIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
+            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
 
             bool canAtack = ManaRatio > 0.3f && LifeRatio > 0.2f;
             if (canAtack && target.Type == Terraria.Enums.NPCTargetType.Player)
@@ -437,7 +437,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void SwitchBehavior_Latching(NPCAimedTarget target)
         {
-            ref float manaSuckTimer = ref NPC.Cascade().ExtraAI[ManaSuckTimerIndex];
+            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
             int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
 
             // If the Manaphage starts becoming low on mana, start looking for nearby Asteroids.
@@ -456,7 +456,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void SwitchBehavior_Fleeing(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
 
             float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
             bool canFlee = target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Distance(target.Center) <= maxDetectionDistance && AIState != (float)ManaphageBehavior.Fleeing;
@@ -492,8 +492,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DrawMainSprite(Color drawColor)
         {
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             Texture2D texture = TextureAssets.Npc[Type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;
@@ -505,12 +505,12 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
 
         public void DrawManaTank()
         {
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
-            ref float manaTankShaderTime = ref NPC.Cascade().ExtraAI[ManaTankShaderTimeIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
+            ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
 
-            Texture2D manaphageTank = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank").Value;
-            Texture2D manaphageTankMask = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank_Mask").Value;
+            Texture2D manaphageTank = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank").Value;
+            Texture2D manaphageTankMask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank_Mask").Value;
 
             Vector2 stretchFactor = new(spriteStretchX, spriteStretchY);
             Vector2 origin = manaphageTank.Size() / 2f;
@@ -519,12 +519,12 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Manaphages
             float manaCapacityInterpolant = Utils.GetLerpValue(1f, 0f, CurrentManaCapacity / MaximumManaCapacity, true);
 
             Main.spriteBatch.PrepareForShaders();
-            ShaderManager.TryGetShader("Cascade.ManaphageTankShader", out ManagedShader manaTankShader);
+            ShaderManager.TryGetShader("TwilightEgress.ManaphageTankShader", out ManagedShader manaTankShader);
             manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * manaTankShaderTime);
             manaTankShader.TrySetParameter("manaCapacity", manaCapacityInterpolant);
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
-            manaTankShader.SetTexture(CascadeTextureRegistry.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
-            manaTankShader.SetTexture(CascadeTextureRegistry.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(TwilightEgressTextureRegistry.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(TwilightEgressTextureRegistry.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
             manaTankShader.Apply();
 
             // Draw the tank mask with the shader applied to it.

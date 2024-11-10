@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Items;
 
-namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
+namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalberd : ModItem, ILocalizedModType
     {

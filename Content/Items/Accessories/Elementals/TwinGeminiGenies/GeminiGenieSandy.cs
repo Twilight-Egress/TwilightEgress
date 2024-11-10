@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class GeminiGenieSandy : ModProjectile, ILocalizedModType
     {
@@ -65,11 +65,11 @@
             Projectile.idStaticNPCHitCooldown = 15;
         }
 
-        public override bool? CanDamage() => !Owner.Cascade_Buffs().GeminiGeniesVanity;
+        public override bool? CanDamage() => !Owner.TwilightEgress_Buffs().GeminiGeniesVanity;
 
         public bool CheckActive()
         {
-            if (Owner.Cascade_Buffs().GeminiGenies || Owner.Cascade_Buffs().GeminiGeniesVanity)
+            if (Owner.TwilightEgress_Buffs().GeminiGenies || Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
             {
                 Projectile.timeLeft = 2;
                 return true;
@@ -77,7 +77,7 @@
 
             if (Owner.dead || !Owner.active)
             {
-                Owner.Cascade_Buffs().GeminiGenies = false;
+                Owner.TwilightEgress_Buffs().GeminiGenies = false;
                 Projectile.Kill();
                 return false;
             }
@@ -90,7 +90,7 @@
             if (!CheckActive())
                 return;
 
-            ref float attackCounter = ref Projectile.Cascade().ExtraAI[AttackCounterIndex];
+            ref float attackCounter = ref Projectile.TwilightEgress().ExtraAI[AttackCounterIndex];
 
             // Set the global NPC instance.
             Myself = Projectile;
@@ -99,7 +99,7 @@
             NPC target = Projectile.GetNearestMinionTarget(Owner, 1750f, 500f, out bool foundTarget);
 
             // If the player is using the acceessory as vanity, make sure to always set this to false so no attacks are done.
-            if (Owner.Cascade_Buffs().GeminiGeniesVanity)
+            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
                 foundTarget = false;
 
             if (target == null && (AIStates)AttackState == AIStates.Attacking)
@@ -124,14 +124,14 @@
 
         public void DoBehavior_Idle(bool foundTarget)
         {
-            ref float sandTwisterScale = ref Projectile.Cascade().ExtraAI[SandTwisterScaleIndex];
-            ref float sandTwisterOpacity = ref Projectile.Cascade().ExtraAI[SandTwisterOpacityIndex];
+            ref float sandTwisterScale = ref Projectile.TwilightEgress().ExtraAI[SandTwisterScaleIndex];
+            ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
 
             ResetTwisterVisuals();
             Projectile.AdjustProjectileHitboxByScale(54f, 114f);
 
             Vector2 idlePosition = Owner.Center - Vector2.UnitX * 175f;
-            idlePosition.Y += Lerp(-15f, 15f, CascadeUtilities.SineEaseInOut(Timer / 240f));
+            idlePosition.Y += Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
 
             float speed = 25f;
             Vector2 idealVelocity = idlePosition - Projectile.Center;
@@ -141,7 +141,7 @@
             {
                 // Teleport when the player is too far away.
                 Projectile.Center = Owner.Center;
-                CascadeUtilities.CreateRandomizedDustExplosion(36, Projectile.Center, DustID.GoldCoin, 10f);
+                TwilightEgressUtilities.CreateRandomizedDustExplosion(36, Projectile.Center, DustID.GoldCoin, 10f);
             }
 
             if (distance > 70f)
@@ -170,10 +170,10 @@
 
         public void DoBehavior_Attacking(bool foundTarget, Vector2 targetCenter, ref float attackCounter)
         {
-            ref float sandTwisterScale = ref Projectile.Cascade().ExtraAI[SandTwisterScaleIndex];
-            ref float sandTwisterOpacity = ref Projectile.Cascade().ExtraAI[SandTwisterOpacityIndex];
-            ref float sandTwisterFrameCounter = ref Projectile.Cascade().ExtraAI[SandTwisterFrameCounterIndex];
-            ref float sandTwisterFrame = ref Projectile.Cascade().ExtraAI[SandTwisterFrameIndex];
+            ref float sandTwisterScale = ref Projectile.TwilightEgress().ExtraAI[SandTwisterScaleIndex];
+            ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
+            ref float sandTwisterFrameCounter = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameCounterIndex];
+            ref float sandTwisterFrame = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameIndex];
 
             // Immediately go back if there are no enemies.
             if (!foundTarget)
@@ -243,7 +243,7 @@
                 if (Timer == 0f)
                 {
                     SoundEngine.PlaySound(SoundID.Item60, Projectile.Center);
-                    CascadeUtilities.CreateDustCircle(36, Projectile.Center, DustID.GoldCoin, 10f);
+                    TwilightEgressUtilities.CreateDustCircle(36, Projectile.Center, DustID.GoldCoin, 10f);
                 }
 
                 if (Timer <= rushTime)
@@ -252,9 +252,9 @@
                     Projectile.SimpleMove(targetCenter, 45f, 85f);
                     if (Timer <= 30f)
                     {
-                        sandTwisterOpacity = Lerp(sandTwisterOpacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 30f));
-                        sandTwisterScale = Lerp(5f, 2.25f, CascadeUtilities.SineEaseInOut(Timer / 30f));
-                        Projectile.Opacity = Lerp(Projectile.Opacity, 0f, CascadeUtilities.SineEaseInOut(Timer / 30f));
+                        sandTwisterOpacity = Lerp(sandTwisterOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        sandTwisterScale = Lerp(5f, 2.25f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        Projectile.Opacity = Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
                     }
                 }
 
@@ -287,8 +287,8 @@
 
         public void ResetTwisterVisuals()
         {
-            ref float sandTwisterScale = ref Projectile.Cascade().ExtraAI[SandTwisterScaleIndex];
-            ref float sandTwisterOpacity = ref Projectile.Cascade().ExtraAI[SandTwisterOpacityIndex];
+            ref float sandTwisterScale = ref Projectile.TwilightEgress().ExtraAI[SandTwisterScaleIndex];
+            ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
 
             sandTwisterOpacity = Clamp(sandTwisterOpacity - 0.05f, 0f, 1f);
             sandTwisterScale = Clamp(sandTwisterScale + 0.05f, 0f, 5f);
@@ -297,8 +297,8 @@
 
         public void AnimateTwister()
         {
-            ref float sandTwisterFrameCounter = ref Projectile.Cascade().ExtraAI[SandTwisterFrameCounterIndex];
-            ref float sandTwisterFrame = ref Projectile.Cascade().ExtraAI[SandTwisterFrameIndex];
+            ref float sandTwisterFrameCounter = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameCounterIndex];
+            ref float sandTwisterFrame = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameIndex];
 
             sandTwisterFrameCounter++;
             if (sandTwisterFrameCounter >= 2f)
@@ -313,7 +313,7 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float sandTwisterOpacity = ref Projectile.Cascade().ExtraAI[SandTwisterOpacityIndex];
+            ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
 
             DrawDuna();
             if (sandTwisterOpacity > 0f)
@@ -323,10 +323,10 @@
 
         public void DrawSandTwister()
         {
-            ref float sandTwisterScale = ref Projectile.Cascade().ExtraAI[SandTwisterScaleIndex];
-            ref float sandTwisterOpacity = ref Projectile.Cascade().ExtraAI[SandTwisterOpacityIndex];
-            ref float sandTwisterFrameCounter = ref Projectile.Cascade().ExtraAI[SandTwisterFrameCounterIndex];
-            ref float sandTwisterFrame = ref Projectile.Cascade().ExtraAI[SandTwisterFrameIndex];
+            ref float sandTwisterScale = ref Projectile.TwilightEgress().ExtraAI[SandTwisterScaleIndex];
+            ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
+            ref float sandTwisterFrameCounter = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameCounterIndex];
+            ref float sandTwisterFrame = ref Projectile.TwilightEgress().ExtraAI[SandTwisterFrameIndex];
 
             Texture2D sandTwister = TextureAssets.Projectile[ProjectileID.WeatherPainShot].Value;
 

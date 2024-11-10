@@ -1,4 +1,4 @@
-﻿namespace Cascade.Core.EntityOverridingSystem
+﻿namespace TwilightEgress.Core.EntityOverridingSystem
 {
     public abstract class ItemOverride : GlobalItem
     {

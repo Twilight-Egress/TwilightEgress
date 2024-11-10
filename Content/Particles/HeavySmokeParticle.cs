@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class HeavySmokeParticle : CasParticle
     {
@@ -8,7 +8,7 @@
 
         public float HueShift;
 
-        public override string AtlasTextureName => "Cascade.HeavySmoke.png";
+        public override string AtlasTextureName => "TwilightEgress.HeavySmoke.png";
 
         public override int FrameCount => 7;
 

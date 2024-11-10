@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Marv
+﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ThunderousFuryHoldout : ModProjectile, ILocalizedModType
     {
@@ -36,7 +36,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "Cascade/Content/Items/Dedicated/Marv/ThunderousFury";
+        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Marv/ThunderousFury";
 
         public override void SetDefaults()
         {
@@ -87,7 +87,7 @@
         {
             if (DelayTimer == 1)
             {
-                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? CascadeSoundRegistry.PikachuCry : CommonCalamitySounds.LightningSound;
+                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.PikachuCry : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(thunderboltStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Yellow, Color.Goldenrod, Main.rand.NextFloat());
@@ -117,7 +117,7 @@
         {
             if (DelayTimer == 1)
             {
-                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? CascadeSoundRegistry.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
+                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
                 SoundEngine.PlaySound(boltStrikeStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Cyan, Color.SkyBlue, Main.rand.NextFloat());
@@ -158,7 +158,7 @@
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = Lerp(2f, 5f, CascadeUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);

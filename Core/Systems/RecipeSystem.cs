@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Items.Accessories;
 
-namespace Cascade.Core.Systems
+namespace TwilightEgress.Core.Systems
 {
     public class RecipeSystem : ModSystem
     {

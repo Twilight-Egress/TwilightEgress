@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
+namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalberdThrown : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -12,7 +12,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
 
         public new string LocalizationCategory => "Projectiles.Rogue";
 
-        public override string Texture => "Cascade/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberd";
+        public override string Texture => "TwilightEgress/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberd";
 
         public override void SetStaticDefaults()
         {
@@ -147,8 +147,8 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
 
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.FadedStreak, 1, SamplerState.LinearWrap);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.FadedStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             Vector2 trailOffset = Projectile.Size * 0.5f + Vector2.UnitX.RotatedBy(Projectile.rotation) * 90f;

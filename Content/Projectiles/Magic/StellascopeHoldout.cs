@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Projectiles.Magic
+﻿namespace TwilightEgress.Content.Projectiles.Magic
 {
     public class StellascopeHoldout : ModProjectile
     {

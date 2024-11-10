@@ -1,30 +1,30 @@
-﻿using Cascade.Core.Globals;
-using Cascade.Core.Globals.GlobalNPCs;
-using Cascade.Core.Players;
-using Cascade.Core.Players.BuffHandlers;
+﻿using TwilightEgress.Core.Globals;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Players;
+using TwilightEgress.Core.Players.BuffHandlers;
 
-namespace Cascade
+namespace TwilightEgress
 {
     public static class GlobalExtensionMethods
     {
         #region GlobalNPCs
-        public static CascadeGlobalNPC Cascade(this NPC npc) => npc.GetGlobalNPC<CascadeGlobalNPC>();
+        public static TwilightEgressGlobalNPC TwilightEgress(this NPC npc) => npc.GetGlobalNPC<TwilightEgressGlobalNPC>();
 
-        public static DebuffHandlerGlobalNPC Cascade_Buffs(this NPC npc) => npc.GetGlobalNPC<DebuffHandlerGlobalNPC>();
+        public static DebuffHandlerGlobalNPC TwilightEgress_Buffs(this NPC npc) => npc.GetGlobalNPC<DebuffHandlerGlobalNPC>();
         #endregion
 
         #region GlobalProjectiles
-        public static CascadeGlobalProjectile Cascade(this Projectile projectile) => projectile.GetGlobalProjectile<CascadeGlobalProjectile>();
+        public static TwilightEgressGlobalProjectile TwilightEgress(this Projectile projectile) => projectile.GetGlobalProjectile<TwilightEgressGlobalProjectile>();
         #endregion
 
         #region ModPlayers
-        public static BuffHandler Cascade_Buffs(this Player player) => player.GetModPlayer<BuffHandler>();
+        public static BuffHandler TwilightEgress_Buffs(this Player player) => player.GetModPlayer<BuffHandler>();
 
-        public static ResplendentRoarPlayer Cascade_ResplendentRoar(this Player player) => player.GetModPlayer<ResplendentRoarPlayer>();
+        public static ResplendentRoarPlayer TwilightEgress_ResplendentRoar(this Player player) => player.GetModPlayer<ResplendentRoarPlayer>();
 
-        public static BeeFlightTimeBoostPlayer Cascade_BeeFlightTimeBoost(this Player player) => player.GetModPlayer<BeeFlightTimeBoostPlayer>();
+        public static BeeFlightTimeBoostPlayer TwilightEgress_BeeFlightTimeBoost(this Player player) => player.GetModPlayer<BeeFlightTimeBoostPlayer>();
 
-        public static OrbitalGravityPlayer Cascade_OrbitalGravity(this Player player) => player.GetModPlayer<OrbitalGravityPlayer>();
+        public static OrbitalGravityPlayer TwilightEgress_OrbitalGravity(this Player player) => player.GetModPlayer<OrbitalGravityPlayer>();
         #endregion
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cascade
+namespace TwilightEgress
 {
-    public partial class Cascade
+    public partial class TwilightEgress
     {
         internal static Mod MusicDisplay;
 

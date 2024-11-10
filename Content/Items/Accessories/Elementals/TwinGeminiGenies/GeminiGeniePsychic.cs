@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class GeminiGeniePsychic : ModProjectile, ILocalizedModType
     {
@@ -67,11 +67,11 @@
             HasSpawnedInWeaponsYet = reader.ReadBoolean();
         }
 
-        public override bool? CanDamage() => !Owner.Cascade_Buffs().GeminiGeniesVanity;
+        public override bool? CanDamage() => !Owner.TwilightEgress_Buffs().GeminiGeniesVanity;
 
         public bool CheckActive()
         {
-            if (Owner.Cascade_Buffs().GeminiGenies || Owner.Cascade_Buffs().GeminiGeniesVanity)
+            if (Owner.TwilightEgress_Buffs().GeminiGenies || Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
             {
                 Projectile.timeLeft = 2;
                 return true;
@@ -79,7 +79,7 @@
 
             if (Owner.dead || !Owner.active)
             {
-                Owner.Cascade_Buffs().GeminiGenies = false;
+                Owner.TwilightEgress_Buffs().GeminiGenies = false;
                 Projectile.Kill();
                 return false;
             }
@@ -99,7 +99,7 @@
             //Projectile.GetNearestMinionTarget(Owner, 1750f, 500f, out bool foundTarget, out NPC target);
 
             // If the vanity bool is enabled, stick to the idle movement and do not spawn anything.
-            if (Owner.Cascade_Buffs().GeminiGeniesVanity)
+            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
             {
                 AttackState = 0f;
             }
@@ -123,7 +123,7 @@
         public void DoBehavior_Idle()
         {
             Vector2 idlePosition = Owner.Center + Vector2.UnitX * 175f;
-            idlePosition.Y += Lerp(-15f, 15f, CascadeUtilities.SineEaseInOut(Timer / 240f));
+            idlePosition.Y += Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
 
             float speed = 25f;
             Vector2 idealVelocity = idlePosition - Projectile.Center;
@@ -133,7 +133,7 @@
             {
                 // Teleport when the player is too far away.
                 Projectile.Center = Owner.Center;
-                CascadeUtilities.CreateRandomizedDustExplosion(36, Projectile.Center, DustID.GoldCoin, 10f);
+                TwilightEgressUtilities.CreateRandomizedDustExplosion(36, Projectile.Center, DustID.GoldCoin, 10f);
             }
 
             if (distance > 70f)
@@ -160,7 +160,7 @@
         public void SpawnInWeapons()
         {
             // Spawn nothing if the player has them equipped as vanity.
-            if (Owner.Cascade_Buffs().GeminiGeniesVanity)
+            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
             {
                 HasSpawnedInWeaponsYet = true;
                 return;

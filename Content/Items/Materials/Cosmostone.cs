@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Materials
+﻿namespace TwilightEgress.Content.Items.Materials
 {
     public class Cosmostone : ModItem, ILocalizedModType
     {

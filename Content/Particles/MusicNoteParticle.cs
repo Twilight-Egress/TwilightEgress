@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class MusicNoteParticle : CasParticle
     {
@@ -8,7 +8,7 @@
 
         private Texture2D MusicNoteTexture;
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         /// <param name="lifespan">The lifespan of this particle defaults to 180 ticks (3 seconds).
         /// Modifying this value will simply add to that value.</param>
@@ -40,7 +40,7 @@
                 Scale = new(Clamp(Scale.X - 0.04f, 0f, 1f));
 
             Velocity *= 0.98f;
-            Rotation = Lerp(ToRadians(-15f), ToRadians(15f), CascadeUtilities.SineEaseInOut(Time / 45f));
+            Rotation = Lerp(ToRadians(-15f), ToRadians(15f), TwilightEgressUtilities.SineEaseInOut(Time / 45f));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

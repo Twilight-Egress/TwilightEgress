@@ -1,6 +1,6 @@
 ﻿using ReLogic.Threading;
 
-namespace Cascade.Core.Graphics.GraphicalObjects.Particles
+namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
 {
     public class CasParticleManager : ModSystem
     {

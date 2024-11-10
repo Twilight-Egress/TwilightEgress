@@ -1,6 +1,6 @@
-﻿namespace Cascade
+﻿namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
         /// <summary>
         /// Checks if it just became day time, which would be 4:30am in-game.

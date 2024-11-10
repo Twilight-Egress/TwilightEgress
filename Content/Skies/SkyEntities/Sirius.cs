@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
-namespace Cascade.Content.Skies.SkyEntities
+namespace TwilightEgress.Content.Skies.SkyEntities
 {
     public class Sirius : SkyEntity
     {
@@ -25,7 +25,7 @@ namespace Cascade.Content.Skies.SkyEntities
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
         }
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public override SkyEntityDrawContext DrawContext => SkyEntityDrawContext.AfterCustomSkies;
 
@@ -36,7 +36,7 @@ namespace Cascade.Content.Skies.SkyEntities
             int timeToDisappear = Lifetime - 120;
             int timeToAppear = 120;
             float appearInterpolant = Time / (float)timeToAppear;
-            float twinkleInterpolant = CascadeUtilities.SineEaseInOut(Time / 120f);
+            float twinkleInterpolant = TwilightEgressUtilities.SineEaseInOut(Time / 120f);
             float disappearInterpolant = (Time - timeToDisappear) / 120f;
 
             Scale = new Vector2(Lerp(MinScale, MaxScale, twinkleInterpolant));
@@ -52,7 +52,7 @@ namespace Cascade.Content.Skies.SkyEntities
         public override void Draw(SpriteBatch spriteBatch)
         {
             Texture2D sirius = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Summon/SiriusMinion").Value;
-            AtlasTexture bloomTexture = AtlasManager.GetTexture("Cascade.BloomFlare.png");
+            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = sirius.Size() / 2f;
             Vector2 bloomOrigin = bloomTexture.Size / 2f;

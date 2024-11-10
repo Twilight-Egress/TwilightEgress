@@ -1,8 +1,8 @@
 ﻿using Terraria.ModLoader.IO;
 
-namespace Cascade.Core.Globals.GlobalNPCs
+namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
-    public partial class CascadeGlobalNPC
+    public partial class TwilightEgressGlobalNPC
     {
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {

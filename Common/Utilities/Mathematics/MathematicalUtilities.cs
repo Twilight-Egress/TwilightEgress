@@ -1,6 +1,6 @@
-﻿namespace Cascade
+﻿namespace TwilightEgress
 {
-    public static partial class CascadeUtilities
+    public static partial class TwilightEgressUtilities
     {
         /// <summary>
         /// Very simple mathematical function. Calculates the percentage of the value of an integer.

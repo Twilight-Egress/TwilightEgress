@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Tiles
+﻿namespace TwilightEgress.Content.Tiles
 {
     public class SilicateClusterBrick : ModTile
     {

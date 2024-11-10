@@ -1,7 +1,7 @@
-﻿using Cascade.Core.Globals.GlobalNPCs;
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
 using Terraria.ModLoader.IO;
 
-namespace Cascade.Content.Events
+namespace TwilightEgress.Content.Events
 {
     public abstract class EventHandler
     {
@@ -37,15 +37,15 @@ namespace Cascade.Content.Events
 
         public void OnModLoad()
         {
-            CascadeGlobalNPC.EditSpawnPoolEvent += EditSpawnPool;
-            CascadeGlobalNPC.EditSpawnRateEvent += EditSpawnRate;
+            TwilightEgressGlobalNPC.EditSpawnPoolEvent += EditSpawnPool;
+            TwilightEgressGlobalNPC.EditSpawnRateEvent += EditSpawnRate;
             SafeOnModLoad();
         }
 
         public void OnModUnload()
         {
-            CascadeGlobalNPC.EditSpawnPoolEvent -= EditSpawnPool;
-            CascadeGlobalNPC.EditSpawnRateEvent -= EditSpawnRate;
+            TwilightEgressGlobalNPC.EditSpawnPoolEvent -= EditSpawnPool;
+            TwilightEgressGlobalNPC.EditSpawnRateEvent -= EditSpawnRate;
             SafeOnModUnload();
         }
 

@@ -1,4 +1,4 @@
-Cascade is an addon for the Calamity Mod which aims to improve parts of the original mod by either reworking them or adding our own unique content alongside them.
+Twilight Egress is an addon for the Calamity Mod which aims to improve parts of the original mod by either reworking them or adding our own unique content alongside them.
 
 Credit goes to:
 fryzahh - Owner, Lead Developer

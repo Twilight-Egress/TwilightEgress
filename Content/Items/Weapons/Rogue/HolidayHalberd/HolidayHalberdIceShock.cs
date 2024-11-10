@@ -1,6 +1,6 @@
 ﻿using CalamityMod.Buffs.StatDebuffs;
 
-namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
+namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalberdIceShock : ModProjectile, ILocalizedModType
     {
@@ -35,12 +35,12 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
         {
             RandomNewScale = Main.rand.NextFloat(1f, 1.75f);
             Projectile.rotation = Main.rand.NextFloat(TwoPi);
-            SoundEngine.PlaySound(CascadeSoundRegistry.IceShock, Projectile.Center);
+            SoundEngine.PlaySound(TwilightEgressSoundRegistry.IceShock, Projectile.Center);
         }
 
         public override void AI()
         {
-            ref float projectileTextureOpacity = ref Projectile.Cascade().ExtraAI[ProjectileTextureOpacityIndex];
+            ref float projectileTextureOpacity = ref Projectile.TwilightEgress().ExtraAI[ProjectileTextureOpacityIndex];
 
             if (Timer >= MaxLifetime)
             {
@@ -51,8 +51,8 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
             // Scale up.
             if (Timer <= 20f)
             {
-                Projectile.scale = Lerp(Projectile.scale, RandomNewScale, CascadeUtilities.SineEaseInOut(Timer / 20f));
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, CascadeUtilities.SineEaseInOut(Timer / 20f));
+                Projectile.scale = Lerp(Projectile.scale, RandomNewScale, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
+                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
             }
 
             if (Timer >= 30f)
@@ -92,7 +92,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(CascadeSoundRegistry.CryogenShieldBreak, Projectile.Center);
+            SoundEngine.PlaySound(TwilightEgressSoundRegistry.CryogenShieldBreak, Projectile.Center);
             // Spawn a ring of arcing snowflakes, similar to the original Iceshock.
             float snowflakeAngularVelocity = ToRadians(3f);
             for (int i = 0; i < 6; i++)
@@ -110,15 +110,15 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
             if (Main.rand.NextBool(10) && !target.HasBuff(ModContent.BuffType<GlacialState>()))
             {
                 target.AddBuff(ModContent.BuffType<GlacialState>(), 180);
-                SoundEngine.PlaySound(CascadeSoundRegistry.IceShockPetrify, Projectile.Center);
+                SoundEngine.PlaySound(TwilightEgressSoundRegistry.IceShockPetrify, Projectile.Center);
             }
 
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float projectileTextureOpacity = ref Projectile.Cascade().ExtraAI[ProjectileTextureOpacityIndex];
-            Texture2D glowTexture = ModContent.Request<Texture2D>("Cascade/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberdIceShock_Glow").Value;
+            ref float projectileTextureOpacity = ref Projectile.TwilightEgress().ExtraAI[ProjectileTextureOpacityIndex];
+            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberdIceShock_Glow").Value;
 
             // Backglow.
             Main.spriteBatch.UseBlendState(BlendState.Additive);

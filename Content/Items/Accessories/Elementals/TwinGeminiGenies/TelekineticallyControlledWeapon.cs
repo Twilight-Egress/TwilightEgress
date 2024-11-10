@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class TelekineticallyControlledWeapon : ModProjectile, ILocalizedModType
     {
@@ -27,7 +27,7 @@
 
         public new string LocalizationCategory => "Projectiles.Summon";
 
-        public override string Texture => CascadeUtilities.EmptyPixelPath;
+        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
 
         public override void SetStaticDefaults()
         {
@@ -54,8 +54,8 @@
 
         public override void OnSpawn(IEntitySource source)
         {
-            ref float rotationSpeed = ref Projectile.Cascade().ExtraAI[RotationSpeedIndex];
-            ref float rotationDirection = ref Projectile.Cascade().ExtraAI[RotationDirectionIndex];
+            ref float rotationSpeed = ref Projectile.TwilightEgress().ExtraAI[RotationSpeedIndex];
+            ref float rotationDirection = ref Projectile.TwilightEgress().ExtraAI[RotationDirectionIndex];
 
             rotationSpeed = Main.rand.NextFloat(100f, 360f);
             rotationDirection = Main.rand.NextBool().ToDirectionInt();
@@ -66,8 +66,8 @@
             Projectile Owner = GeminiGeniePsychic.Myself;
             Projectile.GetNearestTarget(1500f, 500f, out bool foundTarget, out NPC closestTarget);
 
-            ref float rotationSpeed = ref Projectile.Cascade().ExtraAI[RotationSpeedIndex];
-            ref float rotationDirection = ref Projectile.Cascade().ExtraAI[RotationDirectionIndex];
+            ref float rotationSpeed = ref Projectile.TwilightEgress().ExtraAI[RotationSpeedIndex];
+            ref float rotationDirection = ref Projectile.TwilightEgress().ExtraAI[RotationDirectionIndex];
 
             if (Owner is null)
             {
@@ -127,7 +127,7 @@
             int cooldownTime = 10;
             float extraAngle = Projectile.direction < 0 ? PiOver2 : 0f;
 
-            ref float forsakenSaberPositionRotation = ref Projectile.Cascade().ExtraAI[ForsakenSaberPositionRotationIndex];
+            ref float forsakenSaberPositionRotation = ref Projectile.TwilightEgress().ExtraAI[ForsakenSaberPositionRotationIndex];
 
             if (Timer == 1f)
             {
@@ -187,7 +187,7 @@
 
         public void GetIdlePosition(Projectile owner, out Vector2 idlePosition)
         {
-            ref float idleAngle = ref Projectile.Cascade().ExtraAI[IdleAngleIndex];
+            ref float idleAngle = ref Projectile.TwilightEgress().ExtraAI[IdleAngleIndex];
 
             // Idle movement.
             idlePosition = owner.Top;

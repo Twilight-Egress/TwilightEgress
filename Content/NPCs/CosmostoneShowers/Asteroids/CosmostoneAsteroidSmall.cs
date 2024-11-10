@@ -1,8 +1,8 @@
-﻿using Cascade.Content.Items.Materials;
-using Cascade.Core.BaseEntities.ModNPCs;
+﻿using TwilightEgress.Content.Items.Materials;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 using Terraria.GameContent.ItemDropRules;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
     public class CosmostoneAsteroidSmall : BaseAsteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -207,15 +207,15 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
 
         public void DrawCosmostone(Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless = 0f)
         {
-            Texture2D glowmask = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask").Value; ;
+            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask").Value; ;
 
             Main.spriteBatch.PrepareForShaders();
 
-            ManagedShader shader = ShaderManager.GetShader("Cascade.ManaPaletteShader");
+            ManagedShader shader = ShaderManager.GetShader("TwilightEgress.ManaPaletteShader");
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
             shader.TrySetParameter("timeMultiplier", ShaderTimeMultiplier);
-            shader.TrySetParameter("palette", CascadeUtilities.CosmostonePalette);
+            shader.TrySetParameter("palette", TwilightEgressUtilities.CosmostonePalette);
             shader.TrySetParameter("opacity", NPC.Opacity);
             shader.Apply();
 
@@ -229,8 +229,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Asteroids
 
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.MagicStreak, 1, SamplerState.LinearWrap);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.MagicStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => NPC.Size * 0.5f, true, true, smoothTrail);

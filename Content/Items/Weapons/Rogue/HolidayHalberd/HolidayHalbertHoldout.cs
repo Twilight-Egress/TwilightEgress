@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics;
+﻿using TwilightEgress.Core.Graphics;
 
-namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
+namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalbertHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -16,7 +16,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
 
         public new string LocalizationCategory => "Projectiles.Rogue";
 
-        public override string Texture => "Cascade/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberd";
+        public override string Texture => "TwilightEgress/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberd";
 
         public override void SetStaticDefaults()
         {
@@ -69,7 +69,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
 
         public void AttackBehavior()
         {
-            ref float rotationSpeed = ref Projectile.Cascade().ExtraAI[RotationSpeedIndex];
+            ref float rotationSpeed = ref Projectile.TwilightEgress().ExtraAI[RotationSpeedIndex];
 
             // Increase the spin speed over time.
             if (Timer <= 30f)
@@ -182,8 +182,8 @@ namespace Cascade.Content.Items.Weapons.Rogue.HolidayHalberd
                 Projectile.oldPos[i] = Projectile.position + localRotation.ToRotationVector2() * 78f * Projectile.scale;
             }
 
-            ShaderManager.TryGetShader("Cascade.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(CascadeTextureRegistry.LightStreak, 1, SamplerState.LinearWrap);
+            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
+            smoothTrail.SetTexture(TwilightEgressTextureRegistry.LightStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => Projectile.Size * 0.5f, true, true, smoothTrail);

@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
-namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
+namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 {
     public class StationarySilicateAsteroidSmall : SkyEntity
     {
@@ -18,7 +18,7 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
         }
 
-        public override string AtlasTextureName => "Cascade.EmptyPixel.png";
+        public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
 
         public override int MaxVerticalFrames => 6;
 
@@ -37,7 +37,7 @@ namespace Cascade.Content.Skies.SkyEntities.StationaryAsteroids
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D asteroid = ModContent.Request<Texture2D>("Cascade/Content/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidSmall").Value;
+            Texture2D asteroid = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidSmall").Value;
 
             Rectangle frameRectangle = asteroid.Frame(1, MaxVerticalFrames, 0, Frame % MaxVerticalFrames);
             Vector2 mainOrigin = frameRectangle.Size() / 2f;

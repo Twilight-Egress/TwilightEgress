@@ -1,6 +1,6 @@
 ﻿using ReLogic.Threading;
 
-namespace Cascade.Core.Graphics.GraphicalObjects.SkyEntities
+namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {
     public class SkyEntityManager : ModSystem
     {
@@ -104,7 +104,7 @@ namespace Cascade.Core.Graphics.GraphicalObjects.SkyEntities
                 return;
 
             // Prepare for screen culling.
-            RasterizerState screenCullState = CascadeUtilities.PrepareScissorRectangleState();
+            RasterizerState screenCullState = TwilightEgressUtilities.PrepareScissorRectangleState();
 
             spriteBatch.Begin(SpriteSortMode.Deferred, drawCollection.First().BlendState, Main.DefaultSamplerState, DepthStencilState.None, screenCullState, null, Main.GameViewMatrix.TransformationMatrix);
 

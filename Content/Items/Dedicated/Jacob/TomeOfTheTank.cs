@@ -3,7 +3,7 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 
-namespace Cascade.Content.Items.Dedicated.Jacob
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class TomeOfTheTank : ModItem, ILocalizedModType
     {

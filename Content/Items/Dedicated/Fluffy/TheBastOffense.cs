@@ -2,7 +2,7 @@
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 
-namespace Cascade.Content.Items.Dedicated.Fluffy
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class TheBastOffense : ModItem, ILocalizedModType
     {

@@ -1,7 +1,7 @@
 ﻿
-namespace Cascade.Core.Globals.GlobalNPCs
+namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
-    public partial class CascadeGlobalNPC
+    public partial class TwilightEgressGlobalNPC
     {
         public delegate void EditSpawnPoolDelegate(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo);
         public static event EditSpawnPoolDelegate EditSpawnPoolEvent;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cascade.Core.BaseEntities.ModNPCs
+namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
     public abstract class BasePhage : ModNPC
     {
@@ -122,10 +122,10 @@ namespace Cascade.Core.BaseEntities.ModNPCs
 
         public override void OnSpawn(IEntitySource source)
         {
-            ref float spriteStretchX = ref NPC.Cascade().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.Cascade().ExtraAI[SpriteStretchYIndex];
-            ref float manaTankShaderTime = ref NPC.Cascade().ExtraAI[ManaTankShaderTimeIndex];
-            ref float jellyfishMovementAngle = ref NPC.Cascade().ExtraAI[JellyfishMovementAngleIndex];
+            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
+            ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
+            ref float jellyfishMovementAngle = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementAngleIndex];
 
             AIState = (float)Utils.SelectRandom(Main.rand, ManaphageBehavior.Idle_JellyfishPropulsion, ManaphageBehavior.Idle_LazeAround);
             CurrentManaCapacity = Main.rand.NextBool(25) ? Main.rand.NextFloat(75f, 100f) : Main.rand.NextFloat(60f, 15f);
@@ -167,9 +167,9 @@ namespace Cascade.Core.BaseEntities.ModNPCs
         #region Helper Methods
         public void OnHitEffects(NPC.HitInfo hit)
         {
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
-            ref float aggroRangeTimer = ref NPC.Cascade().ExtraAI[AggroRangeTimerIndex];
-            ref float manaSuckTimer = ref NPC.Cascade().ExtraAI[ManaSuckTimerIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
+            ref float aggroRangeTimer = ref NPC.TwilightEgress().ExtraAI[AggroRangeTimerIndex];
+            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
 
             // Apply an extra 50 pixels of aggro range everytime the Manaphage is attacked.
             // 100 is added instead if the hit was critical.
@@ -190,9 +190,9 @@ namespace Cascade.Core.BaseEntities.ModNPCs
         public void ManageExtraTimers()
         {
             // Manages the extra additional aggro range and mana suck timers.
-            ref float additionalAggroRange = ref NPC.Cascade().ExtraAI[AdditionalAggroRangeIndex];
-            ref float aggroRangeTimer = ref NPC.Cascade().ExtraAI[AggroRangeTimerIndex];
-            ref float manaSuckTimer = ref NPC.Cascade().ExtraAI[ManaSuckTimerIndex];
+            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
+            ref float aggroRangeTimer = ref NPC.TwilightEgress().ExtraAI[AggroRangeTimerIndex];
+            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
 
             // This timer controls how long the additional aggro range is applied for.
             aggroRangeTimer = Clamp(aggroRangeTimer - 1f, 0f, 1200f);

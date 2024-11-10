@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Items.Dedicated.MPG;
+﻿using TwilightEgress.Content.Items.Dedicated.MPG;
 
-namespace Cascade.Core.Globals.GlobalItems
+namespace TwilightEgress.Core.Globals.GlobalItems
 {
     public class MSKUseFixGlobalItem : GlobalItem
     {

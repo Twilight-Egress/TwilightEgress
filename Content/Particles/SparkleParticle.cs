@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Particles
+﻿namespace TwilightEgress.Content.Particles
 {
     public class SparkleParticle : CasParticle
     {
@@ -12,7 +12,7 @@
 
         private AtlasTexture StarTextureToDraw;
 
-        public override string AtlasTextureName => "Cascade.Sparkle.png";
+        public override string AtlasTextureName => "TwilightEgress.Sparkle.png";
 
         public override BlendState BlendState => AdditiveBlending ? BlendState.Additive : BlendState.AlphaBlend;
 
@@ -42,8 +42,8 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            StarTextureToDraw = VisualStyle == -1 ? Texture : AtlasManager.GetTexture("Cascade.Sparkle2.png");
-            AtlasTexture bloomTexture = AtlasManager.GetTexture("Cascade.BloomFlare.png");
+            StarTextureToDraw = VisualStyle == -1 ? Texture : AtlasManager.GetTexture("TwilightEgress.Sparkle2.png");
+            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             spriteBatch.Draw(bloomTexture, Position - Main.screenPosition, null, BloomColor * Opacity * 0.5f, Rotation, null, Scale / 2f);
             spriteBatch.Draw(StarTextureToDraw, Position - Main.screenPosition, null, DrawColor * Opacity * 0.5f, Rotation, null, Scale * 0.75f);

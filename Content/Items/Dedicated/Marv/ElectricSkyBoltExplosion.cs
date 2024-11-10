@@ -1,4 +1,4 @@
-﻿namespace Cascade.Content.Items.Dedicated.Marv
+﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ElectricSkyBoltExplosion : ModProjectile, ILocalizedModType
     {
@@ -52,7 +52,7 @@
                 }
             }
 
-            float sine = CascadeUtilities.SineEaseInOut(Timer / 17.5f);
+            float sine = TwilightEgressUtilities.SineEaseInOut(Timer / 17.5f);
             if (Timer <= 35f)
             {
                 Projectile.scale = Lerp(0.1f, 2f, sine);
@@ -67,7 +67,7 @@
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D Vortex = CascadeTextureRegistry.GreyscaleVortex.Value;
+            Texture2D Vortex = TwilightEgressTextureRegistry.GreyscaleVortex.Value;
             Color electroColor = Color.Lerp(Color.Goldenrod, Color.LightYellow, 0.35f);
             // Vortex 1.
             Projectile.DrawTextureOnProjectile(Projectile.GetAlpha(electroColor), -Projectile.rotation * 1.5f, Projectile.scale * 4f, texture: Vortex);

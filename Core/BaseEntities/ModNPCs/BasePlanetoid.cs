@@ -1,6 +1,6 @@
-﻿using Cascade.Core.Players;
+﻿using TwilightEgress.Core.Players;
 
-namespace Cascade.Core.BaseEntities.ModNPCs
+namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
     public abstract class BasePlanetoid : ModNPC
     {
@@ -61,7 +61,7 @@ namespace Cascade.Core.BaseEntities.ModNPCs
                 if (!player.active)
                     continue;
 
-                ModPlayer = player.Cascade_OrbitalGravity();
+                ModPlayer = player.TwilightEgress_OrbitalGravity();
 
                 float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
                 float distanceBetweenBodies = Vector2.Distance(player.Center, NPC.Center);
@@ -84,8 +84,8 @@ namespace Cascade.Core.BaseEntities.ModNPCs
             }
 
             // Add to the global list of Planetoid NPC instances.
-            if (!Cascade.BasePlanetoidInheriters.Contains(NPC))
-                Cascade.BasePlanetoidInheriters.Add(NPC);
+            if (!TwilightEgress.BasePlanetoidInheriters.Contains(NPC))
+                TwilightEgress.BasePlanetoidInheriters.Add(NPC);
 
             // Store these values for access outside of this Base class.
             StoredMaximumAttractionRadius = MaximumAttractionRadius;

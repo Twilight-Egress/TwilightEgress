@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace Cascade.Content.Items.Weapons.Ranged.SailorsSingularity
+namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {
     public class SailorsSingularityHoldout : ModProjectile
     {
-        public override string Texture => "Cascade/Content/Items/Weapons/Ranged/SailorsSingularity/SailorsSingularity";
+        public override string Texture => "TwilightEgress/Content/Items/Weapons/Ranged/SailorsSingularity/SailorsSingularity";
         public override void SetDefaults()
         {
             Projectile.width = 40;

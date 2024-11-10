@@ -1,6 +1,6 @@
-﻿using Cascade.Content.Buffs.Pets;
+﻿using TwilightEgress.Content.Buffs.Pets;
 
-namespace Cascade.Content.Items.Dedicated.Lynel
+namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
     public class EarmuffFruit : ModItem, ILocalizedModType
     {
