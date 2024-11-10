@@ -100,15 +100,10 @@ Mods: {
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
 		}
 
-		Buffs: {
-			Starstruck: {
-				DisplayName: Starstruck
-				Description: Mods.TwilightEgress.Buffs.Starstruck.Description
-			}
-
-			AngelatinParalysis: {
-				DisplayName: Angelatin Paralysis
-				Description: Mods.TwilightEgress.Buffs.AngelatinParalysis.Description
+		Biomes: {
+			EnchantedOvergrowth: {
+				DisplayName: Enchanted Overgrowth
+				TownNPCDialogueName: the Enchanted Overgrowth
 			}
 		}
 	}
