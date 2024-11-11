@@ -20,7 +20,7 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 5.5f;
             Item.shoot = ProjectileID.Dynamite;
             Item.width = 14;
             Item.height = 36;

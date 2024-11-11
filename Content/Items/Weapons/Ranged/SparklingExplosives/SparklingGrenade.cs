@@ -20,8 +20,10 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.shootSpeed = 12f;
-            Item.shoot = ProjectileID.Grenade;
+            Item.damage = 65;
+            Item.DamageType = DamageClass.Ranged;
+            Item.shootSpeed = 7f;
+            Item.shoot = ModContent.ProjectileType<SparklingGrenadeProjectile>();
             Item.width = 20;
             Item.height = 22;
             Item.maxStack = Item.CommonMaxStack;
