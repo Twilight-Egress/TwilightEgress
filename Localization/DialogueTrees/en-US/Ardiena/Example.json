@@ -30,7 +30,7 @@
       "TextScale": 1.5, //Scales up or down the text depending on the value. Defaults to 1.5.
       "TextDelay": -1, //Determines the delay between characters appearing during the text crawl. Setting this will override the Character's TextDelay. Defaults to -1, causing the Character's TextDelay to be used instead.
       "Music": { //Music can be used to cause Music to play whilst this dialogue is active. Typically, the music shouldnt change too frequently between dialogues.
-        "ModName": "Cascade", //The mod name the music comes from. To use calamity music, set this to "CalamityModMusic".
+        "ModName": "TwilightEgress", //The mod name the music comes from. To use calamity music, set this to "CalamityModMusic".
         "FilePath": "Assets/Sounds/Music/ArdienaTheme" //The file path of the desired music.
       }
     }, //Here is a look at what a typical Ardiena dialogue might look like. Also see "Eeveelutions.json"!
@@ -43,7 +43,7 @@
       ],
       "ExpressionIndex": 2,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     }

@@ -1,6 +1,6 @@
 ﻿using Terraria.UI;
 
-namespace Cascade.Content.UI.Dialogue.UIElements
+namespace TwilightEgress.Content.UI.Dialogue.UIElements
 {
     public class ArdienaTextboxPrimitives : UIElement
     {
@@ -115,10 +115,10 @@ namespace Cascade.Content.UI.Dialogue.UIElements
             // Rectangles.
             foreach (Rectangle rectangle in Rectangles)
             {
-                Vector2 rectangleVertexA = (rectangle.PointA - rectangle.DrawPosition) + parentDimensions.Center();
-                Vector2 rectangleVertexB = (rectangle.PointB - rectangle.DrawPosition) + parentDimensions.Center();
-                Vector2 rectangleVertexC = (rectangle.PointC - rectangle.DrawPosition) + parentDimensions.Center();
-                Vector2 rectangleVertexD = (rectangle.PointD - rectangle.DrawPosition) + parentDimensions.Center();
+                Vector2 rectangleVertexA = rectangle.PointA - rectangle.DrawPosition + parentDimensions.Center();
+                Vector2 rectangleVertexB = rectangle.PointB - rectangle.DrawPosition + parentDimensions.Center();
+                Vector2 rectangleVertexC = rectangle.PointC - rectangle.DrawPosition + parentDimensions.Center();
+                Vector2 rectangleVertexD = rectangle.PointD - rectangle.DrawPosition + parentDimensions.Center();
 
                 RectangleVertices[0] = new(rectangleVertexA, rectangle.DrawColor, rectangle.PointA, 1f);
                 RectangleVertices[1] = new(rectangleVertexB, rectangle.DrawColor, rectangle.PointB, 1f);
@@ -138,9 +138,9 @@ namespace Cascade.Content.UI.Dialogue.UIElements
             // Triangles.
             foreach (Triangle triangle in Triangles)
             {
-                Vector2 triangleVertexA = (triangle.PointA - triangle.DrawPosition) + parentDimensions.Center();
-                Vector2 triangleVertexB = (triangle.PointB - triangle.DrawPosition) + parentDimensions.Center();
-                Vector2 triangleVertexC = (triangle.PointC - triangle.DrawPosition) + parentDimensions.Center();
+                Vector2 triangleVertexA = triangle.PointA - triangle.DrawPosition + parentDimensions.Center();
+                Vector2 triangleVertexB = triangle.PointB - triangle.DrawPosition + parentDimensions.Center();
+                Vector2 triangleVertexC = triangle.PointC - triangle.DrawPosition + parentDimensions.Center();
 
                 // Get the vertices for each triangle.
                 TriangleVertices[0] = new(triangleVertexA, triangle.DrawColor, triangle.PointA, 1f);

@@ -1,11 +1,6 @@
-﻿using DialogueHelper.Content.UI.Dialogue;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
 
-namespace Cascade.Content.NPCs.MiscNPCs
+namespace TwilightEgress.Content.NPCs.MiscNPCs
 {
     public class ArdienaNPC : ModNPC
     {
@@ -35,7 +30,7 @@ namespace Cascade.Content.NPCs.MiscNPCs
             if (ModContent.GetInstance<DialogueUISystem>().isDialogueOpen)
                 ModContent.GetInstance<DialogueUISystem>().isDialogueOpen = false;
             else
-                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(Cascade.Instance, "Ardiena/Eeveelutions");
+                ModContent.GetInstance<DialogueUISystem>().DisplayDialogueTree(TwilightEgress.Instance, "Ardiena/Eeveelutions");
 
             return ":P";
         }

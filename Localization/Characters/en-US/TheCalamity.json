@@ -5,7 +5,7 @@
   "Expressions": [ //Expressions are individual portraits that are shared by a character, and are typically different poses and facial expressions of that character.
     {
       "Title": "Default", //The title should be a simple descriptor of what the expression is
-      "Path": "Windfall/Assets/UI/CharacterAssets/TheCalamity/Default", //The path is where the image file for this expression is stored. these should be pretty standardized across the board.
+      "Path": "TwilightEgress/Assets/CharacterAssets/TheCalamity/Default", //The path is where the image file for this expression is stored. these should be pretty standardized across the board.
       //Below here are values that affect how a portrait is Animated. If your portrait is only one frame, you dont need to worry about these, as seen in the second expression below.
       "FrameCount": 1, //Simply the amount of frames this portrait has
       "FrameRate": 0, //Represents the delay between frames
@@ -14,10 +14,10 @@
     },
     {
       "Title": "Finality",
-      "Path": "Windfall/Assets/UI/CharacterAssets/TheCalamity/Finality"
+      "Path": "TwilightEgress/Assets/CharacterAssets/TheCalamity/Finality"
     }
   ],
-  "Style": "DialogueHelper.Content.UI.Dialogue.DialogueStyles.DefaultDialogueStyle", //The Dialogue Style (what the textbox looks like) used by this character. The full path of the Type representing the style must be inputed. Here we see the Default style. If you want to use this, there's no need to explicity set it here!
+  "Style": "DialogueHelper.UI.Dialogue.DialogueStyles.DefaultDialogueStyle", //The Dialogue Style (what the textbox looks like) used by this character. The full path of the Type representing the style must be inputed. Here we see the Default style. If you want to use this, there's no need to explicity set it here!
   "TextDelay": 3, //The delay between characters that occurs during the text crawl. 3 is the default.
   "PrimaryColor": "#000000", //A primary color associated with this character. Is mainly used by the Default Dialogue Style to color the text box. Defaults to standard terraria UI colors.
   "SecondaryColor": "#FF0000" //A secondary color associated with this character. Is mainly used by the Default Dialogue Style to color the text box. Defaults to standard terraria UI colors.

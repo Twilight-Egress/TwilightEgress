@@ -25,7 +25,7 @@
         }
       ],
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -38,7 +38,7 @@
       ],
       "ExpressionIndex": 1,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -51,7 +51,7 @@
       ],
       "ExpressionIndex": 5,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -68,7 +68,7 @@
         }
       ],
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -90,7 +90,7 @@
       "Text": "Who the hell are you?",
       "ExpressionIndex": 4,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -98,7 +98,7 @@
       "Text": "...and why do you look like an Ogscule?",
       "ExpressionIndex": 3,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     },
@@ -111,7 +111,7 @@
       ],
       "CharacterIndex": 1,
       "Music": {
-        "ModName": "Cascade",
+        "ModName": "TwilightEgress",
         "FilePath": "Assets/Sounds/Music/ArdienaTheme"
       }
     }

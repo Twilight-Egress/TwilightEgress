@@ -2,23 +2,24 @@
 using CalamityMod.Items.Placeables.Ores;
 using CalamityMod.Items.Weapons.Melee;
 using Terraria.UI;
+using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
 
-namespace Cascade.Content.UI.Dialogue
+namespace TwilightEgress.Content.UI.Dialogue
 {
     public static class DialogueHolder
     {
         public static string DebugKey = "Eeveelutions"; //The ID used by the UIDebugItem. Update to the ID of the tree you're testing
-        
+
         public static readonly string LocalizationPath = "Mods.Cascade.UI.Dialogue.";
-        
+
         public static readonly Character[] Characters =
         [
             new Character("TheCalamity", [new Expression("Normal", 1, 0), new Expression("Finality",  1, 0)], "[c/FF0000:The Calamity]", styleID: 0),
             new Character("Ardiena", [new Expression("Default",  1, 0), new Expression("Blunt",  3, 10)], styleID: 1)
         ];
-        
+
         public static Dictionary<string, DialogueTree> DialogueTrees; //Can be marked readonly once testing is done. Isnt so that it can be updated everytime dialogue is called for testing purposes.
-                
+
         internal enum CharacterIDs
         {
             //Make sure the order of these matches the order of the Characters array
@@ -83,7 +84,7 @@ namespace Cascade.Content.UI.Dialogue
                                     new Response("Vaporeon", 3),
                                 ],
                                 expressionIndex: 0,
-                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                                musicID: MusicLoader.GetMusicSlot(TwilightEgress.Instance, "Assets/Sounds/Music/ArdienaTheme")
                             ),
                             new Dialogue
                             (
@@ -91,7 +92,7 @@ namespace Cascade.Content.UI.Dialogue
                                     new Response("Thanks")
                                 ],
                                 expressionIndex: 1,
-                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                                musicID: MusicLoader.GetMusicSlot(TwilightEgress.Instance, "Assets/Sounds/Music/ArdienaTheme")
                             ),
                             new Dialogue
                             (
@@ -99,7 +100,7 @@ namespace Cascade.Content.UI.Dialogue
                                     new Response("Thanks")
                                 ],
                                 expressionIndex: 0,
-                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                                musicID: MusicLoader.GetMusicSlot(TwilightEgress.Instance, "Assets/Sounds/Music/ArdienaTheme")
                             ),
                             new Dialogue
                             (
@@ -108,7 +109,7 @@ namespace Cascade.Content.UI.Dialogue
                                     new Response("DidYouKnow", 4, dismissSubSpeaker: true)
                                 ],
                                 expressionIndex: 0,
-                                musicID: MusicLoader.GetMusicSlot(Cascade.Instance, "Assets/Sounds/Music/ArdienaTheme")
+                                musicID: MusicLoader.GetMusicSlot(TwilightEgress.Instance, "Assets/Sounds/Music/ArdienaTheme")
                             ),
                             new Dialogue
                             (
@@ -147,19 +148,19 @@ namespace Cascade.Content.UI.Dialogue
                 #endregion
             };
             return dialogueTrees;
-        }       
+        }
     }
 
     public delegate void DialogueNotifier(string treeKey, int dialogueID, int buttonID);
 
     public class DialogueUISystem : ModSystem
-    {       
+    {
         internal DialogueUIState DialogueUIState;
-        
+
         public UserInterface DialogueUI;
-                
+
         public Character? CurrentSpeaker = null;
-        
+
         public Character? SubSpeaker = null;
 
         public DialogueNotifier ButtonClick;
@@ -169,30 +170,30 @@ namespace Cascade.Content.UI.Dialogue
         public DialogueNotifier DialogueClose;
 
         public bool justOpened = true;
-        
+
         public bool isDialogueOpen = false;
-        
+
         public bool newSpeaker = false;
-        
+
         public bool newSubSpeaker = false;
-        
+
         public bool returningSpeaker = false;
 
         public bool dismissSubSpeaker = false;
-        
+
         public bool speakerRight = true;
 
         public bool swappingStyle = false;
 
         public bool styleSwapped = false;
-        
-        public int subSpeakerIndex = -1;     
-        
+
+        public int subSpeakerIndex = -1;
+
         public override void PostSetupContent()
         {
             DialogueHolder.DialogueTrees = DialogueHolder.PopulateDialogueTrees();
         }
-        
+
         public override void Load()
         {
             if (!Main.dedServ)
@@ -202,7 +203,7 @@ namespace Cascade.Content.UI.Dialogue
                 DialogueUIState.Activate();
             }
         }
-        
+
         public override void UpdateUI(GameTime gameTime)
         {
             if (DialogueUI?.CurrentState != null)
@@ -210,7 +211,7 @@ namespace Cascade.Content.UI.Dialogue
                 DialogueUI?.Update(gameTime);
             }
         }
-        
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
@@ -227,7 +228,7 @@ namespace Cascade.Content.UI.Dialogue
                 );
             }
         }
-        
+
         public void DisplayDialogueTree(string TreeKey, int DialogueIndex = 0)
         {
             /*SoundEngine.PlaySound(UseSound with
@@ -266,7 +267,7 @@ namespace Cascade.Content.UI.Dialogue
 
             DialogueUI?.SetState(DialogueUIState);
         }
-        
+
         public void UpdateDialogueUI(string TreeKey, int DialogueIndex)
         {
             int formerSpeakerIndex = DialogueHolder.DialogueTrees[DialogueUIState.TreeKey].Dialogues[DialogueUIState.DialogueIndex].CharacterIndex;
@@ -320,7 +321,7 @@ namespace Cascade.Content.UI.Dialogue
 
             DialogueUI?.SetState(DialogueUIState);
         }
-        
+
         public void HideDialogueUI()
         {
             /*SoundEngine.PlaySound(UseSound with
@@ -331,9 +332,9 @@ namespace Cascade.Content.UI.Dialogue
                 SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
             });*/
             isDialogueOpen = false;
-            DialogueUI?.SetState(null);           
+            DialogueUI?.SetState(null);
         }
-        
+
     }
     #region Structures
     /// <param name="ID">The identifier for this Character, commonly their name. This is used primarilly to locate this character's Expression Assets within the Character Assets folder.</param>
@@ -354,7 +355,7 @@ namespace Cascade.Content.UI.Dialogue
         public int StyleID = styleID;
         public int TextDelay = textDelay;
     }
-    
+
     /// <param name="dialogues">The array of <see cref="Dialogue"/>s the Tree manages.</param>
     /// <param name="characters">The array of <see cref="Character"/>s the Tree is able to use.</param>
     /// <returns>
@@ -389,9 +390,9 @@ namespace Cascade.Content.UI.Dialogue
 
     /// <param name="title">The text displayed on the Response Button.</param>
     /// <param name="dialogueIndex">The index within the <see cref="DialogueTree.Dialogues"/>s array this response leads to. Defaults to <see cref="-1"/>, which closes the dialogue.</param>
-    /// <param name="requirement">A <see cref="Boolean"/> which determines whether or not this response can appear as an option Defaults to <see cref="true"/>.</param>
+    /// <param name="requirement">A <see cref="bool"/> which determines whether or not this response can appear as an option Defaults to <see cref="true"/>.</param>
     /// <param name="cost">A <see cref="ItemStack"/> which applys a cost that is needed in order to select that response Defaults to <see cref="null"/>, meaning there is no cost.</param>
-    /// <param name="dismissSubSpeaker">A <see cref="Boolean"/> which will remove the current SubSpeaker, if there is one, from the dialogue when this response is selected.</param>
+    /// <param name="dismissSubSpeaker">A <see cref="bool"/> which will remove the current SubSpeaker, if there is one, from the dialogue when this response is selected.</param>
     /// <returns>
     /// Represents a response the player is able to give to a <see cref="Dialogue"/>./>s.
     /// </returns>
@@ -399,7 +400,7 @@ namespace Cascade.Content.UI.Dialogue
     {
         public string Title = title;
         public int DialogueIndex = dialogueIndex;
-        public bool Requirement = requirement;    
+        public bool Requirement = requirement;
         public ItemStack? Cost = cost;
         public bool DismissSubSpeaker = dismissSubSpeaker;
     }

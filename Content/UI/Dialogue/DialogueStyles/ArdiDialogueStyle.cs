@@ -1,12 +1,11 @@
-﻿using static DialogueHelper.Content.UI.Dialogue.DialogueUIState;
+﻿using static TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueUIState;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using Cascade.Content.UI.Dialogue.UIElements;
-using DialogueHelper.Content.UI;
-using DialogueHelper.Content.UI.Dialogue;
-using DialogueHelper.Content.UI.Dialogue.DialogueStyles;
+using TwilightEgress.SubModules.DialogueHelper.UI;
+using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;
+using TwilightEgress.Content.UI.Dialogue.UIElements;
 
-namespace Cascade.Content.UI.Dialogue.DialogueStyles
+namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
 {
     public class ArdiDialogueStyle : BaseDialogueStyle
     {
@@ -14,7 +13,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
         public override Color? BackgroundBorderColor => Color.Transparent;
         public override Color? ButtonColor => new(144, 115, 225);
         public override Color? ButtonBorderColor => new(247, 135, 89);
-        public override void OnTextboxCreate(UIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public override void OnTextboxCreate(UIPanel textbox, FlippableUIImage speaker, FlippableUIImage subSpeaker)
         {
             bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
             bool spawnBottom = ModContent.GetInstance<DialogueUISystem>().justOpened || ModContent.GetInstance<DialogueUISystem>().styleSwapped;
@@ -53,7 +52,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
             text.VAlign = 0f;
             costHolder.HAlign = 0.5f;
         }
-        public override void PostUpdateActive(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public override void PostUpdateActive(MouseBlockingUIPanel textbox, FlippableUIImage speaker, FlippableUIImage subSpeaker)
         {
             if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
             {
@@ -131,7 +130,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     }
                     else if (button.Children.Count() > 1)
                     {
-                        UIElement child = (UIElement)button.Children.Where(c => c.GetType() == typeof(UIPanel)).First();
+                        UIElement child = button.Children.Where(c => c.GetType() == typeof(UIPanel)).First();
                         child.Top.Pixels = child.Parent.Height.Pixels / 4;
                     }
                     if (button.ContainsPoint(Main.MouseScreen))
@@ -191,7 +190,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                 }
             }
         }
-        public override void PostUpdateClosing(MouseBlockingUIPanel textbox, UIImage speaker, UIImage subSpeaker)
+        public override void PostUpdateClosing(MouseBlockingUIPanel textbox, FlippableUIImage speaker, FlippableUIImage subSpeaker)
         {
             if (!TextboxOffScreen(textbox))
             {
@@ -209,7 +208,7 @@ namespace Cascade.Content.UI.Dialogue.DialogueStyles
                     Vector2 rotation = Vector2.UnitY;
                     rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
                     button.HAlign = 0f;
-                    button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels /  2), 0);
+                    button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
                     button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
 
                     button.Top.Pixels -= rotation.Y * (textbox.Height.Pixels / 1.5f);

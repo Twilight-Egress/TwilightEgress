@@ -1,6 +1,5 @@
-﻿using DialogueHelper.Content.UI.Dialogue;
-
-namespace Cascade.Content.Items
+﻿
+namespace TwilightEgress.Content.Items
 {
     public class UIDebugItem : ModItem, ILocalizedModType
     {
@@ -13,10 +12,10 @@ namespace Cascade.Content.Items
             Item.noMelee = true;
             Item.useAnimation = 1;
             Item.useTime = 1;
-            Item.useStyle = ItemUseStyleID.HoldUp;            
+            Item.useStyle = ItemUseStyleID.HoldUp;
         }
         public override bool? UseItem(Player player)
-        {            
+        {
             return true;
         }
     }
