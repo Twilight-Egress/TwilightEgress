@@ -22,6 +22,7 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 65;
             Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 8f;
             Item.shootSpeed = 7f;
             Item.shoot = ModContent.ProjectileType<SparklingGrenadeProjectile>();
             Item.width = 20;

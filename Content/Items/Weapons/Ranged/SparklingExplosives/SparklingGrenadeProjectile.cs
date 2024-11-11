@@ -14,12 +14,10 @@
         {
             Projectile.width = Projectile.height = 15;
             Projectile.friendly = true;
-
-            Projectile.timeLeft = 360;
-
             Projectile.damage = 65;
             Projectile.knockBack = 8f;
             Projectile.DamageType = DamageClass.Ranged;
+            Projectile.timeLeft = 360;
 
             DrawOffsetX = -1;
             DrawOriginOffsetY = -4;
@@ -80,6 +78,8 @@
             {
                 new SparkleParticle(Projectile.Center, Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(6), Color.LightBlue, Color.DarkBlue, Main.rand.NextFloat(0.2f, 0.5f), 20, bloomScale: 0f).SpawnCasParticle();
             }
+
+            Lighting.AddLight(Projectile.Center, Color.LightBlue.ToVector3());
 
             Projectile.Resize(15, 15);
         }
