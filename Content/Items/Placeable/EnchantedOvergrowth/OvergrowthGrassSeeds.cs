@@ -1,17 +1,10 @@
-<<<<<<<< HEAD:Content/Items/EnchantedOvergrowth/ManaGrassSeeds.cs
-﻿using Terraria.ID;
-using Terraria.ModLoader;
+﻿using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 
-namespace TwilightEgress.Content.Items.EnchantedOvergrowth
-========
-﻿namespace TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth
->>>>>>>> 3546090 (add overgrowth dirt):Content/Items/Placeable/EnchantedOvergrowth/OvergrowthGrassSeeds.cs
+namespace TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth
 {
     public class OvergrowthGrassSeeds : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Placeables";
-
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -29,6 +22,26 @@ namespace TwilightEgress.Content.Items.EnchantedOvergrowth
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.maxStack = 9999;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            Tile tileAbove = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY - 1);
+
+            if (!player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+                return false;
+
+            if (!tile.HasTile || tile.TileType != ModContent.TileType<Tiles.EnchantedOvergrowth.OvergrowthDirt>())
+                return false;
+
+            if (tileAbove.HasTile || tileAbove.LiquidAmount != 0)
+                return false;
+
+            Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
+            SoundEngine.PlaySound(SoundID.Dig, player.Center);
+
+            return true;
         }
     }
 }
