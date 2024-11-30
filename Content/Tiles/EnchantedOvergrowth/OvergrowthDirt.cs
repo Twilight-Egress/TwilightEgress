@@ -17,7 +17,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileID.Sets.CanBeDugByShovel[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
-            Main.tileBlockLight[Type] = true;
+            Main.tileMerge[Type][ModContent.TileType<OvergrowthGrass>()] = true;
 
             DustType = DustID.Dirt;
             RegisterItemDrop(ModContent.ItemType<Items.Placeable.EnchantedOvergrowth.OvergrowthDirt>());
