@@ -94,6 +94,12 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             foreach (Point frame in framesToDraw) 
             {
+                int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
+                int offsetY = 54 * (i % 3);
+
+                if (leftSame)
+                    offsetX += rightSame ? 18 : 36;
+
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
                 spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
                 spriteBatch.DrawTileTexture(glowTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: false);
