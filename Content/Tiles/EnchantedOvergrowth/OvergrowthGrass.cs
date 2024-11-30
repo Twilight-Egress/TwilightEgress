@@ -84,12 +84,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 int offsetY = 54 * (i % 3);
 
                 if (leftSame)
-                {
-                    offsetX += 36;
-
-                    if (rightSame)
-                        offsetX -= 18;
-                }
+                    offsetX += rightSame ? 18 : 36;
 
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
                 DrawExtra(spriteBatch, grass, i + frame.X, j + frame.Y, paintColor, sourceRectangle);
