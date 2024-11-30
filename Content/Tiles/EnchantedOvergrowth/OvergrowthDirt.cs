@@ -5,6 +5,7 @@
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
+            Main.tileMerge[Type][ModContent.TileType<OvergrowthGrass>()] = true;
 
             DustType = DustID.Dirt;
 
