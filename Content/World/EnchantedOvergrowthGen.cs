@@ -11,12 +11,12 @@ namespace TwilightEgress.Content.World
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
-            int dungeonIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pyramids"));
+            int lakesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
 
-            if (dungeonIndex != -1)
+            if (lakesIndex != -1)
             {
-                tasks.Insert(dungeonIndex + 1, new GenerateOvergrowthPass("Enchanted Overgrowth", 100f));
-                tasks.Insert(dungeonIndex + 2, new OvergrowthGrassPass("Overgrowth Grass", 101f));
+                tasks.Insert(lakesIndex + 1, new GenerateOvergrowthPass("Enchanted Overgrowth", 100f));
+                tasks.Insert(lakesIndex + 2, new OvergrowthGrassPass("Overgrowth Grass", 101f));
             }
         }
     }
@@ -31,19 +31,17 @@ namespace TwilightEgress.Content.World
         {
             progress.Message = "Polluting the land with mana";
 
-            int size = (int)(Main.maxTilesX * 0.085f);
-            int height = (int)(Main.maxTilesY * 0.06f);
+            int size = (int)(Main.maxTilesX * 0.065f);
+            int height = (int)(Main.maxTilesY * 0.03f);
             int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
             int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
             bool onLeftSide = overgrowthPosX < (Main.maxTilesX * 0.5f);
 
             bool IceBiomeTilesNearby(int x, int y)
             {
-                int checkArea = (int)(size * 0.5f);
-
-                for (int i = x - checkArea; i < x + checkArea; i++)
+                for (int i = x - size; i < x + size; i++)
                 {
-                    for (int j = y; j < y + checkArea; j++)
+                    for (int j = y; j < y + size; j++)
                     {
                         int[] iceTiles = [TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick];
 
@@ -60,7 +58,7 @@ namespace TwilightEgress.Content.World
                 bool tilesDetected = true;
 
                 while (tilesDetected = IceBiomeTilesNearby(overgrowthPosX, overgrowthPosY))
-                    overgrowthPosX += (onLeftSide ? -100 : 100);
+                    overgrowthPosX += (onLeftSide ? 100 : -100);
 
                 if (!tilesDetected)
                     break;
