@@ -1,7 +1,5 @@
-﻿using Humanizer;
-using ReLogic.Threading;
+﻿using ReLogic.Threading;
 using Terraria.IO;
-using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 
@@ -71,6 +69,7 @@ namespace TwilightEgress.Content.World
 
             for (int j = 0; j < height; j += 50)
             {
+                // TO-DO: use noise to 
                 for (int cutOff = 0; cutOff < Main.maxTilesX / 40; cutOff += 50)
                     WorldGen.TileRunner(overgrowthPosX, overgrowthPosY + j + cutOff, size + j * 0.5f, 1, ModContent.TileType<OvergrowthDirt>(), false, 0f, 0f, true, true);
             }
@@ -98,10 +97,8 @@ namespace TwilightEgress.Content.World
                         Tile tile = Main.tile[i, j];
                         Tile tileAbove = Main.tile[i, j - 1];
 
-                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && (!tileAbove.HasTile || tile.Slope != 0))
-                        {
+                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileAbove.HasTile)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
-                        }
                     }
                 }
             });
