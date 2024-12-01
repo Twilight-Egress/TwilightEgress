@@ -71,7 +71,7 @@ namespace TwilightEgress.Content.World
             {
                 // TO-DO: use noise as a function for whether or not to place a tile, and tilerunner to cut holes in that.
                 // FastNoiseLite
-                for (int cutOff = 0; cutOff < Main.maxTilesX / 40; cutOff += 50)
+                for (int cutOff = 0; cutOff < Main.maxTilesX / 50; cutOff += 50)
                     WorldGen.TileRunner(overgrowthPosX, overgrowthPosY + j + cutOff, size + j * 0.5f, 1, ModContent.TileType<OvergrowthDirt>(), false, 0f, 0f, true, true);
             }
 

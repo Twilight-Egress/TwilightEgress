@@ -1,4 +1,5 @@
-﻿using static TwilightEgress.TwilightEgressUtilities;
+﻿using TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth;
+using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
@@ -24,6 +25,20 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 return;
 
             Main.tile[i, j].TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+        }
+
+        public override bool CanDrop(int i, int j)
+        {
+            return Main.rand.Next(1, 3) == 1;
+        }
+
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            Vector2 worldPosition = new Vector2(i, j).ToWorldCoordinates();
+
+            int seedsItem = ModContent.ItemType<OvergrowthGrassSeeds>();
+
+            yield return new Item(ModContent.ItemType<OvergrowthGrassSeeds>(), 1);
         }
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
