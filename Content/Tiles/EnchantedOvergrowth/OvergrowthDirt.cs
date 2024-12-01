@@ -4,8 +4,12 @@
     {
         public override void SetStaticDefaults()
         {
+            TileID.Sets.CanBeDugByShovel[Type] = true;
+            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+            Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
             Main.tileSolid[Type] = true;
-            Main.tileMerge[Type][ModContent.TileType<OvergrowthGrass>()] = true;
+            Main.tileBlockLight[Type] = true;
 
             DustType = DustID.Dirt;
 
