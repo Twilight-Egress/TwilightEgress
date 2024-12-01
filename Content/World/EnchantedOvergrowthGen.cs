@@ -11,7 +11,7 @@ namespace TwilightEgress.Content.World
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
-            int dungeonIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Dungeon"));
+            int dungeonIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pyramids"));
 
             if (dungeonIndex != -1)
             {
@@ -31,8 +31,8 @@ namespace TwilightEgress.Content.World
         {
             progress.Message = "Polluting the land with mana";
 
-            int size = (int)(Main.maxTilesX * 0.0625f);
-            int height = (int)(Main.maxTilesY * 0.1f);
+            int size = (int)(Main.maxTilesX * 0.085f);
+            int height = (int)(Main.maxTilesY * 0.06f);
             int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
             int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
             bool onLeftSide = overgrowthPosX < (Main.maxTilesX * 0.5f);
