@@ -34,7 +34,7 @@ namespace TwilightEgress.Content.World
             int size = (int)(Main.maxTilesX * 0.065f);
             int height = (int)(Main.maxTilesY * 0.03f);
             int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
-            int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
+            int overgrowthPosY = (int)(Main.worldSurface);
             bool onLeftSide = overgrowthPosX < (Main.maxTilesX * 0.5f);
 
             bool IceBiomeTilesNearby(int x, int y)
@@ -63,7 +63,6 @@ namespace TwilightEgress.Content.World
                 if (!tilesDetected)
                     break;
             }
-
 
             for (int j = 0; j < height; j += 50)
             {
