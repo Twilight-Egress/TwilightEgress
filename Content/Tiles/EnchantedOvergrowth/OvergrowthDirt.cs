@@ -66,18 +66,19 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
+            float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
 
-            if (!TileDrawing.IsVisible(tile))
+            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.6f)
                 return;
 
             Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
-
+            drawPosition += new Vector2(randomForTile, TwilightEgressUtilities.RandomFromVector(new Vector2(j, i))) * 16f;
             if (!Main.drawToScreen)
                 drawPosition += new Vector2(Main.offScreenRange);
 
-            Color drawColor = Color.White * (float)(1 + NoiseSystem.cellular.GetNoise(i * 4, j * 4, Main.GameUpdateCount));
-            Color lightColor = Lighting.GetColor(i, j);
+            Color drawColor = Color.White * (float)(1 + NoiseSystem.cellular.GetNoise(i * 5, j * 5, Main.GameUpdateCount));
 
+            Color lightColor = Lighting.GetColor(i, j);
             drawColor.R = (byte)Math.Clamp(drawColor.R + lightColor.R, 0, 255);
             drawColor.G = (byte)Math.Clamp(drawColor.G + lightColor.G, 0, 255);
             drawColor.B = (byte)Math.Clamp(drawColor.B + lightColor.B, 0, 255);
