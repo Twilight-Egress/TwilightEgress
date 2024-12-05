@@ -48,7 +48,7 @@ namespace TwilightEgress.Content.World
                     {
                         int[] iceTiles = [TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick];
 
-                        if (Main.tile[i, j].HasTile && iceTiles.Contains(Main.tile[i, j].TileType))
+                        if (Framing.GetTileSafely(i, j).HasTile && iceTiles.Contains(Framing.GetTileSafely(i, j).TileType))
                             return true;
                     }
                 }
@@ -85,7 +85,7 @@ namespace TwilightEgress.Content.World
                 {
                     for (int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f)) - 20; j <= Main.maxTilesY - 20; j++)
                     {
-                        Tile tile = Main.tile[i, j];
+                        Tile tile = Framing.GetTileSafely(i, j);
 
                         // The worldgen on shadertoy:
                         // https://www.shadertoy.com/view/Xf3fDN
@@ -134,30 +134,12 @@ namespace TwilightEgress.Content.World
                 {
                     for (int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f)) - 20; j <= Main.maxTilesY - 20; j++)
                     {
-                        Tile tile = Main.tile[i, j];
+                        Tile tile = Framing.GetTileSafely(i, j);
 
                         if (tile.TileType != ModContent.TileType<OvergrowthDirt>())
                             continue;
 
                         AdjacencyData<Tile> tileData = GetAdjacentTiles(i, j);
-
-                        // fix small dirt pockets
-                        int adjacentOGDirt = 0;
-
-                        if (tileData.top.TileType == ModContent.TileType<OvergrowthDirt>())
-                            adjacentOGDirt++;
-
-                        if (tileData.bottom.TileType == ModContent.TileType<OvergrowthDirt>())
-                            adjacentOGDirt++;
-
-                        if (tileData.left.TileType == ModContent.TileType<OvergrowthDirt>())
-                            adjacentOGDirt++;
-
-                        if (tileData.right.TileType == ModContent.TileType<OvergrowthDirt>())
-                            adjacentOGDirt++;
-
-                        if (adjacentOGDirt >= 2)
-                            tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
 
                         // generate grass
                         if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top.HasTile)
