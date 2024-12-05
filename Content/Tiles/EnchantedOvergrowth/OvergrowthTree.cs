@@ -39,9 +39,6 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Rectangle sourceRectangle = new Rectangle(xOffset, 0, 36, 70);
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
             spriteBatch.DrawTileTexture(topsTexture.Value, i, j, sourceRectangle, paintColor, 0.0f, new(10, 70));
-
-
-            WorldGen.GetTreeFrame(Framing.GetTileSafely(i, j));
         }
     }
 }
