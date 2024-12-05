@@ -5,6 +5,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
     public class OvergrowthGrass : ModTile
     {
+        private Asset<Texture2D> grassTexture;
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.CanBeDugByShovel[Type] = true;
@@ -17,6 +19,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             HitSound = SoundID.Grass;
 
             AddMapEntry(new Color(48, 77, 247));
+
+            grassTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Grass");
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -50,27 +54,10 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             catch { }
         }
 
-        private void DrawExtra(SpriteBatch spriteBatch, Texture2D grassTexture, int i, int j, Color paintColor, Rectangle sourceRectangle)
-        {
-            Vector2 drawOffset = new Vector2(i * 16, j * 16) - Main.screenPosition;
-
-            if (!Main.drawToScreen)
-                drawOffset += new Vector2(Main.offScreenRange);
-
-            Color drawColor = Lighting.GetColor(i, j);
-
-            drawColor.R *= (byte)(paintColor.R / 255);
-            drawColor.G *= (byte)(paintColor.G / 255);
-            drawColor.B *= (byte)(paintColor.B / 255);
-
-            spriteBatch.Draw(grassTexture, drawOffset, sourceRectangle, drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
-        }
-
         public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch)
         {
             // TO-DO: theres absolutely a better way to do this all lmao
-            Texture2D grass = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrassGrass").Value;
-            Color paintColor = WorldGen.paintColor(Main.tile[i, j].TileColor);
+            Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
             AdjacencyData<Tile> adjacencyData = GetAdjacentTiles(i, j);
 
             bool leftSame = adjacencyData.left.TileType == Type;
@@ -106,7 +93,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                     offsetX += rightSame ? 18 : 36;
 
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
-                DrawExtra(spriteBatch, grass, i + frame.X, j + frame.Y, paintColor, sourceRectangle);
+                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
             }
         }
     }
