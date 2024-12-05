@@ -2,6 +2,7 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
+using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.World
 {
@@ -100,12 +101,12 @@ namespace TwilightEgress.Content.World
                         float angleDomainWarp = (180f + (10f * noiseVal));
                         float radiusNoise = noise.GetNoise(angle * angleDomainWarp, angle * angleDomainWarp) * 0.5f + 0.5f;
 
-                        float paintDomainWarp = (6 + noiseVal * 0.4f);
+                        float paintDomainWarp = (6 + noiseVal * 0.2f);
                         float paintNoise = noise.GetNoise(position.X * paintDomainWarp, position.Y * paintDomainWarp) * 0.5f + 0.5f;
-                        float dripNoise = noise.GetNoise(position.X * 1.5f * paintDomainWarp, 0) * 0.5f + 0.5f;
+                        float dripNoise = noise.GetNoise(position.X * 0.5f * paintDomainWarp, 0) * 0.5f + 0.5f;
 
                         position.X -= size * 0.025f * Pow(paintNoise, 2);
-                        position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.065f * Pow(dripNoise, 2));
+                        position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.4f * Pow(dripNoise, 2));
 
                         bool validPlacePos = Circle(position, origin, size * (0.3f + 0.15f * radiusNoise));
 
@@ -136,9 +137,32 @@ namespace TwilightEgress.Content.World
                     for (int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f)) - 20; j <= Main.maxTilesY - 20; j++)
                     {
                         Tile tile = Main.tile[i, j];
-                        Tile tileAbove = Main.tile[i, j - 1];
 
-                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileAbove.HasTile)
+                        if (tile.TileType != ModContent.TileType<OvergrowthDirt>())
+                            continue;
+
+                        AdjacencyData<Tile> tileData = GetAdjacentTiles(i, j);
+
+                        // fix small dirt pockets
+                        int adjacentOGDirt = 0;
+
+                        if (tileData.top.TileType == ModContent.TileType<OvergrowthDirt>())
+                            adjacentOGDirt++;
+
+                        if (tileData.bottom.TileType == ModContent.TileType<OvergrowthDirt>())
+                            adjacentOGDirt++;
+
+                        if (tileData.left.TileType == ModContent.TileType<OvergrowthDirt>())
+                            adjacentOGDirt++;
+
+                        if (tileData.right.TileType == ModContent.TileType<OvergrowthDirt>())
+                            adjacentOGDirt++;
+
+                        if (adjacentOGDirt >= 2)
+                            tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+
+                        // generate grass
+                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top.HasTile)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
                     }
                 }
