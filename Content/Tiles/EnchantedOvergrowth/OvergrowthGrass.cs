@@ -13,6 +13,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
+            Main.tileLighted[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
@@ -44,6 +45,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             yield return new Item(ModContent.ItemType<OvergrowthGrassSeeds>(), 1);
         }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) => (r, g, b) = (0.075f, 0.125f, 1.000f);
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
@@ -93,7 +96,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                     offsetX += rightSame ? 18 : 36;
 
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
-                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
+                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: false);
             }
         }
     }
