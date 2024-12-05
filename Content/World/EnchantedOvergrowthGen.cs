@@ -28,16 +28,11 @@ namespace TwilightEgress.Content.World
         {
         }
 
-        public bool Circle(Vector2 coords, Vector2 origin, float radius)
-        {
-            Vector2 position = coords - origin;
-            return Pow(position.X, 2) + Pow(position.Y, 2) <= Pow(radius, 2);
-        }
-
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Polluting the land with mana";
 
+            // set the size and initial position of the biome
             int size = (int)(Main.maxTilesX * 0.065f);
             int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
             int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
@@ -61,6 +56,7 @@ namespace TwilightEgress.Content.World
                 return false;
             }
 
+            // move it inwards from the ice biome
             for (int i = 0; i < 10000; i++)
             {
                 bool tilesDetected = true;
@@ -72,11 +68,13 @@ namespace TwilightEgress.Content.World
                     break;
             }
 
+            // move position down until hitting a solid tile
             while (!Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
                 overgrowthPosY += 1;
 
-            overgrowthPosY -= (int)(size * 0.05f);
+            overgrowthPosY -= (int)(size * 0.08f);
 
+            // generate the biome with noise
             FastNoiseLite noise = new FastNoiseLite();
             noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
             noise.SetSeed(WorldGen.genRand.Next());
@@ -85,7 +83,7 @@ namespace TwilightEgress.Content.World
             {
                 for (int i = from; i <= to; i++)
                 {
-                    for (int j = 20; j <= Main.maxTilesY - 20; j++)
+                    for (int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f)) - 20; j <= Main.maxTilesY - 20; j++)
                     {
                         Tile tile = Main.tile[i, j];
 
@@ -108,7 +106,7 @@ namespace TwilightEgress.Content.World
                         position.X -= size * 0.025f * Pow(paintNoise, 2);
                         position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.4f * Pow(dripNoise, 2));
 
-                        bool validPlacePos = Circle(position, origin, size * (0.3f + 0.15f * radiusNoise));
+                        bool validPlacePos = InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise));
 
                         if (tile.HasTile && validPlacePos)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
