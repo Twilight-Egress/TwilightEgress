@@ -44,9 +44,11 @@ namespace TwilightEgress.Content.World
 
             bool IceBiomeTilesNearby(int x, int y)
             {
-                for (int i = x - size; i < x + size; i++)
+                int halfSize = (int)(size * 0.5f);
+
+                for (int i = x - halfSize; i < x + halfSize; i++)
                 {
-                    for (int j = y; j < y + size; j++)
+                    for (int j = y; j < y + halfSize; j++)
                     {
                         int[] iceTiles = [TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick];
 
@@ -69,8 +71,10 @@ namespace TwilightEgress.Content.World
                     break;
             }
 
-            /*while (Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
-                overgrowthPosY -= 1;*/
+            while (!Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
+                overgrowthPosY += 1;
+
+            overgrowthPosY -= (int)(size * 0.05f);
 
             FastNoiseLite noise = new FastNoiseLite();
             noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
@@ -84,10 +88,26 @@ namespace TwilightEgress.Content.World
                     {
                         Tile tile = Main.tile[i, j];
 
-                        float ratio = 800 / size;
-                        float noiseVal = noise.GetNoise(i * ratio, j * ratio) * 0.25f + 0.5f;
+                        // The worldgen on shadertoy:
+                        // https://www.shadertoy.com/view/Xf3fDN
 
-                        bool validPlacePos = Circle(new Vector2(i, j) / size, new Vector2(overgrowthPosX, overgrowthPosY) / size, (0.5f + noiseVal));
+                        Vector2 position = new Vector2(i, j);
+                        Vector2 origin = new Vector2(overgrowthPosX, overgrowthPosY);
+
+                        float noiseVal = noise.GetNoise(position.X, position.Y) * 0.5f;
+
+                        float angle = Atan2(position.X - origin.X, position.Y - origin.Y) + PI;
+                        float angleDomainWarp = (180f + (10f * noiseVal));
+                        float radiusNoise = noise.GetNoise(angle * angleDomainWarp, angle * angleDomainWarp) * 0.5f + 0.5f;
+
+                        float paintDomainWarp = (6 + noiseVal * 0.4f);
+                        float paintNoise = noise.GetNoise(position.X * paintDomainWarp, position.Y * paintDomainWarp) * 0.5f + 0.5f;
+                        float dripNoise = noise.GetNoise(position.X * 1.5f * paintDomainWarp, 0) * 0.5f + 0.5f;
+
+                        position.X -= size * 0.025f * Pow(paintNoise, 2);
+                        position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.065f * Pow(dripNoise, 2));
+
+                        bool validPlacePos = Circle(position, origin, size * (0.3f + 0.15f * radiusNoise));
 
                         if (tile.HasTile && validPlacePos)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
