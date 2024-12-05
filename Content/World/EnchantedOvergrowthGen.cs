@@ -27,14 +27,19 @@ namespace TwilightEgress.Content.World
         {
         }
 
+        public bool Circle(Vector2 coords, Vector2 origin, float radius)
+        {
+            Vector2 position = coords - origin;
+            return Pow(position.X, 2) + Pow(position.Y, 2) <= Pow(radius, 2);
+        }
+
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Polluting the land with mana";
 
             int size = (int)(Main.maxTilesX * 0.065f);
-            int height = (int)(Main.maxTilesY * 0.03f);
             int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
-            int overgrowthPosY = (int)(Main.worldSurface);
+            int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
             bool onLeftSide = overgrowthPosX < (Main.maxTilesX * 0.5f);
 
             bool IceBiomeTilesNearby(int x, int y)
@@ -64,13 +69,31 @@ namespace TwilightEgress.Content.World
                     break;
             }
 
-            for (int j = 0; j < height; j += 50)
+            /*while (Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
+                overgrowthPosY -= 1;*/
+
+            FastNoiseLite noise = new FastNoiseLite();
+            noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+            noise.SetSeed(WorldGen.genRand.Next());
+
+            FastParallel.For(20, Main.maxTilesX - 20, (from, to, _) =>
             {
-                // TO-DO: use noise as a function for whether or not to place a tile, and tilerunner to cut holes in that.
-                // FastNoiseLite
-                for (int cutOff = 0; cutOff < Main.maxTilesX / 50; cutOff += 50)
-                    WorldGen.TileRunner(overgrowthPosX, overgrowthPosY + j + cutOff, size + j * 0.5f, 1, ModContent.TileType<OvergrowthDirt>(), false, 0f, 0f, true, true);
-            }
+                for (int i = from; i <= to; i++)
+                {
+                    for (int j = 20; j <= Main.maxTilesY - 20; j++)
+                    {
+                        Tile tile = Main.tile[i, j];
+
+                        float ratio = 800 / size;
+                        float noiseVal = noise.GetNoise(i * ratio, j * ratio) * 0.25f + 0.5f;
+
+                        bool validPlacePos = Circle(new Vector2(i, j) / size, new Vector2(overgrowthPosX, overgrowthPosY) / size, (0.5f + noiseVal));
+
+                        if (tile.HasTile && validPlacePos)
+                            tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+                    }
+                }
+            });
 
             EnchantedOvergrowthGen.OvergrowthPos = new Point(overgrowthPosX, overgrowthPosY);
         }
