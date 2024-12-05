@@ -19,6 +19,14 @@
         }
 
         /// <summary>
+        /// Get random number from a vector position.
+        /// </summary>
+        public static float RandomFromVector(Vector2 input)
+        {
+            return (Sin(Vector2.Dot(input, new(12.9898f, 78.233f))) * 43758.5453f) % 1;
+        }
+
+        /// <summary>
         /// Creates random, jagged <see cref="Vector2"/> points along the distance bewteen the source and destination of a line, akin to those of a lightning bolt.
         /// </summary>
         /// <param name="source">The starting point of the bolt.</param>
