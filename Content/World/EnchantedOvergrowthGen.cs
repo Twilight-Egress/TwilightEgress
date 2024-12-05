@@ -33,12 +33,6 @@ namespace TwilightEgress.Content.World
         {
         }
 
-        public bool Circle(Vector2 coords, Vector2 origin, float radius)
-        {
-            Vector2 position = coords - origin;
-            return Pow(position.X, 2) + Pow(position.Y, 2) <= Pow(radius, 2);
-        }
-
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Polluting the land with magic";
