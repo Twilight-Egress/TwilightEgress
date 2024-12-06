@@ -6,6 +6,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     public class OvergrowthGrass : ModTile
     {
         private Asset<Texture2D> grassTexture;
+        private Asset<Texture2D> glowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -22,6 +23,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             AddMapEntry(new Color(48, 77, 247));
 
             grassTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Grass");
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Glow");
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -43,7 +45,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             yield return new Item(ModContent.ItemType<OvergrowthGrassSeeds>(), 1);
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) => (r, g, b) = (0.019f, 0.032f, 0.254f);
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) => (r, g, b) = (0.019f, 0.031f, 0.250f);
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
@@ -62,6 +64,12 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             bool leftSame = adjacencyData.left.TileType == Type;
             bool rightSame = adjacencyData.right.TileType == Type;
+
+            int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
+            int offsetY = 54 * (i % 3);
+
+            if (leftSame)
+                offsetX += rightSame ? 18 : 36;
 
             List<Point> framesToDraw =
             [
@@ -86,14 +94,9 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             foreach (Point frame in framesToDraw) 
             {
-                int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
-                int offsetY = 54 * (i % 3);
-
-                if (leftSame)
-                    offsetX += rightSame ? 18 : 36;
-
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
-                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: true);
+                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
+                spriteBatch.DrawTileTexture(glowTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: false);
             }
         }
     }
