@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 
 namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
 {
@@ -100,6 +101,23 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
             Lighting.AddLight(Projectile.Center, Color.LightBlue.ToVector3());
 
             Projectile.Resize(15, 15);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
+            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/Projectiles/Ranged/SparklingExplosives/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(default, BlendState.Additive, Main.DefaultSamplerState, default, RasterizerState.CullNone, default);
+
+            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.Blue, Projectile.rotation, glow.Size() * 0.5f, Projectile.scale * 1.2f, 0, 0);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(default, default, Main.DefaultSamplerState, default, RasterizerState.CullNone, default, Main.GameViewMatrix.TransformationMatrix);
+
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, 0, 0);
+            return false;
         }
     }
 }
