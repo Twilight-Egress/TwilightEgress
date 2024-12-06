@@ -113,8 +113,8 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(default, BlendState.Additive, Main.DefaultSamplerState, default, RasterizerState.CullNone, default);
 
-            Main.spriteBatch.Draw(bloomTexture, Projectile.Center - Main.screenPosition, null, Color.Blue, Projectile.rotation * 1.5f, null, scale: glow.Size() * 0.002f);
-            Main.spriteBatch.Draw(glowTexture, Projectile.Center - Main.screenPosition, null, Color.White * 0.7f, Projectile.rotation, glow.Size() * 0.5f, Projectile.scale * 1.1f, 0, 0);
+            Main.spriteBatch.Draw(bloomTexture, Projectile.Center - Main.screenPosition, null, Color.Blue, Projectile.rotation * 1.5f, null, scale: glowTexture.Size() * 0.002f);
+            Main.spriteBatch.Draw(glowTexture, Projectile.Center - Main.screenPosition, null, Color.White * 0.7f, Projectile.rotation, glowTexture.Size() * 0.5f, Projectile.scale * 1.1f, 0, 0);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(default, default, Main.DefaultSamplerState, default, RasterizerState.CullNone, default, Main.GameViewMatrix.TransformationMatrix);
