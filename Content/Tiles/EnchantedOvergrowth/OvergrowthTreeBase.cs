@@ -124,7 +124,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.newTile.Height = 3;
 
             TileObjectData.newTile.CoordinateWidth = 16;
-            TileObjectData.newTile.CoordinateHeights = [16, 16, 16, 16];
+            TileObjectData.newTile.CoordinateHeights = [16, 16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.Origin = new Point16(3, 2);
 

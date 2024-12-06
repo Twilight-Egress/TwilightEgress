@@ -40,5 +40,21 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
             spriteBatch.DrawTileTexture(topsTexture.Value, i, j, sourceRectangle, paintColor, 0.0f, new(10, 70));
         }
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            if (fail || effectOnly)
+                return;
+
+            Framing.GetTileSafely(i, j).HasTile = false;
+
+            AdjacencyData<Tile> adjacencyData = GetAdjacentTiles(i, j);
+            int[] treeBases = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
+
+            if (adjacencyData.top.TileType == Type)
+                WorldGen.KillTile(i, j - 1);
+            if (adjacencyData.bottom.TileType == Type || treeBases.Contains(adjacencyData.bottom.TileType))
+                WorldGen.KillTile(i, j + 1);
+        }
     }
 }
