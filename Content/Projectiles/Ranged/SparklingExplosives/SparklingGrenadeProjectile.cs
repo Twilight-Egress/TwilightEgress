@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
@@ -22,7 +23,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
             Projectile.damage = 65;
             Projectile.knockBack = 8f;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 180;
 
             DrawOffsetX = -1;
             DrawOriginOffsetY = -4;
@@ -48,8 +49,8 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
 
         public override void AI()
         {
-            // Rotation increased by velocity
             Projectile.rotation += 0.05f;
+            Lighting.AddLight(Projectile.Center, Color.Blue.ToVector3() * 0.5f);
 
             if (Projectile.owner != Main.myPlayer)
                 return;
@@ -70,7 +71,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
                 positionsToGoTo.Add(Main.MouseScreen + Main.screenPosition);
 
                 Vector2 toFirstPos = positionsToGoTo.First() - Projectile.Center;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, toFirstPos, 0.1f).SafeNormalize(Vector2.Zero) * 10f;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, toFirstPos.SafeNormalize(Vector2.Zero) * 15f, 0.1f);
 
                 if ((positionsToGoTo.First() - Projectile.Center).LengthSquared() < Pow(16f * 1f, 2))
                     Projectile.timeLeft = 3;
@@ -106,12 +107,14 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/Projectiles/Ranged/SparklingExplosives/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Projectiles/Ranged/SparklingExplosives/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
+            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(default, BlendState.Additive, Main.DefaultSamplerState, default, RasterizerState.CullNone, default);
 
-            Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.Blue, Projectile.rotation, glow.Size() * 0.5f, Projectile.scale * 1.2f, 0, 0);
+            Main.spriteBatch.Draw(bloomTexture, Projectile.Center - Main.screenPosition, null, Color.Blue, Projectile.rotation * 1.5f, null, scale: glow.Size() * 0.002f);
+            Main.spriteBatch.Draw(glowTexture, Projectile.Center - Main.screenPosition, null, Color.White * 0.7f, Projectile.rotation, glow.Size() * 0.5f, Projectile.scale * 1.1f, 0, 0);
 
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(default, default, Main.DefaultSamplerState, default, RasterizerState.CullNone, default, Main.GameViewMatrix.TransformationMatrix);
