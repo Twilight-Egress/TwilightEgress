@@ -44,7 +44,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Tile tile = Framing.GetTileSafely(i, j);
             float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
 
-            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.60f)
+            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.75f)
                 return;
 
             Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
