@@ -13,9 +13,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         public override void SetStaticDefaults()
         {
             TileID.Sets.CanBeDugByShovel[Type] = true;
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileBlendAll[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
@@ -31,16 +29,26 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             num = fail ? 1 : 3;
         }
 
+        public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)
+        {
+            // checkerboard pattern >:3
+            if (i % 2 == 0 ^ j % 2 == 0)
+            {
+                Tile t = Framing.GetTileSafely(i, j);
+                t.TileFrameY += 270;
+            }
+        }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
             float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
 
-            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.6f)
+            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.60f)
                 return;
 
             Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
-            drawPosition += new Vector2(randomForTile, TwilightEgressUtilities.RandomFromVector(new Vector2(j, i))) * 16f;
+            //drawPosition += new Vector2(randomForTile, TwilightEgressUtilities.RandomFromVector(new Vector2(j, i))) * 16f;
             if (!Main.drawToScreen)
                 drawPosition += new Vector2(Main.offScreenRange);
 
