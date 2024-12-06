@@ -32,10 +32,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Main.tile[i, j].TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
         }
 
-        public override bool CanDrop(int i, int j)
-        {
-            return Main.rand.Next(1, 3) == 1;
-        }
+        public override bool CanDrop(int i, int j) => Main.rand.Next(1, 3) == 1;
 
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {
@@ -46,7 +43,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             yield return new Item(ModContent.ItemType<OvergrowthGrassSeeds>(), 1);
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) => (r, g, b) = (0.075f, 0.125f, 1.000f);
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) => (r, g, b) = (0.019f, 0.032f, 0.254f);
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
@@ -96,7 +93,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                     offsetX += rightSame ? 18 : 36;
 
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
-                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: false);
+                spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: true);
             }
         }
     }
