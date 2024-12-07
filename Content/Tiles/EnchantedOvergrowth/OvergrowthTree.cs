@@ -24,8 +24,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            int frameX = 22 * (i % 4);
-            int frameY = 22 * (j % 2);
+            int frameX = 22 * (j % 4);
+            int frameY = 22 * (i % 2);
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
             Rectangle sourceRectangle = new Rectangle(frameX, frameY, 20, 20);
             spriteBatch.DrawTileTexture(TextureAssets.Tile[Type].Value, i, j, sourceRectangle, paintColor, 0f, Vector2.Zero + new Vector2(2, 2));
@@ -47,12 +47,12 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             Framing.GetTileSafely(i, j).HasTile = false;
 
-            AdjacencyData<Tile> adjacencyData = GetAdjacentTiles(i, j);
+            AdjacencyData<int> adjacencyData = GetAdjacentTiles(i, j, (tile) => (int)tile.TileType);
             int[] treeBases = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
 
-            if (adjacencyData.top.TileType == Type)
+            if (adjacencyData.top == Type)
                 WorldGen.KillTile(i, j - 1);
-            if (adjacencyData.bottom.TileType == Type || treeBases.Contains(adjacencyData.bottom.TileType))
+            if (adjacencyData.bottom == Type || treeBases.Contains(adjacencyData.bottom))
                 WorldGen.KillTile(i, j + 1);
         }
     }
