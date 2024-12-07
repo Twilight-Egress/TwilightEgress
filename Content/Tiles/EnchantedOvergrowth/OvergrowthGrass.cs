@@ -74,8 +74,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
             int offsetY = 54 * (i % 3);
 
-            if (leftSame)
-                offsetX += rightSame ? 18 : 36;
+            if (adjacencyData.left)
+                offsetX += adjacencyData.right ? 18 : 36;
 
             List<Point> framesToDraw =
             [
