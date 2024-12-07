@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.Enums;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -21,24 +22,22 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             topsTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTree_Tops");
         }
 
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            if (Framing.GetTileSafely(i, j - 1).TileType == Type)
-                return;
-
-            try
-            {
-                Main.instance.TilesRenderer.AddSpecialLegacyPoint(i, j);
-            }
-            catch { }
-        }
-
-        public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            int xOffset = 36 * (i % 4);
-            Rectangle sourceRectangle = new Rectangle(xOffset, 0, 36, 70);
+            int frameX = 22 * (i % 4);
+            int frameY = 22 * (j % 2);
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
+            Rectangle sourceRectangle = new Rectangle(frameX, frameY, 20, 20);
+            spriteBatch.DrawTileTexture(TextureAssets.Tile[Type].Value, i, j, sourceRectangle, paintColor, 0f, Vector2.Zero + new Vector2(2, 2));
+
+            if (Framing.GetTileSafely(i, j - 1).TileType == Type)
+                return false;
+
+            frameX = 36 * (i % 4);
+            sourceRectangle = new Rectangle(frameX, 0, 36, 70);
             spriteBatch.DrawTileTexture(topsTexture.Value, i, j, sourceRectangle, paintColor, 0.0f, new(10, 70));
+
+            return false;
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
