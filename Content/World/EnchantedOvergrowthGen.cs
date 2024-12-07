@@ -139,10 +139,10 @@ namespace TwilightEgress.Content.World
                         if (tile.TileType != ModContent.TileType<OvergrowthDirt>())
                             continue;
 
-                        AdjacencyData<Tile> tileData = GetAdjacentTiles(i, j);
+                        AdjacencyData<bool> tileData = GetAdjacentTiles(i, j, (tile) => tile.HasTile);
 
                         // generate grass
-                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top.HasTile)
+                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
                     }
                 }

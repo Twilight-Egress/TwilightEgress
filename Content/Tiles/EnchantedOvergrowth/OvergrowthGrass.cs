@@ -60,16 +60,13 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         {
             // TO-DO: theres absolutely a better way to do this all lmao
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
-            AdjacencyData<Tile> adjacencyData = GetAdjacentTiles(i, j);
+            AdjacencyData<bool> adjacencyData = GetAdjacentTiles(i, j, (tile) => tile.TileType == Type);
 
-            bool leftSame = adjacencyData.left.TileType == Type;
-            bool rightSame = adjacencyData.right.TileType == Type;
-
-            int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
+            int offsetX = (!adjacencyData.left && !adjacencyData.right) ? 180 + 54 * (i % 2) : 90 * (i % 2);
             int offsetY = 54 * (i % 3);
 
-            if (leftSame)
-                offsetX += rightSame ? 18 : 36;
+            if (adjacencyData.left)
+                offsetX += adjacencyData.right ? 18 : 36;
 
             List<Point> framesToDraw =
             [
@@ -78,14 +75,14 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 new Point(0, -1),
             ];
 
-            if (!rightSame) 
+            if (!adjacencyData.right) 
             {
                 framesToDraw.Add(new Point(1, 0));
                 framesToDraw.Add(new Point(1, 1));
                 framesToDraw.Add(new Point(1, -1));
             }
             
-            if (!leftSame)
+            if (!adjacencyData.left)
             {
                 framesToDraw.Add(new Point(-1, 0));
                 framesToDraw.Add(new Point(-1, 1));
