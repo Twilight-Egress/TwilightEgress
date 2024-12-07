@@ -6,7 +6,6 @@
         {
             Main.tileSolid[Type] = true;
             Main.tileBrick[Type] = true;
-            Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
 
             MineResist = 1.5f;
