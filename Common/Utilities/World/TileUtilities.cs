@@ -25,21 +25,21 @@ namespace TwilightEgress
         /// <param name="i">The x position to get.</param>
         /// <param name="j">The y position to get.</param>
         /// </summary>
-        public static AdjacencyData<Tile> GetAdjacentTiles(int i, int j)
+        public static AdjacencyData<T> GetAdjacentTiles<T>(int i, int j, Func<Tile, T> action)
         {
-            AdjacencyData<Tile> tileData = new AdjacencyData<Tile>();
+            AdjacencyData<T> tileData = new AdjacencyData<T>();
 
-            tileData.top = Framing.GetTileSafely(i, j - 1);
-            tileData.bottom = Framing.GetTileSafely(i, j + 1);
+            tileData.top = action(Framing.GetTileSafely(i, j - 1));
+            tileData.bottom = action(Framing.GetTileSafely(i, j + 1));
 
-            tileData.left = Framing.GetTileSafely(i - 1, j);
-            tileData.right = Framing.GetTileSafely(i + 1, j);
+            tileData.left = action(Framing.GetTileSafely(i - 1, j));
+            tileData.right = action(Framing.GetTileSafely(i + 1, j));
 
-            tileData.topleft = Framing.GetTileSafely(i - 1, j - 1);
-            tileData.topright = Framing.GetTileSafely(i + 1, j - 1);
+            tileData.topleft = action(Framing.GetTileSafely(i - 1, j - 1));
+            tileData.topright = action(Framing.GetTileSafely(i + 1, j - 1));
 
-            tileData.bottomleft = Framing.GetTileSafely(i - 1, j - 1);
-            tileData.bottomright = Framing.GetTileSafely(i + 1, j - 1);
+            tileData.bottomleft = action(Framing.GetTileSafely(i - 1, j - 1));
+            tileData.bottomright = action(Framing.GetTileSafely(i + 1, j - 1));
 
             return tileData;
         }
