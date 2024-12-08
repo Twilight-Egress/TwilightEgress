@@ -9,6 +9,8 @@ using Terraria.Enums;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
+    // to-do: use tilestyles instead of 3 different base types
+
     public class OvergrowthTreeBase1 : ModTile
     {
         public override void SetStaticDefaults()
