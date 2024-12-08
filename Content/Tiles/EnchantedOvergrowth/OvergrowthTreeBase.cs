@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Enums;
+using Terraria.GameContent.Drawing;
+using TwilightEgress.Core.Systems;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
@@ -13,6 +15,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
     public class OvergrowthTreeBase1 : ModTile
     {
+        private Asset<Texture2D> glowTexture;
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
@@ -41,6 +45,28 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             HitSound = SoundID.Dig;
             RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
+
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTreeBase1_Glow");
+        }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            if (!TileDrawing.IsVisible(tile))
+                return;
+
+            Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
+            if (!Main.drawToScreen)
+                drawPosition += new Vector2(Main.offScreenRange);
+
+            Color drawColor = Color.White;
+
+            Color lightColor = Lighting.GetColor(i, j);
+            drawColor.R = (byte)Math.Clamp(drawColor.R + lightColor.R, 0, 255);
+            drawColor.G = (byte)Math.Clamp(drawColor.G + lightColor.G, 0, 255);
+            drawColor.B = (byte)Math.Clamp(drawColor.B + lightColor.B, 0, 255);
+
+            spriteBatch.Draw(glowTexture.Value, drawPosition, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -59,6 +85,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
     public class OvergrowthTreeBase2 : ModTile
     {
+        private Asset<Texture2D> glowTexture;
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
@@ -87,6 +115,28 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             HitSound = SoundID.Dig;
             RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
+
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTreeBase2_Glow");
+        }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            if (!TileDrawing.IsVisible(tile))
+                return;
+
+            Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
+            if (!Main.drawToScreen)
+                drawPosition += new Vector2(Main.offScreenRange);
+
+            Color drawColor = Color.White;
+
+            Color lightColor = Lighting.GetColor(i, j);
+            drawColor.R = (byte)Math.Clamp(drawColor.R + lightColor.R, 0, 255);
+            drawColor.G = (byte)Math.Clamp(drawColor.G + lightColor.G, 0, 255);
+            drawColor.B = (byte)Math.Clamp(drawColor.B + lightColor.B, 0, 255);
+
+            spriteBatch.Draw(glowTexture.Value, drawPosition, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -105,6 +155,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
     public class OvergrowthTreeBase3 : ModTile
     {
+        private Asset<Texture2D> glowTexture;
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.PreventsTileRemovalIfOnTopOfIt[Type] = true;
@@ -133,6 +185,28 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             HitSound = SoundID.Dig;
             RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
+
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTreeBase3_Glow");
+        }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            if (!TileDrawing.IsVisible(tile))
+                return;
+
+            Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
+            if (!Main.drawToScreen)
+                drawPosition += new Vector2(Main.offScreenRange);
+
+            Color drawColor = Color.White;
+
+            Color lightColor = Lighting.GetColor(i, j);
+            drawColor.R = (byte)Math.Clamp(drawColor.R + lightColor.R, 0, 255);
+            drawColor.G = (byte)Math.Clamp(drawColor.G + lightColor.G, 0, 255);
+            drawColor.B = (byte)Math.Clamp(drawColor.B + lightColor.B, 0, 255);
+
+            spriteBatch.Draw(glowTexture.Value, drawPosition, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
