@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
         {
             Vector2 tileMousePos = Main.MouseWorld / 16;
 
-            OvergrowthFoliagePass.PlaceTree((int)tileMousePos.X, (int)tileMousePos.Y, WorldGen.genRand.Next(13, 18));
+            OvergrowthFoliagePass.PlaceTree((int)tileMousePos.X, (int)tileMousePos.Y, WorldGen.genRand.Next(9, 15));
 
             /* Tell the player off whenever they try to use the debug item during the wrong circumstances.
             if (Main.bloodMoon || Main.snowMoon || Main.pumpkinMoon)

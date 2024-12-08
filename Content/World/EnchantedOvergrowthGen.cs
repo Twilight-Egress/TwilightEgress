@@ -78,6 +78,10 @@ namespace TwilightEgress.Content.World
             overgrowthPosY -= (int)(size * 0.08f);
 
             // generate the biome with noise
+            // to-do: use sobel operator or nearest neighbor to get rid of random dirt splotches
+            // https://en.wikipedia.org/wiki/Sobel_operator
+            // https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
+            // also just redo how surface gen works lmao
             FastNoiseLite noise = new FastNoiseLite();
             noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
             noise.SetSeed(WorldGen.genRand.Next());
@@ -160,7 +164,6 @@ namespace TwilightEgress.Content.World
 
                         AdjacencyData<bool> tileData = GetAdjacentTiles(i, j, (tile) => tile.HasTile);
 
-                        // generate grass
                         if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
                     }
@@ -169,45 +172,72 @@ namespace TwilightEgress.Content.World
 
             int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
             int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
-            int innerBoundY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
-            int outerBoundY = (int)(Main.worldSurface + 5);
 
-            for (int k = 0; k < 60; k++)
+            for (int i = innerBoundX; i < outerBoundX; i++)
             {
+                int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
                 bool success = false;
-                int attempts = 0;
-
-                while (!success && attempts <= 1000)
+                while (j <= Main.maxTilesY - 20 && !success)
                 {
-                    attempts++;
-                    int x = WorldGen.genRand.Next(innerBoundX, outerBoundX);
-                    int y = WorldGen.genRand.Next(innerBoundY, outerBoundY);
-                    success = PlaceTree(x, y, WorldGen.genRand.Next(13, 18));
+                    Tile tile = Framing.GetTileSafely(i, j);
+
+                    if (!tile.HasTile)
+                    {
+                        j++;
+                        continue;
+                    }
+
+                    if (tile.TileType != (ushort)ModContent.TileType<OvergrowthGrass>())
+                    {
+                        success = true;
+                        break;
+                    }
+
+                    PlaceTree(i, j - 1, WorldGen.genRand.Next(9, 15));
+                    success = true;
                 }
             }
         }
 
-        public static bool PlaceTree(int i, int j, int height)
+        public static void PlaceTree(int i, int j, int height)
         {
-            int[] tileTypes = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
+            if (Framing.GetTileSafely(i, j).HasTile)
+                return;
 
-            if (Framing.GetTileSafely(i, j).TileType == ModContent.TileType<OvergrowthTree>() || tileTypes.Contains(Framing.GetTileSafely(i, j).TileType))
-                return false;
-
-            int tileType = WorldGen.genRand.Next(tileTypes);
-            int placeStyle = tileType == ModContent.TileType<OvergrowthTreeBase2>() ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
-
-            WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
-
-            if (Framing.GetTileSafely(i, j).TileType != tileType)
-                return false;
+            // check if any tiles are in the way of the trunk
+            List<Point> pointsToPlaceTree = new List<Point>();
 
             for (int y = -1; y > -height; y--)
             {
-                WorldGen.PlaceTile(i, j + y - (tileType == ModContent.TileType<OvergrowthTreeBase3>() ? 2 : 3), ModContent.TileType<OvergrowthTree>(), mute: true);
+                pointsToPlaceTree.Add(new Point(i, j + y - 3));
+
+                if (Framing.GetTileSafely(i, j + y - 3).HasTile)
+                    return;
             }
 
-            return true;
+            // attempt to place the base
+            // first tries the 2 big bases then the smaller one
+            int[] bigTypes = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>()];
+
+            int tileType = WorldGen.genRand.Next(bigTypes);
+            int placeStyle = tileType == ModContent.TileType<OvergrowthTreeBase2>() ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
+
+            WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
+            if (Framing.GetTileSafely(i, j).TileType != tileType)
+            {
+                tileType = ModContent.TileType<OvergrowthTreeBase3>();
+                placeStyle = WorldGen.genRand.Next(4);
+
+                WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
+                if (Framing.GetTileSafely(i, j).TileType != tileType)
+                    return;
+            }
+
+            // place the trunk
+            foreach (Point point in pointsToPlaceTree)
+            {
+                WorldGen.PlaceTile(point.X, point.Y + (tileType == ModContent.TileType<OvergrowthTreeBase3>() ? 1 : 0), ModContent.TileType<OvergrowthTree>(), mute: true);
+            }
         }
     }
 }
