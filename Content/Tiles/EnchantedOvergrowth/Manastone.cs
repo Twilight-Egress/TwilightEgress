@@ -10,8 +10,10 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
         public override void SetStaticDefaults()
         {
+            TileID.Sets.ChecksForMerge[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
+            Main.tileMerge[ModContent.TileType<OvergrowthDirt>()][Type] = true;
 
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
@@ -20,6 +22,9 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Glow");
         }
+
+        public override void ModifyFrameMerge(int i, int j, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
+            => WorldGen.TileMergeAttempt(-2, ModContent.TileType<OvergrowthDirt>(), ref up, ref down, ref left, ref right, ref upLeft, ref upRight, ref downLeft, ref downRight);
 
         public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)
         {

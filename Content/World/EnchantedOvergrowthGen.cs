@@ -4,6 +4,7 @@ using Terraria.Enums;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
+using TwilightEgress.Content.Walls;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.World
@@ -32,7 +33,7 @@ namespace TwilightEgress.Content.World
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Polluting the land with mana";
+            progress.Message = "Polluting the land with magic";
 
             // set the size and initial position of the biome
             int size = (int)(Main.maxTilesX * 0.065f);
@@ -108,14 +109,19 @@ namespace TwilightEgress.Content.World
                         position.X -= size * 0.025f * Pow(paintNoise, 2);
                         position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.4f * Pow(dripNoise, 2));
 
-                        bool validPlacePos = InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise));
+                        if (!InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise)))
+                            continue;
 
-                        if (!tile.HasTile || !InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise)))
+                        if (tile.WallType != 0)
+                            tile.WallType = (ushort)ModContent.WallType<OvergrowthDirtWall>();
+
+                        if (!tile.HasTile)
                             continue;
 
                         if (tile.TileType == TileID.Stone)
                         {
                             tile.TileType = (ushort)ModContent.TileType<Manastone>();
+                            //tile.WallType = (ushort)ModContent.WallType<ManastoneWall>();
                             continue;
                         }
 
