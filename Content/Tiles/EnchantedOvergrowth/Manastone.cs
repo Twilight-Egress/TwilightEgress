@@ -1,31 +1,22 @@
-﻿using CalamityMod.Projectiles.Magic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent.Drawing;
+﻿using Terraria.GameContent.Drawing;
 using TwilightEgress.Core.Systems;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
-    public class OvergrowthDirt : ModTile
+    public class Manastone : ModTile
     {
         private Asset<Texture2D> glowTexture;
 
         public override void SetStaticDefaults()
         {
-            TileID.Sets.CanBeDugByShovel[Type] = true;
-            Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            DustType = DustID.Dirt;
-            AddMapEntry(new Color(75, 32, 51));
+            DustType = DustID.Stone;
+            HitSound = SoundID.Tink;
+            AddMapEntry(new Color(49, 42, 146));
 
-            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt_Glow");
-        }
-
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = fail ? 1 : 3;
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Glow");
         }
 
         public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)
@@ -43,7 +34,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Tile tile = Framing.GetTileSafely(i, j);
             float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
 
-            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.75f)
+            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.6f)
                 return;
 
             Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;
