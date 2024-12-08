@@ -28,7 +28,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinateHeights = [16, 16, 16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.Origin = new Point16(4, 3);
+            TileObjectData.newTile.Origin = new Point16(3, 3);
 
             TileObjectData.newTile.UsesCustomCanPlace = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
@@ -37,7 +37,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.addTile(Type);
 
             HitSound = SoundID.Dig;
-
+            RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
         }
 
@@ -74,22 +74,16 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinateHeights = [16, 16, 16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.Origin = new Point16(3, 3);
+            TileObjectData.newTile.Origin = new Point16(2, 3);
 
             TileObjectData.newTile.UsesCustomCanPlace = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.RandomStyleRange = 2;
 
-            /*TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
-            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-            TileObjectData.addAlternate(1);*/
-
             TileObjectData.addTile(Type);
 
             HitSound = SoundID.Dig;
-
+            RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
         }
 
@@ -126,7 +120,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinateHeights = [16, 16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.Origin = new Point16(3, 2);
+            TileObjectData.newTile.Origin = new Point16(2, 2);
 
             TileObjectData.newTile.UsesCustomCanPlace = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
@@ -135,7 +129,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             TileObjectData.addTile(Type);
 
             HitSound = SoundID.Dig;
-
+            RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
         }
 
