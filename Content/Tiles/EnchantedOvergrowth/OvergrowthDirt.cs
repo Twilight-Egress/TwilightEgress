@@ -18,6 +18,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Main.tileBlockLight[Type] = true;
 
             DustType = DustID.Dirt;
+            RegisterItemDrop(ModContent.ItemType<Items.Placeable.EnchantedOvergrowth.OvergrowthDirt>());
             AddMapEntry(new Color(75, 32, 51));
 
             glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt_Glow");

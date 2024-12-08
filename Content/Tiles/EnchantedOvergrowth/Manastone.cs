@@ -1,4 +1,5 @@
 ﻿using Terraria.GameContent.Drawing;
+using TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth;
 using TwilightEgress.Core.Systems;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -14,6 +15,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
+            RegisterItemDrop(ModContent.ItemType<Items.Placeable.EnchantedOvergrowth.Manastone>());
             AddMapEntry(new Color(49, 42, 146));
 
             glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Glow");
