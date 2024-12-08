@@ -31,7 +31,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Tile tile = Framing.GetTileSafely(i, j);
             float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
 
-            if (randomForTile <= 0.25f)
+            if (randomForTile <= 0.12f)
                 tile.TileFrameY += 270;
         }
 
