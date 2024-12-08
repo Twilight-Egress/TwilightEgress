@@ -11,6 +11,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     public class OvergrowthTree : ModTile
     {
         private Asset<Texture2D> topsTexture;
+        private Asset<Texture2D> topsGlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -20,6 +21,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             AddMapEntry(new Color(80, 55, 74));
 
             topsTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTree_Tops");
+            topsGlowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTree_TopsGlow");
         }
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -36,6 +38,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             frameX = 36 * (i % 4);
             sourceRectangle = new Rectangle(frameX, 0, 36, 70);
             spriteBatch.DrawTileTexture(topsTexture.Value, i, j, sourceRectangle, paintColor, 0.0f, new(10, 70));
+            spriteBatch.DrawTileTexture(topsGlowTexture.Value, i, j, sourceRectangle, paintColor, 0.0f, new(10, 70), lighted: false);
 
             return false;
         }

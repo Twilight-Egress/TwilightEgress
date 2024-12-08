@@ -28,20 +28,17 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
         public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)
         {
-            // checkerboard pattern >:3
-            if (i % 2 == 0 ^ j % 2 == 0)
-            {
-                Tile t = Framing.GetTileSafely(i, j);
-                t.TileFrameY += 270;
-            }
+            Tile tile = Framing.GetTileSafely(i, j);
+            float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
+
+            if (randomForTile <= 0.25f)
+                tile.TileFrameY += 270;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
-            float randomForTile = TwilightEgressUtilities.RandomFromVector(new Vector2(i, j));
-
-            if (!TileDrawing.IsVisible(tile) || randomForTile <= 0.6f)
+            if (!TileDrawing.IsVisible(tile))
                 return;
 
             Vector2 drawPosition = new Vector2(i * 16, j * 16) - Main.screenPosition;

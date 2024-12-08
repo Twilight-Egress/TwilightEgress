@@ -23,7 +23,8 @@
         /// </summary>
         public static float RandomFromVector(Vector2 input)
         {
-            return (Sin(Vector2.Dot(input, new(12.9898f, 78.233f))) * 43758.5453f) % 1;
+            Random random = new Random(input.GetHashCode());
+            return (float)random.NextDouble();
         }
 
         /// <summary>
