@@ -72,6 +72,11 @@ Mods: {
 				DisplayName: Earmuff Fruit
 				Tooltip: ""
 			}
+
+			Manastone: {
+				DisplayName: Manastone
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
