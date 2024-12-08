@@ -1,4 +1,6 @@
-﻿using ReLogic.Threading;
+﻿using Iced.Intel;
+using ReLogic.Threading;
+using Terraria.Enums;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
@@ -17,7 +19,7 @@ namespace TwilightEgress.Content.World
             if (lakesIndex != -1)
             {
                 tasks.Insert(lakesIndex + 1, new GenerateOvergrowthPass("Enchanted Overgrowth", 100f));
-                tasks.Insert(lakesIndex + 2, new OvergrowthGrassPass("Overgrowth Grass", 101f));
+                tasks.Insert(lakesIndex + 2, new OvergrowthFoliagePass("Overgrowth Foliage", 101f));
             }
         }
     }
@@ -126,15 +128,18 @@ namespace TwilightEgress.Content.World
         }
     }
 
-    public class OvergrowthGrassPass : GenPass
+    public class OvergrowthFoliagePass : GenPass
     {
-        public OvergrowthGrassPass(string name, float loadWeight) : base(name, loadWeight)
+        public OvergrowthFoliagePass(string name, float loadWeight) : base(name, loadWeight)
         {
         }
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Polluting the land with mana";
+            progress.Message = "Growing toxic magical plants";
+
+            int size = (int)(Main.maxTilesX * 0.065f);
+            int overgrowthStartY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
 
             FastParallel.For(20, Main.maxTilesX - 20, (from, to, _) =>
             {
@@ -155,6 +160,48 @@ namespace TwilightEgress.Content.World
                     }
                 }
             });
+
+            int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
+            int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
+            int innerBoundY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
+            int outerBoundY = (int)(Main.worldSurface + 5);
+
+            for (int k = 0; k < 60; k++)
+            {
+                bool success = false;
+                int attempts = 0;
+
+                while (!success && attempts <= 1000)
+                {
+                    attempts++;
+                    int x = WorldGen.genRand.Next(innerBoundX, outerBoundX);
+                    int y = WorldGen.genRand.Next(innerBoundY, outerBoundY);
+                    success = PlaceTree(x, y, WorldGen.genRand.Next(13, 18));
+                }
+            }
+        }
+
+        public static bool PlaceTree(int i, int j, int height)
+        {
+            int[] tileTypes = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
+
+            if (Framing.GetTileSafely(i, j).TileType == ModContent.TileType<OvergrowthTree>() || tileTypes.Contains(Framing.GetTileSafely(i, j).TileType))
+                return false;
+
+            int tileType = WorldGen.genRand.Next(tileTypes);
+            int placeStyle = tileType == ModContent.TileType<OvergrowthTreeBase2>() ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
+
+            WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
+
+            if (Framing.GetTileSafely(i, j).TileType != tileType)
+                return false;
+
+            for (int y = -1; y > -height; y--)
+            {
+                WorldGen.PlaceTile(i, j + y - (tileType == ModContent.TileType<OvergrowthTreeBase3>() ? 2 : 3), ModContent.TileType<OvergrowthTree>(), mute: true);
+            }
+
+            return true;
         }
     }
 }
