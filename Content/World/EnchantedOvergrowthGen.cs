@@ -108,8 +108,16 @@ namespace TwilightEgress.Content.World
 
                         bool validPlacePos = InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise));
 
-                        if (tile.HasTile && validPlacePos)
-                            tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+                        if (!tile.HasTile || !InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise)))
+                            continue;
+
+                        if (tile.TileType == TileID.Stone)
+                        {
+                            tile.TileType = (ushort)ModContent.TileType<Manastone>();
+                            continue;
+                        }
+
+                        tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
                     }
                 }
             });
