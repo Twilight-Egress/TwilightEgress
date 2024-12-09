@@ -294,28 +294,20 @@ namespace TwilightEgress.Content.World
             }
 
             // attempt to place the base
-            // first tries the 2 big bases then the smaller one
-            int[] bigTypes = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>()];
-
-            int tileType = WorldGen.genRand.Next(bigTypes);
-            int placeStyle = tileType == ModContent.TileType<OvergrowthTreeBase2>() ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
+            int tileType = WorldGen.genRand.Next(typesToPlace);
+            int placeStyle = tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
 
             WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
             if (Framing.GetTileSafely(i, j).TileType != tileType)
-            {
-                tileType = ModContent.TileType<OvergrowthTreeBase3>();
-                placeStyle = WorldGen.genRand.Next(4);
-
-                WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
-                if (Framing.GetTileSafely(i, j).TileType != tileType)
-                    return;
-            }
+                return false;
 
             // place the trunk
             foreach (Point point in pointsToPlaceTree)
             {
-                WorldGen.PlaceTile(point.X, point.Y + (tileType == ModContent.TileType<OvergrowthTreeBase3>() ? 1 : 0), ModContent.TileType<OvergrowthTree>(), mute: true);
+                WorldGen.PlaceTile(point.X, point.Y + displacement, ModContent.TileType<OvergrowthTree>(), mute: true);
             }
+
+            return true;
         }
     }
 }
