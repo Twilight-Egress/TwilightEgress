@@ -27,7 +27,6 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         public Point16 origin;
         public int randomStyleRange;
         public bool hasGlow;
-        public string glowTexturePath;
 
         private Asset<Texture2D> glowTexture;
 
