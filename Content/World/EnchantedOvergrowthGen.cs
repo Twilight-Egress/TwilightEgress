@@ -1,6 +1,4 @@
-﻿using Iced.Intel;
-using ReLogic.Threading;
-using Terraria.Enums;
+﻿using ReLogic.Threading;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
@@ -82,6 +80,7 @@ namespace TwilightEgress.Content.World
             // https://en.wikipedia.org/wiki/Sobel_operator
             // https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
             // also just redo how surface gen works lmao
+            // how the fuck do i stop it from generating on a sky island
             FastNoiseLite noise = new FastNoiseLite();
             noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
             noise.SetSeed(WorldGen.genRand.Next());
@@ -173,6 +172,23 @@ namespace TwilightEgress.Content.World
             int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
             int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
 
+
+            int[] bigTypes =
+            [
+                TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge").Type,
+                TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type
+            ];
+
+            GenerateTrees(size, bigTypes, 0);
+            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type ], 1);
+            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type ], 2);
+        }
+
+        public void GenerateTrees(int size, int[] trees, int displacement)
+        {
+            int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
+            int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
+
             for (int i = innerBoundX; i < outerBoundX; i++)
             {
                 int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
@@ -193,16 +209,16 @@ namespace TwilightEgress.Content.World
                         break;
                     }
 
-                    PlaceTree(i, j - 1, WorldGen.genRand.Next(9, 15));
+                    PlaceTree(i, j - 1, WorldGen.genRand.Next(9, 15), trees, displacement);
                     success = true;
                 }
             }
         }
 
-        public static void PlaceTree(int i, int j, int height)
+        public static bool PlaceTree(int i, int j, int height, int[] typesToPlace, int displacement)
         {
             if (Framing.GetTileSafely(i, j).HasTile)
-                return;
+                return false;
 
             // check if any tiles are in the way of the trunk
             List<Point> pointsToPlaceTree = new List<Point>();
@@ -212,32 +228,24 @@ namespace TwilightEgress.Content.World
                 pointsToPlaceTree.Add(new Point(i, j + y - 3));
 
                 if (Framing.GetTileSafely(i, j + y - 3).HasTile)
-                    return;
+                    return false;
             }
 
             // attempt to place the base
-            // first tries the 2 big bases then the smaller one
-            int[] bigTypes = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>()];
-
-            int tileType = WorldGen.genRand.Next(bigTypes);
-            int placeStyle = tileType == ModContent.TileType<OvergrowthTreeBase2>() ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
+            int tileType = WorldGen.genRand.Next(typesToPlace);
+            int placeStyle = tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
 
             WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
             if (Framing.GetTileSafely(i, j).TileType != tileType)
-            {
-                tileType = ModContent.TileType<OvergrowthTreeBase3>();
-                placeStyle = WorldGen.genRand.Next(4);
-
-                WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
-                if (Framing.GetTileSafely(i, j).TileType != tileType)
-                    return;
-            }
+                return false;
 
             // place the trunk
             foreach (Point point in pointsToPlaceTree)
             {
-                WorldGen.PlaceTile(point.X, point.Y + (tileType == ModContent.TileType<OvergrowthTreeBase3>() ? 1 : 0), ModContent.TileType<OvergrowthTree>(), mute: true);
+                WorldGen.PlaceTile(point.X, point.Y + displacement, ModContent.TileType<OvergrowthTree>(), mute: true);
             }
+
+            return true;
         }
     }
 }

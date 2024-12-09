@@ -46,7 +46,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             if (!Main.drawToScreen)
                 drawPosition += new Vector2(Main.offScreenRange);
 
-            Color drawColor = Color.White * (float)(1 + NoiseSystem.cellular.GetNoise(i * 5, j * 5, Main.GameUpdateCount));
+            Color drawColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor) * (float)(1 + NoiseSystem.cellular.GetNoise(i * 5, j * 5, Main.GameUpdateCount));
 
             Color lightColor = Lighting.GetColor(i, j);
             drawColor.R = (byte)Math.Clamp(drawColor.R + lightColor.R, 0, 255);

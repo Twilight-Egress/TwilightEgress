@@ -51,7 +51,13 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Framing.GetTileSafely(i, j).HasTile = false;
 
             AdjacencyData<int> adjacencyData = GetAdjacentTiles(i, j, (tile) => (int)tile.TileType);
-            int[] treeBases = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
+            int[] treeBases = 
+            [
+                Mod.Find<ModTile>("OvergrowthTreeBaseLarge").Type,
+                Mod.Find<ModTile>("OvergrowthTreeBaseLarge2").Type,
+                Mod.Find<ModTile>("OvergrowthTreeBaseMedium").Type,
+                Mod.Find<ModTile>("OvergrowthTreeBaseSmall").Type
+            ];
 
             if (adjacencyData.top == Type)
                 WorldGen.KillTile(i, j - 1);
