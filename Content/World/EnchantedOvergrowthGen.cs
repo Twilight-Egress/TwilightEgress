@@ -35,39 +35,20 @@ namespace TwilightEgress.Content.World
 
             // set the size and initial position of the biome
             int size = (int)(Main.maxTilesX * 0.065f);
-            int overgrowthPosX = (int)((GenVars.snowOriginLeft + GenVars.snowOriginRight) * 0.5f);
             int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
-            bool onLeftSide = overgrowthPosX < (Main.maxTilesX * 0.5f);
 
-            bool IceBiomeTilesNearby(int x, int y)
+            List<int> xPositionsCanGenerateAt = new List<int>();
+
+            // find x positions that aren't near anything
+            for (int i = 20; i < Main.maxTilesX - 20; i += 100)
             {
-                int halfSize = (int)(size * 0.5f);
+                bool nearSpawn = Main.spawnTileX > i - size * 2 && Main.spawnTileX < i + size * 2;
 
-                for (int i = x - halfSize; i < x + halfSize; i++)
-                {
-                    for (int j = y; j < y + halfSize; j++)
-                    {
-                        int[] iceTiles = [TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick];
-
-                        if (Framing.GetTileSafely(i, j).HasTile && iceTiles.Contains(Framing.GetTileSafely(i, j).TileType))
-                            return true;
-                    }
-                }
-
-                return false;
+                if (!nearSpawn && !TilesToAvoidNearby(size, i, overgrowthPosY))
+                    xPositionsCanGenerateAt.Add(i);
             }
 
-            // move it inwards from the ice biome
-            for (int i = 0; i < 10000; i++)
-            {
-                bool tilesDetected = true;
-
-                while (tilesDetected = IceBiomeTilesNearby(overgrowthPosX, overgrowthPosY))
-                    overgrowthPosX += (onLeftSide ? 100 : -100);
-
-                if (!tilesDetected)
-                    break;
-            }
+            int overgrowthPosX = WorldGen.genRand.Next(xPositionsCanGenerateAt);
 
             // move position down until hitting a solid tile
             while (!Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
@@ -135,6 +116,29 @@ namespace TwilightEgress.Content.World
 
             EnchantedOvergrowthGen.OvergrowthPos = new Point(overgrowthPosX, overgrowthPosY);
         }
+
+        public bool TilesToAvoidNearby(int size, int x, int y)
+        {
+            int halfSize = (int)(size * 0.5f);
+            int[] iceTiles = 
+            [
+                TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, 
+                TileID.GreenDungeonBrick, TileID.PinkDungeonBrick, TileID.Sandstone, 
+                TileID.Sand, TileID.CrimsonGrass, TileID.CorruptGrass,
+                TileID.JungleGrass, TileID.Crimstone, TileID.Ebonstone
+            ];
+
+            for (int i = x - halfSize; i < x + halfSize; i++)
+            {
+                for (int j = y; j < y + halfSize; j++)
+                {
+                    if (Framing.GetTileSafely(i, j).HasTile && iceTiles.Contains(Framing.GetTileSafely(i, j).TileType))
+                        return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     public class OvergrowthFoliagePass : GenPass
@@ -145,7 +149,7 @@ namespace TwilightEgress.Content.World
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Growing toxic magical plants";
+            progress.Message = "Growing toxic enchanted plants";
 
             int size = (int)(Main.maxTilesX * 0.065f);
             int overgrowthStartY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
