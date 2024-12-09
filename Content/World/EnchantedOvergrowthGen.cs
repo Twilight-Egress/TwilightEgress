@@ -183,12 +183,12 @@ namespace TwilightEgress.Content.World
                 TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type
             ];
 
-            GenerateTrees(size, bigTypes, 0);
-            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type ], 1);
-            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type ], 2);
+            GenerateTrees(size, bigTypes, 0, 0.25f);
+            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type ], 1, 0.8f);
+            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type ], 2, 0.5f);
         }
 
-        public void GenerateTrees(int size, int[] trees, int displacement)
+        public void GenerateTrees(int size, int[] trees, int displacement, float chance)
         {
             int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
             int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
@@ -213,15 +213,15 @@ namespace TwilightEgress.Content.World
                         break;
                     }
 
-                    PlaceTree(i, j - 1, WorldGen.genRand.Next(9, 15), trees, displacement);
+                    PlaceTree(i, j - 1, WorldGen.genRand.Next(9, 15), trees, displacement, chance);
                     success = true;
                 }
             }
         }
 
-        public static bool PlaceTree(int i, int j, int height, int[] typesToPlace, int displacement)
+        public static bool PlaceTree(int i, int j, int height, int[] typesToPlace, int displacement, float chance)
         {
-            if (Framing.GetTileSafely(i, j).HasTile)
+            if (Framing.GetTileSafely(i, j).HasTile || WorldGen.genRand.NextFloat() > chance)
                 return false;
 
             // check if any tiles are in the way of the trunk
