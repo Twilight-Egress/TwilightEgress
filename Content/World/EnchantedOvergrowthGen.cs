@@ -1,4 +1,5 @@
 ﻿using ReLogic.Threading;
+using Terraria;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
@@ -35,26 +36,58 @@ namespace TwilightEgress.Content.World
 
             // set the size and initial position of the biome
             int size = (int)(Main.maxTilesX * 0.065f);
-            int overgrowthPosY = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
+            int yPosStart = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
 
             List<int> xPositionsCanGenerateAt = new List<int>();
+            List<int> fallbackPositionsCanGenerateAt = new List<int>();
 
             // find x positions that aren't near anything
-            for (int i = 20; i < Main.maxTilesX - 20; i += 100)
+            FastParallel.For(20, Main.maxTilesX - 20, (from, to, _) =>
             {
-                bool nearSpawn = Main.spawnTileX > i - size * 2 && Main.spawnTileX < i + size * 2;
+                for (int i = from; i < to; i++)
+                {
+                    bool nearSpawn = Main.spawnTileX > i - size * 2 && Main.spawnTileX < i + size * 2;
+                    bool stuffNear = !TilesToAvoidNearby(size, i, yPosStart);
 
-                if (!nearSpawn && !TilesToAvoidNearby(size, i, overgrowthPosY))
-                    xPositionsCanGenerateAt.Add(i);
+                    if (stuffNear)
+                        fallbackPositionsCanGenerateAt.Add(i);
+
+                    if (!nearSpawn && !TilesToAvoidNearby(size, i, yPosStart))
+                        xPositionsCanGenerateAt.Add(i);
+                }
+            });
+
+            int overgrowthPosX = WorldGen.genRand.Next(xPositionsCanGenerateAt.Count == 0 ? fallbackPositionsCanGenerateAt : xPositionsCanGenerateAt);
+            int overgrowthPosY = GetSurfaceYPos(overgrowthPosX, yPosStart) - (int)(size * 0.08f);
+
+            // smooth out the surface
+            int innerXBound = overgrowthPosX - (int)(size * 0.5);
+            int outerXBound = overgrowthPosX - (int)(size * 0.5);
+            int innerY = GetSurfaceYPos(innerXBound, yPosStart);
+            int outerY = GetSurfaceYPos(innerXBound, yPosStart);
+
+            for (int i = innerXBound; i <= outerXBound; i++)
+            {
+                float surfaceProgress = (float)i / (float)(outerXBound - innerXBound);
+                int yLevel = (int)Lerp(innerY, outerY, surfaceProgress);
+
+                for (int j = 0; j <= 20; j++)
+                {
+                    Tile tile = Framing.GetTileSafely(i, yLevel - j);
+                    Tile tile2 = tile = Framing.GetTileSafely(i, yLevel + j);
+
+                    if (j == 0)
+                    {
+                        tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+                    }
+                    else 
+                    {
+                        tile.ClearTile();
+                        tile2.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
+                    }
+                }
             }
 
-            int overgrowthPosX = WorldGen.genRand.Next(xPositionsCanGenerateAt);
-
-            // move position down until hitting a solid tile
-            while (!Framing.GetTileSafely(overgrowthPosX, overgrowthPosY).HasTile)
-                overgrowthPosY += 1;
-
-            overgrowthPosY -= (int)(size * 0.08f);
 
             // generate the biome with noise
             // to-do: use sobel operator or nearest neighbor to get rid of random dirt splotches
@@ -115,6 +148,14 @@ namespace TwilightEgress.Content.World
             });
 
             EnchantedOvergrowthGen.OvergrowthPos = new Point(overgrowthPosX, overgrowthPosY);
+        }
+
+        public int GetSurfaceYPos(int i, int start)
+        {
+            while (!Framing.GetTileSafely(i, start).HasTile && start < Main.maxTilesY - 20)
+                start += 1;
+
+            return start;
         }
 
         public bool TilesToAvoidNearby(int size, int x, int y)
