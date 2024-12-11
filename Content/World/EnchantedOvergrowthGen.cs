@@ -1,4 +1,7 @@
 ﻿using ReLogic.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.IO;
 using Terraria.WorldBuilding;
@@ -69,7 +72,7 @@ namespace TwilightEgress.Content.World
             for (int i = innerXBound; i <= outerXBound; i++)
             {
                 float surfaceProgress = (float)i / (float)(outerXBound - innerXBound);
-                int yLevel = (int)Lerp(innerY, outerY, surfaceProgress);
+                int yLevel = (int)MathHelper.Lerp(innerY, outerY, surfaceProgress);
 
                 for (int j = 0; j <= 20; j++)
                 {
@@ -115,7 +118,7 @@ namespace TwilightEgress.Content.World
 
                         float noiseVal = noise.GetNoise(position.X, position.Y) * 0.5f;
 
-                        float angle = Atan2(position.X - origin.X, position.Y - origin.Y) + PI;
+                        float angle = MathF.Atan2(position.X - origin.X, position.Y - origin.Y) + MathF.PI;
                         float angleDomainWarp = (180f + (10f * noiseVal));
                         float radiusNoise = noise.GetNoise(angle * angleDomainWarp, angle * angleDomainWarp) * 0.5f + 0.5f;
 
@@ -123,8 +126,8 @@ namespace TwilightEgress.Content.World
                         float paintNoise = noise.GetNoise(position.X * paintDomainWarp, position.Y * paintDomainWarp) * 0.5f + 0.5f;
                         float dripNoise = noise.GetNoise(position.X * 0.5f * paintDomainWarp, 0) * 0.5f + 0.5f;
 
-                        position.X -= size * 0.025f * Pow(paintNoise, 2);
-                        position.Y -= size * (0.025f * Pow(paintNoise, 2) + 0.4f * Pow(dripNoise, 2));
+                        position.X -= size * 0.025f * MathF.Pow(paintNoise, 2);
+                        position.Y -= size * (0.025f * MathF.Pow(paintNoise, 2) + 0.4f * MathF.Pow(dripNoise, 2));
 
                         if (!InRadius(position, origin, size * (0.3f + 0.15f * radiusNoise)))
                             continue;

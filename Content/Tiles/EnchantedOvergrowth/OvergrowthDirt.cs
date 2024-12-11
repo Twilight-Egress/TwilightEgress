@@ -1,6 +1,8 @@
 ﻿using CalamityMod.Projectiles.Magic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
 using Terraria.GameContent.Drawing;
 using TwilightEgress.Core.Systems;
 
