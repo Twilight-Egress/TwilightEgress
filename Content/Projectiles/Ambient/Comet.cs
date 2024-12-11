@@ -3,6 +3,7 @@ using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Projectiles.Ambient
@@ -98,7 +99,7 @@ namespace TwilightEgress.Content.Projectiles.Ambient
             ManagedShader shader = ShaderManager.GetShader("TwilightEgress.ManaPaletteShader");
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
-            shader.TrySetParameter("palette", TwilightEgressUtilities.CosmostonePalette);
+            shader.TrySetParameter("palette", AsteroidValues.CosmostonePalette);
             shader.Apply();
             Main.spriteBatch.Draw(glowmask, position, sourceRectangle, color, rotation, origin, scale, effects, worthless);
             Main.spriteBatch.ResetToDefault();

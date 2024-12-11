@@ -3,7 +3,7 @@ using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
-    public abstract class BasePlanetoid : ModNPC
+    public abstract class Planetoid : ModNPC
     {
         public float GravitationalVariable = 0f;
 

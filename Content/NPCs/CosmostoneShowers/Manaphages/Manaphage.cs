@@ -11,12 +11,11 @@ using Terraria.GameContent;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.Particles;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
-    public class Manaphage : BasePhage
+    public class Manaphage : Phage
     {
         public override void SetPhageDefaults()
         {

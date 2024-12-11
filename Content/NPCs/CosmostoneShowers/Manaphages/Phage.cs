@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Terraria.DataStructures;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
-namespace TwilightEgress.Core.BaseEntities.ModNPCs
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
-    public abstract class BasePhage : ModNPC
+    public abstract class Phage : ModNPC
     {
         #region Enums
         public enum ManaphageBehavior

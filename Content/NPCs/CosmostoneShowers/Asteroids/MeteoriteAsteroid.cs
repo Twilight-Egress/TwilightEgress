@@ -1,5 +1,4 @@
-﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria.GameContent.ItemDropRules;
 using CalamityMod;
 using TwilightEgress.Content.Particles;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
-    public class MeteoriteAsteroid : BaseAsteroid, ILocalizedModType
+    public class MeteoriteAsteroid : Asteroid, ILocalizedModType
     {
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
@@ -55,7 +54,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public override void SafeAI()
         {
             // Collision detection.
-            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidUtil.ViableCollisionTypes.Contains(npc.type)).ToList();
+            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
             int count = activeAsteroids.Count;
 
             if (count > 0)

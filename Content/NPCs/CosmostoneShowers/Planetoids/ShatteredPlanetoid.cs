@@ -1,9 +1,8 @@
 ﻿using System;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
 {
-    public class ShatteredPlanetoid : BasePlanetoid, ILocalizedModType
+    public class ShatteredPlanetoid : Planetoid, ILocalizedModType
     {
         public new string LocalizationCategory => "NPCs.Misc";
 

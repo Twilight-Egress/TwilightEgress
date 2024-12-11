@@ -1,12 +1,12 @@
 ﻿using System;
 using Terraria.DataStructures;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
 
 namespace TwilightEgress.Core.Players
 {
     public class OrbitalGravityPlayer : ModPlayer
     {
-        public BasePlanetoid Planetoid = null;
+        public Planetoid Planetoid = null;
 
         public float PlayerAngle = 0f;
 

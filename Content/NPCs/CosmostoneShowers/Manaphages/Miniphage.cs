@@ -1,5 +1,4 @@
 ﻿using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
 using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -16,7 +15,7 @@ using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
-    public class Miniphage : BasePhage
+    public class Miniphage : Phage
     {
         public const int PropulsionSpeedIndex = 14;
 

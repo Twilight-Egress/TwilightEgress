@@ -2,9 +2,9 @@
 using Terraria.DataStructures;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
-namespace TwilightEgress.Core.BaseEntities.ModNPCs
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
-    public abstract class BaseAsteroid : ModNPC
+    public abstract class Asteroid : ModNPC
     {
         public ref float RotationSpeedSpawnFactor => ref NPC.TwilightEgress().ExtraAI[0];
 

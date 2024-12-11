@@ -1,5 +1,4 @@
 ﻿using TwilightEgress.Content.Items.Materials;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
 using Terraria.GameContent.ItemDropRules;
 using TwilightEgress.Assets;
 using CalamityMod;
@@ -15,7 +14,7 @@ using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
-    public class CosmostoneAsteroidMedium : BaseAsteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class CosmostoneAsteroidMedium : Asteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
         public PixelationPrimitiveLayer LayerToRenderTo => PixelationPrimitiveLayer.BeforeNPCs;
 
@@ -93,7 +92,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public override void SafeAI()
         {
             // Collision detection.
-            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidUtil.ViableCollisionTypes.Contains(npc.type)).ToList();
+            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
             int count = activeAsteroids.Count;
 
             if (count > 0)
@@ -229,7 +228,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
             shader.TrySetParameter("timeMultiplier", ShaderTimeMultiplier);
-            shader.TrySetParameter("palette", TwilightEgressUtilities.CosmostonePalette);
+            shader.TrySetParameter("palette", AsteroidValues.CosmostonePalette);
             shader.TrySetParameter("opacity", NPC.Opacity);
             shader.Apply();
 
