@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Assets;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
@@ -46,7 +47,12 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             if (Timer is 1f)
             {
                 // Generate the positions for the lightning bolt.
-                StrikePositions = TwilightEgressUtilities.CreateLightningBoltPoints(Projectile.Center, StrikePosition);
+                StrikePositions = new LightningPointsBuilder()
+                    .SetSource(Projectile.Center)
+                    .SetDestination(StrikePosition)
+                    .SetSway(80f)
+                    .SetJaggedness(1f)
+                    .Create();
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), StrikePosition, Vector2.Zero, ModContent.ProjectileType<ElectricSkyBoltExplosion>(), Projectile.damage, Projectile.knockBack, Owner: Projectile.owner);
                 int numOfMist = Main.rand.Next(5, 10);

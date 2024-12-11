@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+﻿using Terraria;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
@@ -117,15 +118,14 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 }
             }
 
-            else if (ChargeTimer >= chargeTime)
+            else if (ChargeTimer >= chargeTime && ChargeTimer % 120 == 0)
             {
-                if (ChargeTimer % 120 == 0)
-                {
-                    Owner.ConsumeManaManually(300);
-                    Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(TwoPi) * 250f;
-                    Vector2 velocity = -spawnPosition.DirectionTo(Owner.Center).SafeNormalize(Vector2.UnitY) * 5f;
-                    Projectile.BetterNewProjectile(spawnPosition, velocity, ModContent.ProjectileType<Rampart>(), Projectile.damage, Projectile.knockBack, SoundID.Item105);
-                }
+                if (Owner.CheckMana(300, true, false))
+                    Owner.manaRegenDelay = Owner.maxRegenDelay;
+
+                Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(TwoPi) * 250f;
+                Vector2 velocity = -spawnPosition.DirectionTo(Owner.Center).SafeNormalize(Vector2.UnitY) * 5f;
+                Projectile.BetterNewProjectile(spawnPosition, velocity, ModContent.ProjectileType<Rampart>(), Projectile.damage, Projectile.knockBack, SoundID.Item105);
             }
 
             ChargeTimer++;

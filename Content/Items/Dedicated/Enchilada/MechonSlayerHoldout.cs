@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Players.BuffHandlers;
+﻿using Terraria;
+using TwilightEgress.Core.Players.BuffHandlers;
 using EasingType = Luminance.Common.Easings.EasingType;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
@@ -37,7 +38,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public override void AI()
         {
-            if (Owner.ShouldDespawnHeldProj(ModContent.ItemType<MechonSlayer>()))
+            if (Owner.dead || Owner.CCed || Owner.noItems || !Owner.active || Owner.HeldItem.type != ModContent.ItemType<MechonSlayer>())
             {
                 Projectile.Kill();
                 return;

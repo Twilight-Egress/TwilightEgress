@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Assets;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Particles
@@ -39,7 +40,12 @@ namespace TwilightEgress.Content.Particles
             if (!Initialized)
             {
                 Initialized = true;
-                LightningPoints = TwilightEgressUtilities.CreateLightningBoltPoints(Position, EndPosition, PointDisplacementVariance, JaggednessNumerator);
+                LightningPoints = new LightningPointsBuilder()
+                    .SetSource(Position)
+                    .SetDestination(EndPosition)
+                    .SetSway(PointDisplacementVariance)
+                    .SetJaggedness(JaggednessNumerator)
+                    .Create();
             }
         }
 

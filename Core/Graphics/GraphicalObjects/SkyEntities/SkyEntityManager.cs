@@ -104,7 +104,9 @@ namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
                 return;
 
             // Prepare for screen culling.
-            RasterizerState screenCullState = TwilightEgressUtilities.PrepareScissorRectangleState();
+            Main.Rasterizer.ScissorTestEnable = true;
+            Main.instance.GraphicsDevice.ScissorRectangle = new(-5, -5, Main.screenWidth + 10, Main.screenHeight + 10);
+            RasterizerState screenCullState = Main.Rasterizer;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, drawCollection.First().BlendState, Main.DefaultSamplerState, DepthStencilState.None, screenCullState, null, Main.GameViewMatrix.TransformationMatrix);
 

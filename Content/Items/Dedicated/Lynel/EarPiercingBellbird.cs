@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using Terraria;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Buffs.Pets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -248,8 +249,9 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
             Texture2D chargeVisualTexture = ModContent.Request<Texture2D>(GlowTexture).Value;
 
+            SpriteEffects directionEffects = Projectile.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             SpriteEffects effects = AIState == 1f && LocalAIState == 1f ? Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None
-                : Projectile.DirectionBasedSpriteEffects();
+                : directionEffects;
 
             ref float screamChargeVisualScale = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualScaleIndex];
             ref float screamChargeVisualOpacity = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualOpacityIndex];
@@ -261,7 +263,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 
             Main.EntitySpriteDraw(texture, drawPosition, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, effects);
-            Main.EntitySpriteDraw(chargeVisualTexture, drawPosition, rectangle, Color.White * screamChargeVisualOpacity, Projectile.rotation, origin, screamChargeVisualScale, Projectile.DirectionBasedSpriteEffects());
+            Main.EntitySpriteDraw(chargeVisualTexture, drawPosition, rectangle, Color.White * screamChargeVisualOpacity, Projectile.rotation, origin, screamChargeVisualScale, directionEffects);
             return false;
         }
     }

@@ -41,7 +41,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
         {
             float attackType = player.altFunctionUse == 2 ? 1 : 0;
             // Adrenaline on this weapon is simply meant to boost its attack by +50%.
-            int newDamage = player.Calamity().AdrenalineEnabled ? damage + damage.GetPercentageOfInteger(0.5f) : damage;
+            int newDamage = player.Calamity().AdrenalineEnabled ? damage + (int)(damage * 0.5f) : damage;
             Projectile.NewProjectile(source, position, velocity, type, newDamage, knockback, player.whoAmI, ai2: attackType);
             return false;
         }

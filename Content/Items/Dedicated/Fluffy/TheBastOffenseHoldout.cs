@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Assets;
+using TwilightEgress.Content.Items.Dedicated.Raesh;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -150,7 +151,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                     smoke.SpawnCasParticle();
                 }
 
-                if (Owner.PlayerIsChannelingWithItem(ModContent.ItemType<TheBastOffense>()))
+                if (Owner.active && Owner.channel && Owner.HeldItem.type == ModContent.ItemType<TheBastOffense>())
                     ChargeTimer++;
                 else
                 {
@@ -248,7 +249,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                     Owner.velocity = -Owner.SafeDirectionTo(Main.MouseWorld) * 15f;
 
                     Vector2 bastStatueMegaVelocity = Projectile.SafeDirectionTo(Main.MouseWorld, Vector2.UnitY) * 10f;
-                    Projectile.BetterNewProjectile(Projectile.Center + Projectile.rotation.ToRotationVector2() * 50f, bastStatueMegaVelocity, ModContent.ProjectileType<GiantBastStatue>(), Projectile.originalDamage.GetPercentageOfInteger(4f), Projectile.knockBack, SoundID.Item62, null, Projectile.owner);
+                    Projectile.BetterNewProjectile(Projectile.Center + Projectile.rotation.ToRotationVector2() * 50f, bastStatueMegaVelocity, ModContent.ProjectileType<GiantBastStatue>(), (int)(Projectile.originalDamage * 4f), Projectile.knockBack, SoundID.Item62, null, Projectile.owner);
                 }
                 ChargeTimer++;
             }

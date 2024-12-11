@@ -36,7 +36,7 @@ namespace TwilightEgress
                 damageCorrection = 0.25f;
             if (Main.masterMode)
                 damageCorrection = 0.1667f;
-            damage = damage.GetPercentageOfInteger(damageCorrection);
+            damage = (int)(damage * damageCorrection);
 
             int index = Projectile.NewProjectile(source ?? npc.GetSource_FromAI(), spawnX, spawnY, velocityX, velocityY, type, damage, knockback, owner, ai0, ai1, ai2);
             if (Main.projectile.IndexInRange(index))
@@ -109,22 +109,6 @@ namespace TwilightEgress
         public static int BetterNewNPC(this NPC npc, Vector2 spawn, int type, IEntitySource source = null, int initialSpawnSlot = 0, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f, float ai3 = 0f, int target = 255, Vector2 velocity = default)
         {
             return npc.BetterNewNPC(spawn.X, spawn.Y, type, source, initialSpawnSlot, ai0, ai1, ai2, ai3, target, velocity);
-        }
-
-        public static void AdjustNPCHitboxToScale(this NPC npc, float originalWidth, float originalHeight)
-        {
-            int oldWidth = npc.width;
-            int idealWidth = (int)(npc.scale * originalWidth);
-            int idealHeight = (int)(npc.scale * originalHeight);
-            if (idealWidth != oldWidth)
-            {
-                npc.position.X += npc.width / 2;
-                npc.position.Y += npc.height / 2;
-                npc.width = idealWidth;
-                npc.height = idealHeight;
-                npc.position.X -= npc.width / 2;
-                npc.position.Y -= npc.height / 2;
-            }
         }
 
         /// <summary>

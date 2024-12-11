@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Events.CosmostoneShowers;
+﻿using TwilightEgress.Content.Events;
+using TwilightEgress.Content.Events.CosmostoneShowers;
 
 namespace TwilightEgress.Content.Skies
 {
@@ -8,7 +9,7 @@ namespace TwilightEgress.Content.Skies
 
         public override float GetWeight(Player player) => 0.8f;
 
-        public override bool IsSceneEffectActive(Player player) => player.ZoneCosmostoneShowers();
+        public override bool IsSceneEffectActive(Player player) => EventHandlerManager.SpecificEventIsActive<CosmostoneShowerEvent>() && (player.ZoneOverworldHeight || player.ZoneSkyHeight);
 
         public override void SpecialVisuals(Player player, bool isActive) => player.ManageSpecialBiomeVisuals("TwilightEgress:CosmostoneShowers", isActive);
     }

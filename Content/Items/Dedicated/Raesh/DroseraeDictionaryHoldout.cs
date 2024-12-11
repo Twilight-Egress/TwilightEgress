@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using Terraria;
+using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -49,9 +50,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             bool manaIsAvailable = Owner.CheckMana(Owner.HeldItem.mana);
-            bool weaponIsInUse = manaIsAvailable && Owner.PlayerIsChannelingWithItem(ModContent.ItemType<DroseraeDictionary>());
-            bool shouldDespawn = Owner.ShouldDespawnHeldProj(ModContent.ItemType<DroseraeDictionary>()) || !weaponIsInUse;
-
+            bool weaponIsInUse = manaIsAvailable && Owner.active && Owner.channel && Owner.HeldItem.type == ModContent.ItemType<DroseraeDictionary>();
+            bool shouldDespawn = (Owner.dead || Owner.CCed || Owner.noItems || !Owner.active || Owner.HeldItem.type != ModContent.ItemType<DroseraeDictionary>()) || !weaponIsInUse;
             if (shouldDespawn)
             {
                 Projectile.Kill();
@@ -84,10 +84,12 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 Vector2 flyTrapMawVelocity = Projectile.SafeDirectionTo(Main.MouseWorld) * 35f;
 
                 float damageScaleFactor = Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
-                int damage = Projectile.originalDamage.GetPercentageOfInteger(damageScaleFactor);
+                int damage = (int)(Projectile.originalDamage * damageScaleFactor);
                 Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.FlytrapMawSpawn, null, Projectile.owner);
 
-                Owner.ConsumeManaManually(Owner.HeldItem.mana);
+                if (Owner.CheckMana(Owner.HeldItem.mana, true, false))
+                    Owner.manaRegenDelay = Owner.maxRegenDelay;
+
                 ParticleBurst();
                 Timer = MaxChargeTime;
             }

@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Events;
 using Terraria.Graphics;
 using TwilightEgress.Assets;
+using Terraria;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -19,7 +21,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
     {
         public VirtualCamera VirtualCameraInstance { get; private set; }
 
-        private readonly Color[] ShiningStarColors = [Color.Violet, Color.DeepSkyBlue, Color.CornflowerBlue, Color.White, Color.Yellow, Color.Orange, Color.Red];
+        private InterpolatedColorBuilder ShiningStarColorBuilder;
 
         private const int MaxShiningStars = 500;
 
@@ -83,13 +85,30 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
         public override bool PersistAfterLeavingWorld => true;
 
+        public override void SafeOnModLoad()
+        {
+            ShiningStarColorBuilder = new InterpolatedColorBuilder()
+                .AddColor(Color.Violet)
+                .AddColor(Color.DeepSkyBlue)
+                .AddColor(Color.CornflowerBlue)
+                .AddColor(Color.White)
+                .AddColor(Color.Yellow)
+                .AddColor(Color.Orange)
+                .AddColor(Color.Red);
+        }
+
+        public override void SafeOnModUnload()
+        {
+            ShiningStarColorBuilder = null;
+        }
+
         public override bool PreUpdateEvent()
         {
             bool shouldStopEvent = Main.bloodMoon || Main.pumpkinMoon || Main.snowMoon || BossRushEvent.BossRushActive;
             bool shouldIncreaseSpawnRate = LanternNight.NextNightIsLanternNight;
 
             // Start and stop the event.
-            if (TwilightEgressUtilities.JustTurnedToNight && !shouldStopEvent && !EventIsActive && Main.rand.NextBool(shouldIncreaseSpawnRate ? 7 : 15))
+            if (!Main.dayTime && Main.time == 0 && !shouldStopEvent && !EventIsActive && Main.rand.NextBool(shouldIncreaseSpawnRate ? 7 : 15))
             {
                 Main.NewText("A mana-rich asteroid belt is travelling through the astrasphere...", Color.DeepSkyBlue);
                 EventHandlerManager.StartEvent<CosmostoneShowerEvent>();
@@ -128,7 +147,9 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
         public override void EditEventSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (!spawnInfo.Player.ZoneCosmostoneShowers() || spawnInfo.Invasion)
+            bool zoneCosmostoneShowers = EventHandlerManager.SpecificEventIsActive<CosmostoneShowerEvent>() && (spawnInfo.Player.ZoneOverworldHeight || spawnInfo.Player.ZoneSkyHeight);
+
+            if (!zoneCosmostoneShowers || spawnInfo.Invasion)
                 return;
 
             // Space additions.
@@ -323,7 +344,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 float starScale = Main.rand.NextFloat(0.10f, 0.20f) * 2f;
                 float parallaxStrength = Main.rand.NextFloat(1f, 5f);
                 int starLifetime = Main.rand.Next(240, 360);
-                Color starColor = TwilightEgressUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
+                Color starColor = ShiningStarColorBuilder.GetInterpolatedColor(Main.rand.NextFloat());
 
                 new AmbientStarParticle(starSpawnPos, starVelocity, starScale, 0f, 1f, parallaxStrength, starLifetime, starColor).SpawnCasParticle();
 
@@ -360,7 +381,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                     float depth = Main.rand.NextFloat(1f, 20f) * 10f;
 
-                    Color starColor = TwilightEgressUtilities.InterpolateColor(ShiningStarColors, Main.rand.NextFloat());
+                    Color starColor = ShiningStarColorBuilder.GetInterpolatedColor(Main.rand.NextFloat());
 
                     new ShiningStar(position, starColor, maxScale, depth, new Vector2(xStrectch, yStretch), lifespan).Spawn();
                 }

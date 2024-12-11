@@ -101,7 +101,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             for (int i = 0; i < 6; i++)
             {
                 Vector2 snowflakeVelocity = Vector2.UnitX.RotatedBy(TwoPi * i / 6) * 16f;
-                int damage = Projectile.damage.GetPercentageOfInteger(0.65f);
+                int damage = (int)(Projectile.damage * 0.65f);
                 Projectile.BetterNewProjectile(Projectile.Center, snowflakeVelocity, ModContent.ProjectileType<HolidayHalberdIceShockSnowflake>(), damage,
                     Projectile.knockBack, owner: Projectile.owner, ai0: snowflakeAngularVelocity);
             }

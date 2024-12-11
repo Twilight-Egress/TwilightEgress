@@ -50,9 +50,9 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             {
                 // Spawn two waves of baubles similarly to Berdly's Halberd Attack.
                 Vector2 baubleVelocity = Vector2.Normalize(Projectile.velocity).RotatedBy(PiOver2);
-                Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), Projectile.damage.GetPercentageOfInteger(0.35f), Projectile.knockBack, owner: Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), (int)(Projectile.damage * 0.35f), Projectile.knockBack, owner: Projectile.owner);
                 Vector2 baubleVelocity2 = Vector2.Normalize(Projectile.velocity).RotatedBy(-PiOver2);
-                Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity2, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), Projectile.damage.GetPercentageOfInteger(0.35f), Projectile.knockBack, owner: Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity2, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), (int)(Projectile.damage * 0.35f), Projectile.knockBack, owner: Projectile.owner);
             }
 
             if (Main.rand.NextBool(3))

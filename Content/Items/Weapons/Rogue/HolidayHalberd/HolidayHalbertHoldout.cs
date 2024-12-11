@@ -92,8 +92,8 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
                     if (Owner.Calamity().StealthStrikeAvailable())
                     {
                         Main.projectile[p].Calamity().stealthStrike = true;
-                        Main.projectile[p].damage = Projectile.damage.GetPercentageOfInteger(0.25f);
-                        Owner.ConsumeStealthManually();
+                        Main.projectile[p].damage = (int)(Projectile.damage * 0.25f);
+                        ConsumeStealthManually();
                     }
                 }
 
@@ -113,6 +113,51 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
                 int lifespan = Main.rand.Next(15, 30);
                 SparkleParticle sparkleParticle = new(spawnPosition, Vector2.Zero, GetHalberdVisualColors(), GetHalberdVisualColors() * 0.35f, scale, lifespan, 0.25f, 1.25f);
                 sparkleParticle.SpawnCasParticle();
+            }
+        }
+
+        /// <summary>
+        /// A copy of Calamity's ConsumeRogueStealth method. This is only to be used if your Rogue Weapon functions under a held projectile or some other mean
+        /// that isn't taken into consideration during manual stealth updating. This was made because the original method is internal.
+        /// </summary>
+        public void ConsumeStealthManually()
+        {
+            Owner.Calamity().stealthStrikeThisFrame = true;
+            Owner.Calamity().stealthAcceleration = 1f;
+            float lossReductionRatio = (float)Owner.Calamity().flatStealthLossReduction / (Owner.Calamity().rogueStealthMax * 100f);
+            float remainingStealth = Owner.Calamity().rogueStealthMax * lossReductionRatio;
+            float stealthToLose = Owner.Calamity().rogueStealthMax - remainingStealth;
+            if (stealthToLose < 0.01f)
+            {
+                stealthToLose = 0.01f;
+            }
+            if (Owner.Calamity().stealthStrikeHalfCost)
+            {
+                Owner.Calamity().rogueStealth -= 0.5f * stealthToLose;
+                if (Owner.Calamity().rogueStealth <= 0f)
+                {
+                    Owner.Calamity().rogueStealth = 0f;
+                }
+            }
+            else if (Owner.Calamity().stealthStrike75Cost)
+            {
+                Owner.Calamity().rogueStealth -= 0.75f * stealthToLose;
+                if (Owner.Calamity().rogueStealth <= 0f)
+                {
+                    Owner.Calamity().rogueStealth = 0f;
+                }
+            }
+            else if (Owner.Calamity().stealthStrike85Cost)
+            {
+                Owner.Calamity().rogueStealth -= 0.9f * stealthToLose;
+                if (Owner.Calamity().rogueStealth <= 0f)
+                {
+                    Owner.Calamity().rogueStealth = 0f;
+                }
+            }
+            else
+            {
+                Owner.Calamity().rogueStealth = remainingStealth;
             }
         }
 

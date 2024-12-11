@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using Terraria;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -107,7 +108,9 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             {
                 if (ChargeTimer % FireRate == 0)
                 {
-                    Owner.ConsumeManaManually(15, 75);
+                    if (Owner.CheckMana(15, true, false))
+                        Owner.manaRegenDelay = 75;
+
                     Vector2 spawnPosition = Main.MouseWorld + new Vector2(Main.rand.NextFloat(-300f, 300f), -900f);
                     Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<ElectricSkyBolt>(), Projectile.damage, Projectile.knockBack, owner: Projectile.owner);
                 }
@@ -135,7 +138,9 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
             if (DelayTimer == DelayBeforeFiring)
             {
-                Owner.ConsumeManaManually(100, 75);
+                if (Owner.CheckMana(100, true, false))
+                    Owner.manaRegenDelay = 75;
+
                 Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 120f;
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<BoltStrike>(), Projectile.damage, Projectile.knockBack, owner: Projectile.owner);
             }
