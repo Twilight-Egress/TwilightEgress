@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
@@ -523,8 +524,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * manaTankShaderTime);
             manaTankShader.TrySetParameter("manaCapacity", manaCapacityInterpolant);
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
-            manaTankShader.SetTexture(TwilightEgressTextureRegistry.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
-            manaTankShader.SetTexture(TwilightEgressTextureRegistry.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
             manaTankShader.Apply();
 
             // Draw the tank mask with the shader applied to it.

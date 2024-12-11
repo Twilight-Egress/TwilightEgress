@@ -1,5 +1,6 @@
 ﻿using TwilightEgress.Core.Graphics;
 using Terraria.Map;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
@@ -63,7 +64,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 /* Add the whoAmI indexes of each hit NPC to the list. 
                  * This is how we'll keep track of which NPCs we shouldn't target. */
                 NPCsWhoHaveBeenHit.Add(target);
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
             }
 
             // Find the closest target in range and bounce to them from the last enemy.
@@ -107,7 +108,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             else
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
 
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     Projectile.velocity.X = -oldVelocity.X;

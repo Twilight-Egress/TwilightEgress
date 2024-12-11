@@ -11,6 +11,7 @@ using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Events;
 using Terraria.Graphics;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -207,9 +208,9 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     asteroidSpawnPosition = planetoidPositionWithRadius;
                 }
 
-                if (TwilightEgressUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
+                if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
                 {
-                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), asteroidSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, asteroids.RandomElementByWeight(e => e.Value).Key);
+                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), asteroidSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, RandomElementByWeight(asteroids, e => e.Value).Key);
                     if (Main.projectile.IndexInRange(p))
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
@@ -230,7 +231,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     }
                 }
 
-                if (TwilightEgressUtilities.ObligatoryNetmodeCheckForSpawningEntities() && !Collision.SolidCollision(planetoidSpawnPosition, 1600, 1600) && activePlanetoids.Count < 10)
+                if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(planetoidSpawnPosition, 1600, 1600) && activePlanetoids.Count < 10)
                 {
                     int[] planetoidTypes =
                     {
@@ -246,6 +247,26 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 }
             }
         }
+
+        public T RandomElementByWeight<T>(IEnumerable<T> sequence, Func<T, float> weightSelector)
+        {
+            float totalWeight = sequence.Sum(weightSelector);
+            // The weight we are after...
+            float itemWeightIndex = (float)new Random().NextDouble() * totalWeight;
+            float currentWeightIndex = 0;
+
+            foreach (var item in from weightedItem in sequence select new { Value = weightedItem, Weight = weightSelector(weightedItem) })
+            {
+                currentWeightIndex += item.Weight;
+
+                // If we've hit or passed the weight we are after for this item then it's the one we want....
+                if (currentWeightIndex > itemWeightIndex)
+                    return item.Value;
+
+            }
+
+            return default(T);
+        }
         #endregion
 
         #region Visuals
@@ -259,21 +280,21 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             float fadeOutInterpolant = Lerp(2f, 0.1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
 
             // Bakcground nebula.
-            Texture2D skyTexture = TwilightEgressTextureRegistry.CosmostoneShowersNebulaColors.Value;
+            Texture2D skyTexture = AssetRegistry.Textures.CosmostoneShowersNebulaColors.Value;
 
             ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersSkyShader", out ManagedShader cosmoSkyShader);
             cosmoSkyShader.TrySetParameter("galaxyOpacity", globalOpacity);
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
-            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 1, samplerState);
-            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 2, samplerState);
-            cosmoSkyShader.SetTexture(TwilightEgressTextureRegistry.PerlinNoise2, 3, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 1, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 2, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.PerlinNoise2, 3, samplerState);
             cosmoSkyShader.Apply();
 
             spriteBatch.Draw(skyTexture, new Rectangle(0, (int)(Main.worldSurface * gradientHeightInterpolant + 50f), (int)(Main.screenWidth * 1.5f), (int)(Main.screenHeight * 1.5f)), Color.White * globalOpacity);
 
             // Clouds below the nebula.
-            Texture2D cloudTexture = TwilightEgressTextureRegistry.NeuronNebulaGalaxyBlurred.Value;
+            Texture2D cloudTexture = AssetRegistry.Textures.NeuronNebulaGalaxyBlurred.Value;
 
             ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersCloudsShader", out ManagedShader cosmoCloudsShader);
             cosmoCloudsShader.TrySetParameter("cloudOpacity", globalOpacity * 0.6f);
@@ -281,8 +302,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             cosmoCloudsShader.TrySetParameter("fadeOutMarginBottom", 0.75f);
             cosmoCloudsShader.TrySetParameter("erosionStrength", 0.8f);
             cosmoCloudsShader.TrySetParameter("textureSize", cloudTexture.Size());
-            cosmoCloudsShader.SetTexture(TwilightEgressTextureRegistry.RealisticClouds, 1, samplerState);
-            cosmoCloudsShader.SetTexture(TwilightEgressTextureRegistry.PerlinNoise3, 2, samplerState);
+            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 1, samplerState);
+            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.PerlinNoise3, 2, samplerState);
             cosmoCloudsShader.SetTexture(MiscTexturesRegistry.WavyBlotchNoise.Value, 3, samplerState);
             cosmoCloudsShader.Apply();
 
@@ -393,7 +414,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     float depth = i + 3f;
                     int lifespan = Main.rand.Next(1200, 1800);
 
-                    int asteroid = asteroids.RandomElementByWeight(e => e.Value).Key;
+                    int asteroid = RandomElementByWeight(asteroids, e => e.Value).Key;
 
                     switch (asteroid)
                     {
@@ -449,7 +470,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     int lifespan = Main.rand.Next(600, 1200);
                     float depth = i + 3f;
 
-                    int asteroid = asteroids.RandomElementByWeight(e => e.Value).Key;
+                    int asteroid = RandomElementByWeight(asteroids, e => e.Value).Key;
 
                     switch (asteroid)
                     {

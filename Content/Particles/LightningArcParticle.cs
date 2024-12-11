@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Particles
 {
@@ -49,7 +50,7 @@ namespace TwilightEgress.Content.Particles
         public override void Draw(SpriteBatch spriteBatch)
         {
             ShaderManager.TryGetShader("Luminance.StandardPrimitiveShader", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(TwilightEgressTextureRegistry.ThinGlowStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.ThinGlowStreak, 1, SamplerState.LinearWrap);
 
             PrimitiveSettings settings = new(LightningWidthFunction, LightningColorFunction, null, false, false, smoothTrail);
             PrimitiveRenderer.RenderTrail(LightningPoints, settings, LightningPoints.Count);

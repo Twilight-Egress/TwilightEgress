@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Buffs.StatDebuffs;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
@@ -35,7 +36,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
         {
             RandomNewScale = Main.rand.NextFloat(1f, 1.75f);
             Projectile.rotation = Main.rand.NextFloat(TwoPi);
-            SoundEngine.PlaySound(TwilightEgressSoundRegistry.IceShock, Projectile.Center);
+            SoundEngine.PlaySound(AssetRegistry.Sounds.IceShock, Projectile.Center);
         }
 
         public override void AI()
@@ -92,7 +93,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(TwilightEgressSoundRegistry.CryogenShieldBreak, Projectile.Center);
+            SoundEngine.PlaySound(AssetRegistry.Sounds.CryogenShieldBreak, Projectile.Center);
             // Spawn a ring of arcing snowflakes, similar to the original Iceshock.
             float snowflakeAngularVelocity = ToRadians(3f);
             for (int i = 0; i < 6; i++)
@@ -110,7 +111,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             if (Main.rand.NextBool(10) && !target.HasBuff(ModContent.BuffType<GlacialState>()))
             {
                 target.AddBuff(ModContent.BuffType<GlacialState>(), 180);
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.IceShockPetrify, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.IceShockPetrify, Projectile.Center);
             }
 
         }

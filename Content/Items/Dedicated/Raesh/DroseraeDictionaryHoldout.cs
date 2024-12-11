@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Raesh
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class DroseraeDictionaryHoldout : ModProjectile, ILocalizedModType
     {
@@ -16,7 +18,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetStaticDefaults()
         {
@@ -81,7 +83,7 @@
 
                 float damageScaleFactor = Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
                 int damage = Projectile.originalDamage.GetPercentageOfInteger(damageScaleFactor);
-                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, TwilightEgressSoundRegistry.FlytrapMawSpawn, null, Projectile.owner);
+                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.FlytrapMawSpawn, null, Projectile.owner);
 
                 Owner.ConsumeManaManually(Owner.HeldItem.mana);
                 ParticleBurst();

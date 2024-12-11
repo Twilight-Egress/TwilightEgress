@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Particles
 {
     internal class ShiningStarParticle : CasParticle
     {
@@ -62,7 +64,7 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(TwilightEgressTextureRegistry.FourPointedStars_Atlas[TextureIndex]);
+            AtlasTexture starTextures = AtlasManager.GetTexture(AssetRegistry.Textures.FourPointedStars_Atlas[TextureIndex]);
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = starTextures.Size / 2f;

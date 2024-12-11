@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class TelekineticallyControlledWeapon : ModProjectile, ILocalizedModType
     {
@@ -27,7 +29,7 @@
 
         public new string LocalizationCategory => "Projectiles.Summon";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetStaticDefaults()
         {

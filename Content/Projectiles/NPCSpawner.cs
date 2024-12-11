@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Projectiles
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Projectiles
 {
     public class NPCSpawner : ModProjectile, ILocalizedModType
     {
@@ -6,7 +8,7 @@
 
         public new string LocalizationCategory => "Projectiles.Misc";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetDefaults()
         {

@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -189,7 +190,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             if (AIPhase == 1f)
             {
                 // Super Effective! VS. BIG SHOT
-                SoundStyle boom = correctPlayerName ? TwilightEgressSoundRegistry.SuperEffective : new SoundStyle("CalamityMod/Sounds/Item/TeslaCannonFire");
+                SoundStyle boom = correctPlayerName ? AssetRegistry.Sounds.SuperEffective : new SoundStyle("CalamityMod/Sounds/Item/TeslaCannonFire");
                 SoundEngine.PlaySound(boom, Projectile.Center);
                 if (correctPlayerName)
                 {
@@ -219,7 +220,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D Vortex = TwilightEgressTextureRegistry.GreyscaleVortex.Value;
+            Texture2D Vortex = AssetRegistry.Textures.GreyscaleVortex.Value;
 
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             float rotation = Projectile.rotation;
@@ -262,7 +263,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 return;
 
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(TwilightEgressTextureRegistry.FadedStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.FadedStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly * 2.5f);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => Projectile.Size * 0.5f, true, true, smoothTrail);

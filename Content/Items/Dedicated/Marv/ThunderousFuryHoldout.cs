@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ThunderousFuryHoldout : ModProjectile, ILocalizedModType
     {
@@ -87,7 +89,7 @@
         {
             if (DelayTimer == 1)
             {
-                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.PikachuCry : CommonCalamitySounds.LightningSound;
+                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.PikachuCry : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(thunderboltStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Yellow, Color.Goldenrod, Main.rand.NextFloat());
@@ -117,7 +119,7 @@
         {
             if (DelayTimer == 1)
             {
-                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
+                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
                 SoundEngine.PlaySound(boltStrikeStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Cyan, Color.SkyBlue, Main.rand.NextFloat());

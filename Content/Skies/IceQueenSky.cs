@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Skies
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Skies
 {
     public class IceQueenSceneEffect : ModSceneEffect
     {
@@ -90,7 +92,7 @@
 
         public override void OnLoad()
         {
-            GlowStarTexture = TwilightEgressTextureRegistry.SoftStar.Value;
+            GlowStarTexture = AssetRegistry.Textures.SoftStar.Value;
         }
 
         public override void Update(GameTime gameTime)
@@ -131,7 +133,7 @@
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Asset<Texture2D> noiseTexture = TwilightEgressTextureRegistry.PerlinNoise3;
+            Asset<Texture2D> noiseTexture = AssetRegistry.Textures.PerlinNoise3;
             Asset<Texture2D> noiseTexture2 = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
             CalamityUtils.EnterShaderRegion(Main.spriteBatch, BlendState.Additive);
 
@@ -156,7 +158,7 @@
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.Additive);
                 Vector2 drawPosition = GlowStars[i].Position - Main.screenPosition;
                 spriteBatch.Draw(TextureAssets.Extra[49].Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 2f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(TwilightEgressTextureRegistry.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
+                spriteBatch.Draw(AssetRegistry.Textures.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.AlphaBlend);
             }
         }

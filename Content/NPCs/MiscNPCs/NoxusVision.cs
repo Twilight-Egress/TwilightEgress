@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.NPCs.MiscNPCs
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.NPCs.MiscNPCs
 {
     public class NoxusVision : ModNPC, ILocalizedModType
     {
@@ -31,7 +33,7 @@
             if (NPC.ai[0] != 1f)
             {
                 // ooooooooooo spoooooooky
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.GasterGone with { Volume = 3f }, NPC.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.GasterGone with { Volume = 3f }, NPC.Center);
                 NPC.ai[0] = 1f;
                 NPC.life = 1;
                 NPC.dontTakeDamage = true;
@@ -74,7 +76,7 @@
             ref float eyeGlareScale = ref NPC.TwilightEgress().ExtraAI[EyeGlareScaleIndex];
 
             Texture2D noxus = TextureAssets.Npc[NPC.type].Value;
-            Texture2D eyeGlare = TwilightEgressTextureRegistry.SoftStar.Value;
+            Texture2D eyeGlare = AssetRegistry.Textures.SoftStar.Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY);
 
             // Lerp between magenta and blue.

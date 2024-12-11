@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Players
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Core.Players
 {
     public class ResplendentRoarPlayer : ModPlayer
     {
@@ -35,7 +37,7 @@
                 ResplendentRazeCharge = 100f;
                 if (!FinishedChargingResplendentRaze)
                 {
-                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.YharonFireBreath);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.YharonFireBreath);
 
                     Color colorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.IndianRed, Color.Yellow, Color.Red);
                     Color secondColorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.OrangeRed, Color.Sienna, Color.PaleVioletRed);

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Particles
 {
     public class ManaInkParticle : CasParticle
     {
@@ -15,7 +17,7 @@
             Lifetime = lifespan;
 
             Rotation = Main.rand.NextFloat(TwoPi);
-            SmokeTexture = ModContent.Request<Texture2D>(TwilightEgressTextureRegistry.Smokes[Main.rand.Next(TwilightEgressTextureRegistry.Smokes.Count)]).Value;
+            SmokeTexture = ModContent.Request<Texture2D>(AssetRegistry.Textures.Smokes[Main.rand.Next(AssetRegistry.Textures.Smokes.Count)]).Value;
         }
 
         public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";

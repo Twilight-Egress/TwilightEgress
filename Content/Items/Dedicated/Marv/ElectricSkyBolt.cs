@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -56,7 +57,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 }
 
                 bool correctPlayerName = owner.name == "Marv" || owner.name == "EmolgaLover";
-                SoundStyle lightning = correctPlayerName ? TwilightEgressSoundRegistry.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
+                SoundStyle lightning = correctPlayerName ? AssetRegistry.Sounds.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(lightning, StrikePosition);
                 Projectile.netUpdate = true;
             }

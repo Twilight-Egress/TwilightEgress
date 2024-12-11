@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Buffs.Minions;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Content.Buffs.Minions;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
@@ -155,7 +156,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (ViableEasterEggNames.Contains(Owner.name))
                 {
                     CombatText.NewText(Owner.Hitbox, Color.SkyBlue, "Requiem Bouquet", true);
-                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.RequiemBouquetPerish, Owner.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.RequiemBouquetPerish, Owner.Center);
                 }
             }
 

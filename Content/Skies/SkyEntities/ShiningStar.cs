@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities
 {
@@ -64,7 +65,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(TwilightEgressTextureRegistry.FourPointedStars_Atlas[TextureIndex]);
+            AtlasTexture starTextures = AtlasManager.GetTexture(AssetRegistry.Textures.FourPointedStars_Atlas[TextureIndex]);
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = starTextures.Size / 2f;

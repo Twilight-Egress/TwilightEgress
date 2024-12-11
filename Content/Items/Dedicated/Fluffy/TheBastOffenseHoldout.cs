@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class TheBastOffenseHoldout : ModProjectile, ILocalizedModType
     {
@@ -285,7 +287,7 @@
             for (int i = 0; i < bastCatCount; i++)
             {
                 Vector2 velocity = Vector2.UnitX.RotatedByRandom(Tau) * Main.rand.NextFloat(10f, 15f);
-                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, TwilightEgressSoundRegistry.KibbyExplosion, null, Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.KibbyExplosion, null, Projectile.owner);
             }
 
             // Particle effects.

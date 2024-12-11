@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class Rampart : ModProjectile, ILocalizedModType
     {
@@ -94,7 +96,7 @@
                 {
                     int dustType = Utils.SelectRandom(Main.rand, DustID.BlueTorch, DustID.Enchanted_Gold);
                     TwilightEgressUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f, dustScale: 3f);
-                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.AnvilHit, Projectile.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.AnvilHit, Projectile.Center);
                 }
             }
 

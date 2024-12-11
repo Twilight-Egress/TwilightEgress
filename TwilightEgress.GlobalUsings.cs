@@ -26,8 +26,6 @@ global using ReLogic.Content;
 global using CalamityMod;
 global using CalamityMod.Sounds;
 
-global using TwilightEgress.Assets.Sounds;
-global using TwilightEgress.Assets.ExtraTextures;
 global using TwilightEgress.Core.EntityOverridingSystem;
 global using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 global using TwilightEgress.Content.Particles;

@@ -1,5 +1,6 @@
 ﻿using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 using CalamityMod.Projectiles.Ranged;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
@@ -70,9 +71,9 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
                     chargeUpRing.SpawnCasParticle();
 
                     // Play a different yharon sound at every interval.
-                    SoundStyle sound = TwilightEgressSoundRegistry.YharonHurt;
+                    SoundStyle sound = AssetRegistry.Sounds.YharonHurt;
                     if (Timer >= 180f)
-                        sound = TwilightEgressSoundRegistry.YharonRoarShort;
+                        sound = AssetRegistry.Sounds.YharonRoarShort;
                     SoundEngine.PlaySound(sound, Projectile.Center);
                 }
 

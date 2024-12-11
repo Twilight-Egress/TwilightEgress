@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
+﻿using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonExplosion : ModProjectile, ILocalizedModType
     {
@@ -6,7 +8,7 @@
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetDefaults()
         {
