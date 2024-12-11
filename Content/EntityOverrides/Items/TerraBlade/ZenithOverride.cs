@@ -1,5 +1,4 @@
 using CalamityMod.Items.Materials;
-using TwilightEgress.Core.EntityOverridingSystem;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {

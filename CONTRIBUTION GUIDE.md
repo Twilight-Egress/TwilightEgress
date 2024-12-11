@@ -1,3 +1,7 @@
+# NOTICE: THIS WILL PROB BE REWRITTEN SOON
+
+
+
 # Github Contributions
 - Always create new branches whenever you're working on a new piece/pieces of content to avoid conflicts with other people's code.
 - NEVER directly commit to `development` or `public-release` unless it's a very small change or you have permission to do so.

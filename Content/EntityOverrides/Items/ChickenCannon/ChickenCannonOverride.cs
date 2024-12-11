@@ -1,5 +1,4 @@
 ﻿using Terraria.DataStructures;
-using TwilightEgress.Core.EntityOverridingSystem;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

@@ -1,6 +1,6 @@
 ﻿namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
-    public class DebuffHandlerGlobalNPC : GlobalNPC
+    public class DebuffHandler : GlobalNPC
     {
         public override bool InstancePerEntity => true;
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace TwilightEgress.Core.EntityOverridingSystem
+namespace TwilightEgress.Content.EntityOverrides.Items
 {
     public abstract class ItemOverride : GlobalItem
     {
@@ -11,7 +11,7 @@ namespace TwilightEgress.Core.EntityOverridingSystem
 
         public override sealed bool InstancePerEntity => true;
 
-        public override sealed bool AppliesToEntity(Item entity, bool lateInstantiation) 
+        public override sealed bool AppliesToEntity(Item entity, bool lateInstantiation)
             => lateInstantiation && (entity.type == TypeToOverride || AdditionalOverrideTypes.Contains(entity.type));
     }
 }

@@ -18,6 +18,6 @@ namespace TwilightEgress.Content.Buffs.Debuffs
 
         public override void Update(Player player, ref int buffIndex) => player.GetModPlayer<BuffHandler>().BellbirdStun = true;
 
-        public override void Update(NPC npc, ref int buffIndex) => npc.GetGlobalNPC<DebuffHandlerGlobalNPC>().BellbirdStun = true;
+        public override void Update(NPC npc, ref int buffIndex) => npc.GetGlobalNPC<DebuffHandler>().BellbirdStun = true;
     }
 }
