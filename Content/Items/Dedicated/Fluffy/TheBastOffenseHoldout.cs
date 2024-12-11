@@ -1,6 +1,8 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.Localization;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Items.Dedicated.Raesh;
 using TwilightEgress.Content.Particles;

@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Cooldowns;
+using Terraria.Localization;
 
 namespace TwilightEgress.Content.Cooldowns
 {

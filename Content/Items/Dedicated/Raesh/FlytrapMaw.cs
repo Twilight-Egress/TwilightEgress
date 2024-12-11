@@ -6,6 +6,7 @@ using ReLogic.Content;
 using Luminance.Core.Graphics;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

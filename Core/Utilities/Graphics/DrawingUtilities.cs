@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace TwilightEgress
 {
     public static partial class TwilightEgressUtilities
     {

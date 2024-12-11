@@ -1,4 +1,5 @@
 ﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 

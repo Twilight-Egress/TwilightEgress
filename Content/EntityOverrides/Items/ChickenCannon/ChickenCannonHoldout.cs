@@ -7,6 +7,7 @@ using CalamityMod.Sounds;
 using TwilightEgress.Content.Particles;
 using Luminance.Common.Utilities;
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

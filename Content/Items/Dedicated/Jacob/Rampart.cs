@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Sounds;
 using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;

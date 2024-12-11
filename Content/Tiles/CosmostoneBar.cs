@@ -1,3 +1,5 @@
+using Terraria.Localization;
+
 namespace TwilightEgress.Content.Tiles
 {
 	public class CosmostoneBar : ModTile

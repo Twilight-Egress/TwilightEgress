@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {

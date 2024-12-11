@@ -5,6 +5,7 @@ using TwilightEgress.Content.Particles;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

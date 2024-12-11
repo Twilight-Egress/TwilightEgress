@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy

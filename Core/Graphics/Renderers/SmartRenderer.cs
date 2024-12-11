@@ -1,4 +1,5 @@
 ﻿using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace TwilightEgress.Core.Graphics.Renderers

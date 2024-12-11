@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Events;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria.Graphics.Effects;
+using TwilightEgress.Content.Events;
 using TwilightEgress.Content.Events.CosmostoneShowers;
 
 namespace TwilightEgress.Content.Skies

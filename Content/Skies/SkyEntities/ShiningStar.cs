@@ -1,5 +1,6 @@
 ﻿using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework.Graphics;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 

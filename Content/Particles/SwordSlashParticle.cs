@@ -1,4 +1,5 @@
 ﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
