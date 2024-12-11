@@ -1,5 +1,8 @@
 ﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd

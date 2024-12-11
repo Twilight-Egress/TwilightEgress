@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Graphics.Renderers
+﻿using Luminance.Core.Graphics;
+
+namespace TwilightEgress.Core.Graphics.Renderers
 {
     public abstract class SmartRenderer : ModType
     {

@@ -14,6 +14,10 @@ using Terraria.Graphics;
 using TwilightEgress.Assets;
 using Terraria;
 using TwilightEgress.Core;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+using Luminance.Core.Graphics;
+using Luminance.Assets;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {

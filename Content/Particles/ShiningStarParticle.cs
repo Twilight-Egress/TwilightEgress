@@ -1,4 +1,7 @@
-﻿using TwilightEgress.Assets;
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
 {

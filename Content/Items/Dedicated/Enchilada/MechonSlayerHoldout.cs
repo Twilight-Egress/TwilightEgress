@@ -1,5 +1,8 @@
 ﻿using CalamityMod.Sounds;
+using Luminance.Common.Easings;
+using Luminance.Core.Graphics;
 using Terraria;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Players.BuffHandlers;
 using EasingType = Luminance.Common.Easings.EasingType;
 

@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using Luminance.Common.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Core.Globals.GlobalNPCs;

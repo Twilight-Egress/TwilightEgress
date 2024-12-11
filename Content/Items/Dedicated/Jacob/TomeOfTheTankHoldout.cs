@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Luminance.Common.Utilities;
+using Terraria;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 

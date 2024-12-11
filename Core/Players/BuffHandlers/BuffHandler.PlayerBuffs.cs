@@ -2,6 +2,7 @@
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals;
 using CalamityMod;
+using Luminance.Common.Utilities;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

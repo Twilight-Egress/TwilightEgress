@@ -1,4 +1,8 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class AmbientStarParticle : CasParticle
     {

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
+﻿using TwilightEgress.Core.EntityOverridingSystem;
+
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonOverride : ItemOverride
     {

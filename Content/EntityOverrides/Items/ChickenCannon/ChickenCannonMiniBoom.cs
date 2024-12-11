@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Content.Items.Dedicated.Fluffy;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

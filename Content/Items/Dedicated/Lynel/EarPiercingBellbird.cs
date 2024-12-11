@@ -1,8 +1,10 @@
 ﻿using CalamityMod;
+using Luminance.Core.Graphics;
 using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Buffs.Pets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using TwilightEgress.Core.Players;

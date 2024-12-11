@@ -1,7 +1,9 @@
 ﻿using CalamityMod;
 using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
 using Terraria;
 using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {

@@ -4,6 +4,8 @@ using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using CalamityMod.Sounds;
+using TwilightEgress.Content.Particles;
+using Luminance.Common.Utilities;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

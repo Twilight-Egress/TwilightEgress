@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.Renderers.ScreenRenderers;
+﻿using TwilightEgress.Content.Particles;
+using TwilightEgress.Core.Graphics.Renderers.ScreenRenderers;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

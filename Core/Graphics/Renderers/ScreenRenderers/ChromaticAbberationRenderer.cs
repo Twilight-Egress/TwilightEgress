@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
+﻿using Luminance.Core.Graphics;
+
+namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
 {
     public class ChromaticAbberationRenderer : SmartRenderer
     {

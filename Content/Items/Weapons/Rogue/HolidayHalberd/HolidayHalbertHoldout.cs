@@ -1,6 +1,9 @@
 ﻿using CalamityMod;
 using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 

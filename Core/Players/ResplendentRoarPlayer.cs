@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Assets;
+﻿using Luminance.Common.Utilities;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Core.Players
 {

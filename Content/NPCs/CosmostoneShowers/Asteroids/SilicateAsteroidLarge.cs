@@ -2,6 +2,7 @@
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 using Terraria.GameContent.ItemDropRules;
 using CalamityMod;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

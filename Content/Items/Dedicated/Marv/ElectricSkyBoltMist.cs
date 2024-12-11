@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
+﻿using Luminance.Common.Utilities;
+
+namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ElectricSkyBoltMist : ModProjectile, ILocalizedModType
     {

@@ -1,4 +1,8 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.MPG
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using TwilightEgress.Content.Particles;
+
+namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MassiveUnderworldLantern : ModProjectile, ILocalizedModType
     {

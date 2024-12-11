@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class MusicNoteParticle : CasParticle
     {

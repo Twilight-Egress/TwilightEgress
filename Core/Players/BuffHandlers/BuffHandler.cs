@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using Luminance.Common.Utilities;
 using TwilightEgress.Content.Cooldowns;
 
 namespace TwilightEgress.Core.Players.BuffHandlers

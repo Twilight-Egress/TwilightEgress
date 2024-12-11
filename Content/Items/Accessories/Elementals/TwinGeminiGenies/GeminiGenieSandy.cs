@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+﻿using Luminance.Common.Utilities;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using TwilightEgress.Core.Players.BuffHandlers;
 

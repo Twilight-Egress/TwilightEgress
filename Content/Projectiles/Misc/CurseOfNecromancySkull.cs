@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Content.Buffs.Debuffs;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Projectiles.Misc
 {

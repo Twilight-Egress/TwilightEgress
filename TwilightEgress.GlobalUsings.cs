@@ -20,13 +20,3 @@ global using Terraria.Graphics.Effects;
 global using Terraria.Graphics.Shaders;
 global using Terraria.ObjectData;
 global using Terraria.Localization;
-
-global using TwilightEgress.Core.EntityOverridingSystem;
-global using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
-global using TwilightEgress.Content.Particles;
-global using Luminance.Assets;
-global using Luminance.Common.Easings;
-global using Luminance.Common.Utilities;
-global using Luminance.Core.Graphics;
-global using Luminance.Core.Balancing;
-

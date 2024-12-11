@@ -1,3 +1,5 @@
+using Luminance.Common.Utilities;
+using TwilightEgress.Core.EntityOverridingSystem;
 using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb

@@ -1,7 +1,9 @@
 ﻿using CalamityMod;
 using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using TwilightEgress.Assets;
-using TwilightEgress.Core.Graphics;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -84,7 +86,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
                             Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
                             int lifespan = (int)Lerp(10, 45, Timer / 480);
-                            new RoaringShockwaveParticle(lifespan, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).Spawn();
+                            new RoaringShockwaveParticle(lifespan, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).SpawnCasParticle();
                             Projectile.netUpdate = true;
                         }
                     }
@@ -100,7 +102,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                     ScreenShakeSystem.StartShake(7f * Projectile.scale, shakeStrengthDissipationIncrement: 0.185f);
 
                     Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
-                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).Spawn();
+                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).SpawnCasParticle();
                     Projectile.netUpdate = true;
                 }
             }

@@ -4,6 +4,9 @@ using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using CalamityMod;
+using TwilightEgress.Content.Particles;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {

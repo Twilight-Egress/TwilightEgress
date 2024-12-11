@@ -1,4 +1,6 @@
 ﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Projectiles.Ambient

@@ -1,7 +1,11 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Sounds;
+using Luminance.Common.Easings;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using TwilightEgress.Core.Graphics;

@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Players.BuffHandlers;
+﻿using Luminance.Common.Utilities;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {

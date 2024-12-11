@@ -1,3 +1,5 @@
+using TwilightEgress.Core.EntityOverridingSystem;
+
 namespace TwilightEgress.Content.EntityOverrides.Items.DepthCrusher
 {
     public class DepthCrusherOverride : ItemOverride

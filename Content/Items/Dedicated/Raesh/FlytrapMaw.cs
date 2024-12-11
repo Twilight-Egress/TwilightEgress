@@ -3,6 +3,7 @@ using Terraria.Map;
 using TwilightEgress.Assets;
 using CalamityMod;
 using ReLogic.Content;
+using Luminance.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

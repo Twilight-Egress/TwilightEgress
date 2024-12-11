@@ -1,6 +1,8 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using Luminance.Common.Utilities;
 using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 

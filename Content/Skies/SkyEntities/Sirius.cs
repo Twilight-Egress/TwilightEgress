@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities
 {
