@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class HomingBastStatue : ModProjectile, ILocalizedModType
     {

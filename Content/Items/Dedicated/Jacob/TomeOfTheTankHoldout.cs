@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class TomeOfTheTankHoldout : ModProjectile, ILocalizedModType
     {

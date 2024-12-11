@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Buffs.Debuffs
+﻿using TwilightEgress.Core.Players.BuffHandlers;
+
+namespace TwilightEgress.Content.Buffs.Debuffs
 {
     public class CerebralMindtrick : ModBuff, ILocalizedModType
     {
@@ -15,6 +17,6 @@
             Main.buffNoSave[Type] = true;
         }
 
-        public override void Update(Player Player, ref int buffIndex) => Player.TwilightEgress_Buffs().CerebralMindtrick = true;
+        public override void Update(Player player, ref int buffIndex) => player.GetModPlayer<BuffHandler>().CerebralMindtrick = true;
     }
 }

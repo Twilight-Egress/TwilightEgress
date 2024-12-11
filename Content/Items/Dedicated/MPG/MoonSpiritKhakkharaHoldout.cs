@@ -1,5 +1,7 @@
 ﻿using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {

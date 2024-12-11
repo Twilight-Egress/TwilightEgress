@@ -1,6 +1,8 @@
 ﻿using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 using CalamityMod.Projectiles.Ranged;
 using TwilightEgress.Assets;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Buffs.Debuffs
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Players.BuffHandlers;
+
+namespace TwilightEgress.Content.Buffs.Debuffs
 {
     public class BellbirdCry : ModBuff, ILocalizedModType
     {
@@ -13,8 +16,8 @@
             Main.buffNoSave[Type] = true;
         }
 
-        public override void Update(Player Player, ref int buffIndex) => Player.TwilightEgress_Buffs().BellbirdStun = true;
+        public override void Update(Player player, ref int buffIndex) => player.GetModPlayer<BuffHandler>().BellbirdStun = true;
 
-        public override void Update(NPC npc, ref int buffIndex) => npc.TwilightEgress_Buffs().BellbirdStun = true;
+        public override void Update(NPC npc, ref int buffIndex) => npc.GetGlobalNPC<DebuffHandlerGlobalNPC>().BellbirdStun = true;
     }
 }

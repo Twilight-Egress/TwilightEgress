@@ -1,5 +1,7 @@
 ﻿using CalamityMod.Buffs.StatDebuffs;
 using TwilightEgress.Assets;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {

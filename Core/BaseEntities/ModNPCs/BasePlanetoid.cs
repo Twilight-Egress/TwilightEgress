@@ -61,7 +61,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
                 if (!player.active)
                     continue;
 
-                ModPlayer = player.TwilightEgress_OrbitalGravity();
+                ModPlayer = player.GetModPlayer<OrbitalGravityPlayer>();
 
                 float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
                 float distanceBetweenBodies = Vector2.Distance(player.Center, NPC.Center);

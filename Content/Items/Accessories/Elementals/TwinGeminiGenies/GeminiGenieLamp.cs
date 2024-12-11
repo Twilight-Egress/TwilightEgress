@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Items;
 using TwilightEgress.Content.Buffs.Minions;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
@@ -41,7 +42,7 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 
         public override void UpdateVanity(Player player)
         {
-            player.TwilightEgress_Buffs().GeminiGeniesVanity = true;
+            player.GetModPlayer<BuffHandler>().GeminiGeniesVanity = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGenieSandy>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<GeminiGenieSandy>(), 0, 0f, player.whoAmI);
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGeniePsychic>()] < 1)

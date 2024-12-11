@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {

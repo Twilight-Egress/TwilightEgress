@@ -34,4 +34,9 @@ namespace TwilightEgress.Core.Globals.GlobalNPCs
                 drawColor = Color.White;
         }
     }
+
+    public static class GlobalNPCExtensionMethod
+    {
+        public static TwilightEgressGlobalNPC TwilightEgress(this NPC npc) => npc.GetGlobalNPC<TwilightEgressGlobalNPC>();
+    }
 }

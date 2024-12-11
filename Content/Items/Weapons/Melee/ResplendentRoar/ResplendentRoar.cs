@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
+using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 {
@@ -36,12 +37,12 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
-        public override bool AltFunctionUse(Player player) => player.TwilightEgress_ResplendentRoar().ResplendentRazeCharge >= 10f;
+        public override bool AltFunctionUse(Player player) => player.GetModPlayer<ResplendentRoarPlayer>().ResplendentRazeCharge >= 10f;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             // Reset the resplendent raze update timer.
-            player.TwilightEgress_ResplendentRoar().ResplendentRazeUpdateTimer = 0;
+            player.GetModPlayer<ResplendentRoarPlayer>().ResplendentRazeUpdateTimer = 0;
 
             AttackCounter++;
             if (AttackCounter >= 4)

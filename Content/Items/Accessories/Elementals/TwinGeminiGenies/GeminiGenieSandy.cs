@@ -1,4 +1,8 @@
-﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+using TwilightEgress.Core.Players.BuffHandlers;
+
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class GeminiGenieSandy : ModProjectile, ILocalizedModType
     {
@@ -65,11 +69,13 @@
             Projectile.idStaticNPCHitCooldown = 15;
         }
 
-        public override bool? CanDamage() => !Owner.TwilightEgress_Buffs().GeminiGeniesVanity;
+        public override bool? CanDamage() => !Owner.GetModPlayer<BuffHandler>().GeminiGeniesVanity;
 
         public bool CheckActive()
         {
-            if (Owner.TwilightEgress_Buffs().GeminiGenies || Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
+            BuffHandler buffHandler = Owner.GetModPlayer<BuffHandler>();
+
+            if (buffHandler.GeminiGenies || buffHandler.GeminiGeniesVanity)
             {
                 Projectile.timeLeft = 2;
                 return true;
@@ -77,7 +83,7 @@
 
             if (Owner.dead || !Owner.active)
             {
-                Owner.TwilightEgress_Buffs().GeminiGenies = false;
+                buffHandler.GeminiGenies = false;
                 Projectile.Kill();
                 return false;
             }
@@ -99,7 +105,7 @@
             NPC target = Projectile.GetNearestMinionTarget(Owner, 1750f, 500f, out bool foundTarget);
 
             // If the player is using the acceessory as vanity, make sure to always set this to false so no attacks are done.
-            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
+            if (Owner.GetModPlayer<BuffHandler>().GeminiGeniesVanity)
                 foundTarget = false;
 
             if (target == null && (AIStates)AttackState == AIStates.Attacking)

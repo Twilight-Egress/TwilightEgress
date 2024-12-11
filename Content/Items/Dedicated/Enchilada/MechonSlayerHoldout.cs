@@ -1,4 +1,5 @@
-﻿using EasingType = Luminance.Common.Easings.EasingType;
+﻿using TwilightEgress.Core.Players.BuffHandlers;
+using EasingType = Luminance.Common.Easings.EasingType;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
@@ -50,7 +51,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
             if (Timer == SwingTime / 2)
             {
                 // Apply the art specific buffs.
-                Owner.TwilightEgress_Buffs().ApplyMechonSlayerArt((int)WeaponState);
+                Owner.GetModPlayer<BuffHandler>().ApplyMechonSlayerArt((int)WeaponState);
 
                 // Visuals.
                 for (int i = 0; i < 15; i++)

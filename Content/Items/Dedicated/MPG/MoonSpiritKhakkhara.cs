@@ -6,6 +6,7 @@ using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Projectiles.Misc;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
@@ -68,7 +69,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<UnderworldLantern>()] > 0)
             {
                 SpawnSkulls(player);
-                player.TwilightEgress_Buffs().CurseOfNecromancyMinionSlotStack++;
+                player.GetModPlayer<BuffHandler>().CurseOfNecromancyMinionSlotStack++;
                 player.AddBuff(ModContent.BuffType<CurseOfNecromancy>(), 3600);
                 lantern.Kill();
             }

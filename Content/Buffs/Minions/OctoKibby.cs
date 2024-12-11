@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Content.Items.Dedicated.Octo;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Minions
 {
@@ -16,7 +17,7 @@ namespace TwilightEgress.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.TwilightEgress_Buffs().OctoKibby = true;
+            player.GetModPlayer<BuffHandler>().OctoKibby = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<KibbyGirl>()] < 1)
             {
                 player.DelBuff(buffIndex);

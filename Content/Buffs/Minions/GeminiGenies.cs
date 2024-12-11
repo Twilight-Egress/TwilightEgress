@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Minions
 {
@@ -16,7 +17,7 @@ namespace TwilightEgress.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.TwilightEgress_Buffs().GeminiGenies = true;
+            player.GetModPlayer<BuffHandler>().GeminiGenies = true;
             bool isDunaOrPsytriGone = player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGenieSandy>()] < 0 || player.ownedProjectileCounts[ModContent.ProjectileType<GeminiGeniePsychic>()] < 0;
             if (isDunaOrPsytriGone)
             {

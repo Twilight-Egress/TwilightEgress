@@ -1,4 +1,5 @@
 ﻿using TwilightEgress.Assets;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.MiscNPCs
 {

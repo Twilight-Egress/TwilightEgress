@@ -1,6 +1,9 @@
 ﻿using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Buffs.Pets;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
@@ -98,7 +101,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             }
 
             // Stop perching if the player inverts their gravity.
-            bool orbitalGravity = Owner.TwilightEgress_OrbitalGravity().Planetoid is not null && Owner.TwilightEgress_OrbitalGravity().Planetoid.NPC.active;
+            bool orbitalGravity = Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid is not null && Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid.NPC.active;
             bool shouldStopPerching = Owner.gravDir == -1 || orbitalGravity;
             if (shouldStopPerching && AIState == (float)BellbirdStates.Perching)
             {

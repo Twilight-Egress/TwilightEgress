@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Globals
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+
+namespace TwilightEgress.Core.Globals.GlobalProjectiles
 {
     public partial class TwilightEgressGlobalProjectile : GlobalProjectile
     {
@@ -53,5 +55,10 @@
 
             base.OnHitNPC(projectile, target, hit, damageDone);
         }
+    }
+
+    public static class GlobalProjectileExtensionMethod
+    {
+        public static TwilightEgressGlobalProjectile TwilightEgress(this Projectile projectile) => projectile.GetGlobalProjectile<TwilightEgressGlobalProjectile>();
     }
 }

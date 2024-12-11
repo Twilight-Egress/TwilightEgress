@@ -1,3 +1,5 @@
+using TwilightEgress.Core.Players;
+
 namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 {
     public class StingerNecklaceOverride : ItemOverride
@@ -6,7 +8,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
 	    {
-            player.TwilightEgress_BeeFlightTimeBoost().BeeFlightBoost = 1; 
+            player.GetModPlayer<BeeFlightTimeBoostPlayer>().BeeFlightBoost = 1; 
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

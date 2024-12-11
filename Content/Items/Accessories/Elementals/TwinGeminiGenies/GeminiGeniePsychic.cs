@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿using TwilightEgress.Core.Players.BuffHandlers;
+
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class GeminiGeniePsychic : ModProjectile, ILocalizedModType
     {
@@ -67,11 +69,13 @@
             HasSpawnedInWeaponsYet = reader.ReadBoolean();
         }
 
-        public override bool? CanDamage() => !Owner.TwilightEgress_Buffs().GeminiGeniesVanity;
+        public override bool? CanDamage() => !Owner.GetModPlayer<BuffHandler>().GeminiGeniesVanity;
 
         public bool CheckActive()
         {
-            if (Owner.TwilightEgress_Buffs().GeminiGenies || Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
+            BuffHandler buffHandler = Owner.GetModPlayer<BuffHandler>();
+
+            if (buffHandler.GeminiGenies || buffHandler.GeminiGeniesVanity)
             {
                 Projectile.timeLeft = 2;
                 return true;
@@ -79,7 +83,7 @@
 
             if (Owner.dead || !Owner.active)
             {
-                Owner.TwilightEgress_Buffs().GeminiGenies = false;
+                buffHandler.GeminiGenies = false;
                 Projectile.Kill();
                 return false;
             }
@@ -99,7 +103,7 @@
             //Projectile.GetNearestMinionTarget(Owner, 1750f, 500f, out bool foundTarget, out NPC target);
 
             // If the vanity bool is enabled, stick to the idle movement and do not spawn anything.
-            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
+            if (Owner.GetModPlayer<BuffHandler>().GeminiGeniesVanity)
             {
                 AttackState = 0f;
             }
@@ -160,7 +164,7 @@
         public void SpawnInWeapons()
         {
             // Spawn nothing if the player has them equipped as vanity.
-            if (Owner.TwilightEgress_Buffs().GeminiGeniesVanity)
+            if (Owner.GetModPlayer<BuffHandler>().GeminiGeniesVanity)
             {
                 HasSpawnedInWeaponsYet = true;
                 return;

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.BaseEntities.ModNPCs
+﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+
+namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
     public abstract class BaseAsteroid : ModNPC
     {

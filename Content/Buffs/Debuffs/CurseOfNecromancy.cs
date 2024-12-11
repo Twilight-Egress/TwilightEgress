@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Buffs.Debuffs
+﻿using TwilightEgress.Core.Players.BuffHandlers;
+
+namespace TwilightEgress.Content.Buffs.Debuffs
 {
     public class CurseOfNecromancy : ModBuff, ILocalizedModType
     {
@@ -14,15 +16,15 @@
             Main.buffNoSave[Type] = true;
         }
 
-        public override void Update(Player Player, ref int buffIndex)
+        public override void Update(Player player, ref int buffIndex)
         {
-            Player.TwilightEgress_Buffs().CurseOfNecromancy = true;
+            player.GetModPlayer<BuffHandler>().CurseOfNecromancy = true;
             if (Main.CurrentFrameFlags.AnyActiveBossNPC)
-                Player.buffTime[buffIndex] = 18000;
+                player.buffTime[buffIndex] = 18000;
 
-            if (!Main.CurrentFrameFlags.AnyActiveBossNPC && Player.buffTime[buffIndex] > 3600)
+            if (!Main.CurrentFrameFlags.AnyActiveBossNPC && player.buffTime[buffIndex] > 3600)
             {
-                Player.DelBuff(buffIndex);
+                player.DelBuff(buffIndex);
                 buffIndex--;
             }
              
