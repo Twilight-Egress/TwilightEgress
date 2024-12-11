@@ -2,7 +2,7 @@
 
 namespace TwilightEgress.Core.Globals.GlobalItems
 {
-    public class MSKUseFixGlobalItem : GlobalItem
+    public class MSKUseFix : GlobalItem
     {
         public override bool CanUseItem(Item item, Player player)
         {
