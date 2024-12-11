@@ -23,6 +23,8 @@ using System;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {

@@ -1,10 +1,9 @@
 ﻿using Terraria.ModLoader.Core;
-using System.Runtime.Serialization;
-using TwilightEgress.Content.Events.CosmostoneShowers;
 using System;
 using Terraria.ModLoader.IO;
-using Stubble.Core.Classes;
 using System.Collections.Generic;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace TwilightEgress.Content.Events
 {

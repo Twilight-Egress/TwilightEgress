@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Items.Dedicated.Octo;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Items.Dedicated.Octo;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Minions

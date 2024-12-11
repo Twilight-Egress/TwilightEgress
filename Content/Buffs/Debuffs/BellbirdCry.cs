@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Debuffs

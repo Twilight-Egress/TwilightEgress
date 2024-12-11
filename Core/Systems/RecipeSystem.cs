@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Items.Accessories;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Systems
 {

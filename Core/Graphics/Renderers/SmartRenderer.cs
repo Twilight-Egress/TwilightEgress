@@ -1,6 +1,7 @@
 ﻿using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Graphics.Renderers
 {

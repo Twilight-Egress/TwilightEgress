@@ -1,6 +1,9 @@
 ﻿using CalamityMod;
 using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 

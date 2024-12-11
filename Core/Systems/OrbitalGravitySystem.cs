@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Core.Players;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Core.Systems
 {

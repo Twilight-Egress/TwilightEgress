@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using Microsoft.Xna.Framework;
+using System.IO;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs

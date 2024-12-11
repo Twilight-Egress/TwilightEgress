@@ -1,4 +1,6 @@
 ﻿using CalamityMod.NPCs.Signus;
+using Terraria;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Configs;
 
 namespace TwilightEgress.Content.EntityOverrides.Music

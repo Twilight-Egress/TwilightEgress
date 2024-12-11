@@ -1,4 +1,6 @@
-using Terraria.Localization;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace TwilightEgress.Content.Tiles
@@ -16,7 +18,7 @@ namespace TwilightEgress.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 
-			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.MetalBar")); // localized text for "Metal Bar"
+			AddMapEntry(new Color(200, 200, 200));
 		}
 	}
 }

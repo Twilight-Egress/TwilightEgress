@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.EntityOverrides.Items
 {

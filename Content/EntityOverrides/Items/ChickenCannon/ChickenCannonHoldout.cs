@@ -1,15 +1,19 @@
-﻿using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
-using CalamityMod.Projectiles.Ranged;
-using TwilightEgress.Assets;
+﻿using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
+using CalamityMod.Projectiles.Ranged;
 using CalamityMod.Sounds;
-using TwilightEgress.Content.Particles;
 using Luminance.Common.Utilities;
 using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
+using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+
+using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Physics.VerletIntegration
+﻿using Microsoft.Xna.Framework;
+
+namespace TwilightEgress.Core.Physics.VerletIntegration
 {
     public abstract class VerletObject
     {

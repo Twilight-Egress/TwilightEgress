@@ -1,4 +1,8 @@
-﻿namespace TwilightEgress.Core.Globals.GlobalNPCs
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
     public class DebuffHandler : GlobalNPC
     {

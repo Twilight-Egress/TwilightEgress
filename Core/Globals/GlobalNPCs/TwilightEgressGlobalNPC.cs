@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using Microsoft.Xna.Framework;
+using System.Linq;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {

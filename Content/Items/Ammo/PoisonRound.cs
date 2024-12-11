@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using TwilightEgress.Content.Projectiles.Ranged.Ammo;
 
 namespace TwilightEgress.Content.Items.Ammo

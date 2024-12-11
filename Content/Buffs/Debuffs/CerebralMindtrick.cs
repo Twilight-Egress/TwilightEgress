@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Core.Players.BuffHandlers;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Debuffs
 {

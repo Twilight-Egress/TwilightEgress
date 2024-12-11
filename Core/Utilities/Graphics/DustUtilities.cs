@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+
+namespace TwilightEgress
 {
     public static partial class TwilightEgressUtilities
     {

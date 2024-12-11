@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Buffs.Minions

@@ -1,12 +1,11 @@
-﻿using CalamityMod.Buffs.StatBuffs;
-using CalamityMod.Items;
-using CalamityMod.Items.Weapons.Ranged;
+﻿using CalamityMod.Items;
 using TwilightEgress.Content.Items.Materials;
-using Mono.Cecil;
 using Terraria;
 using Terraria.ID;
 using System.Linq;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {

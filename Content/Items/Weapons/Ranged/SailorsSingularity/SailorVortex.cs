@@ -1,10 +1,8 @@
 ﻿using CalamityMod.Projectiles.Typeless;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
+using Microsoft.Xna.Framework;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {
@@ -72,7 +70,6 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
         public override void AI()
         {
             Projectile.scale = 2f;
-            #region Movement
             Player owner = Main.player[Projectile.owner];
             if(!Projectile.WithinRange(owner.Center, 1200f))
                 Projectile.active = false;
@@ -83,7 +80,6 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
                 if (Projectile.velocity.LengthSquared() > maxSpeed * maxSpeed)
                     Projectile.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero) * maxSpeed;
             }
-            #endregion
             
             if (IsProjectileTouchingProjectile(Projectile, ModContent.ProjectileType<SailorStar>()))
                 explosionCounter++;

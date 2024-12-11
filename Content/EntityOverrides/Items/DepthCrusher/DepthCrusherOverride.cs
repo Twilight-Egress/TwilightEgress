@@ -1,4 +1,6 @@
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.DepthCrusher
 {

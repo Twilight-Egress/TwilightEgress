@@ -1,3 +1,6 @@
+using Terraria;
+using Terraria.ModLoader;
+
 namespace TwilightEgress.Core.Players
 {
     public class BeeFlightTimeBoostPlayer : ModPlayer

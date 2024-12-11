@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Items.Dedicated.MPG;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Items.Dedicated.MPG;
 
 namespace TwilightEgress.Core.Globals.GlobalItems
 {

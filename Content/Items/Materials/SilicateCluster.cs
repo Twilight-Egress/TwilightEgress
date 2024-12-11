@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Items.Materials
+﻿using Terraria;
+using Terraria.ModLoader;
+
+namespace TwilightEgress.Content.Items.Materials
 {
     public class SilicateCluster : ModItem, ILocalizedModType
     {

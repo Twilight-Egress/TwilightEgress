@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Terraria;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.Globals.GlobalProjectiles

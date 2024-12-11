@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Physics.Gravity
+﻿using Microsoft.Xna.Framework;
+
+namespace TwilightEgress.Core.Physics.Gravity
 {
     public static class NewtonianGravity
     {

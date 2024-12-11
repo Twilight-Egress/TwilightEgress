@@ -1,6 +1,8 @@
 ﻿using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Physics.Gravity;
 using TwilightEgress.Core.Physics.VerletIntegration;
 

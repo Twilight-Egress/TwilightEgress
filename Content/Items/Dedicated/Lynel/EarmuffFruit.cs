@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Buffs.Pets;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Buffs.Pets;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {

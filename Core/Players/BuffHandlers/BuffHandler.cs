@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 using TwilightEgress.Content.Cooldowns;
 
 namespace TwilightEgress.Core.Players.BuffHandlers

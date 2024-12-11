@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Octo
+﻿using Terraria;
+using Terraria.ModLoader;
+
+namespace TwilightEgress.Content.Items.Dedicated.Octo
 {
     public class KibbyGirl : ModProjectile, ILocalizedModType
     {

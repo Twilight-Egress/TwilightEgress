@@ -5,8 +5,10 @@ using ReLogic.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {

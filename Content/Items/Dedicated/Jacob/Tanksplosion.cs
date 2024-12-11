@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Items.Dedicated.Fluffy;
+﻿using Terraria.ModLoader;
+using TwilightEgress.Content.Items.Dedicated.Fluffy;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {

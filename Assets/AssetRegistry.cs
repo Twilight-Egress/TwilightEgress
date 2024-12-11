@@ -4,6 +4,7 @@ using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Assets 
 {
