@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Particles;
+using ReLogic.Content;
 
 namespace TwilightEgress.Content.Projectiles.Magic
 {

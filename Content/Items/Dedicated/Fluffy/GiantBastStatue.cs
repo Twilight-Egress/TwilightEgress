@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
+﻿using CalamityMod;
+
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class GiantBastStatue : ModProjectile, ILocalizedModType
     {

@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using ReLogic.Content;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Skies
 {
@@ -49,7 +51,9 @@ namespace TwilightEgress.Content.Skies
             }
         }
 
-        private Texture2D GlowStarTexture;
+        private Asset<Texture2D> GlowStarTexture;
+        private Asset<Texture2D> PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+        private Asset<Texture2D> CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
 
         private bool isActive;
 
@@ -92,7 +96,9 @@ namespace TwilightEgress.Content.Skies
 
         public override void OnLoad()
         {
-            GlowStarTexture = AssetRegistry.Textures.SoftStar.Value;
+            GlowStarTexture = AssetRegistry.Textures.SoftStar;
+            PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+            CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
         }
 
         public override void Update(GameTime gameTime)
@@ -133,13 +139,11 @@ namespace TwilightEgress.Content.Skies
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Asset<Texture2D> noiseTexture = AssetRegistry.Textures.PerlinNoise3;
-            Asset<Texture2D> noiseTexture2 = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
             CalamityUtils.EnterShaderRegion(Main.spriteBatch, BlendState.Additive);
 
             ManagedShader shader = ShaderManager.GetShader("TwilightEgress.NoisyVignette");
-            shader.SetTexture(noiseTexture, 1);
-            shader.SetTexture(noiseTexture2, 2);
+            shader.SetTexture(PerlinTexture, 1);
+            shader.SetTexture(CracksTexture, 2);
             shader.TrySetParameter("time", Main.GlobalTimeWrappedHourly / 10f);
             shader.TrySetParameter("scrollSpeed", 0.2f);
             shader.TrySetParameter("vignettePower", 1.65f);

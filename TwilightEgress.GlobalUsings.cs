@@ -21,11 +21,6 @@ global using Terraria.Graphics.Shaders;
 global using Terraria.ObjectData;
 global using Terraria.Localization;
 
-global using ReLogic.Content;
-
-global using CalamityMod;
-global using CalamityMod.Sounds;
-
 global using TwilightEgress.Core.EntityOverridingSystem;
 global using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 global using TwilightEgress.Content.Particles;

@@ -1,4 +1,5 @@
-﻿using CalamityMod.Projectiles;
+﻿using CalamityMod;
+using CalamityMod.Projectiles;
 
 namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {

@@ -3,6 +3,7 @@ using CalamityMod.Projectiles.Ranged;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
+using CalamityMod.Sounds;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

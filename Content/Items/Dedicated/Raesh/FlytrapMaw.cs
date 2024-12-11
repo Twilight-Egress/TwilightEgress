@@ -1,6 +1,8 @@
 ﻿using TwilightEgress.Core.Graphics;
 using Terraria.Map;
 using TwilightEgress.Assets;
+using CalamityMod;
+using ReLogic.Content;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
@@ -12,6 +14,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private List<NPC> NPCsWhoHaveBeenHit { get; set; }
 
+        private Asset<Texture2D> trailTexture;
+
         public new string LocalizationCategory => "Projectiles.Magic";
 
         public override void SetStaticDefaults()
@@ -19,6 +23,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             Main.projFrames[Type] = 4;
             ProjectileID.Sets.TrailCacheLength[Type] = 24;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+
+            trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
         }
 
         public override void SetDefaults()
@@ -133,8 +139,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         public void DrawPrims()
         {
-            Asset<Texture2D> trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
-
             Main.spriteBatch.EnterShaderRegion();
             ShaderManager.TryGetShader("TwilightEgress.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
             textureMapTrailShader.SetTexture(trailTexture, 1);

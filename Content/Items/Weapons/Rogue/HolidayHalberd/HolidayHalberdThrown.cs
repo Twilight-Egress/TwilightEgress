@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using TwilightEgress.Assets;
 using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd

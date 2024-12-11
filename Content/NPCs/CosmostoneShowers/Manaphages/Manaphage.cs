@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 using TwilightEgress.Core.Globals.GlobalNPCs;

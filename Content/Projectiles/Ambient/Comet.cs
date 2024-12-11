@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics;
+﻿using CalamityMod;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Projectiles.Ambient
 {

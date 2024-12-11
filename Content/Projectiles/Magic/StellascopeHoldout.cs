@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Projectiles.Magic
+﻿using CalamityMod;
+using ReLogic.Content;
+
+namespace TwilightEgress.Content.Projectiles.Magic
 {
     public class StellascopeHoldout : ModProjectile
     {

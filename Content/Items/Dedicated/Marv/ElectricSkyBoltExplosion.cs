@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod.Sounds;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.ItemDropRules;
+using CalamityMod;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

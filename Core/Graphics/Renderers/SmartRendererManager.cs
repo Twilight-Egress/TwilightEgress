@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.Graphics.Renderers
+﻿using CalamityMod;
+
+namespace TwilightEgress.Core.Graphics.Renderers
 {
     public class SmartRendererManager : ModSystem
     {

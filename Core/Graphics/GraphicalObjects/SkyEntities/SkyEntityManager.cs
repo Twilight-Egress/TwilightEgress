@@ -1,4 +1,5 @@
-﻿using ReLogic.Threading;
+﻿using CalamityMod;
+using ReLogic.Threading;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {

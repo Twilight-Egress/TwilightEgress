@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
+﻿using CalamityMod;
+
+namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {
     public class PoisonArrowProjectile : ModProjectile, ILocalizedModType
     {

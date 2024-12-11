@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
+﻿using CalamityMod;
+
+namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {
     public class HolidayHalberdIceShockSnowflake : ModProjectile, ILocalizedModType
     {

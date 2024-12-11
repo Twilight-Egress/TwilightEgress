@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;

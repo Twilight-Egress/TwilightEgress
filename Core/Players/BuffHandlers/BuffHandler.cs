@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Cooldowns;
+﻿using CalamityMod;
+using TwilightEgress.Content.Cooldowns;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

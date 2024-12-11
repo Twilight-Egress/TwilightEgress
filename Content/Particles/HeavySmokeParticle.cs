@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using CalamityMod;
+
+namespace TwilightEgress.Content.Particles
 {
     public class HeavySmokeParticle : CasParticle
     {

@@ -1,6 +1,4 @@
-﻿using TwilightEgress.Common.Physics.Gravity;
-
-namespace TwilightEgress.Core.Physics.VerletIntegration
+﻿namespace TwilightEgress.Core.Physics.VerletIntegration
 {
     public abstract class VerletObject
     {

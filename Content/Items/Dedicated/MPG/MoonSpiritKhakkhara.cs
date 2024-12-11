@@ -82,7 +82,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             int type = ModContent.ProjectileType<CurseOfNecromancySkull>();
             int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI);
             if (Main.projectile.IndexInRange(p))
-                Main.projectile[p].ModProjectile<CurseOfNecromancySkull>().SkullIndex = player.ownedProjectileCounts[type];
+                (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).SkullIndex = player.ownedProjectileCounts[type];
             SoundEngine.PlaySound(SoundID.DD2_BetsysWrathShot, player.Center);
 
             int skullIndex = 0;
@@ -90,8 +90,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             {
                 if (Main.projectile[i].type == type && Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI)
                 {
-                    Main.projectile[i].ModProjectile<CurseOfNecromancySkull>().SkullIndex = skullIndex++;
-                    Main.projectile[i].ModProjectile<CurseOfNecromancySkull>().Timer = 0f;
+                    (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).SkullIndex = skullIndex++;
+                    (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).Timer = 0f;
                     Main.projectile[i].netUpdate = true;
                 }
             }

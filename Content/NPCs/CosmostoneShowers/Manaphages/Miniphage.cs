@@ -3,6 +3,7 @@ using TwilightEgress.Core.BaseEntities.ModNPCs;
 using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
+using CalamityMod;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {

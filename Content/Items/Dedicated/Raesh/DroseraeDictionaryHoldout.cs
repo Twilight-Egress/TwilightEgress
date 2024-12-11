@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using CalamityMod;
+using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;

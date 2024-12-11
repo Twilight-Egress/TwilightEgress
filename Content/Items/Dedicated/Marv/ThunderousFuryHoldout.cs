@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using CalamityMod;
+using CalamityMod.Sounds;
+using Terraria;
 using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv

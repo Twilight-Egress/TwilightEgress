@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

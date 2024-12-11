@@ -1,6 +1,7 @@
 ﻿using TwilightEgress.Content.Cooldowns;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals;
+using CalamityMod;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Assets 
+﻿using ReLogic.Content;
+
+namespace TwilightEgress.Assets 
 {
     public class AssetRegistry : ModSystem 
     {

@@ -1,7 +1,8 @@
-﻿using TwilightEgress.Assets;
+﻿using CalamityMod;
+using CalamityMod.Sounds;
+using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
-using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {

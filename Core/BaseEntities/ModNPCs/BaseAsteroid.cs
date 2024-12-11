@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+﻿using CalamityMod;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {

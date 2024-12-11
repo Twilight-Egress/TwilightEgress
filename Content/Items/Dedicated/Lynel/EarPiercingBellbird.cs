@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using CalamityMod;
+using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Buffs.Pets;

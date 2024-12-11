@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
+﻿using CalamityMod;
+
+namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
     public class SpiritFlame : ModProjectile, ILocalizedModType
     {
