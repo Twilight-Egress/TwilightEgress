@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
+﻿using System;
+using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 
 namespace TwilightEgress.Content.Biomes.EnchantedOvergrowth
 {

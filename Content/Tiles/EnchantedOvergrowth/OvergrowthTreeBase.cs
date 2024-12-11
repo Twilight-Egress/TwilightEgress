@@ -1,4 +1,7 @@
-﻿using Terraria.Enums;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.Collections.Generic;
+using Terraria.Enums;
 using Terraria.GameContent.Drawing;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
