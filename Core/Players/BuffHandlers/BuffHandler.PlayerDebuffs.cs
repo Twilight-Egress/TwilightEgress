@@ -53,24 +53,24 @@ namespace TwilightEgress.Core.Players.BuffHandlers
             if (BellbirdStun)
             {
                 // Messed with a few player stats to mimic a more "realstic" disorentation effect.
-                float statFuckeryInterpolant = Lerp(1f, 0.08f, BellbirdStunTimeRatio);
+                float statFuckeryInterpolant = MathHelper.Lerp(1f, 0.08f, BellbirdStunTimeRatio);
 
                 // Reduce the player's acceleration and run speed.
                 Player.runAcceleration = 0.08f * statFuckeryInterpolant;
                 Player.moveSpeed = 1f * statFuckeryInterpolant;
 
                 // Increase their fall speed from the mass disorentation.
-                float fallSpeedInterpolant = Lerp(1f, 2.5f, BellbirdStunTimeRatio);
+                float fallSpeedInterpolant = MathHelper.Lerp(1f, 2.5f, BellbirdStunTimeRatio);
                 Player.maxFallSpeed = 10f * fallSpeedInterpolant;
 
                 // Visual effects.
                 if (BellbirdStunTime <= BellbirdStunMaxTime)
                 {
-                    float abberationInterpolant = Lerp(0f, 25f, BellbirdStunTimeRatio);
+                    float abberationInterpolant = MathHelper.Lerp(0f, 25f, BellbirdStunTimeRatio);
                     ChromaticAbberationRenderer.ApplyChromaticAbberation(Main.LocalPlayer.Center, abberationInterpolant, 240);
 
-                    float vignettePowerInterpolant = Lerp(20f, 2f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
-                    float vignetteBrightnessInterpolant = Lerp(0f, 3f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignettePowerInterpolant = MathHelper.Lerp(20f, 2f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignetteBrightnessInterpolant = MathHelper.Lerp(0f, 3f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
                     DarkVignetteRenderer.ApplyDarkVignette(Main.LocalPlayer.Center, vignettePowerInterpolant, vignetteBrightnessInterpolant, 180);
                 }
 

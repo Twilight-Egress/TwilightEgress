@@ -2,6 +2,7 @@
 using Luminance.Common.Utilities;
 using System;
 using System.Linq;
+using Terraria.Graphics.Shaders;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -121,8 +122,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 return;
             }
 
-            ritualCircleOpacity = Clamp(ritualCircleOpacity + 0.01f, 0f, 1f);
-            ritualCircleScale = Clamp(ritualCircleScale + 0.02f, 0f, 1f);
+            ritualCircleOpacity = MathHelper.Clamp(ritualCircleOpacity + 0.01f, 0f, 1f);
+            ritualCircleScale = MathHelper.Clamp(ritualCircleScale + 0.02f, 0f, 1f);
 
             // Spawn in the lanterns.
             if (Timer >= MaxChargeTime && Timer % 30 == 0)
@@ -143,9 +144,9 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             // Ritual circle visuals.
             if (Timer <= 60f)
-                ritualCircleOpacity = Lerp(1f, 0f, TwilightEgressUtilities.SineEaseOut(Timer / 60f));
+                ritualCircleOpacity = MathHelper.Lerp(1f, 0f, TwilightEgressUtilities.SineEaseOut(Timer / 60f));
             if (Timer <= 75f)
-                ritualCircleScale = Lerp(0f, 3f, TwilightEgressUtilities.SineEaseOut(Timer / 75f));
+                ritualCircleScale = MathHelper.Lerp(0f, 3f, TwilightEgressUtilities.SineEaseOut(Timer / 75f));
 
             if (Timer == 1)
             {
@@ -176,7 +177,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             owner.itemTime = 2;
             owner.itemAnimation = 2;
             owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -200,12 +201,12 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             // If we're facing the left, we set the extra angle to Pi/2 (90 degrees) so that the rotation flips.
-            float extraAngle = Owner.direction < 0 ? PiOver2 : 0f;
+            float extraAngle = Owner.direction < 0 ? MathHelper.PiOver2 : 0f;
             // Set the base draw angle to the projectile's rotation. Projectile.rotation is what
             // you'll be adjusting to change rotations.
             float baseDrawAngle = Projectile.rotation;
             // We set the final rotation by adding the extra angle and Pi/4 (45 degrees) to the base draw angle.
-            float drawRotation = baseDrawAngle + PiOver4 + extraAngle;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4 + extraAngle;
 
             // Set the origin that we'll draw from. 
             // This code here specifically ensures that the sprite itself flips depending on what direction
@@ -220,7 +221,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * 3f;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * 3f;
                 Color backglowColor = Utilities.ColorSwap(Color.Cyan, Color.LightSkyBlue, 5f);
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, null, Projectile.GetAlpha(backglowColor), drawRotation, origin, Projectile.scale, effects, 0);
             }

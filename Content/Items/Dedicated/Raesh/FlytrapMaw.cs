@@ -47,7 +47,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
         {
             // Scale up depending on the player's current life.
             NPCsWhoHaveBeenHit = new();
-            float scaleFactor = Lerp(1f, 1.75f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            float scaleFactor = MathHelper.Lerp(1f, 1.75f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             Projectile.scale = 1f * scaleFactor;
         }
 
@@ -60,8 +60,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 return;
             }
 
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
-            Projectile.rotation = Projectile.velocity.ToRotation() + Pi;
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
             Projectile.UpdateProjectileAnimationFrames(0, 4, 5);
             Projectile.AdjustProjectileHitboxByScale(28f, 28f);
         }
@@ -93,8 +93,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1);
 
-            int dustCount = 15 * (int)Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
-            float speed = Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            int dustCount = 15 * (int)MathHelper.Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            float speed = MathHelper.Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float scale = Main.rand.NextFloat(0.65f, 1.25f) * Projectile.scale;
             TwilightEgressUtilities.CreateRandomizedDustExplosion(dustCount, Projectile.Center, DustID.Plantera_Green, speed, dustScale: scale);
 

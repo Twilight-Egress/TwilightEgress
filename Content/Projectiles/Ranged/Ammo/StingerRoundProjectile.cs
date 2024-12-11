@@ -29,7 +29,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
             int stingerAmount = Main.rand.Next(2, 5);
             for (int i = 0; i < stingerAmount; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * 7f;
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 7f;
                 int damage = (int)Owner.GetTotalDamage(Projectile.DamageType).ApplyTo(3f);
                 Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<StingerRoundStinger>(), damage, Projectile.knockBack * 0.45f);
             }

@@ -40,7 +40,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
         public override void OnSpawn(IEntitySource source)
         {
             RandomNewScale = Main.rand.NextFloat(1f, 1.75f);
-            Projectile.rotation = Main.rand.NextFloat(TwoPi);
+            Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             SoundEngine.PlaySound(AssetRegistry.Sounds.IceShock, Projectile.Center);
         }
 
@@ -57,12 +57,12 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             // Scale up.
             if (Timer <= 20f)
             {
-                Projectile.scale = Lerp(Projectile.scale, RandomNewScale, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, RandomNewScale, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
             }
 
             if (Timer >= 30f)
-                projectileTextureOpacity = Clamp(projectileTextureOpacity + 0.065f, 0f, 1f);
+                projectileTextureOpacity = MathHelper.Clamp(projectileTextureOpacity + 0.065f, 0f, 1f);
 
             // Particles.
             if (Main.rand.NextBool(3))
@@ -82,7 +82,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 10f);
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 10f);
                     Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.width);
                     Color initialColor = Color.Lerp(Color.LightSkyBlue, Color.Cyan, Main.rand.NextFloat()) * Main.rand.NextFloat(0.45f, 0.75f);
                     float scale = Main.rand.NextFloat(0.75f, 2f) * Projectile.scale;
@@ -100,10 +100,10 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
         {
             SoundEngine.PlaySound(AssetRegistry.Sounds.CryogenShieldBreak, Projectile.Center);
             // Spawn a ring of arcing snowflakes, similar to the original Iceshock.
-            float snowflakeAngularVelocity = ToRadians(3f);
+            float snowflakeAngularVelocity = MathHelper.ToRadians(3f);
             for (int i = 0; i < 6; i++)
             {
-                Vector2 snowflakeVelocity = Vector2.UnitX.RotatedBy(TwoPi * i / 6) * 16f;
+                Vector2 snowflakeVelocity = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * i / 6) * 16f;
                 int damage = (int)(Projectile.damage * 0.65f);
                 Projectile.BetterNewProjectile(Projectile.Center, snowflakeVelocity, ModContent.ProjectileType<HolidayHalberdIceShockSnowflake>(), damage,
                     Projectile.knockBack, owner: Projectile.owner, ai0: snowflakeAngularVelocity);

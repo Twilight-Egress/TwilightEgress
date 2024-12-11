@@ -42,7 +42,7 @@ namespace TwilightEgress.Content.Particles
             Rotation += RotationSpeed * Velocity.X.DirectionalSign();
             Velocity *= 0.85f;
 
-            Opacity = Lerp(InitialOpacity, 0f, LifetimeRatio);
+            Opacity = MathHelper.Lerp(InitialOpacity, 0f, LifetimeRatio);
             if (LifetimeRatio < 0.75f)
                 Scale *= 1.01f;
             else

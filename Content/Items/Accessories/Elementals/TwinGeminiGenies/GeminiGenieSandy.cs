@@ -138,7 +138,7 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             Projectile.AdjustProjectileHitboxByScale(54f, 114f);
 
             Vector2 idlePosition = Owner.Center - Vector2.UnitX * 175f;
-            idlePosition.Y += Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
+            idlePosition.Y += MathHelper.Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
 
             float speed = 25f;
             Vector2 idealVelocity = idlePosition - Projectile.Center;
@@ -259,9 +259,9 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
                     Projectile.SimpleMove(targetCenter, 45f, 85f);
                     if (Timer <= 30f)
                     {
-                        sandTwisterOpacity = Lerp(sandTwisterOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
-                        sandTwisterScale = Lerp(5f, 2.25f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
-                        Projectile.Opacity = Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        sandTwisterOpacity = MathHelper.Lerp(sandTwisterOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        sandTwisterScale = MathHelper.Lerp(5f, 2.25f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
                     }
                 }
 
@@ -297,9 +297,9 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             ref float sandTwisterScale = ref Projectile.TwilightEgress().ExtraAI[SandTwisterScaleIndex];
             ref float sandTwisterOpacity = ref Projectile.TwilightEgress().ExtraAI[SandTwisterOpacityIndex];
 
-            sandTwisterOpacity = Clamp(sandTwisterOpacity - 0.05f, 0f, 1f);
-            sandTwisterScale = Clamp(sandTwisterScale + 0.05f, 0f, 5f);
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
+            sandTwisterOpacity = MathHelper.Clamp(sandTwisterOpacity - 0.05f, 0f, 1f);
+            sandTwisterScale = MathHelper.Clamp(sandTwisterScale + 0.05f, 0f, 5f);
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
         }
 
         public void AnimateTwister()

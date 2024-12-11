@@ -63,7 +63,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Projectile.rotation += 0.03f * Projectile.direction;
             if (Projectile.spriteDirection == -1)
             {
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
             }
 
             PerformAttack();
@@ -75,8 +75,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
             Owner.ChangeDir(MathF.Sign(Owner.AngleTo(Main.MouseWorld).ToRotationVector2().X));
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
-            Owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - MathHelper.PiOver2);
+            Owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - MathHelper.PiOver2);
         }
 
         public void PerformAttack()
@@ -96,7 +96,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             {
                 if (ChargeTimer % 15 == 0f)
                 {
-                    pulseRingInitialScale = Clamp(pulseRingInitialScale + 0.25f, 0.5f, 3.5f);
+                    pulseRingInitialScale = MathHelper.Clamp(pulseRingInitialScale + 0.25f, 0.5f, 3.5f);
                     PulseRingParticle chargeUpRing = new(Owner.Center, Vector2.Zero, Color.CornflowerBlue, pulseRingInitialScale, 0.01f, 45);
                     chargeUpRing.SpawnCasParticle();
 
@@ -104,7 +104,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
                     for (int i = 0; i < 36; i++)
                     {
-                        Vector2 magicDustSpawnOffset = (TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
+                        Vector2 magicDustSpawnOffset = (MathHelper.TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
                         Dust dust = Dust.NewDustPerfect(Owner.Center + magicDustSpawnOffset, 267);
                         dust.color = Color.Lerp(Color.CornflowerBlue, Color.Fuchsia, Main.rand.NextFloat());
                         dust.noGravity = true;
@@ -116,8 +116,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 // Start to make the ritual circle visible after 3 seconds.
                 if (ChargeTimer >= 60)
                 {
-                    ritualCircleScale = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
-                    ritualCircleOpacity = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleScale = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleOpacity = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
                 }
             }
 
@@ -126,7 +126,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 if (Owner.CheckMana(300, true, false))
                     Owner.manaRegenDelay = Owner.maxRegenDelay;
 
-                Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(TwoPi) * 250f;
+                Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * 250f;
                 Vector2 velocity = -spawnPosition.DirectionTo(Owner.Center).SafeNormalize(Vector2.UnitY) * 5f;
                 Projectile.BetterNewProjectile(spawnPosition, velocity, ModContent.ProjectileType<Rampart>(), Projectile.damage, Projectile.knockBack, SoundID.Item105);
             }
@@ -173,8 +173,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             // Draw the three orbiting summoning circles.
             for (int i = 0; i < 3; i++)
             {
-                orbitingSummoningCircleRotation += TwoPi / 1200f;
-                Vector2 orbitingRitualDrawPosition = mainRitualDrawPosition - Vector2.UnitY.RotatedBy(orbitingSummoningCircleRotation + TwoPi * i / 3f) * 192f;
+                orbitingSummoningCircleRotation += MathHelper.TwoPi / 1200f;
+                Vector2 orbitingRitualDrawPosition = mainRitualDrawPosition - Vector2.UnitY.RotatedBy(orbitingSummoningCircleRotation + MathHelper.TwoPi * i / 3f) * 192f;
 
                 Color outerOrbitingCircleColor = outerRitualColor * ritualCircleOpacity * 0.8f;
                 Color blurredOrbitingCircleColor = innerRitualColor * ritualCircleOpacity;
@@ -189,7 +189,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            float rotation = Owner.AngleTo(Main.MouseWorld) + (Owner.direction < 0 ? Pi : 0f);
+            float rotation = Owner.AngleTo(Main.MouseWorld) + (Owner.direction < 0 ? MathHelper.Pi : 0f);
             Vector2 drawPosition = Owner.MountedCenter + new Vector2(0f, -2f) + rotation.ToRotationVector2() * (Owner.direction < 0 ? -30f : 30f) - Main.screenPosition;
 
             Main.EntitySpriteDraw(texture, drawPosition, texture.Frame(), Projectile.GetAlpha(lightColor), rotation, texture.Size() / 2f, Projectile.scale, effects, 0);

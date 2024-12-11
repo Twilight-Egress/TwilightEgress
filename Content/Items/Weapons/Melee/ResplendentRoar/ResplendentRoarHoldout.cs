@@ -46,9 +46,9 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
         private bool Initialized { get; set; }
 
-        private const float StartingAngle = -(PiOver2 + PiOver4);
+        private const float StartingAngle = -(MathHelper.PiOver2 + MathHelper.PiOver4);
 
-        private const float LargeSwingAngle = -(Pi + PiOver4);
+        private const float LargeSwingAngle = -(MathHelper.Pi + MathHelper.PiOver4);
 
         private const int SmallSwingMaxTime = 35;
 
@@ -163,9 +163,9 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
             float startingAngle = StartingAngle * SwingDirection + BaseRotation;
             float endingAngle = -StartingAngle * SwingDirection + BaseRotation;
-            Projectile.rotation = Lerp(startingAngle, endingAngle, SwingRatio(true));
+            Projectile.rotation = MathHelper.Lerp(startingAngle, endingAngle, SwingRatio(true));
 
-            float distanceToMiddle = Distance(SwingRatio(true), 0.5f);
+            float distanceToMiddle = MathHelper.Distance(SwingRatio(true), 0.5f);
             if (Timer == SmallSwingMaxTime / 2)
             {
                 SoundEngine.PlaySound(AssetRegistry.Sounds.YharonHurt with { PitchVariance = 1f }, Projectile.Center);
@@ -191,9 +191,9 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
             float startingAngle = LargeSwingAngle * SwingDirection + BaseRotation;
             float endingAngle = -StartingAngle * SwingDirection + BaseRotation;
-            Projectile.rotation = Lerp(startingAngle, endingAngle, SwingRatio(false));
+            Projectile.rotation = MathHelper.Lerp(startingAngle, endingAngle, SwingRatio(false));
 
-            float distanceToMiddle = Distance(SwingRatio(false), 0.5f);
+            float distanceToMiddle = MathHelper.Distance(SwingRatio(false), 0.5f);
             if (Timer == LargeSwingMaxTime / 2)
             {
                 SoundEngine.PlaySound(AssetRegistry.Sounds.YharonRoarShort with { PitchVariance = 0.15f }, Projectile.Center);
@@ -235,8 +235,8 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
                 float maximumOpacity = 1f * Utils.GetLerpValue(0f, 1f, Owner.GetModPlayer<ResplendentRoarPlayer>().ResplendentRazeCharge / 100f, true);
                 float maximumScale = 1.35f * Utils.GetLerpValue(0f, 1f, Owner.GetModPlayer<ResplendentRoarPlayer>().ResplendentRazeCharge / 100f, true);
-                yharonOpacity = Lerp(yharonOpacity, maximumOpacity, Timer / 90f);
-                yharonScale = Lerp(yharonScale, maximumScale, Timer / 90f);
+                yharonOpacity = MathHelper.Lerp(yharonOpacity, maximumOpacity, Timer / 90f);
+                yharonScale = MathHelper.Lerp(yharonScale, maximumScale, Timer / 90f);
 
                 if (Timer >= 90f && !IsChannelingRMB || Timer >= 600f)
                 {
@@ -277,9 +277,9 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
             if (AIState == 2f)
             {
-                yharonOpacity = Clamp(yharonOpacity - 0.025f, 0f, 1f);
-                yharonScale = Clamp(yharonScale - 0.025f, 0f, 1.35f);
-                Projectile.scale = Clamp(Projectile.scale - 0.025f, 0f, 1f);
+                yharonOpacity = MathHelper.Clamp(yharonOpacity - 0.025f, 0f, 1f);
+                yharonScale = MathHelper.Clamp(yharonScale - 0.025f, 0f, 1.35f);
+                Projectile.scale = MathHelper.Clamp(Projectile.scale - 0.025f, 0f, 1f);
                 Owner.velocity *= 0.9f;
 
                 if (Timer >= 30f)
@@ -353,7 +353,7 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
             ScreenShakeSystem.StartShakeAtPoint(target.Center, 3f, shakeStrengthDissipationIncrement: 0.5f, intensityTaperEndDistance: 2000);
             for (int i = 0; i < Main.rand.Next(15, 25); i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(5f, 15f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(5f, 15f);
                 float scale = Main.rand.NextFloat(0.85f, 1.25f);
                 int lifespan = Main.rand.Next(25, 45);
 
@@ -369,7 +369,7 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
             {
                 for (int i = 0; i < Main.rand.Next(10, 12); i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 7f);
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 7f);
                     float scale = Main.rand.NextFloat(1f, 2f);
                     int lifespan = Main.rand.Next(25, 45);
 
@@ -395,8 +395,8 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
             {
                 Owner.itemRotation -= (float)Math.PI;
             }
-            Owner.itemRotation = WrapAngle(Projectile.rotation);
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            Owner.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -418,9 +418,9 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
             SpriteEffects effects = shouldFlipSprite ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            float extraAngle = shouldFlipSprite ? PiOver2 : 0f;
+            float extraAngle = shouldFlipSprite ? MathHelper.PiOver2 : 0f;
             float baseDrawAngle = Projectile.rotation;
-            float drawRotation = baseDrawAngle + PiOver4 + extraAngle;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4 + extraAngle;
 
             Vector2 origin = new Vector2(shouldFlipSprite ? texture.Width : 0f, texture.Height);
             Vector2 drawPosition = Projectile.Center + baseDrawAngle.ToRotationVector2() - Main.screenPosition;
@@ -429,7 +429,7 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * 3f;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * 3f;
 
                 Color colorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.IndianRed, Color.Yellow, Color.Red);
                 Color secondColorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.OrangeRed, Color.Sienna, Color.PaleVioletRed);

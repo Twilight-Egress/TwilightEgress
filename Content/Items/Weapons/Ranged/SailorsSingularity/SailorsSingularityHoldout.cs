@@ -47,7 +47,7 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, fireRotation - PiOver2);
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, fireRotation - MathHelper.PiOver2);
         }
         public override void AI()
         {           
@@ -74,7 +74,7 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
                             counter = 0;
                             swingUp = swingUp ? false : true;
                         }
-                        float range = Pi / 2 - (float)(attackCounter / 8f);
+                        float range = MathHelper.Pi / 2 - (float)(attackCounter / 8f);
                         Vector2 position = owner.Center - Vector2.UnitY * 24 + toMouse * 20;
                         int rotationDirection = swingUp ? -1 : 1;
 
@@ -100,7 +100,7 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
                                 if (Main.myPlayer == Projectile.owner)
                                 {
                                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, toMouse * 12f, ModContent.ProjectileType<SailorBlast>(), Projectile.damage * 3, Projectile.knockBack, owner.whoAmI);
-                                    owner.velocity += toMouse.RotatedBy(Pi) * 5f;
+                                    owner.velocity += toMouse.RotatedBy(MathHelper.Pi) * 5f;
                                 }
                             }                           
                             if(despawnCounter < 15)

@@ -65,7 +65,7 @@
         {
             for (int i = 0; i < maxDusts; i++)
             {
-                Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (maxDusts / 2 - 1) * TwoPi / maxDusts)) + dustPosition;
+                Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (maxDusts / 2 - 1) * MathHelper.TwoPi / maxDusts)) + dustPosition;
                 Vector2 dustVelocity = dustRotation - dustPosition;
                 Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, dustType, Vector2.Normalize(dustVelocity) * dustSpeed, dustAlpha, dustColor, dustScale);
                 dust.noGravity = shouldDefyGravity;

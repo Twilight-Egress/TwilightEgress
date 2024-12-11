@@ -89,7 +89,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             Projectile.Center = owner.RotatedRelativePoint(owner.MountedCenter, true);
             Projectile.rotation = owner.MountedCenter.AngleTo(owner.Calamity().mouseWorld);
             if (Projectile.spriteDirection == -1)
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
         }
 
         public void DoBehavior_Thunderbolt()
@@ -104,7 +104,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 float sparkScale = Main.rand.NextFloat(0.75f, 1.25f);
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                     SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, particleColor, sparkScale, sparkLifespan);
                     electricSpark.SpawnCasParticle();
                 }
@@ -136,7 +136,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 float sparkScale = Main.rand.NextFloat(0.75f, 1.25f);
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                     SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, particleColor, sparkScale, sparkLifespan);
                     electricSpark.SpawnCasParticle();
                 }
@@ -158,21 +158,21 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             owner.itemTime = 2;
             owner.itemAnimation = 2;
             owner.ChangeDir(Math.Sign(Projectile.rotation.ToRotationVector2().X));
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            float rotation = Projectile.rotation + (Owner.direction < 0 ? Pi : 0f);
+            float rotation = Projectile.rotation + (Owner.direction < 0 ? MathHelper.Pi : 0f);
             Vector2 drawPosition = Owner.MountedCenter + new Vector2(0f, -2f) + Projectile.rotation.ToRotationVector2() - Main.screenPosition;
 
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * backglowRadius;
+                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, texture.Frame(), Projectile.GetAlpha(Color.LightYellow), rotation, texture.Size() / 2f, Projectile.scale, effects, 0);

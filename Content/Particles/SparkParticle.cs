@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             Scale *= 0.95f;
-            Opacity = Lerp(InitialOpacity, 0f, MathF.Pow(LifetimeRatio, 4f));
+            Opacity = MathHelper.Lerp(InitialOpacity, 0f, MathF.Pow(LifetimeRatio, 4f));
 
             Velocity *= 0.95f;
             if (Velocity.Length() < 12f && AffectedByGravity)
@@ -35,7 +35,7 @@ namespace TwilightEgress.Content.Particles
                 Velocity.Y += 0.25f;
             }
 
-            Rotation = Velocity.ToRotation() + PiOver2;
+            Rotation = Velocity.ToRotation() + MathHelper.PiOver2;
         }
     }
 }

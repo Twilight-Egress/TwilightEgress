@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Sounds;
 using Luminance.Common.Utilities;
+using Terraria.Graphics.Shaders;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -55,7 +56,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.rotation = Main.rand.NextFloat(TwoPi);
+            Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
         }
 
@@ -68,21 +69,21 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             if (Timer <= MaxChargeTime)
             {
                 Projectile.velocity *= 0.9f;
-                Projectile.Opacity = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
-                Projectile.rotation += TwoPi / 120f * RotationDirection;
+                Projectile.Opacity = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.rotation += MathHelper.TwoPi / 120f * RotationDirection;
 
                 // Backglow visuals.
                 if (Timer <= 100)
                 {
-                    rampartBackglowOpacity = Lerp(rampartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
-                    rampartBackglowRadius = Lerp(175f, 3f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
+                    rampartBackglowOpacity = MathHelper.Lerp(rampartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
+                    rampartBackglowRadius = MathHelper.Lerp(175f, 3f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
                 }
 
                 // Handle the anvil and summoning circle drawing.
                 if (Timer <= 30f)
-                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
                 if (Timer >= MaxChargeTime - 25 && Timer <= MaxChargeTime)
-                    anvilAndSummoningCricleOpacity = Lerp(anvilAndSummoningCricleOpacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 25f));
+                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 25f));
 
                 // Dust visuals.
                 if (Timer <= MaxChargeTime - 45)
@@ -135,14 +136,14 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             int bombCount = Main.rand.Next(6, 14);
             for (int i = 0; i < bombCount; i++)
             {
-                Vector2 bombVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(4f, 25f);
+                Vector2 bombVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(4f, 25f);
                 Projectile.BetterNewProjectile(Projectile.Center, bombVelocity, ModContent.ProjectileType<DetonatingDraedonHeart>(), (int)(Projectile.damage * 0.45f), Projectile.knockBack);
             }
 
             // Some particles to mimic an explosion like effect.
             for (int i = 0; i < 35; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(15f, 25f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(15f, 25f);
                 Color color = Color.Lerp(Color.Goldenrod, Color.CornflowerBlue, Main.rand.NextFloat());
                 float scale = Main.rand.NextFloat(1.25f, 3f);
                 HeavySmokeParticle deathSmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true, 0);
@@ -183,8 +184,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)
             {
-                rampartBackglowSpin += TwoPi / 600f;
-                Vector2 rampartBackglowDrawPosition = Projectile.Center + Vector2.UnitY.RotatedBy(rampartBackglowSpin + TwoPi * i / 8f) * rampartBackglowRadius + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
+                rampartBackglowSpin += MathHelper.TwoPi / 600f;
+                Vector2 rampartBackglowDrawPosition = Projectile.Center + Vector2.UnitY.RotatedBy(rampartBackglowSpin + MathHelper.TwoPi * i / 8f) * rampartBackglowRadius + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
                 Color color = Color.Goldenrod;
                 if (i % 2 == 0)
                     color = Color.Cyan;
@@ -219,8 +220,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                cosmicAnvilBackglowSpin += TwoPi / 300f;
-                Vector2 cosmicAnvilOrbitingBackglowDrawPosition = cosmicAnvilDrawPosition + Vector2.UnitY.RotatedBy(cosmicAnvilBackglowSpin + TwoPi * i / 4f) * 10f;
+                cosmicAnvilBackglowSpin += MathHelper.TwoPi / 300f;
+                Vector2 cosmicAnvilOrbitingBackglowDrawPosition = cosmicAnvilDrawPosition + Vector2.UnitY.RotatedBy(cosmicAnvilBackglowSpin + MathHelper.TwoPi * i / 4f) * 10f;
                 Color cosmicAnvilBackglowColor = Utilities.ColorSwap(Color.Magenta, Color.Fuchsia, 1f) * anvilAndSummoningCricleOpacity;
 
                 Main.EntitySpriteDraw(cosmicAnvil, cosmicAnvilOrbitingBackglowDrawPosition, null, cosmicAnvilBackglowColor, 0f, cosmicAnvil.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);

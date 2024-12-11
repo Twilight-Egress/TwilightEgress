@@ -103,12 +103,12 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
                 // gradual effect, to give them a more realistic feeling of being pulled into a planet's atmosphere.
                 // Full equation is explained in OrbitalGravityPlayer.
                 GravitationalVariable += GravitationalIncrement;
-                GravitationalVariable = Clamp(GravitationalVariable, 0f, MaxGravitationalIncrease);
+                GravitationalVariable = MathHelper.Clamp(GravitationalVariable, 0f, MaxGravitationalIncrease);
             }
             else
             {
                 // Reset if this planetoid instance is not being utilized at the moment.
-                GravitationalVariable = Clamp(GravitationalVariable - 1f, 0f, MaxGravitationalIncrease);
+                GravitationalVariable = MathHelper.Clamp(GravitationalVariable - 1f, 0f, MaxGravitationalIncrease);
             }
 
             if (!SafePreAI())

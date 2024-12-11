@@ -56,7 +56,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
             RotationSpeedSpawnFactor = Main.rand.NextFloat(300f, 960f) * Utils.SelectRandom(Main.rand, -1, 1);
 
             // Initialize a bunch of fields.
-            NPC.rotation = Main.rand.NextFloat(TwoPi);
+            NPC.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.scale = Main.rand.NextFloat(0.75f, 1.25f);
             NPC.spriteDirection = Main.rand.NextBool().ToDirectionInt();
             //NPC.frame.Y = Main.rand.Next(0, 2) * 82;
@@ -75,7 +75,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
             for (int i = 0; i < 12; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(0.6f, 0.85f) * NPC.velocity.Y;
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(0.6f, 0.85f) * NPC.velocity.Y;
                 Color initialColor = Color.Lerp(Color.DarkGray, Color.Cyan, Main.rand.NextFloat());
                 Color fadeColor = Color.SaddleBrown;
                 float scale = Main.rand.NextFloat(0.85f, 1.75f) * NPC.scale;
@@ -109,11 +109,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public void HandleOnHitDrops(Player player, Item item)
         {
             // Also, drop pieces of Cosmostone and Cometstone at a 1/10 chance.
-            int chance = (int)(12 * Lerp(1f, 0.3f, NPC.scale / 2f) * Lerp(1f, 0.2f, item.pick / 250f));
+            int chance = (int)(12 * MathHelper.Lerp(1f, 0.3f, NPC.scale / 2f) * MathHelper.Lerp(1f, 0.2f, item.pick / 250f));
             if (Main.rand.NextBool(chance))
             {
                 int itemType = ModContent.ItemType<Cosmostone>();
-                int itemStack = (int)Math.Round(1 * Lerp(1f, 3f, NPC.scale / 2f));
+                int itemStack = (int)Math.Round(1 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
                 int i = Item.NewItem(NPC.GetSource_OnHurt(player), NPC.Center + Main.rand.NextVector2Circular(NPC.width, NPC.height), itemType, itemStack);
                 if (Main.item.IndexInRange(i))
                     Main.item[i].velocity = Main.rand.NextVector2Circular(4f, 4f);
@@ -137,8 +137,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            int minimumStack = (int)Math.Round(3 * Lerp(1f, 3f, NPC.scale / 2f));
-            int maximumStack = (int)Math.Round(5 * Lerp(1f, 3f, NPC.scale / 2f));
+            int minimumStack = (int)Math.Round(3 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
+            int maximumStack = (int)Math.Round(5 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cosmostone>(), default, minimumStack, maximumStack));
         }
 
@@ -160,7 +160,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
                 for (int i = 0; i < 12; i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 7f) * hit.HitDirection;
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 7f) * hit.HitDirection;
                     Color initialColor = Color.Lerp(Color.DarkGray, Color.Cyan, Main.rand.NextFloat());
                     Color fadeColor = Color.SaddleBrown;
                     float scale = Main.rand.NextFloat(0.85f, 1.75f) * NPC.scale;

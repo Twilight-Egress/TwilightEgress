@@ -31,9 +31,9 @@ namespace TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid
 
             // Fade in and out.
             if (Time < timeToDisappear)
-                Opacity = Clamp(Opacity + 0.1f, 0f, 1f);
+                Opacity = MathHelper.Clamp(Opacity + 0.1f, 0f, 1f);
             if (Time >= timeToDisappear && Time <= Lifetime)
-                Opacity = Clamp(Opacity - 0.1f, 0f, 1f);
+                Opacity = MathHelper.Clamp(Opacity - 0.1f, 0f, 1f);
 
             Rotation += RotationSpeed * Velocity.X * 0.006f;
         }

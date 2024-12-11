@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
         {
             if (Projectile.timeLeft == 480)
             {
-                Projectile.rotation = Main.rand.NextFloat(TwoPi);
+                Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                 Projectile.scale = Main.rand.NextFloat(0.65f, 1.25f);
             }
 
@@ -35,11 +35,11 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
             if (Projectile.timeLeft >= 60)
             {
-                Projectile.alpha = (int)Clamp(Projectile.alpha - 17, 0, 255);
+                Projectile.alpha = (int)MathHelper.Clamp(Projectile.alpha - 17, 0, 255);
             }
             else
             {
-                Projectile.alpha = (int)Clamp(Projectile.alpha + 17, 0, 255);
+                Projectile.alpha = (int)MathHelper.Clamp(Projectile.alpha + 17, 0, 255);
             }
 
             Lighting.AddLight(Projectile.Center, Color.Goldenrod.ToVector3() * 0.35f);

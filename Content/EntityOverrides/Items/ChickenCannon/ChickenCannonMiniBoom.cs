@@ -25,7 +25,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
         {
             // Spawn a pulse ring particle.
             Color color = Color.Lerp(Color.Yellow, Color.Red, Main.rand.NextFloat(0.2f, 0.8f));
-            PulseRingParticle explosionRing = new(Projectile.Center, Vector2.Zero, color, 0.01f, 2f, new Vector2(1f, 1f), Main.rand.NextFloat(TwoPi), 75);
+            PulseRingParticle explosionRing = new(Projectile.Center, Vector2.Zero, color, 0.01f, 2f, new Vector2(1f, 1f), Main.rand.NextFloat(MathHelper.TwoPi), 75);
             explosionRing.SpawnCasParticle();
         }
 

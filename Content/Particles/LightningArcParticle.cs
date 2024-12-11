@@ -52,7 +52,7 @@ namespace TwilightEgress.Content.Particles
             }
         }
 
-        public float LightningWidthFunction(float trailLengthInterpolant) => Scale.X * Utils.GetLerpValue(1f, 0f, trailLengthInterpolant, true) * Lerp(1f, 0f, LifetimeRatio);
+        public float LightningWidthFunction(float trailLengthInterpolant) => Scale.X * Utils.GetLerpValue(1f, 0f, trailLengthInterpolant, true) * MathHelper.Lerp(1f, 0f, LifetimeRatio);
 
         public Color LightningColorFunction(float trailLengthInterpolant) => DrawColor;
 

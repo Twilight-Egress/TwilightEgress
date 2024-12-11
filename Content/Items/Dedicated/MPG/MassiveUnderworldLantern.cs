@@ -55,7 +55,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
                 if (Timer >= MaxChargingTime)
                 {
-                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, 0.03f);
+                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, 0.03f);
                     Projectile.damage = 0;
                     Projectile.velocity *= 0.9f;
                     if (Timer >= MaxChargingTime + FadeoutTime)
@@ -68,7 +68,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             if (AIState == 0f)
             {
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
                 Projectile.rotation = Projectile.AngleTo(closestTarget.Center);
                 Projectile.velocity *= 0.9f;
 
@@ -94,7 +94,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                     // Some particles to mimic an explosion like effect.
                     for (int i = 0; i < 35; i++)
                     {
-                        Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(15f, 25f);
+                        Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(15f, 25f);
                         Color color = Color.Lerp(Color.Cyan, Color.CornflowerBlue, Main.rand.NextFloat());
                         float scale = Main.rand.NextFloat(3f, 6f);
                         HeavySmokeParticle deathSmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true, 0);
@@ -116,7 +116,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             if (AIState == 2f)
             {
-                Projectile.Opacity = Lerp(Projectile.Opacity, 0f, 0.03f);
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, 0.03f);
                 Projectile.damage = 0;
                 Projectile.velocity *= 0.9f;
                 if (Timer >= FadeoutTime)

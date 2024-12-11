@@ -17,7 +17,7 @@ namespace TwilightEgress.Content.Particles
             BaseOpacity = baseOpacity;
             Lifetime = lifespan;
 
-            Rotation = Main.rand.NextFloat(TwoPi);
+            Rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             SmokeTexture = ModContent.Request<Texture2D>(AssetRegistry.Textures.Smokes[Main.rand.Next(AssetRegistry.Textures.Smokes.Count)]).Value;
         }
 
@@ -31,7 +31,7 @@ namespace TwilightEgress.Content.Particles
             Velocity *= 0.98f;
 
             int fadeOutThreshold = Lifetime - 10;
-            Opacity = Lerp(BaseOpacity, 0f, (Time - fadeOutThreshold) / 10f);
+            Opacity = MathHelper.Lerp(BaseOpacity, 0f, (Time - fadeOutThreshold) / 10f);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

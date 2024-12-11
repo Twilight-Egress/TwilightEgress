@@ -45,7 +45,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             if (Timer is 0f)
             {
                 StrikePosition = Main.MouseWorld;
-                Projectile.rotation = Main.rand.NextFloat(TwoPi);
+                Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
 
             if (Timer is 1f)
@@ -62,7 +62,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 int numOfMist = Main.rand.Next(5, 10);
                 for (int i = 0; i < numOfMist; i++)
                 {
-                    Vector2 mistVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(1f, 3f);
+                    Vector2 mistVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(1f, 3f);
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), StrikePosition, mistVelocity, ModContent.ProjectileType<ElectricSkyBoltMist>(), Projectile.damage, Projectile.knockBack, Owner: Projectile.owner);
                 }
 
@@ -73,7 +73,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             }
 
             if (Timer <= 30f)
-                Projectile.Opacity = Lerp(1f, 0f, Timer / 30f);
+                Projectile.Opacity = MathHelper.Lerp(1f, 0f, Timer / 30f);
             if (Timer >= MaxTime)
                 Projectile.Kill();
             Timer++;
@@ -98,7 +98,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             return false;
         }
 
-        public float BoltWidthFunction(float completionRatio) => 4f * Lerp(1f, 0f, Timer / MaxTime);
+        public float BoltWidthFunction(float completionRatio) => 4f * MathHelper.Lerp(1f, 0f, Timer / MaxTime);
 
         public Color BoltColorFunction(float completionRatio) => Color.Lerp(Color.Yellow, Color.Goldenrod, completionRatio) * Projectile.Opacity;
 

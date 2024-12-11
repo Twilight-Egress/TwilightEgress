@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Skies;
+﻿using Terraria.Graphics.Shaders;
+using TwilightEgress.Content.Skies;
 
 namespace TwilightEgress.Core.Systems
 {

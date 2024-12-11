@@ -81,7 +81,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             {
                 // Slow down for a second before homing in.
                 Projectile.velocity *= 0.98f;
-                Projectile.rotation += TwoPi / RotationSpeed * RotationDirection;
+                Projectile.rotation += MathHelper.TwoPi / RotationSpeed * RotationDirection;
             }
             else
             {
@@ -141,7 +141,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             }
 
             Timer++;
-            Projectile.scale = Clamp(Projectile.scale + 0.05f, 0f, 1f);
+            Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.05f, 0f, 1f);
             if (Main.rand.NextBool(3))
                 TwilightEgressUtilities.CreateDustLoop(2, Main.rand.NextVector2Circular(Projectile.width, Projectile.height), Vector2.Zero, DustID.FireworkFountain_Yellow, shouldDefyGravity: true);
         }
@@ -166,7 +166,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                     Color sparkColor = Color.Lerp(Color.LightYellow, Color.Goldenrod, Main.rand.NextFloat());
                     for (int i = 0; i < 5; i++)
                     {
-                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 8f);
+                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 8f);
                         SparkParticle deathSpark = new(Projectile.Center, sparkVelocity, sparkColor, sparkScale, sparkLifespan);
                         deathSpark.SpawnCasParticle();
 

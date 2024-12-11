@@ -134,7 +134,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             spriteStretchX = 1f;
             spriteStretchY = 1f;
             manaTankShaderTime = Main.rand.NextFloat(0.25f, 0.75f) * Main.rand.NextBool().ToDirectionInt();
-            jellyfishMovementAngle = Main.rand.NextFloat(TwoPi);
+            jellyfishMovementAngle = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.netUpdate = true;
         }
 
@@ -197,17 +197,17 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
 
             // This timer controls how long the additional aggro range is applied for.
-            aggroRangeTimer = Clamp(aggroRangeTimer - 1f, 0f, 1200f);
+            aggroRangeTimer = MathHelper.Clamp(aggroRangeTimer - 1f, 0f, 1200f);
             if (aggroRangeTimer <= 0f)
             {
                 aggroRangeTimer = 0f;
-                additionalAggroRange = Clamp(additionalAggroRange - 1f, 0f, 500f);
+                additionalAggroRange = MathHelper.Clamp(additionalAggroRange - 1f, 0f, 500f);
             }
 
             // This timer controls if a Manaphage should target an asteroid and absorb
             // mana at 50% mana capacity. Manaphages typically start fleeing and looking 
             // Asteroids at aunder 30% mana capacity.
-            manaSuckTimer = Clamp(manaSuckTimer - 1f, 0f, 720f);
+            manaSuckTimer = MathHelper.Clamp(manaSuckTimer - 1f, 0f, 720f);
         }
 
         public void CheckForTurnAround(out bool turnAround)

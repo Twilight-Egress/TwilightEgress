@@ -127,15 +127,15 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             if (minionCount > 0)
             {
                 int order = brotherMinions.IndexOf(Projectile);
-                idleAngle = TwoPi * order / minionCount;
-                idleAngle += TwoPi * Main.GlobalTimeWrappedHourly / 8f;
+                idleAngle = MathHelper.TwoPi * order / minionCount;
+                idleAngle += MathHelper.TwoPi * Main.GlobalTimeWrappedHourly / 8f;
                 idlePosition.X += 140f * MathF.Cos(idleAngle);
                 idlePosition.Y += -125f - 75f * MathF.Sin(idleAngle) + Owner.gfxOffY;
             }
 
             Projectile.Center = Vector2.Lerp(Projectile.Center, idlePosition, 0.225f);
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
-            Projectile.scale = Clamp(Projectile.scale - 0.1f, 1f, 1.75f);
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
+            Projectile.scale = MathHelper.Clamp(Projectile.scale - 0.1f, 1f, 1.75f);
             Projectile.rotation *= 0.9f;
             ShouldDrawUndeadSpirit = false;
 
@@ -181,7 +181,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                     if (Timer == 1f)
                         Projectile.velocity.Y -= 12f;
 
-                    Projectile.Opacity = Clamp(Projectile.Opacity - 0.05f, 0f, 1f);
+                    Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity - 0.05f, 0f, 1f);
 
                     if (Timer == floatTime)
                     {
@@ -198,11 +198,11 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (Timer <= chaseTime)
                 {
                     if (Timer == 0f)
-                        Projectile.Center = Owner.Center + Vector2.UnitX.RotatedByRandom(TwoPi) * 60f;
+                        Projectile.Center = Owner.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 60f;
 
                     // Fade back in and chase the enemy.
-                    Projectile.Opacity = Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
-                    Projectile.scale = Clamp(Projectile.scale + 0.1f, 0f, 1.75f);
+                    Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
+                    Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.1f, 0f, 1.75f);
                     Projectile.SimpleMove(TargetToChase.Center, maxChaseSpeed, maxTurnResistance);
                     Projectile.rotation = Projectile.velocity.X * 0.03f;
 
@@ -228,8 +228,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 // Ease back to the player and fade out.
                 if (Timer <= returnTime)
                 {
-                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
                     Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
                 }
 
@@ -276,7 +276,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
         {
             for (int i = 0; i < 15; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(2f, 8f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(2f, 8f);
                 Color color = Color.Lerp(Color.Cyan, Color.CornflowerBlue, Main.rand.NextFloat());
                 float scale = Main.rand.NextFloat(0.25f, 1.25f);
                 HeavySmokeParticle deathSmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true, 0);

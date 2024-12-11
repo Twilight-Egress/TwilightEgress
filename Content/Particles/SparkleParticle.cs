@@ -39,7 +39,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             // Fade in and out.
-            Opacity = MathF.Sin(LifetimeRatio * Pi);
+            Opacity = MathF.Sin(LifetimeRatio * MathHelper.Pi);
 
             // Slow down and spin.
             Velocity *= 0.98f;

@@ -57,7 +57,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             DoBehavior();
             UpdatePlayerVariables(Owner);
             if (Projectile.spriteDirection == -1)
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
         }
 
         public void DoBehavior()
@@ -96,7 +96,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             // Rotate backwards from recoil and animate the projectile.
             if (Timer >= ChargeUpTime && Timer <= ChargeUpTime + TimeSpentReloading)
             {
-                Projectile.rotation = Lerp(Projectile.rotation, oldRotation + ToRadians(-65f) * Owner.direction, 0.3f);
+                Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-65f) * Owner.direction, 0.3f);
                 Projectile.UpdateProjectileAnimationFrames(0, 4, 4);
             }
 
@@ -112,8 +112,8 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             owner.itemAnimation = 2;
             if (Timer <= ChargeUpTime)
                 owner.ChangeDir(Math.Sign(Projectile.rotation.ToRotationVector2().X));
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-            owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
+            owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -122,7 +122,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            float rotation = Projectile.rotation + (Owner.direction < 0 ? Pi : 0f);
+            float rotation = Projectile.rotation + (Owner.direction < 0 ? MathHelper.Pi : 0f);
             Vector2 drawPosition = Owner.MountedCenter + new Vector2(0f, 0f) + Projectile.rotation.ToRotationVector2() - Main.screenPosition;
 
             int individualFrameHeight = texture.Height / Main.projFrames[Type];
@@ -133,9 +133,9 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                backglowRotation += TwoPi / 300f;
-                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + TwoPi * i / 4) * backglowRadius;
+                backglowRotation += MathHelper.TwoPi / 300f;
+                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + MathHelper.TwoPi * i / 4) * backglowRadius;
 
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, projRec, Projectile.GetAlpha(Color.Orange), rotation, projRec.Size() / 2f, Projectile.scale, effects, 0);
             }

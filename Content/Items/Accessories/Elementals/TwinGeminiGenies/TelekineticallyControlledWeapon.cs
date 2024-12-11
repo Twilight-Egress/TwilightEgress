@@ -92,7 +92,7 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
                 Projectile.velocity *= 0.9f;
                 GetIdlePosition(Owner, out Vector2 idlePosition);
                 Projectile.Center = Vector2.Lerp(Projectile.Center, idlePosition, 0.3f);
-                Projectile.rotation += Pi / rotationSpeed * rotationDirection;
+                Projectile.rotation += MathHelper.Pi / rotationSpeed * rotationDirection;
 
                 if (closestTarget is not null)
                 {
@@ -133,13 +133,13 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             int lineUpTime = 30;
             int dashTime = 25;
             int cooldownTime = 10;
-            float extraAngle = Projectile.direction < 0 ? PiOver2 : 0f;
+            float extraAngle = Projectile.direction < 0 ? MathHelper.PiOver2 : 0f;
 
             ref float forsakenSaberPositionRotation = ref Projectile.TwilightEgress().ExtraAI[ForsakenSaberPositionRotationIndex];
 
             if (Timer == 1f)
             {
-                forsakenSaberPositionRotation = Main.rand.NextFloat(TwoPi);
+                forsakenSaberPositionRotation = Main.rand.NextFloat(MathHelper.TwoPi);
                 Projectile.netUpdate = true;
             }
 
@@ -156,11 +156,11 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
                 }
 
                 // Rotate towards the target.
-                Projectile.rotation = Projectile.AngleTo(closestTarget.Center) + PiOver4 + extraAngle;
+                Projectile.rotation = Projectile.AngleTo(closestTarget.Center) + MathHelper.PiOver4 + extraAngle;
             }
 
             if (Timer >= lineUpTime)
-                Projectile.rotation = Projectile.velocity.ToRotation() + PiOver4 + extraAngle;
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4 + extraAngle;
 
             // Slowdown and reset shortly after.
             if (Timer >= lineUpTime + dashTime)
@@ -188,9 +188,9 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             Vector2 movePosition = closestTarget.Center + Projectile.DirectionFrom(closestTarget.Center) * 175f;
             Projectile.SimpleMove(movePosition, 30f, 45f);
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + Pi;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
             if (Projectile.spriteDirection == -1)
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
         }
 
         public void GetIdlePosition(Projectile owner, out Vector2 idlePosition)
@@ -213,8 +213,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             if (minionCount > 0)
             {
                 int order = brotherMinions.IndexOf(Projectile);
-                idleAngle = TwoPi * order / minionCount;
-                idleAngle += TwoPi * Main.GlobalTimeWrappedHourly / 5f;
+                idleAngle = MathHelper.TwoPi * order / minionCount;
+                idleAngle += MathHelper.TwoPi * Main.GlobalTimeWrappedHourly / 5f;
                 idlePosition.X += 140f * MathF.Cos(idleAngle);
                 idlePosition.Y += -70f - 40f * MathF.Sin(idleAngle) + owner.gfxOffY;
             }

@@ -66,7 +66,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                         // Slowly increase scale and opacity over time.
                         // Color is also adjusted accordingly in the Drawcode below.
                         ScaleControl = 2f * Utils.GetLerpValue(0.1f, 1f, Timer / MaxChargeTime, true);
-                        Projectile.Opacity = Lerp(0f, 1f, Timer / 60);
+                        Projectile.Opacity = MathHelper.Lerp(0f, 1f, Timer / 60);
                         Timer++;
                         ColorTimer++;
                     }
@@ -85,8 +85,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                             ScreenShakeSystem.StartShake(7f * Projectile.scale, shakeStrengthDissipationIncrement: 0.185f);
 
                             Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
-                            int lifespan = (int)Lerp(10, 45, Timer / 480);
-                            new RoaringShockwaveParticle(lifespan, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).SpawnCasParticle();
+                            int lifespan = (int)MathHelper.Lerp(10, 45, Timer / 480);
+                            new RoaringShockwaveParticle(lifespan, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).SpawnCasParticle();
                             Projectile.netUpdate = true;
                         }
                     }
@@ -102,7 +102,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                     ScreenShakeSystem.StartShake(7f * Projectile.scale, shakeStrengthDissipationIncrement: 0.185f);
 
                     Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
-                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(TwoPi)).SpawnCasParticle();
+                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).SpawnCasParticle();
                     Projectile.netUpdate = true;
                 }
             }
@@ -128,7 +128,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             {
                 // BIG BOOM
                 ScaleControl += 0.07f;
-                Projectile.Opacity = Lerp(1f, 0f, Timer / 180);
+                Projectile.Opacity = MathHelper.Lerp(1f, 0f, Timer / 180);
 
                 if (Timer >= 180f)
                 {
@@ -139,8 +139,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 Color particleColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
                 if (Timer % 10 == 0)
                 {
-                    int lifespan = (int)Lerp(45, 100, Timer / 480);
-                    RoaringShockwaveParticle shockwaveParticle = new(lifespan, Projectile.Center, Vector2.Zero, particleColor, 0.1f, Main.rand.NextFloat(TwoPi));
+                    int lifespan = (int)MathHelper.Lerp(45, 100, Timer / 480);
+                    RoaringShockwaveParticle shockwaveParticle = new(lifespan, Projectile.Center, Vector2.Zero, particleColor, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi));
                     shockwaveParticle.SpawnCasParticle();
                 }
 
@@ -150,7 +150,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                     float sparkScale = Main.rand.NextFloat(0.75f, 1.25f);
                     for (int i = 0; i < 5; i++)
                     {
-                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(6f, 55f);
+                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(6f, 55f);
                         SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, particleColor, sparkScale, sparkLifespan);
                         electricSpark.SpawnCasParticle();
                     }
@@ -185,7 +185,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 d.color = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
             }
 
-            Projectile.rotation += Pi / 30f;
+            Projectile.rotation += MathHelper.Pi / 30f;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -244,8 +244,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * backglowRadius;
+                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, rec, Projectile.GetAlpha(color), rotation, rec.Size() / 2f, Projectile.scale, effects, 0);

@@ -50,7 +50,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                     Color sparkColor = Color.Lerp(Color.LightYellow, Color.Goldenrod, Main.rand.NextFloat());
                     for (int i = 0; i < 50; i++)
                     {
-                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                        Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                         SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, sparkColor, sparkScale, sparkLifespan);
                         electricSpark.SpawnCasParticle();
                     }
@@ -60,13 +60,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             float sine = TwilightEgressUtilities.SineEaseInOut(Timer / 17.5f);
             if (Timer <= 35f)
             {
-                Projectile.scale = Lerp(0.1f, 2f, sine);
-                Projectile.Opacity = Lerp(0f, 1f, sine);
+                Projectile.scale = MathHelper.Lerp(0.1f, 2f, sine);
+                Projectile.Opacity = MathHelper.Lerp(0f, 1f, sine);
             }
 
             Timer++;
             ScreenShakeSystem.StartShakeAtPoint(Projectile.Center, 4f, shakeStrengthDissipationIncrement: 0.185f);
-            Projectile.rotation += Pi / 30f;
+            Projectile.rotation += MathHelper.Pi / 30f;
             Lighting.AddLight(Projectile.Center, Color.Goldenrod.ToVector3() * 0.65f);
         }
 

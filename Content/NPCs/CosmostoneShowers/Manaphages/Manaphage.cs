@@ -65,11 +65,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     break;
             }
 
-            float tankLightLevel = Lerp(0.3f, 1.25f, ManaRatio);
+            float tankLightLevel = MathHelper.Lerp(0.3f, 1.25f, ManaRatio);
             Vector2 tankPosition = NPC.Center - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * spriteStretchY;
             Lighting.AddLight(tankPosition, Color.Cyan.ToVector3() * tankLightLevel);
 
-            CurrentManaCapacity = Clamp(CurrentManaCapacity, 0f, MaximumManaCapacity);
+            CurrentManaCapacity = MathHelper.Clamp(CurrentManaCapacity, 0f, MaximumManaCapacity);
             ManageExtraTimers();
             Timer++;
         }
@@ -104,10 +104,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     // Squash the sprite slightly before the propulsion movement to give a
                     // more cartoony, jellyfish-like feeling to the movement.
                     float stretchInterpolant = Utils.GetLerpValue(0f, 1f, Timer / jellyfishMovementInterval, true);
-                    spriteStretchX = Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
-                    spriteStretchY = Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                    spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                    spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
 
-                    int frameY = (int)Math.Floor(Lerp(0f, 1f, stretchInterpolant));
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
 
                     // Pick a random angle to move towards before propelling forward.
@@ -153,7 +153,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 if (Timer >= jellyfishMovementInterval + 30)
                 {
                     float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - jellyfishMovementInterval + 45) / jellyfishMovementInterval + 30, true);
-                    int frameY = (int)Math.Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                     UpdateAnimationFrames(default, 0f, frameY);
                 }
 
@@ -186,7 +186,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             int idleSwitchInterval = 1800;
-            Vector2 velocity = Vector2.One.RotatedByRandom(TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
+            Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
 
             if (Timer is 0)
             {
@@ -198,14 +198,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             CheckForTurnAround(out bool turnAround);
             if (turnAround)
             {
-                Vector2 circularArea = NPC.Center + NPC.velocity.RotatedBy(TwoPi);
+                Vector2 circularArea = NPC.Center + NPC.velocity.RotatedBy(MathHelper.TwoPi);
                 Vector2 turnAroundVelocity = circularArea.Y >= Main.maxTilesY + 750f ? Vector2.UnitY * -0.15f : circularArea.Y < Main.maxTilesY * 0.34f ?  Vector2.UnitY * 0.15f : NPC.velocity;
 
-                float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-PiOver2)) ?? 1000f;
-                float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-PiOver2)) ?? 1000f;
+                float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2)) ?? 1000f;
+                float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2)) ?? 1000f;
                 int directionToMove = (distanceFromTileCollisionLeft > distanceFromTileCollisionRight).ToDirectionInt();
                 if (distanceFromTileCollisionLeft <= 150 || distanceFromTileCollisionRight <= 150f)
-                    turnAroundVelocity = Vector2.One.RotatedBy(PiOver2 * directionToMove) * 0.15f;
+                    turnAroundVelocity = Vector2.One.RotatedBy(MathHelper.PiOver2 * directionToMove) * 0.15f;
 
                 NPC.velocity = turnAroundVelocity;
             }
@@ -223,8 +223,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 SwitchBehaviorState(ManaphageBehavior.Idle_JellyfishPropulsion);
 
             // Squash and stretch the sprite passively.
-            spriteStretchX = Lerp(1f, 1.10f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
-            spriteStretchY = Lerp(1f, 0.8f, TwilightEgressUtilities.SineEaseInOut(Timer / 120f));
+            spriteStretchX = MathHelper.Lerp(1f, 1.10f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+            spriteStretchY = MathHelper.Lerp(1f, 0.8f, TwilightEgressUtilities.SineEaseInOut(Timer / 120f));
 
             UpdateAnimationFrames(default, 10f);
 
@@ -258,8 +258,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer <= timeBeforePropulsion)
             {
                 float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(Timer / timeBeforePropulsion), true);
-                spriteStretchX = Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
-                spriteStretchY = Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
 
                 if (!FoundValidRotationAngle)
                 {
@@ -267,7 +267,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     if (Timer == 1 && !turnAround)
                         jellyfishMovementAngle = vectorToPlayer.ToRotation();
 
-                    int frameY = (int)Math.Floor(Lerp(0f, 1f, stretchInterpolant));
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
 
                     if (!turnAround)
@@ -283,7 +283,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
             if (Timer == timeBeforePropulsion)
             {
-                float avoidanceSpeed = Lerp(-3f, -7f, avoidanceSpeedInterpolant);
+                float avoidanceSpeed = MathHelper.Lerp(-3f, -7f, avoidanceSpeedInterpolant);
                 Vector2 fleeVelocity = Vector2.UnitY.RotatedBy(NPC.rotation) * avoidanceSpeed;
                 NPC.velocity = fleeVelocity;
 
@@ -300,7 +300,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer >= timeBeforePropulsion)
             {
                 float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - maxTime) / timeBeforePropulsion + 30, true);
-                int frameY = (int)Math.Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                 UpdateAnimationFrames(default, 0f, frameY);
             }
 
@@ -352,7 +352,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
                 if (Timer <= 15f)
                 {
-                    int frameY = (int)Math.Floor(Lerp(0f, 4f, Timer / 15f));
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 4f, Timer / 15f));
                     UpdateAnimationFrames(ManaphageAnimation.Inject, 0f, frameY);
                 }
 
@@ -370,7 +370,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 Vector2 positionAroundAsteroid = AsteroidToSucc.Center - Vector2.UnitY.RotatedBy(initialRotation + AsteroidToSucc.rotation) * asteroidHitbox.Size();
                 NPC.SimpleMove(positionAroundAsteroid, 20f, 0f);
 
-                CurrentManaCapacity = Clamp(CurrentManaCapacity + 0.1f, 0f, MaximumManaCapacity);
+                CurrentManaCapacity = MathHelper.Clamp(CurrentManaCapacity + 0.1f, 0f, MaximumManaCapacity);
                 UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);               
             }
             
@@ -410,7 +410,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             Vector2 areaAroundPlayer = target.Center + NPC.DirectionFrom(target.Center) * 250f;
             // Increase the Manaphage's movement speed depending on how much additional aggro range
             // it has ammased.
-            float movementSpeed = Lerp(2f, 6f, Utils.GetLerpValue(0f, 1f, additionalAggroRange / 500f, true));
+            float movementSpeed = MathHelper.Lerp(2f, 6f, Utils.GetLerpValue(0f, 1f, additionalAggroRange / 500f, true));
             NPC.SimpleMove(areaAroundPlayer, movementSpeed, 20f);
 
             if (Timer % 5 == 0)
@@ -424,8 +424,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             }
 
             UpdateAnimationFrames(ManaphageAnimation.Attack, 5f);
-            spriteStretchX = Lerp(1f, 0.85f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
-            spriteStretchY = Lerp(0.95f, 1.05f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
+            spriteStretchX = MathHelper.Lerp(1f, 0.85f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
+            spriteStretchY = MathHelper.Lerp(0.95f, 1.05f, TwilightEgressUtilities.SineEaseInOut(Timer / 10f));
 
             SwitchBehavior_Fleeing(target);
         }

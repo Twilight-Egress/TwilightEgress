@@ -34,7 +34,7 @@ namespace TwilightEgress.Content.Particles
             ParallaxStrength = depth;
 
             Opacity = 0f;
-            Rotation = Main.rand.NextFloat(TwoPi);
+            Rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             RotationSpeed = Main.rand.NextFloat(0.0025f, 0.01f);
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
 
@@ -55,12 +55,12 @@ namespace TwilightEgress.Content.Particles
             float twinkleInterpolant = TwilightEgressUtilities.SineEaseInOut(Time / 120f);
             float disappearInterpolant = (Time - timeToDisappear) / 120f;
 
-            Scale = new(Lerp(MinScale, MaxScale, twinkleInterpolant));
+            Scale = new(MathHelper.Lerp(MinScale, MaxScale, twinkleInterpolant));
 
             if (Time <= timeToAppear)
-                Opacity = Lerp(0f, 1f, appearInterpolant);
+                Opacity = MathHelper.Lerp(0f, 1f, appearInterpolant);
             if (Time >= timeToDisappear && Time <= Lifetime)
-                Opacity = Lerp(Opacity, 0f, disappearInterpolant);
+                Opacity = MathHelper.Lerp(Opacity, 0f, disappearInterpolant);
 
             Rotation += RotationSpeed * RotationDirection;
         }

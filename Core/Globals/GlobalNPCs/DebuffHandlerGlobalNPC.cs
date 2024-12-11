@@ -23,8 +23,8 @@
         {
             if (BellbirdStun)
             {
-                float statFuckeryInterpolant = Lerp(1f, 0.08f, BellbirdStunTimeRatio);
-                float fallSpeedMultiplierInterpolant = Lerp(1f, 5f, BellbirdStunTimeRatio);
+                float statFuckeryInterpolant = MathHelper.Lerp(1f, 0.08f, BellbirdStunTimeRatio);
+                float fallSpeedMultiplierInterpolant = MathHelper.Lerp(1f, 5f, BellbirdStunTimeRatio);
 
                 npc.velocity.X *= 0.8f * statFuckeryInterpolant;
                 npc.MaxFallSpeedMultiplier *= 1f * fallSpeedMultiplierInterpolant;

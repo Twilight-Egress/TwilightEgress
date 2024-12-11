@@ -192,12 +192,12 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
                 // Fade in then quickly fade out.
                 if (Timer <= ScreamChargeTime - 30)
                 {
-                    screamChargeVisualScale = Lerp(5f, 1f, screamChargeInterpolant);
-                    screamChargeVisualOpacity = Lerp(0f, 1f, screamChargeInterpolant);
+                    screamChargeVisualScale = MathHelper.Lerp(5f, 1f, screamChargeInterpolant);
+                    screamChargeVisualOpacity = MathHelper.Lerp(0f, 1f, screamChargeInterpolant);
                 }
 
                 if (Timer >= ScreamChargeTime - 15 && Timer <= ScreamChargeTime)
-                    screamChargeVisualOpacity = Clamp(screamChargeVisualOpacity - 0.1f, 0f, 1f);
+                    screamChargeVisualOpacity = MathHelper.Clamp(screamChargeVisualOpacity - 0.1f, 0f, 1f);
             }
 
             // Cry of God.
@@ -212,7 +212,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
                 ScreenShakeSystem.StartShakeAtPoint(Projectile.Center, 8f, shakeStrengthDissipationIncrement: 0.26f, intensityTaperEndDistance: 2000);
                 Projectile.UpdateProjectileAnimationFrames(0, 0, 1);
                 if (Timer % 10 == 0)
-                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, Color.White, 0.1f, Main.rand.NextFloat(TwoPi)).Spawn();
+                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, Color.White, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).Spawn();
 
                 // Stun any nearby NPCs or Players.
                 StunPlayersAndNPCs();

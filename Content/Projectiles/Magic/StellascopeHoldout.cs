@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Projectiles.Magic
         {
             Timer++;
             Projectile.velocity = Vector2.Normalize(Main.MouseWorld - Owner.MountedCenter);
-            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.direction == 1 ? 0f : Pi);
+            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.direction == 1 ? 0f : MathHelper.Pi);
             Projectile.Center = Owner.Center;
             UpdatePlayerVariables();
 
@@ -42,7 +42,7 @@ namespace TwilightEgress.Content.Projectiles.Magic
 
         private void UpdatePlayerVariables()
         {
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, -Pi / 1.5f * Projectile.direction);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, -MathHelper.Pi / 1.5f * Projectile.direction);
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
             Owner.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();

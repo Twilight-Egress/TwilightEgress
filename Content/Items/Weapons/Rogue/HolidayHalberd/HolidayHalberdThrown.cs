@@ -53,9 +53,9 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             if (Timer % 4 == 0)
             {
                 // Spawn two waves of baubles similarly to Berdly's Halberd Attack.
-                Vector2 baubleVelocity = Vector2.Normalize(Projectile.velocity).RotatedBy(PiOver2);
+                Vector2 baubleVelocity = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2);
                 Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), (int)(Projectile.damage * 0.35f), Projectile.knockBack, owner: Projectile.owner);
-                Vector2 baubleVelocity2 = Vector2.Normalize(Projectile.velocity).RotatedBy(-PiOver2);
+                Vector2 baubleVelocity2 = Vector2.Normalize(Projectile.velocity).RotatedBy(-MathHelper.PiOver2);
                 Projectile.BetterNewProjectile(Projectile.Center, baubleVelocity2, ModContent.ProjectileType<HolidayHalberdAcceleratingBauble>(), (int)(Projectile.damage * 0.35f), Projectile.knockBack, owner: Projectile.owner);
             }
 
@@ -79,7 +79,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 spawnPosition = target.Center + Vector2.UnitX.RotatedBy(TwoPi * i / 3) * 50f;
+                    Vector2 spawnPosition = target.Center + Vector2.UnitX.RotatedBy(MathHelper.TwoPi * i / 3) * 50f;
                     Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<HolidayHalberdIceShock>(), Projectile.damage, Projectile.knockBack, owner: Projectile.owner);
                 }
             }
@@ -90,7 +90,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 
             for (int i = 0; i < 12; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 10f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 10f);
                 Color initialColor = Color.Lerp(Color.Red, Color.Lime, Main.rand.NextFloat()) * Main.rand.NextFloat(0.2f, 0.75f);
                 if (Owner.Calamity().rogueStealth > 0f)
                     initialColor = Color.Lerp(Color.LightSkyBlue, Color.Cyan, Main.rand.NextFloat()) * Main.rand.NextFloat(0.2f, 0.75f);
@@ -125,9 +125,9 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             // This is all explained in MSK's file if you're having trouble understanding.
-            float extraAngle = Owner.direction < 0 ? PiOver2 : 0f;
+            float extraAngle = Owner.direction < 0 ? MathHelper.PiOver2 : 0f;
             float baseDrawAngle = Projectile.rotation;
-            float drawRotation = baseDrawAngle + PiOver4 + extraAngle;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4 + extraAngle;
 
             Vector2 origin = new Vector2(Owner.direction < 0 ? texture.Width : 0f, texture.Height);
             Vector2 drawPosition = Projectile.Center + baseDrawAngle.ToRotationVector2() - Main.screenPosition;
@@ -136,7 +136,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * 3f;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * 3f;
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, null, Projectile.GetAlpha(GetHalberdVisualColors()), drawRotation, origin, Projectile.scale, effects, 0);
             }
             Main.spriteBatch.ResetToDefault();

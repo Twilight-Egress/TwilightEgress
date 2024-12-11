@@ -129,7 +129,7 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
         public void DoBehavior_Idle()
         {
             Vector2 idlePosition = Owner.Center + Vector2.UnitX * 175f;
-            idlePosition.Y += Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
+            idlePosition.Y += MathHelper.Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
 
             float speed = 25f;
             Vector2 idealVelocity = idlePosition - Projectile.Center;

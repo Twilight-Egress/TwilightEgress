@@ -24,8 +24,8 @@ namespace TwilightEgress.Content.Particles
 
         public override void Update()
         {
-            Opacity = Lerp(1f, 0f, LifetimeRatio);
-            Scale = new(Lerp(BaseScale, NewScale, TwilightEgressUtilities.SineEaseOut(LifetimeRatio)));
+            Opacity = MathHelper.Lerp(1f, 0f, LifetimeRatio);
+            Scale = new(MathHelper.Lerp(BaseScale, NewScale, TwilightEgressUtilities.SineEaseOut(LifetimeRatio)));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

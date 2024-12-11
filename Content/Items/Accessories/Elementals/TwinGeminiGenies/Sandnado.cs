@@ -96,8 +96,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             if (Timer <= 60f)
             {
                 Projectile.velocity *= 0.98f;
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
-                Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
             }
 
             // Home in on targets, though very sloppily.
@@ -107,8 +107,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             // Fade out.
             if (Timer >= lifespan - 60f && Timer <= lifespan)
             {
-                Projectile.scale = Clamp(Projectile.scale - 0.02f, 0f, 1f);
-                Projectile.Opacity = Clamp(Projectile.Opacity - 0.02f, 0f, 1f);
+                Projectile.scale = MathHelper.Clamp(Projectile.scale - 0.02f, 0f, 1f);
+                Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity - 0.02f, 0f, 1f);
             }
 
             Timer++;

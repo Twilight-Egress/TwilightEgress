@@ -56,8 +56,8 @@ namespace TwilightEgress.Content.NPCs.MiscNPCs
             {
                 NPC.Opacity -= 0.02f;
                 NPC.scale += 0.01f;
-                eyeGlareScale = Clamp(eyeGlareScale + 1f, NPC.scale / 2f, NPC.scale * 3f);
-                glowingBackIllusionsOutwardness = Clamp(glowingBackIllusionsOutwardness + 2f, 12f, 600f);
+                eyeGlareScale = MathHelper.Clamp(eyeGlareScale + 1f, NPC.scale / 2f, NPC.scale * 3f);
+                glowingBackIllusionsOutwardness = MathHelper.Clamp(glowingBackIllusionsOutwardness + 2f, 12f, 600f);
                 if (NPC.Opacity <= 0f)
                 {
                     NPC.active = false;
@@ -86,9 +86,9 @@ namespace TwilightEgress.Content.NPCs.MiscNPCs
 
             for (int i = 0; i < 8; i++)
             {
-                float targetAngle = (float)Main.timeForVisualEffects / 180f * TwoPi;
-                glowingBackIllusionsAngle = glowingBackIllusionsAngle.AngleTowards(targetAngle, ToRadians(12f));
-                Vector2 backEffectDrawPosition = drawPosition + Vector2.UnitY.RotatedBy(glowingBackIllusionsAngle + TwoPi * i / 8f) * glowingBackIllusionsOutwardness;
+                float targetAngle = (float)Main.timeForVisualEffects / 180f * MathHelper.TwoPi;
+                glowingBackIllusionsAngle = glowingBackIllusionsAngle.AngleTowards(targetAngle, MathHelper.ToRadians(12f));
+                Vector2 backEffectDrawPosition = drawPosition + Vector2.UnitY.RotatedBy(glowingBackIllusionsAngle + MathHelper.TwoPi * i / 8f) * glowingBackIllusionsOutwardness;
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Main.EntitySpriteDraw(noxus, backEffectDrawPosition, NPC.frame, NPC.GetAlpha(backEffectColor) * 0.45f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
                 Main.spriteBatch.ResetToDefault();

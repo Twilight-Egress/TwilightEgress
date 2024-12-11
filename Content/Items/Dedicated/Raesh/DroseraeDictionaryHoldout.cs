@@ -2,6 +2,7 @@
 using Luminance.Common.Utilities;
 using System;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -67,7 +68,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             Timer++;
             Projectile.Center = Owner.MountedCenter + Projectile.rotation.ToRotationVector2() * 60f;
             Projectile.rotation = Owner.AngleTo(Main.MouseWorld);
-            ritualCircleRotation += TwoPi / 150f;
+            ritualCircleRotation += MathHelper.TwoPi / 150f;
             UpdatePlayerVariables();
         }
 
@@ -76,8 +77,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             // Scale up and fade in.
             if (Timer <= MaxChargeTime)
             {
-                ritualCircleOpacity = Lerp(ritualCircleOpacity, 1f, Timer / MaxChargeTime);
-                ritualCircleScale = Lerp(ritualCircleScale, 1f, Timer / MaxChargeTime);
+                ritualCircleOpacity = MathHelper.Lerp(ritualCircleOpacity, 1f, Timer / MaxChargeTime);
+                ritualCircleScale = MathHelper.Lerp(ritualCircleScale, 1f, Timer / MaxChargeTime);
                 DrawInChargeParticles();
             }
 
@@ -87,7 +88,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 Vector2 flytrapMawSpawnPos = Projectile.Center;
                 Vector2 flyTrapMawVelocity = Projectile.SafeDirectionTo(Main.MouseWorld) * 35f;
 
-                float damageScaleFactor = Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+                float damageScaleFactor = MathHelper.Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
                 int damage = (int)(Projectile.originalDamage * damageScaleFactor);
                 Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.FlytrapMawSpawn, null, Projectile.owner);
 
@@ -143,7 +144,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
             Owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)

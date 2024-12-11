@@ -45,7 +45,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
                 Projectile.netUpdate = true;
             }
 
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.04f, 0f, 1f);
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.04f, 0f, 1f);
         }
 
         public override void OnKill(int timeLeft)

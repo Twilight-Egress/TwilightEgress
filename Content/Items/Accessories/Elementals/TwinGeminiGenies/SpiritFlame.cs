@@ -49,8 +49,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             if (Timer <= fadeinTime)
             {
                 Projectile.velocity *= 0.9f;
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
-                Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / fadeinTime));
             }
 
             // Move towards nearby targets.

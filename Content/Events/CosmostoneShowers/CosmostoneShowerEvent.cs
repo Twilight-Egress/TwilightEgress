@@ -44,7 +44,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 12 * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
+                return 12 * (int)Math.Round(MathHelper.Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -54,7 +54,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 175 * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
+                return 175 * (int)Math.Round(MathHelper.Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -64,7 +64,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 100 * (int)Math.Round(Lerp(1f, 0.6f, Star.starfallBoost / 3f), 0);
+                return 100 * (int)Math.Round(MathHelper.Lerp(1f, 0.6f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -86,7 +86,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     return 0;
 
                 int spawnChance = Main.tenthAnniversaryWorld ? 10000 : LanternNight.LanternsUp ? 50000 : 100000;
-                return spawnChance * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f));
+                return spawnChance * (int)Math.Round(MathHelper.Lerp(1f, 0.4f, Star.starfallBoost / 3f));
             }
         }
 
@@ -304,8 +304,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             SamplerState samplerState = SamplerState.LinearWrap;
 
             // Makes the backgrounds move up or down/fade in and out on the screen depending on how high up near Space the player is.
-            float gradientHeightInterpolant = Lerp(0.1f, -1.6f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
-            float fadeOutInterpolant = Lerp(2f, 0.1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
+            float gradientHeightInterpolant = MathHelper.Lerp(0.1f, -1.6f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
+            float fadeOutInterpolant = MathHelper.Lerp(2f, 0.1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
 
             // Bakcground nebula.
             Texture2D skyTexture = AssetRegistry.Textures.CosmostoneShowersNebulaColors.Value;
@@ -558,7 +558,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             Player player = Main.LocalPlayer;
             if (player.ZoneOverworldHeight || player.ZoneSkyHeight)
             {
-                float brightnessMultiplierInterpolant = Lerp(2.15f, 1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
+                float brightnessMultiplierInterpolant = MathHelper.Lerp(2.15f, 1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
                 tileColor *= brightnessMultiplierInterpolant;
                 backgroundColor *= brightnessMultiplierInterpolant;
             }

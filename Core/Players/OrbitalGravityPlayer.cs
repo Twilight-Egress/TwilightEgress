@@ -37,7 +37,7 @@ namespace TwilightEgress.Core.Players
                 // gradual pull-in effect when a player is sucked into a Planetoid's atmosphere.
                 float distanceBetweenBodies = Vector2.Distance(Player.Center, Planetoid.NPC.Center);
                 GravitationalForce += Planetoid.GravitationalVariable * (1f / distanceBetweenBodies);
-                GravitationalForce = Clamp(GravitationalForce, 0f, 1f);
+                GravitationalForce = MathHelper.Clamp(GravitationalForce, 0f, 1f);
 
                 // Get the walkable position around the Planetoid and lerp the player's center to it using GravitationalForce.
                 Vector2 walkablePlanetoidArea = Planetoid.GetWalkablePlanetoidPosition(Player) ?? Planetoid.NPC.Center + Vector2.UnitX.RotatedBy(PlayerAngle) * (Planetoid.WalkableRadius - (Player.height - Player.height / 4f));
@@ -59,12 +59,12 @@ namespace TwilightEgress.Core.Players
                     Planetoid = null;
                 }
 
-                AngleSwitchTimer = Clamp(AngleSwitchTimer + 4f, 0f, MaxAngleSwitchTimer);
+                AngleSwitchTimer = MathHelper.Clamp(AngleSwitchTimer + 4f, 0f, MaxAngleSwitchTimer);
             }  
             else
             {
-                AngleSwitchTimer = Clamp(AngleSwitchTimer - 4f, 0f, MaxAngleSwitchTimer);
-                AttractionCooldown = Clamp(AttractionCooldown - 1f, 0f, MaxAttractionCooldown);
+                AngleSwitchTimer = MathHelper.Clamp(AngleSwitchTimer - 4f, 0f, MaxAngleSwitchTimer);
+                AttractionCooldown = MathHelper.Clamp(AttractionCooldown - 1f, 0f, MaxAttractionCooldown);
                 GravitationalForce = 0f;
                 Planetoid = null;
             }
@@ -76,7 +76,7 @@ namespace TwilightEgress.Core.Players
             {
                 // Ensure the player rotates towards the Planetoid properly.
                 drawInfo.drawPlayer.fullRotationOrigin = drawInfo.drawPlayer.Size / 2f;
-                drawInfo.drawPlayer.fullRotation = (PlayerAngle + PiOver2) * (AngleSwitchTimer / 59f);
+                drawInfo.drawPlayer.fullRotation = (PlayerAngle + MathHelper.PiOver2) * (AngleSwitchTimer / 59f);
             }            
             
         }

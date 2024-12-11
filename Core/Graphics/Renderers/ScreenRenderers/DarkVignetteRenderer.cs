@@ -48,8 +48,8 @@ namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
             {
                 if (VignetteBrightness > 0)
                 {
-                    VignettePower = Clamp(VignettePower + 0.03f, 0f, 20f);
-                    VignetteBrightness = Clamp(VignetteBrightness - 0.01f, 0f, 50f);
+                    VignettePower = MathHelper.Clamp(VignettePower + 0.03f, 0f, 20f);
+                    VignetteBrightness = MathHelper.Clamp(VignetteBrightness - 0.01f, 0f, 50f);
                 }
                 else
                 {

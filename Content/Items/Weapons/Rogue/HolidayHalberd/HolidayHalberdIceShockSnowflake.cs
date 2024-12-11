@@ -32,13 +32,13 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.frame = Main.rand.Next(3);
-            Projectile.rotation = Main.rand.NextFloat(TwoPi);
+            Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
         }
 
         public override void AI()
         {
             Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[0]);
-            Projectile.rotation += Pi / 45f;
+            Projectile.rotation += MathHelper.Pi / 45f;
             Projectile.velocity *= 0.987f;
         }
 

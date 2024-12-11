@@ -80,7 +80,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 
             // Increase the spin speed over time.
             if (Timer <= 30f)
-                rotationSpeed = Lerp(45f, 8f, Timer / 30f);
+                rotationSpeed = MathHelper.Lerp(45f, 8f, Timer / 30f);
 
 
             // Fire and kill.
@@ -106,8 +106,8 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             }
 
             Projectile.Center = Owner.MountedCenter;
-            Projectile.rotation += Pi / rotationSpeed * Owner.direction;
-            Projectile.scale = Clamp(Projectile.scale + 0.05f, 0f, 1f);
+            Projectile.rotation += MathHelper.Pi / rotationSpeed * Owner.direction;
+            Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.05f, 0f, 1f);
 
             // Particles.
             if (Main.rand.NextBool(3))
@@ -171,7 +171,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
             Owner.direction = Main.MouseWorld.X < Owner.Center.X ? -1 : 1;
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -198,9 +198,9 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             // This is all explained in MSK's file if you're having trouble understanding.
-            float extraAngle = Owner.direction < 0 ? PiOver2 : 0f;
+            float extraAngle = Owner.direction < 0 ? MathHelper.PiOver2 : 0f;
             float baseDrawAngle = Projectile.rotation;
-            float drawRotation = baseDrawAngle + PiOver4 + extraAngle;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4 + extraAngle;
 
             Vector2 origin = new Vector2(Owner.direction < 0 ? texture.Width : 0f, texture.Height);
             Vector2 drawPosition = Projectile.Center + baseDrawAngle.ToRotationVector2() - Main.screenPosition;
@@ -209,7 +209,7 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * 3f;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * 3f;
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, null, Projectile.GetAlpha(GetHalberdVisualColors()), drawRotation, origin, Projectile.scale, effects, 0);
             }
             Main.spriteBatch.ResetToDefault();

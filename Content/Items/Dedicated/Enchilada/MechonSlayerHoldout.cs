@@ -48,7 +48,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
                 return;
             }
 
-            InitializeFields(MaxTime, -PiOver2);
+            InitializeFields(MaxTime, -MathHelper.PiOver2);
             Vector2 holdPosition = Owner.Top + new Vector2(0f, -20f * ThrustCurve.Evaluate(Timer / SwingTime) + 35f);
             Projectile.Center = Owner.RotatedRelativePoint(holdPosition, true);
 
@@ -61,7 +61,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
                 // Visuals.
                 for (int i = 0; i < 15; i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 8f);
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 8f);
                     SparkleParticle sparkle = new(Owner.RotatedRelativePoint(Owner.MountedCenter), velocity, GetArtColor(Color.Cyan), GetArtColor(Color.Cyan) * 0.75f, Main.rand.NextFloat(0.65f, 1.25f), Main.rand.Next(30, 45), 0.03f);
                     sparkle.SpawnCasParticle();
                 }
@@ -156,7 +156,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
             Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Enchilada/MechonSlayer").Value;
 
             float baseDrawAngle = Projectile.rotation;
-            float drawRotation = baseDrawAngle + PiOver4;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4;
 
             Vector2 origin = new(0f, texture.Height);
             Vector2 drawPosition = Projectile.Center + baseDrawAngle.ToRotationVector2() - Main.screenPosition;

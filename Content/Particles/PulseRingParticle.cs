@@ -52,8 +52,8 @@ namespace TwilightEgress.Content.Particles
 
         public override void Update()
         {
-            Scale = new(Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
-            Opacity = MathF.Sin(PiOver2 + LifetimeRatio * PiOver2);
+            Scale = new(MathHelper.Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
+            Opacity = MathF.Sin(MathHelper.PiOver2 + LifetimeRatio * MathHelper.PiOver2);
 
             Velocity *= 0.98f;
         }

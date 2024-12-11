@@ -20,7 +20,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             Scale += new Vector2(0.36f, 0.36f);
-            Opacity = Lerp(1f, 0f, LifetimeRatio);
+            Opacity = MathHelper.Lerp(1f, 0f, LifetimeRatio);
 
             if (Opacity <= 0f) { Kill(); }
         }

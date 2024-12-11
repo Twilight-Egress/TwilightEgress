@@ -72,7 +72,7 @@ namespace TwilightEgress.Content.Projectiles.Misc
                 Projectile.netUpdate = true;
             }
 
-            Projectile.scale = Clamp(Projectile.scale + 0.03f, 0f, 1f);
+            Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.03f, 0f, 1f);
             Timer++;
         }
 
@@ -80,7 +80,7 @@ namespace TwilightEgress.Content.Projectiles.Misc
         {
             for (int i = 0; i < 15; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(2f, 8f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(2f, 8f);
                 Color color = Color.Lerp(Color.MediumPurple, Color.Magenta, 0.4f);
                 float scale = Main.rand.NextFloat(0.25f, 1.25f);
                 HeavySmokeParticle heavySmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true);
@@ -115,7 +115,7 @@ namespace TwilightEgress.Content.Projectiles.Misc
             Vector2 center = Projectile.Center;
             Vector2 directionToPlayer = playerCenter - Projectile.Center;
 
-            float rotationTowardsPlayer = directionToPlayer.ToRotation() - PiOver2;
+            float rotationTowardsPlayer = directionToPlayer.ToRotation() - MathHelper.PiOver2;
             float distanceFromPlayer = directionToPlayer.Length();
 
             while (distanceFromPlayer > 16f && !float.IsNaN(distanceFromPlayer))

@@ -76,7 +76,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             // kibby
             for (int i = 0; i < KibbyCount; i++)
             {
-                Vector2 kibbyVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(13f, 19f);
+                Vector2 kibbyVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(13f, 19f);
                 Projectile.BetterNewProjectile(Projectile.Center, kibbyVelocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.damage, Projectile.knockBack);
             }
         }

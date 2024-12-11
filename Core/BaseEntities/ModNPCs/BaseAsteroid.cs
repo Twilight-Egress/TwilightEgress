@@ -32,10 +32,10 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
 
             // Fade in.
             if (Timer < MaxTime)
-                NPC.Opacity = Clamp(NPC.Opacity + 0.02f, 0f, 1f);
+                NPC.Opacity = MathHelper.Clamp(NPC.Opacity + 0.02f, 0f, 1f);
 
             // Idly rotate.
-            NPC.rotation += Pi / RotationSpeedSpawnFactor;
+            NPC.rotation += MathHelper.Pi / RotationSpeedSpawnFactor;
             NPC.rotation += NPC.velocity.X * 0.03f;
 
             // If an asteroid falls within a certain distance of Terraria's mesosphere, it
@@ -46,7 +46,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             {
                 // Increase damage as Y-velocity begins to increase.
                 NPC.damage = 150 * (int)Utils.GetLerpValue(0f, 1f, NPC.velocity.Y / 12f, true);
-                NPC.velocity.Y = Clamp(NPC.velocity.Y + 0.03f, 0f, 18f);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y + 0.03f, 0f, 18f);
 
                 // Die upon tile collision, explode.
                 if (Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
@@ -73,7 +73,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             Timer++;
             if (Timer >= MaxTime)
             {
-                NPC.Opacity = Clamp(NPC.Opacity - 0.02f, 0f, 1f);
+                NPC.Opacity = MathHelper.Clamp(NPC.Opacity - 0.02f, 0f, 1f);
                 if (NPC.Opacity <= 0f)
                 {
                     NPC.active = false;
@@ -119,7 +119,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             if (item.pick > 0)
             {
                 modifiers.Knockback *= 0f;
-                modifiers.FinalDamage *= 2f * Lerp(1f, 0.2f, item.pick / 250f);
+                modifiers.FinalDamage *= 2f * MathHelper.Lerp(1f, 0.2f, item.pick / 250f);
             }
 
             SafeModifyHitByItem(player, item, ref modifiers);
@@ -132,7 +132,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             if (item.pick > 0 && projectile.owner == player.whoAmI)
             {
                 modifiers.Knockback *= 0f;
-                modifiers.FinalDamage *= 2f * Lerp(1f, 0.2f, item.pick / 250f);
+                modifiers.FinalDamage *= 2f * MathHelper.Lerp(1f, 0.2f, item.pick / 250f);
             }
 
             SafeModifyHitByProjectile(projectile, ref modifiers);
