@@ -1,5 +1,6 @@
 using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
+using Terraria.ID;
 using TwilightEgress.Content.Items.Materials;
 
 namespace TwilightEgress.Content.Items.Weapons.Ranged

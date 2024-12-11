@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Items.Materials;
+﻿using Terraria.ID;
+using TwilightEgress.Content.Items.Materials;
 
 namespace TwilightEgress.Content.Items.Placeable
 {

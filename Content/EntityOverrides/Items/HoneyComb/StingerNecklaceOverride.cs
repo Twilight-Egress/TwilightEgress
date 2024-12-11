@@ -1,5 +1,6 @@
 using Luminance.Common.Utilities;
 using System.Collections.Generic;
+using Terraria.ID;
 using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb

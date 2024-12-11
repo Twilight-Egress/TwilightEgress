@@ -1,4 +1,5 @@
 ﻿using Terraria.DataStructures;
+using Terraria.ID;
 using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Projectiles

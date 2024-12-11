@@ -1,4 +1,5 @@
 using CalamityMod.Items.Materials;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {

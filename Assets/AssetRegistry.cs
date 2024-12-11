@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace TwilightEgress.Assets 
 {

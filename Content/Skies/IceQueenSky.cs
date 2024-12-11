@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria.GameContent;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Skies

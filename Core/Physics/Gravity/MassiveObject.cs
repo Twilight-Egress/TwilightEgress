@@ -1,4 +1,5 @@
 ﻿using Terraria.DataStructures;
+using Terraria.ID;
 using TwilightEgress.Core.Physics.VerletIntegration;
 
 namespace TwilightEgress.Core.Physics.Gravity

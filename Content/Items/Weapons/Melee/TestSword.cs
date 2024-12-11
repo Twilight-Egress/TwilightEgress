@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Weapons.Melee
+﻿using Terraria.ID;
+
+namespace TwilightEgress.Content.Items.Weapons.Melee
 {
     public class TestSword : ModItem, ILocalizedModType
     {

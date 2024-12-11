@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;

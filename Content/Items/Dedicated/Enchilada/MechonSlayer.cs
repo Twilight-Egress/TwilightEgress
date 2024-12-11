@@ -3,6 +3,7 @@ using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {

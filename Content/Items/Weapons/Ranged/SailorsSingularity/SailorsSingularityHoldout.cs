@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {

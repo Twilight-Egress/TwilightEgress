@@ -9,6 +9,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Tiles
+﻿using Terraria.ID;
+
+namespace TwilightEgress.Content.Tiles
 {
     public class SilicateClusterBrick : ModTile
     {

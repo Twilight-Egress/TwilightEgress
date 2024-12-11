@@ -3,6 +3,7 @@ using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {

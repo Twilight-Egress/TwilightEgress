@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Projectiles.Ranged;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

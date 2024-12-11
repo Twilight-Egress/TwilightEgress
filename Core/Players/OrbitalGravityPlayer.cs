@@ -1,6 +1,7 @@
 ﻿using System;
 using Terraria.DataStructures;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Core.Players
 {

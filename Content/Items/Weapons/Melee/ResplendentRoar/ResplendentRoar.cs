@@ -2,6 +2,7 @@
 using CalamityMod.Items;
 using CalamityMod.Rarities;
 using Terraria.DataStructures;
+using Terraria.ID;
 using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar

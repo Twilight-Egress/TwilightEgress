@@ -8,6 +8,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

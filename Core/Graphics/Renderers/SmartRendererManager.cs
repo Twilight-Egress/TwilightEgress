@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 
 namespace TwilightEgress.Core.Graphics.Renderers
 {

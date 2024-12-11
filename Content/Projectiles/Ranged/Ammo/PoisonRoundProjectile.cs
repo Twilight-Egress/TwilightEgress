@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {

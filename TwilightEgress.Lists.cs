@@ -1,6 +1,7 @@
 ﻿using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
 using System.Collections.Generic;
+using Terraria.ID;
 
 namespace TwilightEgress
 {

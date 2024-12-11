@@ -5,6 +5,7 @@ using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.Localization;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;

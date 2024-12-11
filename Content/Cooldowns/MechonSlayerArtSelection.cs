@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Cooldowns;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.Localization;
 
 namespace TwilightEgress.Content.Cooldowns

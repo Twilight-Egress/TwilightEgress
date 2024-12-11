@@ -2,6 +2,7 @@
 using System;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {

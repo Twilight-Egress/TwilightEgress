@@ -1,3 +1,5 @@
+using Terraria.ID;
+
 namespace TwilightEgress.Content.EntityOverrides.Items.DepthCrusher
 {
     public class DepthCrusherOverride : ItemOverride

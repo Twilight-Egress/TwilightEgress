@@ -1,3 +1,5 @@
+using Terraria.ID;
+
 namespace TwilightEgress.Content.Items.Materials
 {
     public class CosmostoneBar : ModItem, ILocalizedModType

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Placeable
+﻿using Terraria.ID;
+
+namespace TwilightEgress.Content.Items.Placeable
 {
     public class ManaGrassSeeds : ModItem, ILocalizedModType
     {

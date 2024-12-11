@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Terraria.ID;
 using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs

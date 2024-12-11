@@ -3,6 +3,7 @@ using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {

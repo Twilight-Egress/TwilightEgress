@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Terraria.GameContent;
+using Terraria.ID;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Particles;
 

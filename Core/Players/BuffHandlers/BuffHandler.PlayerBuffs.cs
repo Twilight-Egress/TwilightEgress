@@ -4,6 +4,7 @@ using TwilightEgress.Core.Globals;
 using CalamityMod;
 using Luminance.Common.Utilities;
 using System.Collections.Generic;
+using Terraria.ID;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

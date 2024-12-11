@@ -5,6 +5,7 @@ using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria.Audio;
+using Terraria.ID;
 using TwilightEgress.Assets;
 using TwilightEgress.Core;
 

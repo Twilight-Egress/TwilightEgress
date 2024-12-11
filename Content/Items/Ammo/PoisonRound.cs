@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Projectiles.Ranged.Ammo;
+﻿using Terraria.ID;
+using TwilightEgress.Content.Projectiles.Ranged.Ammo;
 
 namespace TwilightEgress.Content.Items.Ammo
 {

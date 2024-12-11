@@ -3,6 +3,7 @@ using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {

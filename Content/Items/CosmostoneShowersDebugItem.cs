@@ -1,4 +1,5 @@
 ﻿using CalamityMod.Events;
+using Terraria.ID;
 using TwilightEgress.Content.Events;
 using TwilightEgress.Content.Events.CosmostoneShowers;
 
