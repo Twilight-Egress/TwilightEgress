@@ -1,4 +1,4 @@
-﻿namespace TwilightEgress.Common.Physics.Gravity
+﻿namespace TwilightEgress.Core.Physics.Gravity
 {
     public static class NewtonianGravity
     {
@@ -8,12 +8,12 @@
 
         public static void ApplyGravity(this MassiveObject[] objects, float deltaTime)
         {
-            foreach (MassiveObject? obj in objects)
+            foreach (MassiveObject obj in objects)
             {
                 if (obj is null || !obj.Active) continue;
 
                 Vector2 TotalGravity = Vector2.Zero;
-                foreach (MassiveObject? objN in objects)
+                foreach (MassiveObject objN in objects)
                 {
                     if (objN is null || objN == obj) continue;
                     TotalGravity += objN.Mass * obj.Mass * GravityAccelerationVector(obj.Position - objN.Position);
@@ -25,7 +25,7 @@
         public static Vector2 GetGravityAtPosition(this MassiveObject[] objects, Vector2 position, float deltaTime)
         {
             Vector2 TotalGravity = Vector2.Zero;
-            foreach (MassiveObject? obj in objects)
+            foreach (MassiveObject obj in objects)
             {
                 if (obj is null || !obj.Active) continue;
                 TotalGravity += obj.Mass * GravityAccelerationVector(position - obj.Position);

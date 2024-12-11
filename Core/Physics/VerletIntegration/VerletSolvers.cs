@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwilightEgress.Common.Physics.VerletIntegration
+namespace TwilightEgress.Core.Physics.VerletIntegration
 {
     public static class VerletSolvers
     {

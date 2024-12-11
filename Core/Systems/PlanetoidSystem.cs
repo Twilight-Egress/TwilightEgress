@@ -1,7 +1,7 @@
 ﻿using CalamityMod.Rarities;
-using TwilightEgress.Common.Physics.Gravity;
-using TwilightEgress.Common.Physics.VerletIntegration;
 using Terraria;
+using TwilightEgress.Core.Physics.Gravity;
+using TwilightEgress.Core.Physics.VerletIntegration;
 
 namespace TwilightEgress.Core.Systems
 {
