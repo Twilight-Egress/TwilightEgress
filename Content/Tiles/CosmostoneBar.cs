@@ -1,4 +1,5 @@
 using Terraria.Localization;
+using Terraria.ObjectData;
 
 namespace TwilightEgress.Content.Tiles
 {

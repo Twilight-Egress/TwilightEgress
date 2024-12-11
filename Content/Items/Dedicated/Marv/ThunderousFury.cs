@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
+using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {

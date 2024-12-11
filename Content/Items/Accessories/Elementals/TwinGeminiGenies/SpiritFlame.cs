@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {

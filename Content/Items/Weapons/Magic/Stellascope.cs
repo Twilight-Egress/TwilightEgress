@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Content.Projectiles.Magic;
+﻿using Terraria.DataStructures;
+using TwilightEgress.Content.Projectiles.Magic;
 
 namespace TwilightEgress.Content.Items.Weapons.Magic
 {

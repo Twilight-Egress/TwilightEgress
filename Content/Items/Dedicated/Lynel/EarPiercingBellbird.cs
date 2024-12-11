@@ -2,6 +2,7 @@
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Buffs.Pets;

@@ -1,6 +1,7 @@
 ﻿using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG

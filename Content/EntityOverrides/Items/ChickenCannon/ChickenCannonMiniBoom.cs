@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using TwilightEgress.Content.Items.Dedicated.Fluffy;
 using TwilightEgress.Content.Particles;
 

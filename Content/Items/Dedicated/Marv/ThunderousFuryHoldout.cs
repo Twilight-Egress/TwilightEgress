@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 

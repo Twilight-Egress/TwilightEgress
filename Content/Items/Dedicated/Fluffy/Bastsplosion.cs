@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.Audio;
+using Terraria.GameContent;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {

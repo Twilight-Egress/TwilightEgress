@@ -3,6 +3,7 @@ using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using System;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {

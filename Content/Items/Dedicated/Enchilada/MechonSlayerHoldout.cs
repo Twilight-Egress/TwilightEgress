@@ -3,6 +3,8 @@ using Luminance.Common.Easings;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Players.BuffHandlers;
 using EasingType = Luminance.Common.Easings.EasingType;

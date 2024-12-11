@@ -21,6 +21,7 @@ using Luminance.Assets;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {

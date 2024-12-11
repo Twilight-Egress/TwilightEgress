@@ -1,4 +1,5 @@
 ﻿using Luminance.Common.Utilities;
+using Terraria.Audio;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 

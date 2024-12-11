@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.Particles;

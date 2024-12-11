@@ -6,6 +6,8 @@ using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.Audio;
+using Terraria.GameContent;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;

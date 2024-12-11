@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using Terraria.DataStructures;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs

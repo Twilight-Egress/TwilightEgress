@@ -2,6 +2,7 @@
 using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {

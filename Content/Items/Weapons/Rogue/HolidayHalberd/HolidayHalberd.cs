@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Items;
+using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {

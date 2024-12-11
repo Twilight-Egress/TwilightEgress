@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.Projectiles.Magic
 {

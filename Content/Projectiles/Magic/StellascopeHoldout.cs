@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using Terraria.GameContent;
 
 namespace TwilightEgress.Content.Projectiles.Magic
 {

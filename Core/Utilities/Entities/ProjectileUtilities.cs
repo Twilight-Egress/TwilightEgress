@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress
+﻿using Terraria.Audio;
+using Terraria.DataStructures;
+
+namespace TwilightEgress
 {
     public static partial class TwilightEgressUtilities
     {

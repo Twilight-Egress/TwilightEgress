@@ -8,6 +8,8 @@ using TwilightEgress.Content.Particles;
 using Luminance.Common.Utilities;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

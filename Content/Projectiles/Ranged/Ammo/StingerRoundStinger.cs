@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
+﻿using Terraria.Audio;
+
+namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {
     public class StingerRoundStinger : ModProjectile, ILocalizedModType
     {

@@ -6,6 +6,8 @@ using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Projectiles.Misc;
 using TwilightEgress.Core.Players.BuffHandlers;

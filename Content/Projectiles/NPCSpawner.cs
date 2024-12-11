@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Assets;
+﻿using Terraria.DataStructures;
+using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Projectiles
 {

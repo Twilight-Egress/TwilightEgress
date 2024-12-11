@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Terraria.GameContent;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Particles;
 

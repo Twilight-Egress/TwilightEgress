@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
+using Terraria.DataStructures;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

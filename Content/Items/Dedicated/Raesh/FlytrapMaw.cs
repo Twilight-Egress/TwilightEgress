@@ -7,6 +7,8 @@ using Luminance.Core.Graphics;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
+using Terraria.Audio;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

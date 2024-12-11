@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using TwilightEgress.Assets;
 

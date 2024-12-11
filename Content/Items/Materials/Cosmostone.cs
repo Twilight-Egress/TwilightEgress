@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Content.Items.Materials
+﻿using Terraria.DataStructures;
+
+namespace TwilightEgress.Content.Items.Materials
 {
     public class Cosmostone : ModItem, ILocalizedModType
     {

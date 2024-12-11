@@ -1,6 +1,7 @@
 ﻿using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
+using Terraria.GameContent;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies

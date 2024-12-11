@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Utilities;
 using static Terraria.Utilities.NPCUtils;
 
