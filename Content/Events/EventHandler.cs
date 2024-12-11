@@ -1,5 +1,6 @@
 ﻿using TwilightEgress.Core.Globals.GlobalNPCs;
 using Terraria.ModLoader.IO;
+using System.Collections.Generic;
 
 namespace TwilightEgress.Content.Events
 {

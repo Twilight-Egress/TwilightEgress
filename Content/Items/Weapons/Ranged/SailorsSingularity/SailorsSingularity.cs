@@ -5,6 +5,7 @@ using TwilightEgress.Content.Items.Materials;
 using Mono.Cecil;
 using Terraria;
 using Terraria.ID;
+using System.Linq;
 
 namespace TwilightEgress.Content.Items.Weapons.Ranged.SailorsSingularity
 {

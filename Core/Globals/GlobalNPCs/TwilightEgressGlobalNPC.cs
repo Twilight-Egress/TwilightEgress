@@ -1,4 +1,5 @@
-﻿
+﻿using System.Linq;
+
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
     public partial class TwilightEgressGlobalNPC : GlobalNPC

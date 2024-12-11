@@ -6,6 +6,9 @@ using CalamityMod;
 using TwilightEgress.Content.Particles;
 using Luminance.Core.Graphics;
 using Luminance.Common.Utilities;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
@@ -109,7 +112,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
             if (Main.rand.NextBool(chance))
             {
                 int itemType = ModContent.ItemType<Cosmostone>();
-                int itemStack = (int)Round(1 * Lerp(1f, 3f, NPC.scale / 2f));
+                int itemStack = (int)Math.Round(1 * Lerp(1f, 3f, NPC.scale / 2f));
                 int i = Item.NewItem(NPC.GetSource_OnHurt(player), NPC.Center + Main.rand.NextVector2Circular(NPC.width, NPC.height), itemType, itemStack);
                 if (Main.item.IndexInRange(i))
                     Main.item[i].velocity = Main.rand.NextVector2Circular(4f, 4f);
@@ -133,8 +136,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            int minimumStack = (int)Round(3 * Lerp(1f, 3f, NPC.scale / 2f));
-            int maximumStack = (int)Round(5 * Lerp(1f, 3f, NPC.scale / 2f));
+            int minimumStack = (int)Math.Round(3 * Lerp(1f, 3f, NPC.scale / 2f));
+            int maximumStack = (int)Math.Round(5 * Lerp(1f, 3f, NPC.scale / 2f));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cosmostone>(), default, minimumStack, maximumStack));
         }
 

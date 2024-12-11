@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core.EntityOverridingSystem
+﻿using System.Linq;
+
+namespace TwilightEgress.Core.EntityOverridingSystem
 {
     public abstract class ItemOverride : GlobalItem
     {

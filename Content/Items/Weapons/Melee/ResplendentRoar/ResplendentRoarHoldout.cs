@@ -4,6 +4,7 @@ using CalamityMod.Sounds;
 using Luminance.Common.Easings;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using System;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -39,7 +40,7 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
 
         private Vector2 DistanceFromPlayer => Direction * -2f;
 
-        private float SwingDirection => Projectile.ai[2] * Sign(Direction.X);
+        private float SwingDirection => Projectile.ai[2] * Math.Sign(Direction.X);
 
         private float BaseRotation { get; set; }
 
@@ -386,7 +387,7 @@ namespace TwilightEgress.Content.Items.Weapons.Melee.ResplendentRoar
         {
             Owner.heldProj = Projectile.whoAmI;
             if (updateDirectionByRotation)
-                Owner.direction = Sign(Projectile.rotation.ToRotationVector2().X);
+                Owner.direction = Math.Sign(Projectile.rotation.ToRotationVector2().X);
             else
                 Owner.direction = Math.Sign(Projectile.velocity.X);
             Owner.itemRotation = Projectile.rotation;

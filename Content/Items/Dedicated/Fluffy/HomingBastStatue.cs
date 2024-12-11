@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using System;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;

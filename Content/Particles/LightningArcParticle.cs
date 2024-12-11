@@ -1,8 +1,8 @@
 ﻿using CalamityMod;
 using Luminance.Core.Graphics;
+using System.Collections.Generic;
 using TwilightEgress.Assets;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles

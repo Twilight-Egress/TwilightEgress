@@ -4,6 +4,8 @@ using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using System.Collections.Generic;
+using System.Linq;
 using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Projectiles.Misc;
 using TwilightEgress.Core.Players.BuffHandlers;

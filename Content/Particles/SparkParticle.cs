@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+﻿using System;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
 {
@@ -25,7 +26,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             Scale *= 0.95f;
-            Opacity = Lerp(InitialOpacity, 0f, Pow(LifetimeRatio, 4f));
+            Opacity = Lerp(InitialOpacity, 0f, MathF.Pow(LifetimeRatio, 4f));
 
             Velocity *= 0.95f;
             if (Velocity.Length() < 12f && AffectedByGravity)

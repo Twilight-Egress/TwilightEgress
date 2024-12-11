@@ -1,5 +1,8 @@
 ﻿using CalamityMod.Sounds;
 using Luminance.Common.Utilities;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -126,8 +129,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 int order = brotherMinions.IndexOf(Projectile);
                 idleAngle = TwoPi * order / minionCount;
                 idleAngle += TwoPi * Main.GlobalTimeWrappedHourly / 8f;
-                idlePosition.X += 140f * Cos(idleAngle);
-                idlePosition.Y += -125f - 75f * Sin(idleAngle) + Owner.gfxOffY;
+                idlePosition.X += 140f * MathF.Cos(idleAngle);
+                idlePosition.Y += -125f - 75f * MathF.Sin(idleAngle) + Owner.gfxOffY;
             }
 
             Projectile.Center = Vector2.Lerp(Projectile.Center, idlePosition, 0.225f);
@@ -265,7 +268,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 Vector2 stretchFactor = new(1f, 3f);
                 Color slashColor = Color.Lerp(Color.Cyan, Color.LightSkyBlue, Main.rand.NextFloat());
                 Color bloomColor = Color.Lerp(slashColor, Color.Transparent, 0.15f);
-                new SwordSlashParticle(target.Center, slashColor, bloomColor, Main.rand.NextFloat(Tau), stretchFactor, 2f, 20).Spawn();
+                new SwordSlashParticle(target.Center, slashColor, bloomColor, Main.rand.NextFloat(MathF.Tau), stretchFactor, 2f, 20).Spawn();
             }
         }
 

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress
+﻿using System;
+
+namespace TwilightEgress
 {
     public static partial class TwilightEgressUtilities
     {

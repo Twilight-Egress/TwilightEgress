@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using ReLogic.Utilities;
+using System;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {

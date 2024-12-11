@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using System;
 using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
@@ -141,7 +142,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             Owner.heldProj = Projectile.whoAmI;
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
-            Owner.ChangeDir(Sign(Projectile.rotation.ToRotationVector2().X));
+            Owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
             Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
         }
 

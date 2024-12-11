@@ -4,6 +4,8 @@ using TwilightEgress.Assets;
 using CalamityMod;
 using ReLogic.Content;
 using Luminance.Core.Graphics;
+using System.Collections.Generic;
+using System;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

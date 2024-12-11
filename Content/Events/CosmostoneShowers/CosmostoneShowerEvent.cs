@@ -18,6 +18,9 @@ using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using Luminance.Core.Graphics;
 using Luminance.Assets;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -41,7 +44,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 12 * (int)Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
+                return 12 * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -51,7 +54,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 175 * (int)Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
+                return 175 * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -61,7 +64,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 if (!EventIsActive)
                     return 0;
-                return 100 * (int)Round(Lerp(1f, 0.6f, Star.starfallBoost / 3f), 0);
+                return 100 * (int)Math.Round(Lerp(1f, 0.6f, Star.starfallBoost / 3f), 0);
             }
         }
 
@@ -83,7 +86,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     return 0;
 
                 int spawnChance = Main.tenthAnniversaryWorld ? 10000 : LanternNight.LanternsUp ? 50000 : 100000;
-                return spawnChance * (int)Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f));
+                return spawnChance * (int)Math.Round(Lerp(1f, 0.4f, Star.starfallBoost / 3f));
             }
         }
 
@@ -229,7 +232,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 foreach (NPC planetoid in activePlanetoidsOnScreen)
                 {
                     float radiusAroundPlanetoid = planetoid.localAI[0] + planetoid.localAI[1] + Main.rand.NextFloat(1000f, 200f);
-                    Vector2 planetoidPositionWithRadius = planetoid.Center + Vector2.UnitX.RotatedByRandom(Tau) * radiusAroundPlanetoid;
+                    Vector2 planetoidPositionWithRadius = planetoid.Center + Vector2.UnitX.RotatedByRandom(Math.Tau) * radiusAroundPlanetoid;
                     asteroidSpawnPosition = planetoidPositionWithRadius;
                 }
 
@@ -251,7 +254,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     if (otherPlanetoid.active)
                     {
                         float radiusAroundPlanetoid = otherPlanetoid.localAI[0] + otherPlanetoid.localAI[1] + Main.rand.NextFloat(2000f, 750f);
-                        Vector2 planetoidPositionWithRadius = otherPlanetoid.Center + Vector2.UnitX.RotatedByRandom(Tau) * radiusAroundPlanetoid;
+                        Vector2 planetoidPositionWithRadius = otherPlanetoid.Center + Vector2.UnitX.RotatedByRandom(Math.Tau) * radiusAroundPlanetoid;
                         planetoidSpawnPosition = planetoidPositionWithRadius;
                     }
                 }
@@ -344,7 +347,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             for (int i = 0; i < foregroundStarCount; i++)
             {
                 Vector2 starSpawnPos = Main.LocalPlayer.Center + Main.rand.NextVector2Circular(Main.screenWidth, Main.screenHeight);
-                Vector2 starVelocity = Vector2.One.RotatedByRandom(Tau) * Main.rand.NextFloat(-0.2f, 0.2f);
+                Vector2 starVelocity = Vector2.One.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(-0.2f, 0.2f);
                 float starScale = Main.rand.NextFloat(0.10f, 0.20f) * 2f;
                 float parallaxStrength = Main.rand.NextFloat(1f, 5f);
                 int starLifetime = Main.rand.Next(240, 360);

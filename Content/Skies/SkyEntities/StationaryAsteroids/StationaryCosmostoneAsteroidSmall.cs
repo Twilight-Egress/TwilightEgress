@@ -1,5 +1,6 @@
 ﻿using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using System;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
@@ -18,7 +19,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 
             Opacity = 0f;
             Frame = Main.rand.Next(3);
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
             ShaderTimeMultiplier = Main.rand.NextFloat(0.1f, 1.5f) * Main.rand.NextBool().ToDirectionInt();
         }

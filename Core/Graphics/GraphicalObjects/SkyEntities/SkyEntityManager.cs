@@ -1,14 +1,15 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using ReLogic.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {
     public class SkyEntityManager : ModSystem
     {
-        #region Fields
         internal static List<SkyEntity> ActiveSkyEntities = [];
-        #endregion
 
         #region Overrides
         #region Loading and Unloading

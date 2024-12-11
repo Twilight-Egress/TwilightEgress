@@ -1,5 +1,7 @@
 ﻿using CalamityMod.Sounds;
 using Luminance.Common.Utilities;
+using System;
+using System.Collections.Generic;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
@@ -213,8 +215,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
                 int order = brotherMinions.IndexOf(Projectile);
                 idleAngle = TwoPi * order / minionCount;
                 idleAngle += TwoPi * Main.GlobalTimeWrappedHourly / 5f;
-                idlePosition.X += 140f * Cos(idleAngle);
-                idlePosition.Y += -70f - 40f * Sin(idleAngle) + owner.gfxOffY;
+                idlePosition.X += 140f * MathF.Cos(idleAngle);
+                idlePosition.Y += -70f - 40f * MathF.Sin(idleAngle) + owner.gfxOffY;
             }
         }
 

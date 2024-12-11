@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader.IO;
+﻿using System.IO;
+using Terraria.ModLoader.IO;
 
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {

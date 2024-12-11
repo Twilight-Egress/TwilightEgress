@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using System;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Items.Dedicated.Raesh;
 using TwilightEgress.Content.Particles;
@@ -292,7 +293,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             // Release the cats that built up.
             for (int i = 0; i < bastCatCount; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(Tau) * Main.rand.NextFloat(10f, 15f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(10f, 15f);
                 Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.KibbyExplosion, null, Projectile.owner);
             }
 

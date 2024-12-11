@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
+﻿using System.Linq;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.Globals.GlobalProjectiles
 {

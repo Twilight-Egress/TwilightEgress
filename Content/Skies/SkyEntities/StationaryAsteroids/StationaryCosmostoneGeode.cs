@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using System;
+using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 {
@@ -13,7 +14,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
             Lifetime = lifespan;
 
             Opacity = 0f;
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
         }
 

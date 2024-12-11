@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
     public partial class TwilightEgressGlobalNPC

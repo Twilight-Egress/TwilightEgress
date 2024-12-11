@@ -1,6 +1,10 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.Particles;
@@ -103,7 +107,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     spriteStretchX = Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
                     spriteStretchY = Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
 
-                    int frameY = (int)Floor(Lerp(0f, 1f, stretchInterpolant));
+                    int frameY = (int)Math.Floor(Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
 
                     // Pick a random angle to move towards before propelling forward.
@@ -111,7 +115,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     {
                         // Set a random movement angle initially.
                         if (Timer == 1 && !turnAround)
-                            jellyfishMovementAngle = Main.rand.NextFloat(Tau);
+                            jellyfishMovementAngle = Main.rand.NextFloat(MathF.Tau);
 
                         // Stop searching for valid rotation angles once the Manaphage no longer needs to turn around.
                         if (!turnAround)
@@ -149,7 +153,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 if (Timer >= jellyfishMovementInterval + 30)
                 {
                     float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - jellyfishMovementInterval + 45) / jellyfishMovementInterval + 30, true);
-                    int frameY = (int)Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                    int frameY = (int)Math.Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                     UpdateAnimationFrames(default, 0f, frameY);
                 }
 
@@ -263,7 +267,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     if (Timer == 1 && !turnAround)
                         jellyfishMovementAngle = vectorToPlayer.ToRotation();
 
-                    int frameY = (int)Floor(Lerp(0f, 1f, stretchInterpolant));
+                    int frameY = (int)Math.Floor(Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
 
                     if (!turnAround)
@@ -296,7 +300,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer >= timeBeforePropulsion)
             {
                 float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - maxTime) / timeBeforePropulsion + 30, true);
-                int frameY = (int)Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                int frameY = (int)Math.Floor(Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
                 UpdateAnimationFrames(default, 0f, frameY);
             }
 
@@ -348,7 +352,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
                 if (Timer <= 15f)
                 {
-                    int frameY = (int)Floor(Lerp(0f, 4f, Timer / 15f));
+                    int frameY = (int)Math.Floor(Lerp(0f, 4f, Timer / 15f));
                     UpdateAnimationFrames(ManaphageAnimation.Inject, 0f, frameY);
                 }
 

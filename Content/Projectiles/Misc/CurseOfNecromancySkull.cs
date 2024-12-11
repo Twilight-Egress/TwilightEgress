@@ -1,4 +1,6 @@
-﻿using TwilightEgress.Content.Buffs.Debuffs;
+﻿using System;
+using System.IO;
+using TwilightEgress.Content.Buffs.Debuffs;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Projectiles.Misc
@@ -18,7 +20,7 @@ namespace TwilightEgress.Content.Projectiles.Misc
                 float projectileCounts = Owner.ownedProjectileCounts[Type];
                 if (projectileCounts <= 1f)
                     projectileCounts = 1f;
-                return Tau * SkullIndex / projectileCounts + (Timer / 120f);
+                return MathF.Tau * SkullIndex / projectileCounts + (Timer / 120f);
             }
         }
 

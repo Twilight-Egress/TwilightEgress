@@ -1,4 +1,5 @@
 using Luminance.Common.Utilities;
+using System.Collections.Generic;
 using TwilightEgress.Core.EntityOverridingSystem;
 using TwilightEgress.Core.Players;
 

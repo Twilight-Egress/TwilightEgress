@@ -1,5 +1,6 @@
 ﻿using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using System;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -32,7 +33,7 @@ namespace TwilightEgress.Content.Particles
             UseSoftTexture = useSoftTexture;
 
             Squish = Vector2.One;
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
         }
 
         // Directional Pulse Ring.
@@ -52,7 +53,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             Scale = new(Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
-            Opacity = Sin(PiOver2 + LifetimeRatio * PiOver2);
+            Opacity = MathF.Sin(PiOver2 + LifetimeRatio * PiOver2);
 
             Velocity *= 0.98f;
         }

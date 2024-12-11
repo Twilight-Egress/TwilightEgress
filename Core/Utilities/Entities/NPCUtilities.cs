@@ -1,4 +1,5 @@
-﻿using Terraria.Utilities;
+﻿using System.Linq;
+using Terraria.Utilities;
 using static Terraria.Utilities.NPCUtils;
 
 namespace TwilightEgress

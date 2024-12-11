@@ -1,4 +1,5 @@
 ﻿using Luminance.Common.Utilities;
+using System;
 using Terraria;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -73,7 +74,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             Owner.heldProj = Projectile.whoAmI;
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
-            Owner.ChangeDir(Sign(Owner.AngleTo(Main.MouseWorld).ToRotationVector2().X));
+            Owner.ChangeDir(MathF.Sign(Owner.AngleTo(Main.MouseWorld).ToRotationVector2().X));
             Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
             Owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
         }

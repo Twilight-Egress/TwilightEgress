@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Particles;
 using ReLogic.Content;
+using System;
 
 namespace TwilightEgress.Content.Projectiles.Magic
 {
@@ -42,7 +43,7 @@ namespace TwilightEgress.Content.Projectiles.Magic
             StellascopeStar targetStar = FindSyncStar();
             Time++;
             PulseTimer--;
-            Projectile.position.Y -= Sin(Time * 0.06f) * 0.7f;
+            Projectile.position.Y -= MathF.Sin(Time * 0.06f) * 0.7f;
 
             bool createPulse = PulseTimer <= 0 && PulseTimer % 60 == 0 && Time * 0.01f >= 0.5f;
             if (targetStar != null && targetStar.Projectile.timeLeft > Projectile.timeLeft)

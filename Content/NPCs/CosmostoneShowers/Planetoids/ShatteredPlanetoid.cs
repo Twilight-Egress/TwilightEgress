@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
+﻿using System;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
 {
@@ -27,7 +28,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
             if (Main.rand.NextBool(2))
                 TwilightEgressUtilities.CreateDustLoop(15, dustPosition, Vector2.UnitX, DustID.Electric);
 
-            NPC.rotation += Tau / 600f;
+            NPC.rotation += MathF.Tau / 600f;
             NPC.ShowNameOnHover = false;
         }
     }

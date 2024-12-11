@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+﻿using System;
+using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid
 {
@@ -15,7 +16,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid
 
             Opacity = 0f;
             Frame = Main.rand.Next(6);
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
         }
 
         public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";

@@ -1,5 +1,7 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using System;
+using System.Linq;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -173,7 +175,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-            owner.ChangeDir(Sign(Projectile.rotation.ToRotationVector2().X));
+            owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
             owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
         }
 

@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
+﻿using System;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Core.Players
 {
@@ -45,7 +46,7 @@ namespace TwilightEgress.Core.Players
                 // Adjust the player's angle by the player's velocity, ensuring the player is constantly moving around the
                 // Planetoid at the correct speed.
                 PlayerAngle += (Planetoid.NPC.rotation / (Planetoid.NPC.rotation * 95f)) + Player.velocity.X / Planetoid.WalkableRadius;
-                PlayerAngle %= Tau;
+                PlayerAngle %= MathF.Tau;
 
                 // Eject the player from the Planetoid either once they jump or manage to leave a planetoid's attraction radius.
                 float totalAttractionRadius = Planetoid.MaximumAttractionRadius + Planetoid.WalkableRadius;

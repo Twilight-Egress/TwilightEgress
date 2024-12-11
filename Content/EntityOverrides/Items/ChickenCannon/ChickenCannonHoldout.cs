@@ -6,6 +6,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 using CalamityMod.Sounds;
 using TwilightEgress.Content.Particles;
 using Luminance.Common.Utilities;
+using System;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

@@ -1,4 +1,6 @@
-﻿namespace TwilightEgress.Core
+﻿using System.Collections.Generic;
+
+namespace TwilightEgress.Core
 {
     public class LightningPointsBuilder
     {

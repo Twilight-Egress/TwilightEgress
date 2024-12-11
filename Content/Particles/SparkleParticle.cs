@@ -1,6 +1,7 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
+using System;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -38,7 +39,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             // Fade in and out.
-            Opacity = Sin(LifetimeRatio * Pi);
+            Opacity = MathF.Sin(LifetimeRatio * Pi);
 
             // Slow down and spin.
             Velocity *= 0.98f;

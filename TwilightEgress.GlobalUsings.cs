@@ -3,12 +3,6 @@
 // why did they do this what motivated this
 // what's even their use case
 
-global using System;
-global using System.Collections.Generic;
-global using System.Linq;
-global using System.IO;
-global using static System.MathF;
-
 global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
 global using static Microsoft.Xna.Framework.MathHelper;

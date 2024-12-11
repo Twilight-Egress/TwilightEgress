@@ -4,6 +4,7 @@ using TwilightEgress.Content.Events.CosmostoneShowers;
 using System;
 using Terraria.ModLoader.IO;
 using Stubble.Core.Classes;
+using System.Collections.Generic;
 
 namespace TwilightEgress.Content.Events
 {

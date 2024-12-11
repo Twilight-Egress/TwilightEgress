@@ -1,4 +1,5 @@
-﻿using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+﻿using System.Collections.Generic;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
 {

@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using System;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -31,7 +32,7 @@ namespace TwilightEgress.Content.Particles
             Lifetime = lifetime;
             RotationSpeed = rotationSpeed;
 
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
             FrameVariant = Main.rand.Next(FrameCount);
         }
 
