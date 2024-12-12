@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -91,7 +92,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                             //Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7f * Projectile.scale;
                             ScreenShakeSystem.StartShake(7f * Projectile.scale, shakeStrengthDissipationIncrement: 0.185f);
 
-                            Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
+                            Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480));
                             int lifespan = (int)MathHelper.Lerp(10, 45, Timer / 480);
                             new RoaringShockwaveParticle(lifespan, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).SpawnCasParticle();
                             Projectile.netUpdate = true;
@@ -108,7 +109,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                     //Main.LocalPlayer.Calamity().GeneralScreenShakePower = 7f * Projectile.scale;
                     ScreenShakeSystem.StartShake(7f * Projectile.scale, shakeStrengthDissipationIncrement: 0.185f);
 
-                    Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
+                    Color shockwaveColor = Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480));
                     new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, shockwaveColor, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).SpawnCasParticle();
                     Projectile.netUpdate = true;
                 }
@@ -143,7 +144,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 }
 
                 // Particles.
-                Color particleColor = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
+                Color particleColor = Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480));
                 if (Timer % 10 == 0)
                 {
                     int lifespan = (int)MathHelper.Lerp(45, 100, Timer / 480);
@@ -189,7 +190,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 Vector2 speed = Utils.RandomVector2(Main.rand, -1f, 1f);
                 Dust d = Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height), DustID.TintableDustLighted, speed * Main.rand.NextFloat(2f, 6f));
                 d.noGravity = true;
-                d.color = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480));
+                d.color = Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480));
             }
 
             Projectile.rotation += MathHelper.Pi / 30f;
@@ -241,7 +242,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             int currentYFrame = individualFrame * Projectile.frame;
             Rectangle rec = new Rectangle(0, currentYFrame, texture.Width, individualFrame);
 
-            Color color = Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480)) * Projectile.Opacity;
+            Color color = Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480)) * Projectile.Opacity;
 
             // Vortex 1.
             Main.EntitySpriteDraw(Vortex, drawPosition, Vortex.Frame(), Projectile.GetAlpha(color), rotation, Vortex.Size() / 2f, Projectile.scale * 3f, SpriteEffects.None, 0);
@@ -251,7 +252,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
@@ -266,7 +267,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public float TrailWidthFunction(float trailLengthInterpolant) => 40f * Utils.GetLerpValue(0.75f, 0f, trailLengthInterpolant, true) * Projectile.scale * Projectile.Opacity;
 
-        public Color TrailColorFunction(float trailLengthInterpolant) => Color.Lerp(Color.Lerp(Color.Yellow, Color.Cyan, TwilightEgressUtilities.SineEaseInOut(ColorTimer / 480)), Color.White, 0.45f) * Projectile.Opacity;
+        public Color TrailColorFunction(float trailLengthInterpolant) => Color.Lerp(Color.Lerp(Color.Yellow, Color.Cyan, EasingFunctions.SineEaseInOut(ColorTimer / 480)), Color.White, 0.45f) * Projectile.Opacity;
 
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {

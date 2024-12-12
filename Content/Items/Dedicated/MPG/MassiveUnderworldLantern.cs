@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
@@ -74,7 +75,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             if (AIState == 0f)
             {
-                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, EasingFunctions.SineEaseInOut(Timer / TimeBeforeCharging));
                 Projectile.rotation = Projectile.AngleTo(closestTarget.Center);
                 Projectile.velocity *= 0.9f;
 

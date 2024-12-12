@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -122,8 +123,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 // Start to make the ritual circle visible after 3 seconds.
                 if (ChargeTimer >= 60)
                 {
-                    ritualCircleScale = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
-                    ritualCircleOpacity = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleScale = MathHelper.Lerp(0f, 1f, EasingFunctions.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleOpacity = MathHelper.Lerp(0f, 1f, EasingFunctions.SineEaseInOut(ChargeTimer / 175f));
                 }
             }
 

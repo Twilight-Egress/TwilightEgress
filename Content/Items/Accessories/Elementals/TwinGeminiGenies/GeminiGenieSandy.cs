@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using TwilightEgress.Core.Players.BuffHandlers;
@@ -145,7 +146,7 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             Projectile.AdjustProjectileHitboxByScale(54f, 114f);
 
             Vector2 idlePosition = Owner.Center - Vector2.UnitX * 175f;
-            idlePosition.Y += MathHelper.Lerp(-15f, 15f, TwilightEgressUtilities.SineEaseInOut(Timer / 240f));
+            idlePosition.Y += MathHelper.Lerp(-15f, 15f, EasingFunctions.SineEaseInOut(Timer / 240f));
 
             float speed = 25f;
             Vector2 idealVelocity = idlePosition - Projectile.Center;
@@ -266,9 +267,9 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
                     Projectile.SimpleMove(targetCenter, 45f, 85f);
                     if (Timer <= 30f)
                     {
-                        sandTwisterOpacity = MathHelper.Lerp(sandTwisterOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
-                        sandTwisterScale = MathHelper.Lerp(5f, 2.25f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
-                        Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                        sandTwisterOpacity = MathHelper.Lerp(sandTwisterOpacity, 1f, EasingFunctions.SineEaseInOut(Timer / 30f));
+                        sandTwisterScale = MathHelper.Lerp(5f, 2.25f, EasingFunctions.SineEaseInOut(Timer / 30f));
+                        Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, EasingFunctions.SineEaseInOut(Timer / 30f));
                     }
                 }
 

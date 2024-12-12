@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -76,21 +77,21 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             if (Timer <= MaxChargeTime)
             {
                 Projectile.velocity *= 0.9f;
-                Projectile.Opacity = MathHelper.Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.Opacity = MathHelper.Lerp(0f, 1f, EasingFunctions.SineEaseInOut(Timer / MaxChargeTime));
                 Projectile.rotation += MathHelper.TwoPi / 120f * RotationDirection;
 
                 // Backglow visuals.
                 if (Timer <= 100)
                 {
-                    rampartBackglowOpacity = MathHelper.Lerp(rampartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
-                    rampartBackglowRadius = MathHelper.Lerp(175f, 3f, TwilightEgressUtilities.SineEaseInOut(Timer / 100f));
+                    rampartBackglowOpacity = MathHelper.Lerp(rampartBackglowOpacity, 1f, EasingFunctions.SineEaseInOut(Timer / 100f));
+                    rampartBackglowRadius = MathHelper.Lerp(175f, 3f, EasingFunctions.SineEaseInOut(Timer / 100f));
                 }
 
                 // Handle the anvil and summoning circle drawing.
                 if (Timer <= 30f)
-                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30f));
+                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 1f, EasingFunctions.SineEaseInOut(Timer / 30f));
                 if (Timer >= MaxChargeTime - 25 && Timer <= MaxChargeTime)
-                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / 25f));
+                    anvilAndSummoningCricleOpacity = MathHelper.Lerp(anvilAndSummoningCricleOpacity, 0f, EasingFunctions.SineEaseInOut(Timer / 25f));
 
                 // Dust visuals.
                 if (Timer <= MaxChargeTime - 45)

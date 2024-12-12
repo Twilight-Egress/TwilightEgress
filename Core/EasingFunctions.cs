@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TwilightEgress
+namespace TwilightEgress.Core
 {
-    public static partial class TwilightEgressUtilities
+    public static class EasingFunctions
     {
         public static float LinearEase(float completionValue) => completionValue;
 

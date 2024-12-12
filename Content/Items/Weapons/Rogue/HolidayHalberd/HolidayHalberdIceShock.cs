@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -64,8 +65,8 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
             // Scale up.
             if (Timer <= 20f)
             {
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, RandomNewScale, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
-                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 20f));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, RandomNewScale, EasingFunctions.SineEaseInOut(Timer / 20f));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, EasingFunctions.SineEaseInOut(Timer / 20f));
             }
 
             if (Timer >= 30f)

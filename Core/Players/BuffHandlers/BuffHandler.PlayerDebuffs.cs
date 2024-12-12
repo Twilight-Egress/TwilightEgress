@@ -71,8 +71,8 @@ namespace TwilightEgress.Core.Players.BuffHandlers
                     float abberationInterpolant = MathHelper.Lerp(0f, 25f, BellbirdStunTimeRatio);
                     ChromaticAbberationRenderer.ApplyChromaticAbberation(Main.LocalPlayer.Center, abberationInterpolant, 240);
 
-                    float vignettePowerInterpolant = MathHelper.Lerp(20f, 2f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
-                    float vignetteBrightnessInterpolant = MathHelper.Lerp(0f, 3f, TwilightEgressUtilities.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignettePowerInterpolant = MathHelper.Lerp(20f, 2f, EasingFunctions.SineEaseInOut(BellbirdStunTimeRatio));
+                    float vignetteBrightnessInterpolant = MathHelper.Lerp(0f, 3f, EasingFunctions.SineEaseInOut(BellbirdStunTimeRatio));
                     DarkVignetteRenderer.ApplyDarkVignette(Main.LocalPlayer.Center, vignettePowerInterpolant, vignetteBrightnessInterpolant, 180);
                 }
 

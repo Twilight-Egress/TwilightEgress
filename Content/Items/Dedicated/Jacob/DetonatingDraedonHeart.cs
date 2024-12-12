@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -74,7 +75,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
             if (Timer <= MaxChargeTime)
             {
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1.5f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1.5f, EasingFunctions.SineEaseInOut(Timer / MaxChargeTime));
             }
 
             if (Timer >= MaxChargeTime && Timer <= MaxChargeTime + DetonationDelay + (int)RandomizedExplosionDelay && Timer % 5 == 0)
@@ -96,8 +97,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 }
 
                 // Backglow visuals.
-                heartBackglowOpacity = MathHelper.Lerp(heartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
-                heartBackglowRadius = MathHelper.Lerp(0f, 5f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowOpacity = MathHelper.Lerp(heartBackglowOpacity, 1f, EasingFunctions.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowRadius = MathHelper.Lerp(0f, 5f, EasingFunctions.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
 
                 // Decrease the frame speed to make the animation appear faster.
                 FrameSpeed = MathHelper.Clamp(FrameSpeed - 1f, 1f, 10f);

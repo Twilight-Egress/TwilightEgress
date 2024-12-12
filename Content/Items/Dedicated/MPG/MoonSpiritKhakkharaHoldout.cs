@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Buffs.Minions;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -151,9 +152,9 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             // Ritual circle visuals.
             if (Timer <= 60f)
-                ritualCircleOpacity = MathHelper.Lerp(1f, 0f, TwilightEgressUtilities.SineEaseOut(Timer / 60f));
+                ritualCircleOpacity = MathHelper.Lerp(1f, 0f, EasingFunctions.SineEaseOut(Timer / 60f));
             if (Timer <= 75f)
-                ritualCircleScale = MathHelper.Lerp(0f, 3f, TwilightEgressUtilities.SineEaseOut(Timer / 75f));
+                ritualCircleScale = MathHelper.Lerp(0f, 3f, EasingFunctions.SineEaseOut(Timer / 75f));
 
             if (Timer == 1)
             {

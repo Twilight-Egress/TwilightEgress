@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -55,7 +56,7 @@ namespace TwilightEgress.Content.Particles
 
         public override void Update()
         {
-            Scale = new(MathHelper.Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
+            Scale = new(MathHelper.Lerp(InitialScale, MaxScale, EasingFunctions.QuartEaseOut(LifetimeRatio)));
             Opacity = MathF.Sin(MathHelper.PiOver2 + LifetimeRatio * MathHelper.PiOver2);
 
             Velocity *= 0.98f;

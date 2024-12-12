@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -63,7 +64,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 }
             }
 
-            float sine = TwilightEgressUtilities.SineEaseInOut(Timer / 17.5f);
+            float sine = EasingFunctions.SineEaseInOut(Timer / 17.5f);
             if (Timer <= 35f)
             {
                 Projectile.scale = MathHelper.Lerp(0.1f, 2f, sine);

@@ -12,6 +12,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -223,7 +224,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                 ResetAnimationTimer++;
                 if (ResetAnimationTimer <= 45f)
                 {
-                    Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-85f) * Owner.direction * recoilStrength, TwilightEgressUtilities.ExpoEaseOut(ResetAnimationTimer / 25f));
+                    Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-85f) * Owner.direction * recoilStrength, EasingFunctions.ExpoEaseOut(ResetAnimationTimer / 25f));
                 }
 
                 if (ResetAnimationTimer >= 45f)
@@ -277,7 +278,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                 // Recoil animation.
                 ResetAnimationTimer++;
                 if (ResetAnimationTimer <= 45f)
-                    Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-135f) * Owner.direction, TwilightEgressUtilities.ExpoEaseOut(ResetAnimationTimer / 35f));
+                    Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-135f) * Owner.direction, EasingFunctions.ExpoEaseOut(ResetAnimationTimer / 35f));
 
                 if (ResetAnimationTimer >= 45f)
                     Projectile.Kill();
@@ -362,7 +363,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             for (int i = 0; i < 4; i++)
             {
                 backglowRotation += MathHelper.TwoPi / 300f;
-                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + MathHelper.TwoPi * i / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);

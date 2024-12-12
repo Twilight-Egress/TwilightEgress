@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 {
@@ -102,8 +103,8 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             if (Timer <= 60f)
             {
                 Projectile.velocity *= 0.98f;
-                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, EasingFunctions.SineEaseInOut(Timer / 60f));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, EasingFunctions.SineEaseInOut(Timer / 60f));
             }
 
             // Home in on targets, though very sloppily.

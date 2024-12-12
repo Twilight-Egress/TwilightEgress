@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
@@ -235,9 +236,9 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 // Ease back to the player and fade out.
                 if (Timer <= returnTime)
                 {
-                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, EasingFunctions.SineEaseInOut(Timer / returnTime));
+                    Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, EasingFunctions.SineEaseInOut(Timer / returnTime));
+                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, EasingFunctions.SineEaseInOut(Timer / returnTime));
                 }
 
                 // Head back to usual idle AI.

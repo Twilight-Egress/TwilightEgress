@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -29,7 +30,7 @@ namespace TwilightEgress.Content.Particles
         public override void Update()
         {
             Opacity = MathHelper.Lerp(1f, 0f, LifetimeRatio);
-            Scale = new(MathHelper.Lerp(BaseScale, NewScale, TwilightEgressUtilities.SineEaseOut(LifetimeRatio)));
+            Scale = new(MathHelper.Lerp(BaseScale, NewScale, EasingFunctions.SineEaseOut(LifetimeRatio)));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

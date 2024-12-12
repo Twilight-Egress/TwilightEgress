@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ReLogic.Threading;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles

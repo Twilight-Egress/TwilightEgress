@@ -11,6 +11,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
@@ -176,7 +177,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);

@@ -15,6 +15,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
@@ -111,8 +112,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     // Squash the sprite slightly before the propulsion movement to give a
                     // more cartoony, jellyfish-like feeling to the movement.
                     float stretchInterpolant = Utils.GetLerpValue(0f, 1f, Timer / jellyfishMovementInterval, true);
-                    spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
-                    spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                    spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
+                    spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
 
                     int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 1f, stretchInterpolant));
                     UpdateAnimationFrames(default, 0f, frameY);
@@ -159,7 +160,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 if (Timer >= jellyfishMovementInterval + 30)
                 {
                     float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - jellyfishMovementInterval + 45) / jellyfishMovementInterval + 30, true);
-                    int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, EasingFunctions.SineEaseIn(animationInterpolant)));
                     UpdateAnimationFrames(default, 0f, frameY);
                 }
 
@@ -265,8 +266,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 SwitchBehaviorState(ManaphageBehavior.Idle_JellyfishPropulsion);
 
             // Squash and stretch the sprite passively.
-            spriteStretchX = MathHelper.Lerp(1f, 1.10f, TwilightEgressUtilities.SineEaseInOut(Timer / 60f));
-            spriteStretchY = MathHelper.Lerp(1f, 0.8f, TwilightEgressUtilities.SineEaseInOut(Timer / 120f));
+            spriteStretchX = MathHelper.Lerp(1f, 1.10f, EasingFunctions.SineEaseInOut(Timer / 60f));
+            spriteStretchY = MathHelper.Lerp(1f, 0.8f, EasingFunctions.SineEaseInOut(Timer / 120f));
 
             UpdateAnimationFrames(default, 10f);
 
@@ -302,8 +303,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer <= timeBeforePropulsion)
             {
                 float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(Timer / timeBeforePropulsion), true);
-                spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
-                spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, TwilightEgressUtilities.SineEaseInOut(stretchInterpolant));
+                spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
+                spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
 
                 if (!FoundValidRotationAngle)
                 {
@@ -358,7 +359,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (Timer >= timeBeforePropulsion)
             {
                 float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Timer - maxTime) / timeBeforePropulsion + 30, true);
-                int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, TwilightEgressUtilities.SineEaseIn(animationInterpolant)));
+                int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, EasingFunctions.SineEaseIn(animationInterpolant)));
                 UpdateAnimationFrames(default, 0f, frameY);
             }
 

@@ -11,9 +11,9 @@ namespace TwilightEgress.Core
         private float Sway;
         private float Jaggedness;
 
-        public LightningPointsBuilder() 
+        public LightningPointsBuilder()
         {
-            
+
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace TwilightEgress.Core
         /// </summary>
         public LightningPointsBuilder SetDestination(Vector2 destination)
         {
-            Destination = destination; 
+            Destination = destination;
             return this;
         }
 
@@ -80,7 +80,7 @@ namespace TwilightEgress.Core
                 float pos = positions[i];
 
                 // used to prevent sharp angles by ensuring very close positions also have small perpendicular variation.
-                float scale = (length * Jaggedness) * (pos - positions[i - 1]);
+                float scale = length * Jaggedness * (pos - positions[i - 1]);
 
                 // defines an envelope. Points near the middle of the bolt can be further from the central line.
                 float envelope = pos > 0.95f ? 20 * (1 - pos) : 1;

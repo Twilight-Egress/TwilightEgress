@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using TwilightEgress.Assets;
+using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
 namespace TwilightEgress.Content.Skies.SkyEntities
@@ -55,7 +56,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities
             int timeToDisappear = Lifetime - 120;
             int timeToAppear = 120;
             float appearInterpolant = Time / (float)timeToAppear;
-            float twinkleInterpolant = TwilightEgressUtilities.SineEaseInOut(Time / 60f);
+            float twinkleInterpolant = EasingFunctions.SineEaseInOut(Time / 60f);
             float disappearInterpolant = (Time - timeToDisappear) / 120f;
 
             Scale = new Vector2(MathHelper.Lerp(MinScale, MaxScale, twinkleInterpolant));

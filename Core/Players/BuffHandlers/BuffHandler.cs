@@ -1,6 +1,6 @@
 ﻿using CalamityMod;
-using Luminance.Common.Utilities;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Cooldowns;
 
@@ -53,7 +53,7 @@ namespace TwilightEgress.Core.Players.BuffHandlers
             MechonSlayerBuffs[artID] = true;
 
             if (artID != 1)
-                Player.AddCooldown(MechonSlayerArtSelection.ID, Utilities.SecondsToFrames(30));
+                Player.AddCooldown(MechonSlayerArtSelection.ID, Luminance.Common.Utilities.Utilities.SecondsToFrames(30));
             MechonSlayerResetTime = 0;
         }
 

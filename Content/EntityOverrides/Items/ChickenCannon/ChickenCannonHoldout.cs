@@ -14,6 +14,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 
 using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
@@ -141,7 +142,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             for (int i = 0; i < 4; i++)
             {
                 backglowRotation += MathHelper.TwoPi / 300f;
-                float backglowRadius = MathHelper.Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
                 Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + MathHelper.TwoPi * i / 4) * backglowRadius;
 
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, projRec, Projectile.GetAlpha(Color.Orange), rotation, projRec.Size() / 2f, Projectile.scale, effects, 0);
