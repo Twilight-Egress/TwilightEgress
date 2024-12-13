@@ -1,8 +1,15 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.GameContent.Drawing;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {

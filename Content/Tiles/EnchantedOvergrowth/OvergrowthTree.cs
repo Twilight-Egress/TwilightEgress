@@ -1,8 +1,14 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Linq;
+using Terraria;
 using Terraria.Enums;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Core;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -57,22 +63,6 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 Mod.Find<ModTile>("OvergrowthTreeBaseMedium").Type,
                 Mod.Find<ModTile>("OvergrowthTreeBaseSmall").Type
             ];
-
-            if (adjacencyData.top == Type)
-                WorldGen.KillTile(i, j - 1);
-            if (adjacencyData.bottom == Type || treeBases.Contains(adjacencyData.bottom))
-                WorldGen.KillTile(i, j + 1);
-        }
-
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-            if (fail || effectOnly)
-                return;
-
-            Framing.GetTileSafely(i, j).HasTile = false;
-
-            AdjacencyData<Tile> adjacencyData = GetAdjacentTiles(i, j);
-            int[] treeBases = [ModContent.TileType<OvergrowthTreeBase1>(), ModContent.TileType<OvergrowthTreeBase2>(), ModContent.TileType<OvergrowthTreeBase3>()];
 
             if (adjacencyData.top == Type)
                 WorldGen.KillTile(i, j - 1);

@@ -49,7 +49,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 
             // Start the event if there are no issues.
             Main.NewText("Successfully started event!");
-            EventHandlerManager.StartEvent<CosmostoneShowerEvent>();
+            EventHandlerManager.StartEvent<Events.CosmostoneShowers.CosmostoneShowers>();
             return true;
         }
     }

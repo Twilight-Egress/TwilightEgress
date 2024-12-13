@@ -1,4 +1,5 @@
 ﻿using System;
+using Terraria.ModLoader;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 
 namespace TwilightEgress.Content.Biomes.EnchantedOvergrowth

@@ -1,9 +1,12 @@
-﻿using ReLogic.Threading;
+﻿using Microsoft.Xna.Framework;
+using ReLogic.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.IO;
+using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 using TwilightEgress.Content.Walls;
@@ -277,20 +280,6 @@ namespace TwilightEgress.Content.World
 
                 if (Framing.GetTileSafely(i, j + y - 3).HasTile)
                     return false;
-            }
-
-            // attempt to place the base
-            int tileType = WorldGen.genRand.Next(typesToPlace);
-            int placeStyle = tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
-
-            WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
-            if (Framing.GetTileSafely(i, j).TileType != tileType)
-                return false;
-
-            // place the trunk
-            foreach (Point point in pointsToPlaceTree)
-            {
-                WorldGen.PlaceTile(point.X, point.Y + displacement, ModContent.TileType<OvergrowthTree>(), mute: true);
             }
 
             // attempt to place the base
