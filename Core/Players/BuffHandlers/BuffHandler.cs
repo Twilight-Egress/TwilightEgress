@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using TwilightEgress.Content.Cooldowns;
+using TwilightEgress.Content.Items.Dedicated.Enchilada;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {

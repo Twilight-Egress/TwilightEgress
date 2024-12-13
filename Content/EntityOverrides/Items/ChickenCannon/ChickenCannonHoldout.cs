@@ -1,5 +1,4 @@
 ﻿using TwilightEgress.Assets;
-using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using CalamityMod.Projectiles.Ranged;
@@ -15,6 +14,7 @@ using Terraria.ModLoader;
 
 using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 using TwilightEgress.Core;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {

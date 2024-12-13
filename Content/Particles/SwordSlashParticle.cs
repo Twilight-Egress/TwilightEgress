@@ -43,7 +43,7 @@ namespace TwilightEgress.Content.Particles
             Texture2D bloomTexture = ModContent.Request<Texture2D>("CalamityMod/UI/ModeIndicator/BloomFlare").Value;
             Vector2 drawPosition = Position - Main.screenPosition;
 
-            spriteBatch.Draw(bloomTexture, drawPosition, null, BloomColor * BloomOpacity, Rotation, bloomTexture.Size() / 2f, Scale, SpriteEffects.None, 0f);  
+            spriteBatch.Draw(bloomTexture, drawPosition, null, BloomColor * BloomOpacity, Rotation, bloomTexture.Size() / 2f, Scale, SpriteEffects.None, 0f);
             spriteBatch.Draw(Texture, drawPosition, null, DrawColor, Rotation, Texture.Frame.Size() / 2f, Scale * StretchFactor, SpriteEffects.None);
         }
     }

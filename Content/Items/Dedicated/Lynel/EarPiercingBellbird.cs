@@ -6,8 +6,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Content.Buffs.Debuffs;
-using TwilightEgress.Content.Buffs.Pets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;

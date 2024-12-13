@@ -1,8 +1,6 @@
-﻿using TwilightEgress.Content.Items.Materials;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria.GameContent.ItemDropRules;
 using TwilightEgress.Assets;
 using CalamityMod;
-using TwilightEgress.Content.Particles;
 using Luminance.Core.Graphics;
 using Luminance.Common.Utilities;
 using System.Collections.Generic;
@@ -15,6 +13,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using TwilightEgress.Content.Items.CosmostoneShowers;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {

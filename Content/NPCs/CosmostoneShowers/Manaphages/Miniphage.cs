@@ -3,7 +3,6 @@ using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using CalamityMod;
-using TwilightEgress.Content.Particles;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using TwilightEgress.Core;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {

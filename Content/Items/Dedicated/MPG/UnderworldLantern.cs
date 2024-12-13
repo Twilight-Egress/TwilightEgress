@@ -10,7 +10,6 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
@@ -341,7 +340,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         private bool CheckActive(Player owner)
         {
-            if (owner.HasBuff(ModContent.BuffType<UnderworldLanterns>()))
+            if (owner.HasBuff(ModContent.BuffType<UnderworldLanternBuff>()))
             {
                 Projectile.timeLeft = 2;
                 return true;

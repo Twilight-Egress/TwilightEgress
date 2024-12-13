@@ -11,7 +11,6 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Content.Buffs.Minions;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
@@ -136,7 +135,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             // Spawn in the lanterns.
             if (Timer >= MaxChargeTime && Timer % 30 == 0)
             {
-                Owner.AddBuff(ModContent.BuffType<UnderworldLanterns>(), 180000);
+                Owner.AddBuff(ModContent.BuffType<UnderworldLanternBuff>(), 180000);
                 Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 85f;
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<UnderworldLantern>(), Projectile.damage, 0f, SoundID.DD2_BetsyFireballShot, null, Projectile.owner);
 

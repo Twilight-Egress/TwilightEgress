@@ -8,8 +8,6 @@ namespace TwilightEgress.Core.Players.BuffHandlers
     public partial class BuffHandler
     {
         #region Misc Debuffs
-        public bool CerebralMindtrick { get; set; }
-
         public bool CurseOfNecromancy { get; set; }
 
         public bool BellbirdStun { get; set; }

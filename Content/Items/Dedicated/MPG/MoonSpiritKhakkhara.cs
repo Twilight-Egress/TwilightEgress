@@ -12,8 +12,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Content.Buffs.Debuffs;
-using TwilightEgress.Content.Projectiles.Misc;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
