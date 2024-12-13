@@ -1,4 +1,11 @@
-﻿using Terraria.UI;
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.UI;
 
 namespace TwilightEgress.Content.UI.Dialogue.UIElements
 {

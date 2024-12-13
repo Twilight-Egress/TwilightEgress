@@ -1,4 +1,6 @@
-﻿using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
+﻿using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
 
 namespace TwilightEgress.Content.NPCs.MiscNPCs
 {
@@ -6,7 +8,7 @@ namespace TwilightEgress.Content.NPCs.MiscNPCs
     {
         public new string LocalizationCategory => "NPCs.Misc";
 
-        public override string Texture => "Cascade/Content/NPCs/MiscNPCs/NoxusVision";
+        public override string Texture => "TwilightEgress/Assets/Textures/NPCs/MiscNPCs/NoxusVision";
         public override void SetDefaults()
         {
             NPC.width = 283;

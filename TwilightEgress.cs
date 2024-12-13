@@ -1,3 +1,9 @@
+using CalamityMod.Items.Accessories;
+using CalamityMod.Items.Placeables.FurnitureAuric;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.UI.Dialogue.UIElements;
 using TwilightEgress.Core.Players.BuffHandlers;

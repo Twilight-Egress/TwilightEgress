@@ -4,6 +4,11 @@ using Terraria.UI;
 using TwilightEgress.SubModules.DialogueHelper.UI;
 using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;
 using TwilightEgress.Content.UI.Dialogue.UIElements;
+using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using Terraria;
+using System.Linq;
+using System;
 
 namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
 {
@@ -104,7 +109,7 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                     if (!dialogue.crawling && button.Width.Pixels < ButtonSize.X)
                     {
                         Vector2 rotation = Vector2.UnitY;
-                        rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                        rotation = rotation.RotatedBy(MathHelper.TwoPi / responseButtons.Length * i);
                         button.HAlign = 0f;
                         button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
                         button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
@@ -139,7 +144,7 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                         if (!dialogue.crawling && button.Width.Pixels >= ButtonSize.X && button.Width.Pixels < ButtonSize.X * 1.25f)
                         {
                             Vector2 rotation = Vector2.UnitY;
-                            rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                            rotation = rotation.RotatedBy(MathHelper.TwoPi / responseButtons.Length * i);
                             button.HAlign = 0f;
                             button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
                             button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
@@ -165,7 +170,7 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                     else if (!dialogue.crawling && button.Width.Pixels > ButtonSize.X)
                     {
                         Vector2 rotation = Vector2.UnitY;
-                        rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                        rotation = rotation.RotatedBy(MathHelper.TwoPi / responseButtons.Length * i);
                         button.HAlign = 0f;
                         button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
                         button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
@@ -206,7 +211,7 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                 {
                     UIElement button = responseButtons[i];
                     Vector2 rotation = Vector2.UnitY;
-                    rotation = rotation.RotatedBy(TwoPi / responseButtons.Length * i);
+                    rotation = rotation.RotatedBy(MathHelper.TwoPi / responseButtons.Length * i);
                     button.HAlign = 0f;
                     button.Top.Set(textbox.Top.Pixels + (textbox.Height.Pixels / 2 - button.Height.Pixels / 2), 0);
                     button.Left.Set(textbox.Left.Pixels + (textbox.Width.Pixels / 2 - button.Width.Pixels / 2), 0);
