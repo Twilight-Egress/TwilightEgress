@@ -1,9 +1,21 @@
 ﻿using CalamityMod.DataStructures;
 using CalamityMod.Items.Weapons.Melee;
-using Cascade.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using System.Data.Odbc;
+using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using System;
+using System.IO;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
-namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
 {
     public class ChunkyCometpod : ModNPC
     {
@@ -77,6 +89,8 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public float LifeRatio => NPC.life / (float)NPC.lifeMax;
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.UsesNewTargetting[Type] = true;
@@ -110,7 +124,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             AIType = Main.rand.Next(2);
 
             NPC.scale = Main.rand.NextFloat(0.85f, 1.25f);
-            NPC.velocity *= Vector2.UnitX.RotatedByRandom(Tau) * 0.1f;
+            NPC.velocity *= Vector2.UnitX.RotatedByRandom(Math.Tau) * 0.1f;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -144,12 +158,12 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
         public void OnHit_HandleExtraVariables()
         {
-            ref float playerAggroTimer = ref NPC.Cascade().ExtraAI[PlayerAggroTimerIndex];
-            ref float playerTargettingChanceReduction = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceReductionIndex];
+            ref float playerAggroTimer = ref NPC.TwilightEgress().ExtraAI[PlayerAggroTimerIndex];
+            ref float playerTargettingChanceReduction = ref NPC.TwilightEgress().ExtraAI[PlayerTargettingChanceReductionIndex];
 
             if (LifeRatio > 0.5f)
-                playerAggroTimer = Clamp(playerAggroTimer + 180f, 0f, MaxPlayerAggroTimer);
-            playerTargettingChanceReduction = Clamp(playerTargettingChanceReduction + 100f, 0f, MaxPlayerTargettingChanceReduction);
+                playerAggroTimer = Math.Clamp(playerAggroTimer + 180f, 0f, MaxPlayerAggroTimer);
+            playerTargettingChanceReduction = Math.Clamp(playerTargettingChanceReduction + 100f, 0f, MaxPlayerTargettingChanceReduction);
         }
 
         public override void AI()
@@ -159,14 +173,14 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.AdvancedNPCTargeting(ShouldTargetPlayers, MaxPlayerSearchDistance, ShouldTargetNPCs, MaxNPCSearchDistance, asteroids);
             NPCAimedTarget target = NPC.GetTargetData();
 
-            ref float playerAggroTimer = ref NPC.Cascade().ExtraAI[PlayerAggroTimerIndex];
-            ref float chargeAngle = ref NPC.Cascade().ExtraAI[ChargeAngleIndex];
-            ref float maxAimlessCharges = ref NPC.Cascade().ExtraAI[MaxAimlessChargesIndex];
-            ref float aimlessChargeCounter = ref NPC.Cascade().ExtraAI[AimlessChargeCounterIndex];
-            ref float initialization = ref NPC.Cascade().ExtraAI[InitializationIndex];
-            ref float maxStarstruckTime = ref NPC.Cascade().ExtraAI[MaxStarstruckTimeIndex];
-            ref float playerTargettingChanceReduction = ref NPC.Cascade().ExtraAI[PlayerTargettingChanceReductionIndex];
-            ref float maxPassiveWanderingTime = ref NPC.Cascade().ExtraAI[MaxPassiveWanderingTimeIndex];
+            ref float playerAggroTimer = ref NPC.TwilightEgress().ExtraAI[PlayerAggroTimerIndex];
+            ref float chargeAngle = ref NPC.TwilightEgress().ExtraAI[ChargeAngleIndex];
+            ref float maxAimlessCharges = ref NPC.TwilightEgress().ExtraAI[MaxAimlessChargesIndex];
+            ref float aimlessChargeCounter = ref NPC.TwilightEgress().ExtraAI[AimlessChargeCounterIndex];
+            ref float initialization = ref NPC.TwilightEgress().ExtraAI[InitializationIndex];
+            ref float maxStarstruckTime = ref NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
+            ref float playerTargettingChanceReduction = ref NPC.TwilightEgress().ExtraAI[PlayerTargettingChanceReductionIndex];
+            ref float maxPassiveWanderingTime = ref NPC.TwilightEgress().ExtraAI[MaxPassiveWanderingTimeIndex];
 
             CometType currentCometType = (CometType)CurrentCometType;
             NearestCometpod = NPC.FindClosestNPC(out _, ModContent.NPCType<ChunkyCometpod>());
@@ -240,17 +254,17 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.netUpdate = true;
             }
 
-            NPC.CheckForTurnAround(-PiOver2, PiOver2, 0.05f, out bool shouldTurnAround);
+            NPC.CheckForTurnAround(-MathHelper.PiOver2, MathHelper.PiOver2, 0.05f, out bool shouldTurnAround);
             Vector2 centerAhead = NPC.Center + NPC.velocity * MaxTurnAroundCheckDistance;
             bool leavingSpace = centerAhead.Y >= Main.maxTilesY + 750f || centerAhead.Y < Main.maxTilesY * 0.34f;
 
             // Avoid tiles and leaving space. 
             if (shouldTurnAround || leavingSpace)
             {
-                float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-PiOver2)) ?? 1000f;
-                float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(PiOver2)) ?? 1000f;
+                float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2)) ?? 1000f;
+                float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(MathHelper.PiOver2)) ?? 1000f;
                 int directionToMove = distanceFromTileCollisionLeft > distanceFromTileCollisionRight ? -1 : 1;
-                Vector2 turnAroundVelocity = NPC.velocity.SafeNormalize(Vector2.Zero).RotatedBy(PiOver2 * directionToMove);
+                Vector2 turnAroundVelocity = NPC.velocity.SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2 * directionToMove);
                 if (leavingSpace)
                     turnAroundVelocity = centerAhead.Y >= Main.maxTilesY + 750f ? Vector2.UnitY * -3f : centerAhead.Y < Main.maxTilesY * 0.34f ? Vector2.UnitY * 3f : NPC.velocity;
 
@@ -263,7 +277,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             }
             else
             {
-                float moveSpeed = PassiveMovementSpeed / Sqrt(Pow(PassiveMovementVectorX, 2) + Pow(PassiveMovementVectorY, 2));
+                float moveSpeed = PassiveMovementSpeed / MathF.Sqrt(MathF.Pow(PassiveMovementVectorX, 2) + MathF.Pow(PassiveMovementVectorY, 2));
                 NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(PassiveMovementVectorX * moveSpeed, PassiveMovementVectorY * moveSpeed) * 3f, 0.02f);
             }
 
@@ -291,7 +305,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.netUpdate = true;
             }
 
-            NPC.rotation = NPC.rotation.AngleLerp(NPC.velocity.ToRotation() - Pi, 0.2f); 
+            NPC.rotation = NPC.rotation.AngleLerp(NPC.velocity.ToRotation() - MathHelper.Pi, 0.2f); 
         }
 
         public void DoBehavior_AimlessCharging(NPCAimedTarget target, CometType cometType, ref float chargeAngle, ref float maxAimlessCharges, ref float aimlessChargeCounter, ref float initialization)
@@ -320,9 +334,9 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             {
                 // Pick a random angle to turn towards and charge at.
                 if (Timer is 1)
-                    chargeAngle = Main.rand.NextFloat(Tau);
+                    chargeAngle = Main.rand.NextFloat(MathF.Tau);
 
-                NPC.rotation = NPC.rotation.AngleLerp(chargeAngle - Pi, 0.2f);
+                NPC.rotation = NPC.rotation.AngleLerp(chargeAngle - MathHelper.Pi, 0.2f);
                 NPC.velocity *= 0.9f;
 
                 if (Timer >= lineUpTime)
@@ -429,7 +443,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
             if (LocalAIState == 0f)
             {
-                NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - Pi, 0.2f);
+                NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - MathHelper.Pi, 0.2f);
                 NPC.velocity *= 0.9f;
 
                 if (Timer >= lineUpTime)
@@ -443,7 +457,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
             if (LocalAIState == 1f)
             {
-                NPC.rotation = NPC.velocity.ToRotation() - Pi;
+                NPC.rotation = NPC.velocity.ToRotation() - MathHelper.Pi;
 
                 if (NPC.velocity.Length() < 10f)
                     NPC.velocity *= 1.06f;                    
@@ -498,7 +512,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
             if (LocalAIState == 0f)
             {
-                NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - Pi, 0.2f);
+                NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - MathHelper.Pi, 0.2f);
                 NPC.velocity *= 0.9f;
 
                 if (Timer >= lineUpTime)
@@ -512,7 +526,7 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
 
             if (LocalAIState == 1f)
             {
-                NPC.rotation = NPC.velocity.ToRotation() - Pi;
+                NPC.rotation = NPC.velocity.ToRotation() - MathHelper.Pi;
 
                 if (NPC.velocity.Length() < 10f)
                     NPC.velocity *= 1.06f;
@@ -572,8 +586,9 @@ namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
             Texture2D texture = TextureAssets.Npc[Type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition + Vector2.UnitY;
             Vector2 drawOrigin = texture.Size() * 0.5f;
+            SpriteEffects spriteEffects = NPC.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            Main.EntitySpriteDraw(texture, drawPosition, null, NPC.GetAlpha(drawColor), NPC.rotation, drawOrigin, NPC.scale, NPC.DirectionBasedSpriteEffects());
+            Main.EntitySpriteDraw(texture, drawPosition, null, NPC.GetAlpha(drawColor), NPC.rotation, drawOrigin, NPC.scale, spriteEffects);
             return false;
         }
     }

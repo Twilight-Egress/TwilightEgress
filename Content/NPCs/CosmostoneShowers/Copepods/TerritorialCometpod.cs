@@ -1,4 +1,15 @@
-﻿namespace Cascade.Content.NPCs.CosmostoneShowers.Copepods
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
 {
     public class TerritorialCometpod : ChunkyCometpod
     {
@@ -7,6 +18,8 @@
         private List<float> SegmentRotations;
 
         private const int MaxSegmentsForPrims = 20;
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {
@@ -51,7 +64,7 @@
             float segmentOffset = 118f / MaxSegmentsForPrims * NPC.scale;
 
             // Update the first segment in the lists since it won't be updated in the loop below.
-            Vector2 directionToNextSegment = NPC.Center - (NPC.Center * segmentOffset).SafeNormalize(Vector2.Zero).RotatedBy(WrapAngle(NPC.rotation) * 0.03f);
+            Vector2 directionToNextSegment = NPC.Center - (NPC.Center * segmentOffset).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.WrapAngle(NPC.rotation) * 0.03f);
             SegmentRotations[0] = NPC.rotation;
             SegmentPositions[0] = directionToNextSegment;
 
@@ -63,10 +76,10 @@
 
                 directionToNextSegment = positionAhead - SegmentPositions[i];
                 if (rotationAhead != SegmentRotations[i])
-                    directionToNextSegment = directionToNextSegment.RotatedBy(WrapAngle(rotationAhead - SegmentRotations[i]) * 0.03f);
+                    directionToNextSegment = directionToNextSegment.RotatedBy(MathHelper.WrapAngle(rotationAhead - SegmentRotations[i]) * 0.03f);
                 directionToNextSegment = directionToNextSegment.SafeNormalize(Vector2.Zero);
 
-                SegmentRotations[i] = directionToNextSegment.ToRotation() + PiOver2;
+                SegmentRotations[i] = directionToNextSegment.ToRotation() + MathHelper.PiOver2;
                 SegmentPositions[i] = positionAhead - directionToNextSegment * segmentOffset;
 
                 // Testing.
@@ -88,7 +101,7 @@
 
             for (int i = 0; i < segmentPositions.Length; i++)
             {
-                segmentPositions[i] += -NPC.rotation.ToRotationVector2() * Sign(NPC.velocity.X);
+                segmentPositions[i] += -NPC.rotation.ToRotationVector2() * Math.Sign(NPC.velocity.X);
                 if (segmentAreaTopLeft.X > segmentPositions[i].X)
                     segmentAreaTopLeft.X = segmentPositions[i].X;
                 if (segmentAreaTopLeft.Y > segmentPositions[i].Y)
@@ -102,13 +115,13 @@
 
             float offsetAngle = (NPC.position - NPC.oldPos[1]).ToRotation();
             Vector2 primitiveArea = (segmentAreaTopRight - segmentAreaTopLeft).RotatedBy(-offsetAngle);
-            while (Abs(primitiveArea.X) < 118f)
+            while (MathF.Abs(primitiveArea.X) < 118f)
                 primitiveArea.X *= 1.008f;
 
             // This draws with additive blending for some reason??? idfk man
             spriteBatch.EnterShaderRegion(BlendState.AlphaBlend);
 
-            ShaderManager.TryGetShader("Cascade.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
+            ShaderManager.TryGetShader("TwilightEgress.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
             textureMapTrailShader.SetTexture(npcTexture, 1, SamplerState.LinearClamp);
             textureMapTrailShader.TrySetParameter("mapTextureSize", npcTexture.Size());
             textureMapTrailShader.TrySetParameter("textureScaleFactor", primitiveArea);
