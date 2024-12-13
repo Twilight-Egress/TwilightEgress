@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwilightEgress.Content.Items.Materials;
-using TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
+namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
-    public class SparklingGrenade : ModItem
+    public class SparklingBomb : ModItem
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -21,13 +19,10 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.damage = 65;
-            Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 8f;
-            Item.shootSpeed = 7f;
-            Item.shoot = ModContent.ProjectileType<SparklingGrenadeProjectile>();
-            Item.width = 20;
-            Item.height = 22;
+            Item.shootSpeed = 12f;
+            Item.shoot = ProjectileID.Bomb;
+            Item.width = 22;
+            Item.height = 32;
             Item.maxStack = Item.CommonMaxStack;
             Item.consumable = true;
             Item.UseSound = SoundID.Item1;
@@ -35,15 +30,15 @@ namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
             Item.useTime = 40;
             Item.noUseGraphic = true;
             Item.noMelee = true;
-            Item.value = Item.sellPrice(copper: 20);
+            Item.value = Item.sellPrice(silver: 1);
             Item.rare = ItemRarityID.White;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe(3)
+            CreateRecipe()
                 .AddIngredient<Stargel>()
-                .AddIngredient(ItemID.Grenade, 3)
+                .AddIngredient(ItemID.Bomb)
                 .Register();
         }
     }

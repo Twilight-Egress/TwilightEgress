@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwilightEgress.Content.Items.Materials;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace TwilightEgress.Content.Items.Weapons.Ranged.SparklingExplosives
+namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class SparklingDynamite : ModItem
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {

@@ -79,6 +79,7 @@ Mods: {
 			SailorsSingularityBlast.DisplayName: Sailors Singularity Blast
 			SailorsSingularityStar.DisplayName: Sailors Singularity Star
 			SailorsSingularityVortex.DisplayName: Sailors Singularity Vortex
+			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
 		}
 	}
 }

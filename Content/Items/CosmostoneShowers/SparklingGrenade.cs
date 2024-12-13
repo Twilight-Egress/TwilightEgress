@@ -1,12 +1,65 @@
 ﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Particles;
 
-namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
+namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
+    public class SparklingGrenade : ModItem
+    {
+        public new string LocalizationCategory => "Items.Weapons.Ranged";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[Type] = true;
+            Item.ResearchUnlockCount = 99;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.damage = 65;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 8f;
+            Item.shootSpeed = 7f;
+            Item.shoot = ModContent.ProjectileType<SparklingGrenadeProjectile>();
+            Item.width = 20;
+            Item.height = 22;
+            Item.maxStack = Item.CommonMaxStack;
+            Item.consumable = true;
+            Item.UseSound = SoundID.Item1;
+            Item.useAnimation = 40;
+            Item.useTime = 40;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+            Item.value = Item.sellPrice(copper: 20);
+            Item.rare = ItemRarityID.White;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(3)
+                .AddIngredient<Stargel>()
+                .AddIngredient(ItemID.Grenade, 3)
+                .Register();
+        }
+    }
+
     public class SparklingGrenadeProjectile : ModProjectile
     {
-        public override string Texture => "TwilightEgress/Content/Items/Weapons/Ranged/SparklingExplosives/SparklingGrenade";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/CosmostoneShowers/SparklingGrenade";
 
         private List<Vector2> mousePositions = new List<Vector2>();
 
@@ -57,13 +110,14 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
 
             if (Projectile.timeLeft <= 3)
                 Projectile.PrepareBombToBlow();
-            else {
+            else
+            {
                 Projectile.netUpdate = true;
 
-                if (mousePositions.Count == 0 || ((Main.MouseScreen + Main.screenPosition) - mousePositions.Last()).LengthSquared() >= Pow(16f * 8f, 2))
+                if (mousePositions.Count == 0 || ((Main.MouseScreen + Main.screenPosition) - mousePositions.Last()).LengthSquared() >= Math.Pow(16f * 8f, 2))
                     mousePositions.Add(Main.MouseScreen + Main.screenPosition);
 
-                if ((mousePositions.First() - Projectile.Center).LengthSquared() < Pow(16f * 4f, 2))
+                if ((mousePositions.First() - Projectile.Center).LengthSquared() < Math.Pow(16f * 4f, 2))
                     mousePositions.RemoveAt(0);
 
                 List<Vector2> positionsToGoTo = new List<Vector2>();
@@ -73,7 +127,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
                 Vector2 toFirstPos = positionsToGoTo.First() - Projectile.Center;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, toFirstPos.SafeNormalize(Vector2.Zero) * 15f, 0.1f);
 
-                if ((positionsToGoTo.First() - Projectile.Center).LengthSquared() < Pow(16f * 1f, 2))
+                if ((positionsToGoTo.First() - Projectile.Center).LengthSquared() < Math.Pow(16f * 1f, 2))
                     Projectile.timeLeft = 3;
             }
 
@@ -96,7 +150,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
             // spawn sparkle particles
             for (int i = 0; i < 10; i++)
             {
-                new SparkleParticle(Projectile.Center, Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(6), Color.LightBlue, Color.DarkBlue, Main.rand.NextFloat(0.2f, 0.5f), 20, bloomScale: 0f).SpawnCasParticle();
+                new SparkleParticle(Projectile.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(6), Color.LightBlue, Color.DarkBlue, Main.rand.NextFloat(0.2f, 0.5f), 20, bloomScale: 0f).SpawnCasParticle();
             }
 
             Lighting.AddLight(Projectile.Center, Color.LightBlue.ToVector3());
@@ -107,7 +161,7 @@ namespace TwilightEgress.Content.Projectiles.Ranged.SparklingExplosives
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Projectiles/Ranged/SparklingExplosives/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Main.spriteBatch.End();
