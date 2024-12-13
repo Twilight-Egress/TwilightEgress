@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using Terraria;
 using Terraria.GameContent.Drawing;
-using TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth;
+using Terraria.ID;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Systems;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -20,7 +23,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;
-            RegisterItemDrop(ModContent.ItemType<Items.Placeable.EnchantedOvergrowth.Manastone>());
+            RegisterItemDrop(ModContent.ItemType<ManastoneItem>());
             AddMapEntry(new Color(49, 42, 146));
 
             glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Glow");
@@ -57,6 +60,25 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             drawColor.B = (byte)Math.Clamp(drawColor.B + lightColor.B, 0, 255);
 
             spriteBatch.Draw(glowTexture.Value, drawPosition, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), drawColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.0f);
+        }
+    }
+
+    public class ManastoneItem : ModItem
+    {
+        public new string LocalizationCategory => "Items.Placeables";
+
+        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Item";
+
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 100;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.DefaultToPlaceableTile(ModContent.TileType<Manastone>());
+            Item.width = 16;
+            Item.height = 16;
         }
     }
 }

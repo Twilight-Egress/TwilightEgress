@@ -1,8 +1,15 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
-using TwilightEgress.Content.Items.Placeable.EnchantedOvergrowth;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria;
+using Microsoft.Xna.Framework;
+
 using static TwilightEgress.TwilightEgressUtilities;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
@@ -10,6 +17,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         private Asset<Texture2D> grassTexture;
         private Asset<Texture2D> glowTexture;
+
+        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt";
 
         public override void SetStaticDefaults()
         {
@@ -71,12 +80,6 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             if (adjacencyData.left)
                 offsetX += adjacencyData.right ? 18 : 36;
 
-            int offsetX = (!rightSame && !leftSame) ? 180 + 54 * (i % 2) : 90 * (i % 2);
-            int offsetY = 54 * (i % 3);
-
-            if (adjacencyData.left)
-                offsetX += adjacencyData.right ? 18 : 36;
-
             List<Point> framesToDraw =
             [
                 new Point(0, 0),
@@ -104,6 +107,51 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
                 spriteBatch.DrawTileTexture(glowTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero, lighted: false);
             }
+        }
+    }
+
+    public class OvergrowthGrassSeeds : ModItem, ILocalizedModType
+    {
+        public new string LocalizationCategory => "Items.Placeables";
+
+        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Seeds";
+
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 25;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 16;
+            Item.height = 16;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.consumable = true;
+            Item.useTime = 10;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.maxStack = 9999;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            Tile tileAbove = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY - 1);
+
+            if (!player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+                return false;
+
+            if (!tile.HasTile || tile.TileType != ModContent.TileType<Tiles.EnchantedOvergrowth.OvergrowthDirt>())
+                return false;
+
+            if (tileAbove.HasTile || tileAbove.LiquidAmount != 0)
+                return false;
+
+            Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
+            SoundEngine.PlaySound(SoundID.Dig, player.Center);
+
+            return true;
         }
     }
 }

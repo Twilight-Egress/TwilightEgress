@@ -1,4 +1,6 @@
-﻿using Terraria.Graphics.Capture;
+﻿using Terraria;
+using Terraria.Graphics.Capture;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Biomes.EnchantedOvergrowth
 {

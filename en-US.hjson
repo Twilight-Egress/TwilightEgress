@@ -26,6 +26,11 @@ Mods: {
 					DisplayName: Overgrowth Grass Seeds
 					Tooltip: ""
 				}
+
+				SilicateClusterBrickItem: {
+					DisplayName: Silicate Cluster Brick Item
+					Tooltip: ""
+				}
 			}
 
 			SailorsSingularity: {
@@ -77,6 +82,16 @@ Mods: {
 				DisplayName: Manastone
 				Tooltip: ""
 			}
+
+			ManastoneItem: {
+				DisplayName: Manastone Item
+				Tooltip: ""
+			}
+
+			OvergrowthDirtItem: {
+				DisplayName: Overgrowth Dirt Item
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -100,13 +115,6 @@ Mods: {
 			TimelessCascadeExplode.DisplayName: Timeless Cascade Explode
 			TimelessCascadeShards.DisplayName: Timeless Cascade Shards
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
-		}
-
-		Biomes: {
-			EnchantedOvergrowth: {
-				DisplayName: Enchanted Overgrowth
-				TownNPCDialogueName: the Enchanted Overgrowth
-			}
 		}
 
 		Biomes: {
