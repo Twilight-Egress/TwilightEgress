@@ -12,6 +12,8 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class Stellascope : ModItem
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Item.width = 25;
@@ -49,7 +51,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
         }
         private const int ManaCost = 12;
 
-        public override string Texture => ModContent.GetModItem(ModContent.ItemType<Stellascope>()).Texture + "_Holdout";
+        public override string Texture => ModContent.GetModItem(ModContent.ItemType<Stellascope>()).Texture.Replace("Content", "Assets/Textures") + "_Holdout";
 
         public override void SetDefaults()
         {

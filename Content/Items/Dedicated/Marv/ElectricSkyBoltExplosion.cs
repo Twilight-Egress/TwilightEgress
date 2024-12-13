@@ -18,6 +18,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;

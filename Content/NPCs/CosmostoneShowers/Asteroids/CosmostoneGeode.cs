@@ -23,6 +23,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -162,7 +164,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
 
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;

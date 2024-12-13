@@ -46,6 +46,10 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         public new string LocalizationCategory => "Projectiles.Pets";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
+        public override string GlowTexture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.projPet[Type] = true;

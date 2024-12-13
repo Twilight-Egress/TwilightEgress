@@ -20,6 +20,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
     {
         public new string LocalizationCategory => "Items.Weapons.Summon";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

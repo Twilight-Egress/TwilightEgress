@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "TwilightEgress/Assets/ExtraTextures/GreyscaleObjects/SoftStar";
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "GreyscaleObjects/SoftStar";
 
         public override void SetStaticDefaults() => ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
 

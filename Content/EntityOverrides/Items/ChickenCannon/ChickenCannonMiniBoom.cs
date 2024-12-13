@@ -13,6 +13,8 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
     {
         public new string LocalizationCategory => "Projectiles.Ranged";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Projectile.width = 80;

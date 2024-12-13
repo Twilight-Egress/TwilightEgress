@@ -21,6 +21,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 {
     public class Manaphage : Phage
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetPhageDefaults()
         {
             NPC.width = 32;
@@ -537,8 +539,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
             ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
 
-            Texture2D manaphageTank = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank").Value;
-            Texture2D manaphageTankMask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank_Mask").Value;
+            Texture2D manaphageTank = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank").Value;
+            Texture2D manaphageTankMask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank_Mask").Value;
 
             Vector2 stretchFactor = new(spriteStretchX, spriteStretchY);
             Vector2 origin = manaphageTank.Size() / 2f;

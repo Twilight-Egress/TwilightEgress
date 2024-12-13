@@ -29,13 +29,15 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
             ProjectileID.Sets.TrailCacheLength[Type] = 24;
             ProjectileID.Sets.TrailingMode[Type] = 2;
 
-            trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
+            trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Raesh/FlytrapMaw_Chain");
         }
 
         public override void SetDefaults()

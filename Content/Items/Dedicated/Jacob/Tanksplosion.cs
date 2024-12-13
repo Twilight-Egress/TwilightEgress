@@ -7,6 +7,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
     {
         public new string LocalizationCategory => "Projectiles.Magic";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Projectile.width = 80;

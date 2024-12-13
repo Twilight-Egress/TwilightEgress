@@ -6,6 +6,8 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class SailorsSingularityStar : ModProjectile
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Projectile.width = 20;

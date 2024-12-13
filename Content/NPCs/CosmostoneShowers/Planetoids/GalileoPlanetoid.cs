@@ -11,6 +11,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
     {
         public new string LocalizationCategory => "NPCs.Misc";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override float MaximumAttractionRadius => 184f;
 
         public override float WalkableRadius => 128f;

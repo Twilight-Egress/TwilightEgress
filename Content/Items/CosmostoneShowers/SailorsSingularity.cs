@@ -15,6 +15,8 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class SailorsSingularity : ModItem
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -58,7 +60,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 
     public class SailorsSingularityHoldout : ModProjectile
     {
-        public override string Texture => "TwilightEgress/Content/Items/CosmostoneShowers/SailorsSingularity";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/CosmostoneShowers/SailorsSingularity";
         public override void SetDefaults()
         {
             Projectile.width = 40;

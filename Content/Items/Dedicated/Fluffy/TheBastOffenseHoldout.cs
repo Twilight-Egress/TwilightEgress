@@ -50,7 +50,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Fluffy/TheBastOffense";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/TheBastOffense";
 
         public override void SetDefaults()
         {

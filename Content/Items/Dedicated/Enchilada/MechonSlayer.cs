@@ -16,6 +16,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public new string LocalizationCategory => "Items.Support";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 1;
 
         public override void SetDefaults()

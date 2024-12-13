@@ -48,8 +48,8 @@ namespace TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D asteroidTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall").Value;
-            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask").Value;
+            Texture2D asteroidTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall").Value;
+            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask").Value;
 
             Rectangle frameRectangle = asteroidTexture.Frame(1, MaxVerticalFrames, 0, Frame % MaxVerticalFrames);
             Vector2 mainOrigin = frameRectangle.Size() / 2f;

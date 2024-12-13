@@ -29,7 +29,7 @@ namespace TwilightEgress.Core.Systems
             /*bool createVerlet = (int)(Main.GlobalTimeWrappedHourly * 60) % 60 == 0;
             Player player = Main.player[Main.myPlayer];
 
-            //planetoids = new MassiveObject[200];
+            planetoids = new MassiveObject[200];
 
             if (createVerlet)
             {
@@ -56,7 +56,7 @@ namespace TwilightEgress.Core.Systems
         {
             orig(self, behildTiles);
 
-            Texture2D galileoTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid").Value;
+            Texture2D galileoTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid").Value;
 
             foreach (MassiveObject? planetoid in planetoids)
             {

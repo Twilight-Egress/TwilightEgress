@@ -24,7 +24,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         public new string LocalizationCategory => "Projectiles.Rogue";
 
-        public override string Texture => "TwilightEgress/Content/Items/FrostMoon/HolidayHalberd";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/FrostMoon/HolidayHalberd";
 
         public override void SetStaticDefaults()
         {

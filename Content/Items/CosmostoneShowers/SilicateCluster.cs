@@ -6,6 +6,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
     public class SilicateCluster : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Materials";
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 100;
 

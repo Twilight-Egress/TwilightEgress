@@ -51,7 +51,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Marv/ThunderousFury";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Marv/ThunderousFury";
 
         public override void SetDefaults()
         {

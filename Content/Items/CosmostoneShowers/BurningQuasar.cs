@@ -8,6 +8,8 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class BurningQuasar : ModItem
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

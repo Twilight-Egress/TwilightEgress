@@ -31,6 +31,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public new string LocalizationCategory => "Projectiles.Misc";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;

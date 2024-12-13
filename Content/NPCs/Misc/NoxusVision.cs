@@ -20,6 +20,8 @@ namespace TwilightEgress.Content.NPCs.Misc
 
         public new string LocalizationCategory => "NPCs.Misc";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             NPC.width = 283;

@@ -9,6 +9,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
     public class CosmostoneBar : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Materials";
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {
@@ -37,7 +38,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 
     public class CosmostoneBarTile : ModTile
     {
-        public override string Texture => ModContent.GetModItem(ModContent.ItemType<CosmostoneBar>()).Texture + "_Tile";
+        public override string Texture => ModContent.GetModItem(ModContent.ItemType<CosmostoneBar>()).Texture.Replace("Content", "Assets/Textures") + "_Tile";
 
         public override void SetStaticDefaults()
         {

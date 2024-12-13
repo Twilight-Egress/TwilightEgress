@@ -19,6 +19,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
     {
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 3;

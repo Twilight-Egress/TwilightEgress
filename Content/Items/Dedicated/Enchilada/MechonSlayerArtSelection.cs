@@ -16,7 +16,11 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public override LocalizedText DisplayName => Language.GetText($"Mods.TwilightEgress.UI.Cooldowns.{ID}");
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Enchilada/MechonSlayerArtSelection";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayerArtSelection";
+
+        public override string OutlineTexture => "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayerArtSelectionOutline";
+
+        public override string OverlayTexture => "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayerArtSelectionOverlay";
 
         public override Color OutlineColor => Color.DarkBlue;
 

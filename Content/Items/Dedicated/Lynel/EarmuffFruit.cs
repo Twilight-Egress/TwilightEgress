@@ -7,6 +7,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
     {
         public new string LocalizationCategory => "Items.Accessories";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Item.width = 34;

@@ -42,7 +42,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D asteroid = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidSmall").Value;
+            Texture2D asteroid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidSmall").Value;
 
             Rectangle frameRectangle = asteroid.Frame(1, MaxVerticalFrames, 0, Frame % MaxVerticalFrames);
             Vector2 mainOrigin = frameRectangle.Size() / 2f;

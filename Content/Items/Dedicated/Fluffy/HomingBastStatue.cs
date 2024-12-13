@@ -37,6 +37,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.CanHitPastShimmer[Type] = true;

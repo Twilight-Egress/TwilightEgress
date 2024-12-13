@@ -12,6 +12,8 @@ namespace TwilightEgress.Content.Items.FrostMoon
     {
         public new string LocalizationCategory => "Items.Weapons.Rogue";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Item.width = 70;

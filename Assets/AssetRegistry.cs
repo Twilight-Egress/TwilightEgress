@@ -12,7 +12,7 @@ namespace TwilightEgress.Assets
     {
         // Please keep things in alphabetical order.
 
-        public static readonly string ExtraTexturesPath = $"{nameof(TwilightEgress)}/Assets/ExtraTextures/";
+        public static readonly string ExtraTexturesPath = $"{nameof(TwilightEgress)}/Assets/Textures/Extra/";
         public static readonly string SoundsPath = $"{nameof(TwilightEgress)}/Assets/Sounds/";
 
         public static class Textures

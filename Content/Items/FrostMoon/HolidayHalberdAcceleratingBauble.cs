@@ -13,6 +13,8 @@ namespace TwilightEgress.Content.Items.FrostMoon
     {
         public new string LocalizationCategory => "Projectiles.Rogue";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 2;

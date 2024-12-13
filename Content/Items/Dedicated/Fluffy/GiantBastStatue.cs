@@ -21,7 +21,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Fluffy/HomingBastStatue";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/HomingBastStatue";
 
         public override void SetStaticDefaults()
         {

@@ -132,7 +132,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
         public override bool PreDraw(ref Color lightColor)
         {
             ref float projectileTextureOpacity = ref Projectile.TwilightEgress().ExtraAI[ProjectileTextureOpacityIndex];
-            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Misc/HolidayHalberdIceShock_Glow").Value;
+            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Misc/HolidayHalberdIceShock_Glow").Value;
 
             // Backglow.
             Main.spriteBatch.UseBlendState(BlendState.Additive);

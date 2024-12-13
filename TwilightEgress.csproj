@@ -27,5 +27,9 @@
 			<HintPath>$(LuminanceBinary)</HintPath>
 		</Reference>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Assets\Models\" />
+	  <Folder Include="Assets\Structures\" />
+	</ItemGroup>
 
 </Project>

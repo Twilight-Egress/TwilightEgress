@@ -24,6 +24,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         private float ShaderTimeMultiplier = 1f;
 
         public override void SetStaticDefaults()
@@ -224,7 +226,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public void DrawCosmostone(Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless = 0f)
         {
-            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidMedium_Glowmask").Value;
+            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidMedium_Glowmask").Value;
 
             Main.spriteBatch.PrepareForShaders();
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
@@ -11,7 +12,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
         public ref float Timer => ref Projectile.ai[0];
 
-        public override string Texture => "TwilightEgress/Assets/ExtraTextures/EmptyPixel";
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetDefaults()
         {

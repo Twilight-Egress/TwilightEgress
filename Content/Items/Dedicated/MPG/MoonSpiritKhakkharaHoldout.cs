@@ -64,7 +64,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public new string LocalizationCategory => "Projectiles.Summon";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/MPG/MoonSpiritKhakkhara";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/MPG/MoonSpiritKhakkhara";
 
         public override void SetStaticDefaults()
         {

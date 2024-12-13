@@ -32,7 +32,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Jacob/TomeOfTheTank";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TomeOfTheTank";
 
         public override void SetStaticDefaults()
         {
@@ -163,8 +163,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
             ref float orbitingSummoningCircleRotation = ref Projectile.TwilightEgress().ExtraAI[OrbitingSummoningCircleRotationIndex];
 
-            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
-            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
+            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
+            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
             Texture2D orbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredOrbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 
