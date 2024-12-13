@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
 {

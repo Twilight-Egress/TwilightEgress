@@ -438,7 +438,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 Vector2 spawnPosition = NPC.Center + Vector2.UnitY.RotatedBy(NPC.rotation) * 30f;
                 Vector2 inkVelocity = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX) * 14f + NPC.velocity;
 
-                NPC.BetterNewProjectile(spawnPosition, inkVelocity, ModContent.ProjectileType<ManaInk>(), (int)(NPC.defDamage * 0.45f), 0f);
+                NPC.BetterNewProjectile(spawnPosition, inkVelocity, ModContent.ProjectileType<ManaInk>(), (int)(NPC.defDamage * 0.45f), 0f, damageChanges: true);
             }
 
             UpdateAnimationFrames(ManaphageAnimation.Attack, 5f);
