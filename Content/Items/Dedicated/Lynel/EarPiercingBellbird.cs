@@ -9,7 +9,7 @@ using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
-using TwilightEgress.Core.Players;
+using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {

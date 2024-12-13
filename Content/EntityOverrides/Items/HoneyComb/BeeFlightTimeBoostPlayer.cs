@@ -1,14 +1,14 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Core.Players
+namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 {
     public class BeeFlightTimeBoostPlayer : ModPlayer
     {
         public int BeeFlightBoost { get; set; }
 
         public override void UpdateEquips()
-        {            
+        {
             switch (BeeFlightBoost)
             {
                 case 1:
@@ -34,5 +34,4 @@ namespace TwilightEgress.Core.Players
         }
 
     }
-
 }

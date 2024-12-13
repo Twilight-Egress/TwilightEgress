@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 {

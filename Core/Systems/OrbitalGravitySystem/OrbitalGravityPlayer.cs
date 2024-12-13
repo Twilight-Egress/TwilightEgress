@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 
-namespace TwilightEgress.Core.Players
+namespace TwilightEgress.Core.Systems.OrbitalGravitySystem
 {
     public class OrbitalGravityPlayer : ModPlayer
     {
@@ -50,7 +50,7 @@ namespace TwilightEgress.Core.Players
 
                 // Adjust the player's angle by the player's velocity, ensuring the player is constantly moving around the
                 // Planetoid at the correct speed.
-                PlayerAngle += (Planetoid.NPC.rotation / (Planetoid.NPC.rotation * 95f)) + Player.velocity.X / Planetoid.WalkableRadius;
+                PlayerAngle += Planetoid.NPC.rotation / (Planetoid.NPC.rotation * 95f) + Player.velocity.X / Planetoid.WalkableRadius;
                 PlayerAngle %= MathF.Tau;
 
                 // Eject the player from the Planetoid either once they jump or manage to leave a planetoid's attraction radius.
@@ -65,7 +65,7 @@ namespace TwilightEgress.Core.Players
                 }
 
                 AngleSwitchTimer = MathHelper.Clamp(AngleSwitchTimer + 4f, 0f, MaxAngleSwitchTimer);
-            }  
+            }
             else
             {
                 AngleSwitchTimer = MathHelper.Clamp(AngleSwitchTimer - 4f, 0f, MaxAngleSwitchTimer);
@@ -82,8 +82,8 @@ namespace TwilightEgress.Core.Players
                 // Ensure the player rotates towards the Planetoid properly.
                 drawInfo.drawPlayer.fullRotationOrigin = drawInfo.drawPlayer.Size / 2f;
                 drawInfo.drawPlayer.fullRotation = (PlayerAngle + MathHelper.PiOver2) * (AngleSwitchTimer / 59f);
-            }            
-            
+            }
+
         }
     }
 }

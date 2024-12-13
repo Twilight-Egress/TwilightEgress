@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Core.Physics.Gravity;
 using TwilightEgress.Core.Physics.VerletIntegration;
 
-namespace TwilightEgress.Core.Systems
+namespace TwilightEgress.Core.Systems.OrbitalGravitySystem
 {
     public class PlanetoidSystem : ModSystem
     {
@@ -58,7 +58,7 @@ namespace TwilightEgress.Core.Systems
 
             Texture2D galileoTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid").Value;
 
-            foreach (MassiveObject? planetoid in planetoids)
+            foreach (MassiveObject planetoid in planetoids)
             {
                 if (planetoid is not null && planetoid.Active)
                     Main.spriteBatch.Draw(galileoTexture, planetoid.Position - Main.screenPosition, galileoTexture.Frame(), Lighting.GetColor((planetoid.Position / 16f).ToPoint()), 0f, galileoTexture.Frame().Size() * 0.5f, planetoid.Radius / 47f, 0, 0f);

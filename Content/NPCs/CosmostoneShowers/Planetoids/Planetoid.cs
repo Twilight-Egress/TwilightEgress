@@ -3,7 +3,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Core.Players;
+using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
