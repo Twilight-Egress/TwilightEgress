@@ -157,7 +157,7 @@ namespace TwilightEgress.Content.UI.Dialogue
 
     public delegate void DialogueNotifier(string treeKey, int dialogueID, int buttonID);
 
-    public class DialogueUISystem : ModSystem
+    public class DialogueUIManager : ModSystem
     {
         internal DialogueUIState DialogueUIState;
 
@@ -363,7 +363,7 @@ namespace TwilightEgress.Content.UI.Dialogue
     /// <param name="dialogues">The array of <see cref="Dialogue"/>s the Tree manages.</param>
     /// <param name="characters">The array of <see cref="Character"/>s the Tree is able to use.</param>
     /// <returns>
-    /// Represents a Dialogue Tree able to be displayed via the <see cref="DialogueUISystem.DisplayDialogueTree(int, int)"/> function./>s.
+    /// Represents a Dialogue Tree able to be displayed via the <see cref="DialogueUIManager.DisplayDialogueTree(int, int)"/> function./>s.
     /// </returns>
     public struct DialogueTree(Dialogue[] dialogues, Character[] characters)
     {

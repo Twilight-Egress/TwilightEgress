@@ -20,14 +20,14 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
         public override Color? ButtonBorderColor => new(247, 135, 89);
         public override void OnTextboxCreate(UIPanel textbox, FlippableUIImage speaker, FlippableUIImage subSpeaker)
         {
-            bool speakerRight = ModContent.GetInstance<DialogueUISystem>().speakerRight;
-            bool spawnBottom = ModContent.GetInstance<DialogueUISystem>().justOpened || ModContent.GetInstance<DialogueUISystem>().styleSwapped;
-            bool newSubSpeaker = ModContent.GetInstance<DialogueUISystem>().newSubSpeaker;
+            bool speakerRight = ModContent.GetInstance<DialogueUIManager>().speakerRight;
+            bool spawnBottom = ModContent.GetInstance<DialogueUIManager>().justOpened || ModContent.GetInstance<DialogueUIManager>().styleSwapped;
+            bool newSubSpeaker = ModContent.GetInstance<DialogueUIManager>().newSubSpeaker;
             textbox.SetPadding(0f);
 
             SetRectangle(textbox, left: 0, top: spawnBottom ? Main.screenHeight * 1.1f : Main.screenHeight / 1.75f, width: Main.screenWidth / 2.5f, height: Main.screenHeight / 4f);
 
-            if (newSubSpeaker && !ModContent.GetInstance<DialogueUISystem>().styleSwapped)
+            if (newSubSpeaker && !ModContent.GetInstance<DialogueUIManager>().styleSwapped)
                 textbox.Left.Pixels = speakerRight ? Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f : Main.screenWidth / 5f;
             else
                 textbox.Left.Pixels = speakerRight ? Main.screenWidth / 5f : Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f;
@@ -59,7 +59,7 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
         }
         public override void PostUpdateActive(MouseBlockingUIPanel textbox, FlippableUIImage speaker, FlippableUIImage subSpeaker)
         {
-            if (ModContent.GetInstance<DialogueUISystem>().swappingStyle)
+            if (ModContent.GetInstance<DialogueUIManager>().swappingStyle)
             {
                 if (!TextboxOffScreen(textbox))
                 {
@@ -70,12 +70,12 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                 }
                 else
                 {
-                    ModContent.GetInstance<DialogueUISystem>().styleSwapped = true;
-                    ModContent.GetInstance<DialogueUISystem>().swappingStyle = false;
+                    ModContent.GetInstance<DialogueUIManager>().styleSwapped = true;
+                    ModContent.GetInstance<DialogueUIManager>().swappingStyle = false;
                     textbox.RemoveAllChildren();
                     textbox.Remove();
 
-                    ModContent.GetInstance<DialogueUISystem>().DialogueUIState.SpawnTextBox();
+                    ModContent.GetInstance<DialogueUIManager>().DialogueUIState.SpawnTextBox();
                 }
             }
             else
@@ -89,20 +89,20 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                 }
                 float goalRight = Main.screenWidth - textbox.Width.Pixels - Main.screenWidth / 5f;
                 float goalLeft = Main.screenWidth / 5f;
-                if (!ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels > goalRight)
+                if (!ModContent.GetInstance<DialogueUIManager>().speakerRight && textbox.Left.Pixels > goalRight)
                 {
                     textbox.Left.Pixels -= (textbox.Left.Pixels - goalRight) / 20;
                     if (textbox.Left.Pixels - goalRight < 1)
                         textbox.Left.Pixels = goalRight;
                 }
-                else if (ModContent.GetInstance<DialogueUISystem>().speakerRight && textbox.Left.Pixels < goalLeft)
+                else if (ModContent.GetInstance<DialogueUIManager>().speakerRight && textbox.Left.Pixels < goalLeft)
                 {
                     textbox.Left.Pixels += (goalLeft - textbox.Left.Pixels) / 20;
                     if (goalLeft - textbox.Left.Pixels < 1)
                         textbox.Left.Pixels = goalLeft;
                 }
                 DialogueText dialogue = (DialogueText)textbox.Children.Where(c => c.GetType() == typeof(DialogueText)).First();
-                UIElement[] responseButtons = ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
+                UIElement[] responseButtons = ModContent.GetInstance<DialogueUIManager>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
                 for (int i = 0; i < responseButtons.Length; i++)
                 {
                     UIElement button = responseButtons[i];
@@ -204,9 +204,9 @@ namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
                 if (goalHeight - textbox.Top.Pixels < 10)
                     textbox.Top.Pixels = goalHeight;
             }
-            if (ModContent.GetInstance<DialogueUISystem>().DialogueUI?.CurrentState != null && ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).Any())
+            if (ModContent.GetInstance<DialogueUIManager>().DialogueUI?.CurrentState != null && ModContent.GetInstance<DialogueUIManager>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).Any())
             {
-                UIElement[] responseButtons = ModContent.GetInstance<DialogueUISystem>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
+                UIElement[] responseButtons = ModContent.GetInstance<DialogueUIManager>().DialogueUIState.Children.Where(c => c.GetType() == typeof(UIPanel) && c.Children.First().GetType() == typeof(UIText)).ToArray();
                 for (int i = 0; i < responseButtons.Length; i++)
                 {
                     UIElement button = responseButtons[i];
