@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 
-namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
+namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class TimelessCascadeShards : ModProjectile
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 8;
@@ -41,7 +42,7 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
                     if (Projectile.ai[0] == 1) //Reform the hourglass
                     {
                         Vector2 initVel = (Main.player[Projectile.owner].Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 4;
-                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, initVel, ModContent.ProjectileType<TimelessCascadeProj>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner, ai0: -0.1f, ai1: 1);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, initVel, ModContent.ProjectileType<TimelessCascadeProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0: -0.1f, ai1: 1);
                     }
                     Projectile.Kill();
                 }
@@ -50,15 +51,15 @@ namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade
             initVel = initVel ?? Projectile.velocity;
             if (Projectile.ai[0] < 1)
                 return false;
-            Projectile.frame = (int)Projectile.ai[0]-1; //Frame in this case is static and determines which shard texture to use
+            Projectile.frame = (int)Projectile.ai[0] - 1; //Frame in this case is static and determines which shard texture to use
             return base.PreAI();
         }
         public override void AI()
         {
-   
-            Projectile.velocity -= (Vector2)initVel*0.01f;
 
-            Projectile.rotation += Projectile.velocity.Length()*.01f;
+            Projectile.velocity -= (Vector2)initVel * 0.01f;
+
+            Projectile.rotation += Projectile.velocity.Length() * .01f;
         }
 
         public override bool PreDraw(ref Color lightColor)

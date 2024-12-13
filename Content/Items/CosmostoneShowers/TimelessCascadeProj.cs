@@ -1,14 +1,19 @@
-namespace Cascade.Content.Items.Weapons.Rogue.TimelessCascade;
+using CalamityMod;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria;
+using Terraria.ModLoader;
 
-public class TimelessCascadeProj : ModProjectile
+namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
-    
+    public class TimelessCascadeProj : ModProjectile
+    {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public float explosionDamageMod = 0.95f;
 
         Vector2? saveVel = null;
 
-    
-    
         public override void SetDefaults()
         {
             Projectile.width = 36;
@@ -39,7 +44,6 @@ public class TimelessCascadeProj : ModProjectile
                 Projectile.ai[2] = 10;
             }
 
-
             Projectile.netUpdate = true;
         }
 
@@ -64,32 +68,24 @@ public class TimelessCascadeProj : ModProjectile
                 Projectile.ai[2] = 0;
                 saveVel = Projectile.velocity;
             }
-            
+
             //If Projectile.ai[1] is 1, that means it was reformed from shards and must return
             if (Math.Abs(Projectile.ai[2] - 10) < .01f && Projectile.ai[1] != 1)
             {
-                int proj = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimelessCascadeExplode>(), (int)(Projectile.damage * explosionDamageMod), Projectile.knockBack, Projectile.owner);
+                int proj = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimelessCascadeExplode>(), (int)(Projectile.damage * explosionDamageMod), Projectile.knockBack, Projectile.owner);
                 Main.projectile[proj].rotation = Projectile.rotation;
 
-                
                 Projectile.Kill();
-
- 
             }
 
-
-
             Projectile.rotation += .07f;
-
-
             Projectile.ai[0] -= .01f;
-
 
             //Home back in on player
             if (Projectile.ai[0] < 0)
             {
                 Projectile.tileCollide = false;
-                Projectile.velocity = (-Projectile.Center + owner.Center).SafeNormalize(Vector2.Zero) * 10 * -(Projectile.ai[0]);
+                Projectile.velocity = (-Projectile.Center + owner.Center).SafeNormalize(Vector2.Zero) * 10 * -Projectile.ai[0];
 
                 Projectile.Opacity -= 0.005f;
 
@@ -102,11 +98,12 @@ public class TimelessCascadeProj : ModProjectile
             {
                 Projectile.velocity = (Vector2)saveVel * Projectile.ai[0];
             }
-          
+
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             return true;
         }
+    }
 }
