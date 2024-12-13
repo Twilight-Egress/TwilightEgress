@@ -74,7 +74,6 @@ namespace TwilightEgress.Core.Players.BuffHandlers
             }
 
             // Misc debuffs.
-            CerebralMindtrick = false;
             CurseOfNecromancy = false;
             BellbirdStun = false;
         }
