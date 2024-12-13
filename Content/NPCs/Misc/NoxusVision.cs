@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
-namespace TwilightEgress.Content.NPCs.MiscNPCs
+namespace TwilightEgress.Content.NPCs.Misc
 {
     public class NoxusVision : ModNPC, ILocalizedModType
     {

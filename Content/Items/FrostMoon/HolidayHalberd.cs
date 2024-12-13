@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Content.Items.Misc
+namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberd : ModItem, ILocalizedModType
     {

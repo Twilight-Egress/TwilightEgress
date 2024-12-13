@@ -27,7 +27,7 @@ namespace TwilightEgress.Content.Tiles.CosmostoneShowers
     {
         public new string LocalizationCategory => "Items.Placeables";
 
-        public override string Texture => "TwilightEgress/Content/Tiles/CosmostoneShowers/SilicateClusterBrick_Item";
+        public override string Texture => ModContent.GetModTile(ModContent.TileType<SilicateClusterBrick>()).Texture + "_Item";
 
         public override void SetStaticDefaults()
         {

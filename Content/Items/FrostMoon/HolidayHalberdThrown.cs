@@ -12,7 +12,7 @@ using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics;
 
-namespace TwilightEgress.Content.Items.Misc
+namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberdThrown : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -24,7 +24,7 @@ namespace TwilightEgress.Content.Items.Misc
 
         public new string LocalizationCategory => "Projectiles.Rogue";
 
-        public override string Texture => "TwilightEgress/Content/Items/Weapons/Rogue/HolidayHalberd/HolidayHalberd";
+        public override string Texture => "TwilightEgress/Content/Items/FrostMoon/HolidayHalberd";
 
         public override void SetStaticDefaults()
         {

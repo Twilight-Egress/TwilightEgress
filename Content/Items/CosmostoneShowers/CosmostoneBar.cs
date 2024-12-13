@@ -37,7 +37,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 
     public class CosmostoneBarTile : ModTile
     {
-        public override string Texture => "TwilightEgress/Content/Items/CosmostoneShowers/CosmostoneBar_Tile";
+        public override string Texture => ModContent.GetModItem(ModContent.ItemType<CosmostoneBar>()).Texture + "_Tile";
 
         public override void SetStaticDefaults()
         {

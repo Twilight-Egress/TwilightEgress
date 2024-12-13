@@ -14,7 +14,7 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
-namespace TwilightEgress.Content.Items.Misc
+namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberdIceShock : ModProjectile, ILocalizedModType
     {

@@ -49,6 +49,8 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
         }
         private const int ManaCost = 12;
 
+        public override string Texture => ModContent.GetModItem(ModContent.ItemType<Stellascope>()).Texture + "_Holdout";
+
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;

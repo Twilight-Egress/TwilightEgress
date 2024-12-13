@@ -14,7 +14,7 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
-namespace TwilightEgress.Content.Items.Misc
+namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberdHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
@@ -30,7 +30,7 @@ namespace TwilightEgress.Content.Items.Misc
 
         public new string LocalizationCategory => "Projectiles.Rogue";
 
-        public override string Texture => "TwilightEgress/Content/Items/Misc/HolidayHalberd";
+        public override string Texture => "TwilightEgress/Content/Items/FrostMoon/HolidayHalberd";
 
         public override void SetStaticDefaults()
         {

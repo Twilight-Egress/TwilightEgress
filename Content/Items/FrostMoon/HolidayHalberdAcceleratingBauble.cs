@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Core;
 
-namespace TwilightEgress.Content.Items.Misc
+namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberdAcceleratingBauble : ModProjectile, ILocalizedModType
     {
