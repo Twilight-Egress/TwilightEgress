@@ -2,13 +2,13 @@
 using Terraria.ModLoader;
 using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
 
-namespace TwilightEgress.Content.NPCs.MiscNPCs
+namespace TwilightEgress.Content.NPCs.Misc
 {
     public class ArdienaNPC : ModNPC
     {
         public new string LocalizationCategory => "NPCs.Misc";
 
-        public override string Texture => "TwilightEgress/Assets/Textures/NPCs/MiscNPCs/NoxusVision";
+        public override string Texture => "TwilightEgress/Assets/Textures/NPCs/Misc/NoxusVision";
         public override void SetDefaults()
         {
             NPC.width = 283;
