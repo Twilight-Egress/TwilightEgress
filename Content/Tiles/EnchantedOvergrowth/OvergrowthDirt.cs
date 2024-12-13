@@ -16,6 +16,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         private Asset<Texture2D> glowTexture;
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.CanBeDugByShovel[Type] = true;
@@ -27,7 +29,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             RegisterItemDrop(ModContent.ItemType<OvergrowthDirtItem>());
             AddMapEntry(new Color(75, 32, 51));
 
-            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt_Glow");
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthDirt_Glow");
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
@@ -70,7 +72,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         public new string LocalizationCategory => "Items.Placeables";
 
-        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt_Item";
+        public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthDirt_Item";
 
         public override void SetStaticDefaults()
         {

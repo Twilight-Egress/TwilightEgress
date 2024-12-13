@@ -14,6 +14,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         private Asset<Texture2D> glowTexture;
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.ChecksForMerge[Type] = true;
@@ -26,7 +28,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             RegisterItemDrop(ModContent.ItemType<ManastoneItem>());
             AddMapEntry(new Color(49, 42, 146));
 
-            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Glow");
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone_Glow");
         }
 
         public override void ModifyFrameMerge(int i, int j, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
@@ -67,7 +69,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         public new string LocalizationCategory => "Items.Placeables";
 
-        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/Manastone_Item";
+        public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone_Item";
 
         public override void SetStaticDefaults()
         {

@@ -18,6 +18,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         private Asset<Texture2D> topsTexture;
         private Asset<Texture2D> topsGlowTexture;
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             TileID.Sets.IsATreeTrunk[Type] = true;
@@ -25,8 +27,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             RegisterItemDrop(ItemID.Wood);
             AddMapEntry(new Color(80, 55, 74));
 
-            topsTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTree_Tops");
-            topsGlowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthTree_TopsGlow");
+            topsTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTree_Tops");
+            topsGlowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTree_TopsGlow");
         }
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)

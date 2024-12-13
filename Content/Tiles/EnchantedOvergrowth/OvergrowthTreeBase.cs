@@ -46,7 +46,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         public OvergrowthTreeBase(string internalName, int width, int height, Point16 origin, int randomStyleRange, bool hasGlow = true)
         {
             this.internalName = internalName;
-            this.tileTexture = "TwilightEgress/Content/Tiles/EnchantedOvergrowth/" + internalName;
+            this.tileTexture = "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/" + internalName;
             this.width = width;
             this.height = height;
             this.origin = origin;

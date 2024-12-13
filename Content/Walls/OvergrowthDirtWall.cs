@@ -11,6 +11,8 @@ namespace TwilightEgress.Content.Walls
 {
     public class OvergrowthDirtWall : ModWall
     {
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetStaticDefaults()
         {
             DustType = DustID.Dirt;
