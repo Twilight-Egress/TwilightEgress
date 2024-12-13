@@ -27,6 +27,9 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 using TwilightEgress.Core.Systems.EventHandlerSystem;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods;
+using CalamityMod;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -166,10 +169,13 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 return;
 
             // Space additions.
-            if (spawnInfo.Sky)
+            if (spawnInfo.Player.ZoneSkyHeight)
             {
                 pool.Clear();
-                pool.Add(ModContent.NPCType<Manaphage>(), 0.56f);
+                pool.Add(ModContent.NPCType<Manaphage>(), 1f);
+                pool.Add(ModContent.NPCType<Miniphage>(), 1f);
+                pool.Add(ModContent.NPCType<ChunkyCometpod>(), 1f);
+                pool.Add(ModContent.NPCType<TerritorialCometpod>(), 1f);
             }
 
             // Surface additions.
