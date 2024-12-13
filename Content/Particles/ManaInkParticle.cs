@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
-namespace TwilightEgress.Content.Particles.CosmostoneShowers
+namespace TwilightEgress.Content.Particles
 {
     public class ManaInkParticle : CasParticle
     {

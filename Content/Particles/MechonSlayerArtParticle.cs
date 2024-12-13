@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
-namespace TwilightEgress.Content.Particles.Dedicated
+namespace TwilightEgress.Content.Particles
 {
     public class MechonSlayerArtParticle : CasParticle
     {

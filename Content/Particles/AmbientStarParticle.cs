@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
-namespace TwilightEgress.Content.Particles.CosmostoneShowers
+namespace TwilightEgress.Content.Particles
 {
     public class AmbientStarParticle : CasParticle
     {

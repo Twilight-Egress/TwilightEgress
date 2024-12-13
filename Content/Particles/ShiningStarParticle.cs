@@ -7,7 +7,7 @@ using TwilightEgress.Assets;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
-namespace TwilightEgress.Content.Particles.CosmostoneShowers
+namespace TwilightEgress.Content.Particles
 {
     internal class ShiningStarParticle : CasParticle
     {

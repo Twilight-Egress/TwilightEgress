@@ -25,8 +25,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Utilities;
 using TwilightEgress.Core;
-using TwilightEgress.Content.Particles.CosmostoneShowers;
 using TwilightEgress.Core.Systems.EventHandlerSystem;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {

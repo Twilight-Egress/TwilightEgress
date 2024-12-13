@@ -8,7 +8,6 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Particles;
-using TwilightEgress.Content.Particles.Dedicated;
 using TwilightEgress.Core.Players.BuffHandlers;
 using EasingType = Luminance.Common.Easings.EasingType;
 
