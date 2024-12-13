@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
 {

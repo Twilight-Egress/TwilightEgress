@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 
-namespace TwilightEgress
+namespace TwilightEgress.Core
 {
-    public static partial class TwilightEgressUtilities
+    public static class DrawingHelper
     {
         public static void DrawTextureOnProjectile(this Projectile projectile, Color lightColor, float rotation, float scale, SpriteEffects spriteEffects = SpriteEffects.None, bool animated = false, Texture2D texture = null)
         {
@@ -22,4 +22,3 @@ namespace TwilightEgress
         }
     }
 }
-
