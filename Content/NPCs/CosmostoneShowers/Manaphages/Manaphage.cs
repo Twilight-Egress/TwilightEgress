@@ -145,7 +145,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     UpdateAnimationFrames(default, 0f, 2);
 
                     // Spawn some lil' visual particles everytime it ejects.
-                    TwilightEgressUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
+                    for (int i = 0; i < 15; i++)
+                    {
+                        Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                        Dust dust = Dust.NewDustPerfect(NPC.Center, DustID.BlueFairy, dustVelocity * 5f);
+                        dust.noGravity = true;
+                    }
+
                     PulseRingParticle propulsionRing = new(NPC.Center - NPC.SafeDirectionTo(NPC.Center) * 60f, NPC.SafeDirectionTo(NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), NPC.velocity.ToRotation(), 45);
                     propulsionRing.SpawnCasParticle();
 
@@ -295,7 +301,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
                 UpdateAnimationFrames(default, 0f, 2);
 
-                TwilightEgressUtilities.CreateRandomizedDustExplosion(15, NPC.Center, DustID.BlueFairy);
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                    Dust dust = Dust.NewDustPerfect(NPC.Center, DustID.BlueFairy, dustVelocity * 5f);
+                    dust.noGravity = true;
+                }
+
                 PulseRingParticle propulsionRing = new(NPC.Center - NPC.SafeDirectionTo(NPC.Center) * 60f, NPC.SafeDirectionTo(NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), NPC.velocity.ToRotation(), 45);
                 propulsionRing.SpawnCasParticle();
 

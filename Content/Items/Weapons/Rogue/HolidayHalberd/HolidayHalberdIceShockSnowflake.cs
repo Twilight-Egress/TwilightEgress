@@ -52,7 +52,20 @@ namespace TwilightEgress.Content.Items.Weapons.Rogue.HolidayHalberd
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
-            TwilightEgressUtilities.CreateRandomizedDustExplosion(12, Projectile.Center, DustID.IceTorch, dustScale: 5f);
+
+            for (int i = 0; i < 12; i++)
+            {
+                Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.IceTorch, dustVelocity * 5f, Scale: 5f);
+                dust.noGravity = true;
+            }
+
+            for (int i = 0; i < 12; i++)
+            {
+                Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.IceTorch, dustVelocity * 5f, Scale: 5f);
+                dust.noGravity = true;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

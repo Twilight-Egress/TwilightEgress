@@ -146,7 +146,12 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             {
                 // Teleport when the player is too far away.
                 Projectile.Center = Owner.Center;
-                TwilightEgressUtilities.CreateRandomizedDustExplosion(36, Projectile.Center, DustID.GoldCoin, 10f);
+                for (int i = 0; i < 36; i++)
+                {
+                    Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                    Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.GoldCoin, dustVelocity * 10f);
+                    dust.noGravity = true;
+                }
             }
 
             if (distance > 70f)

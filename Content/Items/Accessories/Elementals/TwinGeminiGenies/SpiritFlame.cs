@@ -65,8 +65,13 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
             {
                 Projectile.SimpleMove(closestTarget.Center, 20f, 60f);
 
-                Vector2 dustPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
-                TwilightEgressUtilities.CreateDustLoop(2, dustPosition, Vector2.Zero, DustID.Shadowflame);
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector2 dustPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
+                    Dust dust = Dust.NewDustPerfect(dustPosition, DustID.Shadowflame, Vector2.Zero);
+                    dust.noGravity = true;
+                    dust.noLight = false;
+                }
             }
 
             Timer++;
@@ -76,7 +81,14 @@ namespace TwilightEgress.Content.Items.Accessories.Elementals.TwinGeminiGenies
 
         public override void OnKill(int timeLeft)
         {
-            TwilightEgressUtilities.CreateRandomizedDustExplosion(20, Projectile.Center, DustID.Shadowflame);
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f) * 5f;
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Shadowflame, dustVelocity);
+                dust.noGravity = true;
+                dust.noLight = false;
+            }
+
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
         }
 

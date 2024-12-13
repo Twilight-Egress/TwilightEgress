@@ -30,7 +30,13 @@ namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
             int chance = hit.Crit ? 1 : 4;
             if (Main.rand.NextBool(chance))
             {
-                TwilightEgressUtilities.CreateDustCircle(15, Projectile.Center, 18, 6f);
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (15 / 2 - 1) * MathHelper.TwoPi / 15)) + Projectile.Center;
+                    Vector2 dustVelocity = dustRotation - Projectile.Center;
+                    Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, 18, Vector2.Normalize(dustVelocity) * 6f);
+                    dust.noGravity = true;
+                }
                 target.AddBuff(BuffID.Poisoned, 180);
             }
         }

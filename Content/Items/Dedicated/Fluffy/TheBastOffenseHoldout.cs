@@ -138,7 +138,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
                     // Play a different sound and a spawn a dust circle to indicate it's done charging.
                     if (bastCatCount == maxBastCatCount)
                     {
-                        TwilightEgressUtilities.CreateDustCircle(30, Projectile.Center, DustID.Firework_Yellow, 10f, shouldDefyGravity: true);
+                        for (int i = 0; i < 30; i++)
+                        {
+                            Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (30 / 2 - 1) * MathHelper.TwoPi / 30)) + Projectile.Center;
+                            Vector2 dustVelocity = dustRotation - Projectile.Center;
+                            Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, DustID.Firework_Yellow, Vector2.Normalize(dustVelocity) * 10f);
+                            dust.noGravity = true;
+                        }
                         SoundEngine.PlaySound(SoundID.ResearchComplete with { MaxInstances = 0 }, Projectile.Center);
                     }
                     bastIncreaseDelay = (int)MathHelper.Clamp(bastIncreaseDelay - 2f, 5f, 60f);

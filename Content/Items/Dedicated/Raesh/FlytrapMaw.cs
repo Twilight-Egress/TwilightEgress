@@ -103,7 +103,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             int dustCount = 15 * (int)MathHelper.Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float speed = MathHelper.Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float scale = Main.rand.NextFloat(0.65f, 1.25f) * Projectile.scale;
-            TwilightEgressUtilities.CreateRandomizedDustExplosion(dustCount, Projectile.Center, DustID.Plantera_Green, speed, dustScale: scale);
+            
+            for (int i = 0; i < dustCount; i++)
+            {
+                Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Plantera_Green, dustVelocity * speed, Scale: scale);
+                dust.noGravity = true;
+            }
 
             for (int i = 0; i < 2; i++)
             {

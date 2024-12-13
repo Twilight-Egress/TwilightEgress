@@ -150,7 +150,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             Timer++;
             Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.05f, 0f, 1f);
             if (Main.rand.NextBool(3))
-                TwilightEgressUtilities.CreateDustLoop(2, Main.rand.NextVector2Circular(Projectile.width, Projectile.height), Vector2.Zero, DustID.FireworkFountain_Yellow, shouldDefyGravity: true);
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(Main.rand.NextVector2Circular(Projectile.width, Projectile.height), DustID.FireworkFountain_Yellow, Vector2.Zero);
+                    dust.noGravity = true;
+                }
+            }
         }
 
         public override void OnKill(int timeLeft)

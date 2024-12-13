@@ -135,10 +135,14 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
         {
             if (Main.rand.NextBool(3))
             {
-                Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.375f, Projectile.height * 0.485f);
-                Color dustColor = Color.Lerp(Color.Crimson, Color.DarkRed, Main.rand.NextFloat());
-                float dustScale = Main.rand.NextFloat(0.65f, 1f);
-                TwilightEgressUtilities.CreateDustLoop(3, spawnPosition, Vector2.Zero, 264, dustScale: dustScale, dustColor: dustColor);
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.375f, Projectile.height * 0.485f);
+                    Color dustColor = Color.Lerp(Color.Crimson, Color.DarkRed, Main.rand.NextFloat());
+                    float dustScale = Main.rand.NextFloat(0.65f, 1f);
+                    Dust dust = Dust.NewDustPerfect(spawnPosition, 264, Vector2.Zero, 1, dustColor, dustScale);
+                    dust.noGravity = true;
+                }
             }
         }
 

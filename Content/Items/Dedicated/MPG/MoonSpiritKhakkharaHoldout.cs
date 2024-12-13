@@ -141,7 +141,12 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<UnderworldLantern>(), Projectile.damage, 0f, SoundID.DD2_BetsyFireballShot, null, Projectile.owner);
 
                 // Some light dust visuals.
-                TwilightEgressUtilities.CreateRandomizedDustExplosion(15, spawnPosition, 267, dustScale: 2f, dustColor: Color.LightSkyBlue);
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                    Dust dust = Dust.NewDustPerfect(spawnPosition, 267, dustVelocity * 5f, newColor: Color.LightSkyBlue, Scale: 2f);
+                    dust.noGravity = true;
+                }
             }
         }
 

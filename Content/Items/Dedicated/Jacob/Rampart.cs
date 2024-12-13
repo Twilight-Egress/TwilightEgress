@@ -110,7 +110,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 if (Timer == MaxChargeTime)
                 {
                     int dustType = Utils.SelectRandom(Main.rand, DustID.BlueTorch, DustID.Enchanted_Gold);
-                    TwilightEgressUtilities.CreateDustCircle(36, Projectile.Center, dustType, 10f, dustScale: 3f);
+                    for (int i = 0; i < 36; i++)
+                    {
+                        Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (36 / 2 - 1) * MathHelper.TwoPi / 36)) + Projectile.Center;
+                        Vector2 dustVelocity = dustRotation - Projectile.Center;
+                        Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, dustType, Vector2.Normalize(dustVelocity) * 10f);
+                        dust.noGravity = true;
+                    }
                     SoundEngine.PlaySound(AssetRegistry.Sounds.AnvilHit, Projectile.Center);
                 }
             }

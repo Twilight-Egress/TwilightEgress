@@ -29,7 +29,9 @@ namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
         public override void AI()
         {
             Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width, Projectile.height);
-            TwilightEgressUtilities.CreateDustLoop(1, spawnPosition, Vector2.Zero, 18);
+
+            Dust dust = Dust.NewDustPerfect(spawnPosition, 18, Vector2.Zero);
+            dust.noGravity = true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -37,7 +39,13 @@ namespace TwilightEgress.Content.Projectiles.Ranged.Ammo
             int chance = hit.Crit ? 1 : 12;
             if (Main.rand.NextBool(chance))
             {
-                TwilightEgressUtilities.CreateDustCircle(15, Projectile.Center, 18, 6f);
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustRotation = Vector2.Normalize(Vector2.UnitY).RotatedBy((i - (15 / 2 - 1) * MathHelper.TwoPi / 15)) + Projectile.Center;
+                    Vector2 dustVelocity = dustRotation - Projectile.Center;
+                    Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, 18, Vector2.Normalize(dustVelocity) * 6f);
+                    dust.noGravity = true;
+                }
                 target.AddBuff(BuffID.Poisoned, 360);
             }
         }

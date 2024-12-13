@@ -28,9 +28,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
         public override void SafeAI()
         {
             float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
-            Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(totalAttractionRadius, totalAttractionRadius);
             if (Main.rand.NextBool(2))
-                TwilightEgressUtilities.CreateDustLoop(15, dustPosition, Vector2.UnitX, DustID.Electric);
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(totalAttractionRadius, totalAttractionRadius);
+                    Dust dust = Dust.NewDustPerfect(dustPosition, DustID.Electric, Vector2.UnitX);
+                    dust.noGravity = true;
+                }
+            }    
 
             NPC.rotation += MathF.Tau / 600f;
             NPC.ShowNameOnHover = false;
