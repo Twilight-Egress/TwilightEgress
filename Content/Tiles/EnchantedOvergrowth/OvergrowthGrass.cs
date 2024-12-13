@@ -18,7 +18,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         private Asset<Texture2D> grassTexture;
         private Asset<Texture2D> glowTexture;
 
-        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthDirt";
+        public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthDirt";
 
         public override void SetStaticDefaults()
         {
@@ -34,8 +34,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             AddMapEntry(new Color(48, 77, 247));
 
-            grassTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Grass");
-            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Glow");
+            grassTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthGrass_Grass");
+            glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthGrass_Glow");
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -114,7 +114,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         public new string LocalizationCategory => "Items.Placeables";
 
-        public override string Texture => "TwilightEgress/Content/Tiles/EnchantedOvergrowth/OvergrowthGrass_Seeds";
+        public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthGrass_Seeds";
 
         public override void SetStaticDefaults()
         {
