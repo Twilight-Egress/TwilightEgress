@@ -4,30 +4,30 @@
   "Expressions": [
     {
       "Title": "Default",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/Default"
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/Default"
     },
     {
       "Title": "Blunt",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/Blunt",
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/Blunt",
       "FrameCount": 3,
       "FrameRate": 10,
       "Loop": true
     },
     {
       "Title": "DefaultOpen",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/DefaultOpen"
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/DefaultOpen"
     },
     {
       "Title": "Frown",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/Frown"
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/Frown"
     },
     {
       "Title": "FrownOpen",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/FrownOpen"
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/FrownOpen"
     },
     {
       "Title": "Surprise",
-      "Path": "TwilightEgress/Assets/CharacterAssets/Ardiena/Surprise"
+      "Path": "TwilightEgress/Assets/Textures/Characters/Ardiena/Surprise"
     }
   ],
   "Style": "TwilightEgress.Content.UI.Dialogue.DialogueStyles.ArdiDialogueStyle",
