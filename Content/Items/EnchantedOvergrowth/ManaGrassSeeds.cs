@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.EnchantedOvergrowth
 {
-    public class ManaGrassSeeds : ModItem, ILocalizedModType
+    public class ManaGrassSeeds : ModItem
     {
-        public new string LocalizationCategory => "Items.Placeables";
+        public override string LocalizationCategory => "Items.EnchantedOvergrowth";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

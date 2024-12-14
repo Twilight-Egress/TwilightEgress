@@ -8,6 +8,8 @@ namespace TwilightEgress.Content.Tiles.CosmostoneShowers
 {
     public class SilicateClusterBrick : ModTile
     {
+        public override string LocalizationCategory => "Tiles.CosmostoneShowers";
+
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
@@ -24,9 +26,9 @@ namespace TwilightEgress.Content.Tiles.CosmostoneShowers
         }
     }
 
-    public class SilicateClusterBrickItem : ModItem, ILocalizedModType
+    public class SilicateClusterBrickItem : ModItem
     {
-        public new string LocalizationCategory => "Items.Placeables";
+        public override string LocalizationCategory => "Tiles.CosmostoneShowers.SilicateClusterBrick.Items";
 
         public override string Texture => ModContent.GetModTile(ModContent.TileType<SilicateClusterBrick>()).Texture.Replace("Content", "Assets/Textures") + "_Item";
 

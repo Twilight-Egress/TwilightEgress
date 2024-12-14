@@ -15,7 +15,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class ThunderousFuryHoldout : ModProjectile, ILocalizedModType
+    public class ThunderousFuryHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -49,7 +49,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             "ThatOneEmolgaLiker"
         };
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Marv/ThunderousFury";
 

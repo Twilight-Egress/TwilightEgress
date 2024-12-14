@@ -18,7 +18,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
-    public class TheBastOffenseHoldout : ModProjectile, ILocalizedModType
+    public class TheBastOffenseHoldout : ModProjectile
     {
         private enum AttackState
         {
@@ -48,7 +48,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public const int RecoilStrengthIndex = 5;
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Dedicated.TheBastOffense.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/TheBastOffense";
 

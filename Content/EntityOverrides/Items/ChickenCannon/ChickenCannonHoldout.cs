@@ -17,7 +17,7 @@ using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
-    public class ChickenCannonHoldout : ModProjectile, ILocalizedModType
+    public class ChickenCannonHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -31,7 +31,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
         public const int BackglowRotationIndex = 1;
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Projectiles.ChickenCannon";
 
         public override string Texture => "CalamityMod/Projectiles/Ranged/ChickenCannonHeld";
 

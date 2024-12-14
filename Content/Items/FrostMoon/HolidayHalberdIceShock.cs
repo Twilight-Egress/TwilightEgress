@@ -16,7 +16,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberdIceShock : ModProjectile, ILocalizedModType
+    public class HolidayHalberdIceShock : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         private const int ProjectileTextureOpacityIndex = 0;
 
-        public new string LocalizationCategory => "Projectiles.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
         public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.CultistBossIceMist;
 

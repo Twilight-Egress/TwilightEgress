@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberd : ModItem, ILocalizedModType
+    public class HolidayHalberd : ModItem
     {
-        public new string LocalizationCategory => "Items.Weapons.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

@@ -12,11 +12,11 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class ElectricSkyBoltExplosion : ModProjectile, ILocalizedModType
+    public class ElectricSkyBoltExplosion : ModProjectile
     {
         public ref float Timer => ref Projectile.ai[0];
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

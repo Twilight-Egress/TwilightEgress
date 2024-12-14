@@ -13,13 +13,13 @@ using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Misc
 {
-    public class ResplendentRoar : ModItem, ILocalizedModType
+    public class ResplendentRoar : ModItem
     {
         public int SwingDirection { get; set; }
 
         public static int AttackCounter { get; set; }
 
-        public new string LocalizationCategory => "Items.Weapons.Melee";
+        public override string LocalizationCategory => "Items.Misc";
 
         public override string Texture => "CalamityMod/Items/Weapons/Melee/TheBurningSky";
 

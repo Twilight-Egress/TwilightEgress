@@ -11,7 +11,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class MassiveUnderworldLantern : ModProjectile, ILocalizedModType
+    public class MassiveUnderworldLantern : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -25,7 +25,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         private const int FadeoutTime = 60;
 
-        public new string LocalizationCategory => "Projectiles.Summon";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

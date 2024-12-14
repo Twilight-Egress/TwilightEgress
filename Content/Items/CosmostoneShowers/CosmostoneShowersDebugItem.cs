@@ -6,9 +6,10 @@ using TwilightEgress.Core.Systems.EventHandlerSystem;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
-    public class CosmostoneShowersDebugItem : ModItem, ILocalizedModType
+    public class CosmostoneShowersDebugItem : ModItem
     {
-        public new string LocalizationCategory => "Items.Misc";
+        public override string LocalizationCategory => "Items.CosmostoneShowers";
+
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()

@@ -8,7 +8,9 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class SailorsSingularityVortex : ModProjectile
     {
+        public override string LocalizationCategory => "Items.CosmostoneShowers.SailorsSingularity.Projectiles";
         public override string Texture => "CalamityMod/Projectiles/Magic/NuclearFuryProjectile";
+
         public override void SetDefaults()
         {
             Projectile.width = 100;

@@ -1,0 +1,158 @@
+MechonSlayer: {
+	DisplayName: Mechon Slayer
+	Tooltip:
+		'''
+		Holds the power of the five Monado Arts
+		Using LMB cycles between each of the five arts. Each of their powers are explained below;
+		[c/eb9b34:Armour:] Defense increased by 15 and DR increased by 5%
+		[c/54524f:Eater:] Removes all debuffs from the player. 2 minute cooldown.
+		[c/951aad:Enchant:] Increases damage by 10% and armor penetration by 10
+		[c/0de026:Purge:] Enemy contact damage reduced by 10%
+		[c/63ebe2:Speed:] Increases movement speed by 15% and acceleration by 25%
+		'''
+	Projectiles.MechonSlayerHoldout.DisplayName: Mechon Slayer
+
+	Cooldowns: {
+		MechonSlayerArtSelection: Mechon Art Cooldown
+		MechonSlayerEater: Mechon Art - Eater Cooldown
+	}
+}
+
+EarmuffFruit: {
+	DisplayName: Earmuff Fruit
+	Tooltip:
+		'''
+		Summons a pet bellbird that really likes to perch on your shoulder!
+		The way it swivels towards your face is oddly menacing...
+		'''
+	Projectiles.EarPiercingBellbird.DisplayName: Ear Piercing Bellbird
+
+	Buffs: {
+		BellbirdCry: {
+			DisplayName: Cry of God
+			Description: You've been stunned by a deafening scream!
+		}
+
+		BellbirdBuff: {
+			DisplayName: Harmless Little Bellbird
+			Description: A harmless little bellbird! It couldn't hurt anyone...
+		}
+	}
+}
+
+DroseraeDictionary: {
+	DisplayName: Droserae Dictionary
+	Tooltip:
+		'''
+		Fires a flytrap maw that bounces between enemies
+		Deals more damage as your health decreases
+		[c/750c0c:It needs water. It needs to be fed your blood.]
+		'''
+
+	Projectiles: {
+		FlytrapMaw.DisplayName: Flytrap Maw
+		DroseraeDictionaryHoldout.DisplayName: Droserae Ritual
+	}
+}
+
+ThunderousFury: {
+	DisplayName: Thunderous Fury
+	Tooltip:
+		'''
+		Holding down LMB channels electricity, causing Thunderbolts to strike at the mouse cursor position
+		Holding RMB charges up a powerful Bolt Strike attack which can be launched at targets for devastating damage
+		[c/d4d400:The power of Unova]
+		'''
+
+	Projectiles: {
+		BoltStrike.DisplayName: Bolt Strike
+		ElectricSkyBolt.DisplayName: Electric Sky Bolt
+		ElectricSkyBoltExplosion.DisplayName: Electric Sky Bolt Explosion
+		ElectricSkyBoltMist.DisplayName: Electric Sky Bolt Mist
+		ThunderousFuryHoldout.DisplayName: Thunderous Fury Holdout
+	}
+}
+
+TomeOfTheTank: {
+	DisplayName: Triumph Of The Tank
+	Tooltip:
+		'''
+		Encloses the player in a powerful magic circle, which then conjures Ramparts of Deities around them
+		These tanky nightmares home onto to enemies after 1.25 seconds and smash into enemies, exploding into
+		a mess of Detonating Draedon's Hearts
+		Draedon's Hearts deal 45% of the weapon's original damage
+		[c/0098d4:How the fuck did you even create this? It says "hi mpg :)" at the back as well, for some odd reason.]
+		'''
+
+	Projectiles: {
+		DetonatingDraedonHeart.DisplayName: Detonating Draedon Heart
+		Rampart.DisplayName: Rampart
+		Tanksplosion.DisplayName: Tanksplosion
+		TomeOfTheTankHoldout.DisplayName: Tome Of The Tank Holdout
+	}
+}
+
+TheBastOffense: {
+	DisplayName: The Bast Offense
+	Tooltip:
+		'''
+		Holding LMB charges up the launcher slowly, increasing the amount of Bast Statues it fires each time
+		This charge rate increases over time
+		Releasing LMB causes the launcher to fire all of the Bast Statues to home in on enemies and unleash kitty hell
+		If there are no enemies nearby, the statues will instead home in on the player and provide them with The Bast Defense buff
+		Holding RMB causes the launcher to fire large piercing Bast Statues that bounce off tiles and explode into smaller Bast Statues after 
+		time has passed
+		"The best defense is a good offense... of cats??"
+		'''
+
+	Projectiles: {
+		Bastsplosion.DisplayName: Bastsplosion
+		GiantBastStatue.DisplayName: Giant Bast Statue
+		HomingBastStatue.DisplayName: Homing Bast Statue
+		TheBastOffenseHoldout.DisplayName: The Bast Offense
+	}
+}
+
+MoonSpiritKhakkhara: {
+	DisplayName: Moon Spirit Khakkhara
+	Tooltip:
+		'''
+		Summons ghastly Underworld Lanterns that orbit around your head 
+		These lanterns will summon Undead Spirits at nearby enemies in order to cut them down
+		Pressing RMB destroys one lantern and inflicts the player with the Curse of Necromancy debuff, in return for
+		launching two large Underworld Lanterns towards the mouse cursor
+		Curse of Necromancy takes away one minion slot and stacks for every use of the weapon
+		[c/afecf0:You have no regrets?]
+		'''
+
+	Projectiles: {
+		CurseOfNecromancySkull.DisplayName: Curse Of Necromancy Skull
+		MassiveUnderworldLantern.DisplayName: Massive Underworld Lantern
+		MoonSpiritKhakkharaHoldout.DisplayName: Moon Spirit Khakkhara Holdout
+		UndeadSpirit.DisplayName: Undead Spirit
+		UnderworldLantern.DisplayName: Underworld Lantern
+	}
+
+	Buffs: {
+		CurseOfNecromancy: {
+			DisplayName: Curse Of Necromancy
+			Description: Your minion slots are being taken away!
+		}
+
+		UnderworldLanternBuff: {
+			DisplayName: Lanterns of the Underworld
+			Description: The Underworld Lanterns will guide the undead to protect you
+		}
+	}
+}
+
+OctoLeash: {
+	Projectiles.KibbyGirl.DisplayName: Lil' Catgal :3
+
+	Buffs: {
+		KibbyGirlBuff: {
+			DisplayName: Lil' Catgirl Creature
+			Description: The catgirl on your head protects you :3
+		}
+	}
+}

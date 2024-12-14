@@ -5,6 +5,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
     public class BellbirdBuff : ModBuff
     {
+        public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Buffs";
+
         public override string Texture => "Terraria/Images/Buff";
 
         public override void SetStaticDefaults()

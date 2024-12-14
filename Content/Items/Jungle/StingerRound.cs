@@ -9,9 +9,9 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Jungle
 {
-    public class StingerRound : ModItem, ILocalizedModType
+    public class StingerRound : ModItem
     {
-        public new string LocalizationCategory => "Items.Ammo";
+        public override string LocalizationCategory => "Items.Jungle";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
@@ -35,9 +35,9 @@ namespace TwilightEgress.Content.Items.Jungle
         }
     }
 
-    public class StingerRoundProjectile : ModProjectile, ILocalizedModType
+    public class StingerRoundProjectile : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Jungle.StingerRound.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
@@ -77,9 +77,9 @@ namespace TwilightEgress.Content.Items.Jungle
         }
     }
 
-    public class StingerRoundStinger : ModProjectile, ILocalizedModType
+    public class StingerRoundStinger : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Jungle.StingerRound.Projectiles";
 
         public override string Texture => "Terraria/Images/Projectile_55";
 

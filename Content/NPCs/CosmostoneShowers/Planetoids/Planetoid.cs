@@ -21,6 +21,8 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
 
         public abstract float WalkableRadius { get; }
 
+        public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Planetoids";
+
         public sealed override void SetStaticDefaults()
         {
             NPCID.Sets.ProjectileNPC[Type] = true;

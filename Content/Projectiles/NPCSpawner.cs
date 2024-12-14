@@ -10,7 +10,7 @@ namespace TwilightEgress.Content.Projectiles
     {
         public ref float NPCTypeToSpawn => ref Projectile.ai[0];
 
-        public new string LocalizationCategory => "Projectiles.Misc";
+        public new string LocalizationCategory => "Projectiles";
 
         public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 

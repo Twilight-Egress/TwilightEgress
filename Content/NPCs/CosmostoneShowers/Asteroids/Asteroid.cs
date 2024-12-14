@@ -15,6 +15,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public ref float Timer => ref NPC.ai[0];
 
+        public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
+
         public sealed override void OnSpawn(IEntitySource source)
         {
             RotationSpeedSpawnFactor = Main.rand.NextFloat(75f, 480f) * Utils.SelectRandom(Main.rand, -1, 1);

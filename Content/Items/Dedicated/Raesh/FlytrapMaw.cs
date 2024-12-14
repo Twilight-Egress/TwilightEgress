@@ -15,7 +15,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
-    public class FlytrapMaw : ModProjectile, ILocalizedModType
+    public class FlytrapMaw : ModProjectile
     {
         private ref float ViableTargetIndex => ref Projectile.ai[0];
 
@@ -25,7 +25,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private Asset<Texture2D> trailTexture;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.DroseraeDictionary.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

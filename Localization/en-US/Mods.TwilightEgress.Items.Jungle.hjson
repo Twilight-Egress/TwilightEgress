@@ -1,11 +1,13 @@
 PoisonArrow: {
 	DisplayName: Poison Arrow
 	Tooltip: Inflicts target with Poison on critical hits
+	Projectiles.PoisonArrowProjectile.DisplayName: Poison Arrow Projectile
 }
 
 PoisonRound: {
 	DisplayName: Poison Round
 	Tooltip: Inflicts target with Poison on critical hits
+	Projectiles.PoisonRoundProjectile.DisplayName: Poison Round Projectile
 }
 
 StingerRound: {
@@ -15,4 +17,9 @@ StingerRound: {
 		Explodes into stingers on enemy hits
 		Has 10 armor penetration
 		'''
+
+	Projectiles: {
+		StingerRoundProjectile.DisplayName: Stinger Round Projectile
+		StingerRoundStinger.DisplayName: Stinger Round Stinger
+	}
 }

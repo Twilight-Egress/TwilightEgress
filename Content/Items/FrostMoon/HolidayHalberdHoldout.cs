@@ -16,7 +16,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberdHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class HolidayHalberdHoldout : ModProjectile, IPixelatedPrimitiveRenderer
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -28,7 +28,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         private const int RotationSpeedIndex = 0;
 
-        public new string LocalizationCategory => "Projectiles.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/FrostMoon/HolidayHalberd";
 

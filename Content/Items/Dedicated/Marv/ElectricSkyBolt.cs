@@ -14,7 +14,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class ElectricSkyBolt : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class ElectricSkyBolt : ModProjectile, IPixelatedPrimitiveRenderer
     {
         public List<Vector2> StrikePositions = [];
 
@@ -24,7 +24,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public Vector2 StrikePosition { get; set; }
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
         public override string Texture => AssetRegistry.ExtraTexturesPath + "GreyscaleObjects/SoftStar";
 

@@ -11,7 +11,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonMiniBoom : Bastsplosion, ILocalizedModType
     {
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public new string LocalizationCategory => "Projectiles.ChickenCannon";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

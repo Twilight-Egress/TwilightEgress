@@ -15,7 +15,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class BoltStrike : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class BoltStrike : ModProjectile, IPixelatedPrimitiveRenderer
     {
         public Player Owner => Main.player[Projectile.owner];
 
@@ -27,7 +27,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public ref float ColorTimer => ref Projectile.localAI[1];
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Marv/ElectricSkyBoltExplosion";
 

@@ -13,7 +13,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberdThrown : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class HolidayHalberdThrown : ModProjectile, IPixelatedPrimitiveRenderer
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -21,7 +21,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         private Player Owner => Main.player[Projectile.owner];
 
-        public new string LocalizationCategory => "Projectiles.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/FrostMoon/HolidayHalberd";
 

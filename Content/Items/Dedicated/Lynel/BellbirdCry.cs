@@ -5,9 +5,9 @@ using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
-    public class BellbirdCry : ModBuff, ILocalizedModType
+    public class BellbirdCry : ModBuff
     {
-        public new string LocalizationCategory => "Buffs.Debuffs";
+        public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Buffs";
 
         public override string Texture => "Terraria/Images/Buff_160";
 

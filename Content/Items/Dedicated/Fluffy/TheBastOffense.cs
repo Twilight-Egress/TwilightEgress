@@ -10,9 +10,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
-    public class TheBastOffense : ModItem, ILocalizedModType
+    public class TheBastOffense : ModItem
     {
-        public new string LocalizationCategory => "Items.Weapons.Ranged";
+        public override string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

@@ -15,7 +15,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class DetonatingDraedonHeart : ModProjectile, ILocalizedModType
+    public class DetonatingDraedonHeart : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -35,7 +35,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         private const int HeartBackglowRadiusIndex = 3;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
         public override string Texture => "CalamityMod/Items/Accessories/DraedonsHeart";
 

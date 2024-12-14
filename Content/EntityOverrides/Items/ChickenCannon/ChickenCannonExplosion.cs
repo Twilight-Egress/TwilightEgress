@@ -10,11 +10,11 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
-    public class ChickenCannonExplosion : ModProjectile, ILocalizedModType
+    public class ChickenCannonExplosion : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Projectiles.ChickenCannon";
 
         public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 

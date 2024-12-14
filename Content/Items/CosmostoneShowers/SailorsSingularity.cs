@@ -15,6 +15,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class SailorsSingularity : ModItem
     {
+        public override string LocalizationCategory => "Items.CosmostoneShowers";
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
@@ -60,7 +61,10 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 
     public class SailorsSingularityHoldout : ModProjectile
     {
+        public override string LocalizationCategory => "Items.CosmostoneShowers.SailorsSingularity.Projectiles";
+
         public override string Texture => "TwilightEgress/Assets/Textures/Items/CosmostoneShowers/SailorsSingularity";
+
         public override void SetDefaults()
         {
             Projectile.width = 40;

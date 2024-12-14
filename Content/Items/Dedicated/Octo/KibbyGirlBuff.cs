@@ -4,9 +4,9 @@ using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.Octo
 {
-    public class KibbyGirlBuff : ModBuff, ILocalizedModType
+    public class KibbyGirlBuff : ModBuff
     {
-        public new string LocalizationCategory => "Buffs";
+        public override string LocalizationCategory => "Items.Dedicated.OctoLeash.Buffs";
 
         public override string Texture => "Terraria/Images/Buff";
 

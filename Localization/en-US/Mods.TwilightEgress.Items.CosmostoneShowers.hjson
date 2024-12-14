@@ -1,0 +1,59 @@
+CosmostoneShowersDebugItem: {
+	DisplayName: Cosmsotone Showers Spawner
+	Tooltip:
+		'''
+		Tries to start a Cosmotone Showers event under the right circumstances.
+		The event cannot be started during Blood, Pumpkin or Frost Moons.
+		The event cannot be started during Boss Rush.
+		The event can only occur at Night.
+		The event can only occur if there is no other Cosmostone Showers event active.
+		This item will give you warnings if you fail to meet the above requirements.
+		'''
+}
+
+SailorsSingularity: {
+	DisplayName: Sailors Singularity
+	Tooltip: ""
+
+	Projectiles: {
+		SailorsSingularityHoldout.DisplayName: Sailors Singularity Holdout
+		SailorsSingularityBlast.DisplayName: Sailors Singularity Blast
+		SailorsSingularityStar.DisplayName: Sailors Singularity Star
+		SailorsSingularityVortex.DisplayName: Sailors Singularity Vortex
+	}
+}
+
+Stellascope: {
+	DisplayName: Stellascope
+	Tooltip: ""
+
+	Projectiles: {
+		StellascopeStar.DisplayName: Stellascope Star
+		StellascopeHoldout.DisplayName: Stellascope Holdout
+	}
+}
+
+LunarCresent: {
+	DisplayName: Lunar Cresent
+	Tooltip: Converts wooden arrows into Jester's Arrows
+}
+
+BurningQuasar: {
+	DisplayName: Burning Quasar
+	Tooltip: ""
+}
+
+Cosmostone: {
+	DisplayName: Cosmostone
+	Tooltip: A shard of a strange material from beyond the cosmos
+}
+
+CosmostoneBar: {
+	DisplayName: Cosmostone Bar
+	Tooltip: "'Cold to the touch'"
+}
+
+SilicateCluster: {
+	DisplayName: Silicate Cluster
+	Tooltip: PLACEHOLDER SPRITE IIRC
+}

@@ -19,7 +19,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Misc
 {
-    public class ResplendentRoarHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class ResplendentRoarHoldout : ModProjectile, IPixelatedPrimitiveRenderer
     {
         private enum AttackTypes
         {
@@ -77,7 +77,7 @@ namespace TwilightEgress.Content.Items.Misc
 
         public float SwingRatio(bool small) => ThrustCurve.Evaluate(Timer / (small ? SmallSwingMaxTime : LargeSwingMaxTime));
 
-        public new string LocalizationCategory => "Projectiles.Melee";
+        public override string LocalizationCategory => "Items.Misc.ResplendentRoar.Projectiles";
 
         public override string Texture => "CalamityMod/Items/Weapons/Melee/TheBurningSky";
 

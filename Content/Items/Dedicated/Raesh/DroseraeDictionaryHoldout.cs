@@ -15,7 +15,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
-    public class DroseraeDictionaryHoldout : ModProjectile, ILocalizedModType
+    public class DroseraeDictionaryHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -29,7 +29,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private const int RitualCircleScaleIndex = 2;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.DroseraeDictionary.Projectiles";
 
         public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 

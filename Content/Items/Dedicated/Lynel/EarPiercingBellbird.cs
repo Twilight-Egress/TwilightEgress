@@ -13,7 +13,7 @@ using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
-    public class EarPiercingBellbird : ModProjectile, ILocalizedModType
+    public class EarPiercingBellbird : ModProjectile
     {
         public enum BellbirdStates
         {
@@ -44,7 +44,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         private const int ScreamChargeVisualOpacityIndex = 1;
 
-        public new string LocalizationCategory => "Projectiles.Pets";
+        public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
