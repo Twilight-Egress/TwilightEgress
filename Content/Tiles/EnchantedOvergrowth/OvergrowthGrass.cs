@@ -1,15 +1,14 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-
-using static TwilightEgress.TwilightEgressUtilities;
 using TwilightEgress.Core;
+using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
@@ -87,13 +86,13 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 new Point(0, -1),
             ];
 
-            if (!adjacencyData.right) 
+            if (!adjacencyData.right)
             {
                 framesToDraw.Add(new Point(1, 0));
                 framesToDraw.Add(new Point(1, 1));
                 framesToDraw.Add(new Point(1, -1));
             }
-            
+
             if (!adjacencyData.left)
             {
                 framesToDraw.Add(new Point(-1, 0));
@@ -101,7 +100,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 framesToDraw.Add(new Point(-1, -1));
             }
 
-            foreach (Point frame in framesToDraw) 
+            foreach (Point frame in framesToDraw)
             {
                 Rectangle sourceRectangle = new Rectangle(offsetX + (frame.X + 1) * 18, offsetY + (frame.Y + 1) * 18, 16, 16);
                 spriteBatch.DrawTileTexture(grassTexture.Value, i + frame.X, j + frame.Y, sourceRectangle, paintColor, 0f, Vector2.Zero);
