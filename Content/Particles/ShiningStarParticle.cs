@@ -1,4 +1,13 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using TwilightEgress.Assets;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     internal class ShiningStarParticle : CasParticle
     {
@@ -29,7 +38,7 @@
             ParallaxStrength = depth;
 
             Opacity = 0f;
-            Rotation = Main.rand.NextFloat(TwoPi);
+            Rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             RotationSpeed = Main.rand.NextFloat(0.0025f, 0.01f);
             RotationDirection = Main.rand.NextBool().ToDirectionInt();
 
@@ -47,22 +56,22 @@
             int timeToDisappear = Lifetime - 120;
             int timeToAppear = 120;
             float appearInterpolant = Time / (float)timeToAppear;
-            float twinkleInterpolant = TwilightEgressUtilities.SineEaseInOut(Time / 120f);
+            float twinkleInterpolant = EasingFunctions.SineEaseInOut(Time / 120f);
             float disappearInterpolant = (Time - timeToDisappear) / 120f;
 
-            Scale = new(Lerp(MinScale, MaxScale, twinkleInterpolant));
+            Scale = new(MathHelper.Lerp(MinScale, MaxScale, twinkleInterpolant));
 
             if (Time <= timeToAppear)
-                Opacity = Lerp(0f, 1f, appearInterpolant);
+                Opacity = MathHelper.Lerp(0f, 1f, appearInterpolant);
             if (Time >= timeToDisappear && Time <= Lifetime)
-                Opacity = Lerp(Opacity, 0f, disappearInterpolant);
+                Opacity = MathHelper.Lerp(Opacity, 0f, disappearInterpolant);
 
             Rotation += RotationSpeed * RotationDirection;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(TwilightEgressTextureRegistry.FourPointedStars_Atlas[TextureIndex]);
+            AtlasTexture starTextures = AtlasManager.GetTexture(AssetRegistry.Textures.FourPointedStars_Atlas[TextureIndex]);
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = starTextures.Size / 2f;

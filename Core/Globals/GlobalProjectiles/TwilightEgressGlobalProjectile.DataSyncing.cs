@@ -1,6 +1,8 @@
-﻿using Terraria.ModLoader.IO;
+﻿using System.IO;
+using Terraria;
+using Terraria.ModLoader.IO;
 
-namespace TwilightEgress.Core.Globals
+namespace TwilightEgress.Core.Globals.GlobalProjectiles
 {
     public partial class TwilightEgressGlobalProjectile
     {

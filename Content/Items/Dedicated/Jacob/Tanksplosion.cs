@@ -1,10 +1,13 @@
-﻿using TwilightEgress.Content.Items.Dedicated.Fluffy;
+﻿using Terraria.ModLoader;
+using TwilightEgress.Content.Items.Dedicated.Fluffy;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class Tanksplosion : Bastsplosion, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Magic";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {

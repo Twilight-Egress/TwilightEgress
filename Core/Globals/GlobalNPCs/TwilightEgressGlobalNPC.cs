@@ -1,4 +1,9 @@
-﻿
+﻿using Microsoft.Xna.Framework;
+using System.Linq;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
     public partial class TwilightEgressGlobalNPC : GlobalNPC
@@ -33,5 +38,10 @@ namespace TwilightEgress.Core.Globals.GlobalNPCs
             if (npc.type == NPCID.IceQueen)
                 drawColor = Color.White;
         }
+    }
+
+    public static class GlobalNPCExtensionMethod
+    {
+        public static TwilightEgressGlobalNPC TwilightEgress(this NPC npc) => npc.GetGlobalNPC<TwilightEgressGlobalNPC>();
     }
 }

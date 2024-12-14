@@ -1,5 +1,17 @@
-﻿using TwilightEgress.Core.Graphics;
-using Terraria.Map;
+﻿using CalamityMod;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
@@ -11,13 +23,19 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private List<NPC> NPCsWhoHaveBeenHit { get; set; }
 
+        private Asset<Texture2D> trailTexture;
+
         public new string LocalizationCategory => "Projectiles.Magic";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
             ProjectileID.Sets.TrailCacheLength[Type] = 24;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+
+            trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Raesh/FlytrapMaw_Chain");
         }
 
         public override void SetDefaults()
@@ -37,7 +55,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
         {
             // Scale up depending on the player's current life.
             NPCsWhoHaveBeenHit = new();
-            float scaleFactor = Lerp(1f, 1.75f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            float scaleFactor = MathHelper.Lerp(1f, 1.75f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             Projectile.scale = 1f * scaleFactor;
         }
 
@@ -50,8 +68,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 return;
             }
 
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
-            Projectile.rotation = Projectile.velocity.ToRotation() + Pi;
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.05f, 0f, 1f);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
             Projectile.UpdateProjectileAnimationFrames(0, 4, 5);
             Projectile.AdjustProjectileHitboxByScale(28f, 28f);
         }
@@ -63,7 +81,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 /* Add the whoAmI indexes of each hit NPC to the list. 
                  * This is how we'll keep track of which NPCs we shouldn't target. */
                 NPCsWhoHaveBeenHit.Add(target);
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
             }
 
             // Find the closest target in range and bounce to them from the last enemy.
@@ -83,10 +101,16 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1);
 
-            int dustCount = 15 * (int)Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
-            float speed = Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            int dustCount = 15 * (int)MathHelper.Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+            float speed = MathHelper.Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float scale = Main.rand.NextFloat(0.65f, 1.25f) * Projectile.scale;
-            TwilightEgressUtilities.CreateRandomizedDustExplosion(dustCount, Projectile.Center, DustID.Plantera_Green, speed, dustScale: scale);
+
+            for (int i = 0; i < dustCount; i++)
+            {
+                Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Plantera_Green, dustVelocity * speed, Scale: scale);
+                dust.noGravity = true;
+            }
 
             for (int i = 0; i < 2; i++)
             {
@@ -107,7 +131,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             else
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
 
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     Projectile.velocity.X = -oldVelocity.X;
@@ -132,8 +156,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         public void DrawPrims()
         {
-            Asset<Texture2D> trailTexture = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Raesh/FlytrapMaw_Chain");
-
             Main.spriteBatch.EnterShaderRegion();
             ShaderManager.TryGetShader("TwilightEgress.PrimitiveTextureMapTrail", out ManagedShader textureMapTrailShader);
             textureMapTrailShader.SetTexture(trailTexture, 1);

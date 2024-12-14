@@ -1,4 +1,19 @@
-﻿using TwilightEgress.Content.Buffs.Minions;
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
@@ -49,7 +64,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public new string LocalizationCategory => "Projectiles.Summon";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/MPG/MoonSpiritKhakkhara";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/MPG/MoonSpiritKhakkhara";
 
         public override void SetStaticDefaults()
         {
@@ -114,18 +129,23 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 return;
             }
 
-            ritualCircleOpacity = Clamp(ritualCircleOpacity + 0.01f, 0f, 1f);
-            ritualCircleScale = Clamp(ritualCircleScale + 0.02f, 0f, 1f);
+            ritualCircleOpacity = MathHelper.Clamp(ritualCircleOpacity + 0.01f, 0f, 1f);
+            ritualCircleScale = MathHelper.Clamp(ritualCircleScale + 0.02f, 0f, 1f);
 
             // Spawn in the lanterns.
             if (Timer >= MaxChargeTime && Timer % 30 == 0)
             {
-                Owner.AddBuff(ModContent.BuffType<UnderworldLanterns>(), 180000);
+                Owner.AddBuff(ModContent.BuffType<UnderworldLanternBuff>(), 180000);
                 Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 85f;
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<UnderworldLantern>(), Projectile.damage, 0f, SoundID.DD2_BetsyFireballShot, null, Projectile.owner);
 
                 // Some light dust visuals.
-                TwilightEgressUtilities.CreateRandomizedDustExplosion(15, spawnPosition, 267, dustScale: 2f, dustColor: Color.LightSkyBlue);
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
+                    Dust dust = Dust.NewDustPerfect(spawnPosition, 267, dustVelocity * 5f, newColor: Color.LightSkyBlue, Scale: 2f);
+                    dust.noGravity = true;
+                }
             }
         }
 
@@ -136,9 +156,9 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
             // Ritual circle visuals.
             if (Timer <= 60f)
-                ritualCircleOpacity = Lerp(1f, 0f, TwilightEgressUtilities.SineEaseOut(Timer / 60f));
+                ritualCircleOpacity = MathHelper.Lerp(1f, 0f, EasingFunctions.SineEaseOut(Timer / 60f));
             if (Timer <= 75f)
-                ritualCircleScale = Lerp(0f, 3f, TwilightEgressUtilities.SineEaseOut(Timer / 75f));
+                ritualCircleScale = MathHelper.Lerp(0f, 3f, EasingFunctions.SineEaseOut(Timer / 75f));
 
             if (Timer == 1)
             {
@@ -155,7 +175,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (ViableEasterEggNames.Contains(Owner.name))
                 {
                     CombatText.NewText(Owner.Hitbox, Color.SkyBlue, "Requiem Bouquet", true);
-                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.RequiemBouquetPerish, Owner.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.RequiemBouquetPerish, Owner.Center);
                 }
             }
 
@@ -168,8 +188,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             owner.heldProj = Projectile.whoAmI;
             owner.itemTime = 2;
             owner.itemAnimation = 2;
-            owner.ChangeDir(Sign(Projectile.rotation.ToRotationVector2().X));
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -193,12 +213,12 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
             // If we're facing the left, we set the extra angle to Pi/2 (90 degrees) so that the rotation flips.
-            float extraAngle = Owner.direction < 0 ? PiOver2 : 0f;
+            float extraAngle = Owner.direction < 0 ? MathHelper.PiOver2 : 0f;
             // Set the base draw angle to the projectile's rotation. Projectile.rotation is what
             // you'll be adjusting to change rotations.
             float baseDrawAngle = Projectile.rotation;
             // We set the final rotation by adding the extra angle and Pi/4 (45 degrees) to the base draw angle.
-            float drawRotation = baseDrawAngle + PiOver4 + extraAngle;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4 + extraAngle;
 
             // Set the origin that we'll draw from. 
             // This code here specifically ensures that the sprite itself flips depending on what direction
@@ -213,7 +233,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * 3f;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * 3f;
                 Color backglowColor = Utilities.ColorSwap(Color.Cyan, Color.LightSkyBlue, 5f);
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, null, Projectile.GetAlpha(backglowColor), drawRotation, origin, Projectile.scale, effects, 0);
             }

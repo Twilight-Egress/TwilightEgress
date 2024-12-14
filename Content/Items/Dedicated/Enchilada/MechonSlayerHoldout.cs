@@ -1,4 +1,15 @@
-﻿using EasingType = Luminance.Common.Easings.EasingType;
+﻿using CalamityMod.Sounds;
+using Luminance.Common.Easings;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core.Players.BuffHandlers;
+using EasingType = Luminance.Common.Easings.EasingType;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
@@ -21,6 +32,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public new string LocalizationCategory => "Projectiles.Misc";
 
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -36,13 +49,13 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public override void AI()
         {
-            if (Owner.ShouldDespawnHeldProj(ModContent.ItemType<MechonSlayer>()))
+            if (Owner.dead || Owner.CCed || Owner.noItems || !Owner.active || Owner.HeldItem.type != ModContent.ItemType<MechonSlayer>())
             {
                 Projectile.Kill();
                 return;
             }
 
-            InitializeFields(MaxTime, -PiOver2);
+            InitializeFields(MaxTime, -MathHelper.PiOver2);
             Vector2 holdPosition = Owner.Top + new Vector2(0f, -20f * ThrustCurve.Evaluate(Timer / SwingTime) + 35f);
             Projectile.Center = Owner.RotatedRelativePoint(holdPosition, true);
 
@@ -50,12 +63,12 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
             if (Timer == SwingTime / 2)
             {
                 // Apply the art specific buffs.
-                Owner.TwilightEgress_Buffs().ApplyMechonSlayerArt((int)WeaponState);
+                Owner.GetModPlayer<BuffHandler>().ApplyMechonSlayerArt((int)WeaponState);
 
                 // Visuals.
                 for (int i = 0; i < 15; i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 8f);
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 8f);
                     SparkleParticle sparkle = new(Owner.RotatedRelativePoint(Owner.MountedCenter), velocity, GetArtColor(Color.Cyan), GetArtColor(Color.Cyan) * 0.75f, Main.rand.NextFloat(0.65f, 1.25f), Main.rand.Next(30, 45), 0.03f);
                     sparkle.SpawnCasParticle();
                 }
@@ -147,10 +160,10 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
         public void DrawBlade()
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Enchilada/MechonSlayer").Value;
+            Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayer").Value;
 
             float baseDrawAngle = Projectile.rotation;
-            float drawRotation = baseDrawAngle + PiOver4;
+            float drawRotation = baseDrawAngle + MathHelper.PiOver4;
 
             Vector2 origin = new(0f, texture.Height);
             Vector2 drawPosition = Projectile.Center + baseDrawAngle.ToRotationVector2() - Main.screenPosition;

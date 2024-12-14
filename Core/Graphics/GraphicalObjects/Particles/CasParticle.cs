@@ -1,4 +1,8 @@
-﻿using TwilightEgress.Core.Configs;
+﻿using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria;
+using TwilightEgress.Core.Configs;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
 {

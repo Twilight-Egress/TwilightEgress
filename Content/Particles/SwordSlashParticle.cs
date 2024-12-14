@@ -1,4 +1,11 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class SwordSlashParticle : CasParticle
     {
@@ -27,8 +34,8 @@
 
         public override void Update()
         {
-            Scale = new(Lerp(BaseScale, 0f, LifetimeRatio));
-            BloomOpacity = Lerp(1f, 0f, LifetimeRatio);
+            Scale = new(MathHelper.Lerp(BaseScale, 0f, LifetimeRatio));
+            BloomOpacity = MathHelper.Lerp(1f, 0f, LifetimeRatio);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -36,7 +43,7 @@
             Texture2D bloomTexture = ModContent.Request<Texture2D>("CalamityMod/UI/ModeIndicator/BloomFlare").Value;
             Vector2 drawPosition = Position - Main.screenPosition;
 
-            spriteBatch.Draw(bloomTexture, drawPosition, null, BloomColor * BloomOpacity, Rotation, bloomTexture.Size() / 2f, Scale, SpriteEffects.None, 0f);  
+            spriteBatch.Draw(bloomTexture, drawPosition, null, BloomColor * BloomOpacity, Rotation, bloomTexture.Size() / 2f, Scale, SpriteEffects.None, 0f);
             spriteBatch.Draw(Texture, drawPosition, null, DrawColor, Rotation, Texture.Frame.Size() / 2f, Scale * StretchFactor, SpriteEffects.None);
         }
     }

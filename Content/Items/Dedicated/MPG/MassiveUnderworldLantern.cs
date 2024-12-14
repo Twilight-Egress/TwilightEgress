@@ -1,4 +1,15 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.MPG
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+
+namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MassiveUnderworldLantern : ModProjectile, ILocalizedModType
     {
@@ -15,6 +26,8 @@
         private const int FadeoutTime = 60;
 
         public new string LocalizationCategory => "Projectiles.Summon";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -51,7 +64,7 @@
 
                 if (Timer >= MaxChargingTime)
                 {
-                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, 0.03f);
+                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, 0.03f);
                     Projectile.damage = 0;
                     Projectile.velocity *= 0.9f;
                     if (Timer >= MaxChargingTime + FadeoutTime)
@@ -64,7 +77,7 @@
 
             if (AIState == 0f)
             {
-                Projectile.Opacity = Lerp(Projectile.Opacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / TimeBeforeCharging));
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1f, EasingFunctions.SineEaseInOut(Timer / TimeBeforeCharging));
                 Projectile.rotation = Projectile.AngleTo(closestTarget.Center);
                 Projectile.velocity *= 0.9f;
 
@@ -90,7 +103,7 @@
                     // Some particles to mimic an explosion like effect.
                     for (int i = 0; i < 35; i++)
                     {
-                        Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(15f, 25f);
+                        Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(15f, 25f);
                         Color color = Color.Lerp(Color.Cyan, Color.CornflowerBlue, Main.rand.NextFloat());
                         float scale = Main.rand.NextFloat(3f, 6f);
                         HeavySmokeParticle deathSmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true, 0);
@@ -112,7 +125,7 @@
 
             if (AIState == 2f)
             {
-                Projectile.Opacity = Lerp(Projectile.Opacity, 0f, 0.03f);
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, 0.03f);
                 Projectile.damage = 0;
                 Projectile.velocity *= 0.9f;
                 if (Timer >= FadeoutTime)

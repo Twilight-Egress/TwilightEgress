@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items.Accessories;
+﻿using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Systems
 {
@@ -16,6 +16,6 @@ namespace TwilightEgress.Core.Systems
                         recipe.DisableRecipe();
                 }
             }*/
-        } 
+        }
     }
 }

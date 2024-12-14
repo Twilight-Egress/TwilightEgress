@@ -1,4 +1,12 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class MediumMistParticle : CasParticle
     {
@@ -27,7 +35,7 @@
             Lifetime = lifetime;
             RotationSpeed = rotationSpeed;
 
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
             FrameVariant = Main.rand.Next(FrameCount);
         }
 
@@ -37,7 +45,7 @@
             Rotation += RotationSpeed * Velocity.X.DirectionalSign();
             Velocity *= 0.85f;
 
-            Opacity = Lerp(InitialOpacity, 0f, LifetimeRatio);
+            Opacity = MathHelper.Lerp(InitialOpacity, 0f, LifetimeRatio);
             if (LifetimeRatio < 0.75f)
                 Scale *= 1.01f;
             else

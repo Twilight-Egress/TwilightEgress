@@ -1,8 +1,19 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class Bastsplosion : ModProjectile, ILocalizedModType
     {
         public new string LocalizationCategory => "Projectiles.Ranged";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {

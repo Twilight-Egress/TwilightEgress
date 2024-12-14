@@ -1,4 +1,11 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class TimedSmokeParticle : CasParticle
     {
@@ -34,7 +41,7 @@
             Rotation += RotationSpeed * Velocity.X.DirectionalSign();
             Velocity *= 0.85f;
 
-            Opacity = Lerp(InitialOpacity, 0f, LifetimeRatio);
+            Opacity = MathHelper.Lerp(InitialOpacity, 0f, LifetimeRatio);
             if (LifetimeRatio < 0.75f)
                 Scale += Vector2.One * 0.01f;
             else

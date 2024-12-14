@@ -1,4 +1,19 @@
-﻿namespace TwilightEgress.Content.Skies
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Skies
 {
     public class IceQueenSceneEffect : ModSceneEffect
     {
@@ -47,7 +62,9 @@
             }
         }
 
-        private Texture2D GlowStarTexture;
+        private Asset<Texture2D> GlowStarTexture;
+        private Asset<Texture2D> PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+        private Asset<Texture2D> CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
 
         private bool isActive;
 
@@ -90,7 +107,9 @@
 
         public override void OnLoad()
         {
-            GlowStarTexture = TwilightEgressTextureRegistry.SoftStar.Value;
+            GlowStarTexture = AssetRegistry.Textures.SoftStar;
+            PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+            CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
         }
 
         public override void Update(GameTime gameTime)
@@ -131,13 +150,11 @@
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            Asset<Texture2D> noiseTexture = TwilightEgressTextureRegistry.PerlinNoise3;
-            Asset<Texture2D> noiseTexture2 = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
             CalamityUtils.EnterShaderRegion(Main.spriteBatch, BlendState.Additive);
 
             ManagedShader shader = ShaderManager.GetShader("TwilightEgress.NoisyVignette");
-            shader.SetTexture(noiseTexture, 1);
-            shader.SetTexture(noiseTexture2, 2);
+            shader.SetTexture(PerlinTexture, 1);
+            shader.SetTexture(CracksTexture, 2);
             shader.TrySetParameter("time", Main.GlobalTimeWrappedHourly / 10f);
             shader.TrySetParameter("scrollSpeed", 0.2f);
             shader.TrySetParameter("vignettePower", 1.65f);
@@ -156,7 +173,7 @@
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.Additive);
                 Vector2 drawPosition = GlowStars[i].Position - Main.screenPosition;
                 spriteBatch.Draw(TextureAssets.Extra[49].Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 2f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(TwilightEgressTextureRegistry.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
+                spriteBatch.Draw(AssetRegistry.Textures.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.AlphaBlend);
             }
         }

@@ -1,4 +1,9 @@
-﻿namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
+﻿using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+
+namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
 {
     public class ChromaticAbberationRenderer : SmartRenderer
     {
@@ -44,7 +49,7 @@
         }
 
         public override void DrawTarget(SpriteBatch spriteBatch)
-        {           
+        {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             ManagedScreenFilter shader = ShaderManager.GetFilter("TwilightEgress.ChromaticAbberation");

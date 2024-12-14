@@ -1,4 +1,12 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class MusicNoteParticle : CasParticle
     {
@@ -35,12 +43,12 @@
         {
             // Scale up a bit before scaling back down.
             if (Time is <= MusicNoteScaleChangeThreshold)
-                Scale = new(Clamp(Scale.X + 0.04f, 0f, 1f));
+                Scale = new(MathHelper.Clamp(Scale.X + 0.04f, 0f, 1f));
             if (Time >= Lifetime - MusicNoteScaleChangeThreshold && Time <= Lifetime)
-                Scale = new(Clamp(Scale.X - 0.04f, 0f, 1f));
+                Scale = new(MathHelper.Clamp(Scale.X - 0.04f, 0f, 1f));
 
             Velocity *= 0.98f;
-            Rotation = Lerp(ToRadians(-15f), ToRadians(15f), TwilightEgressUtilities.SineEaseInOut(Time / 45f));
+            Rotation = MathHelper.Lerp(MathHelper.ToRadians(-15f), MathHelper.ToRadians(15f), EasingFunctions.SineEaseInOut(Time / 45f));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

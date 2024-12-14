@@ -1,4 +1,10 @@
-﻿namespace TwilightEgress.Content.Projectiles
+﻿using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+
+namespace TwilightEgress.Content.Projectiles
 {
     public class NPCSpawner : ModProjectile, ILocalizedModType
     {
@@ -6,7 +12,7 @@
 
         public new string LocalizationCategory => "Projectiles.Misc";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetDefaults()
         {
@@ -19,7 +25,7 @@
             Projectile.timeLeft = 1;
         }
 
-        public override void OnKill(int timeLeft) 
+        public override void OnKill(int timeLeft)
         {
             // Spawn the required NPC on death.
             if (Main.netMode != NetmodeID.MultiplayerClient)

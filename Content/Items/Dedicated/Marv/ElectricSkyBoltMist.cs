@@ -1,4 +1,11 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Core;
+
+namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ElectricSkyBoltMist : ModProjectile, ILocalizedModType
     {
@@ -24,7 +31,7 @@
         {
             if (Projectile.timeLeft == 480)
             {
-                Projectile.rotation = Main.rand.NextFloat(TwoPi);
+                Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
                 Projectile.scale = Main.rand.NextFloat(0.65f, 1.25f);
             }
 
@@ -33,11 +40,11 @@
 
             if (Projectile.timeLeft >= 60)
             {
-                Projectile.alpha = (int)Clamp(Projectile.alpha - 17, 0, 255);
+                Projectile.alpha = (int)MathHelper.Clamp(Projectile.alpha - 17, 0, 255);
             }
             else
             {
-                Projectile.alpha = (int)Clamp(Projectile.alpha + 17, 0, 255);
+                Projectile.alpha = (int)MathHelper.Clamp(Projectile.alpha + 17, 0, 255);
             }
 
             Lighting.AddLight(Projectile.Center, Color.Goldenrod.ToVector3() * 0.35f);

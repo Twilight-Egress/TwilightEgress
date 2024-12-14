@@ -1,4 +1,9 @@
-﻿namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
+﻿using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+
+namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
 {
     public class DarkVignetteRenderer : SmartRenderer
     {
@@ -46,8 +51,8 @@
             {
                 if (VignetteBrightness > 0)
                 {
-                    VignettePower = Clamp(VignettePower + 0.03f, 0f, 20f);
-                    VignetteBrightness = Clamp(VignetteBrightness - 0.01f, 0f, 50f);
+                    VignettePower = MathHelper.Clamp(VignettePower + 0.03f, 0f, 20f);
+                    VignetteBrightness = MathHelper.Clamp(VignetteBrightness - 0.01f, 0f, 50f);
                 }
                 else
                 {

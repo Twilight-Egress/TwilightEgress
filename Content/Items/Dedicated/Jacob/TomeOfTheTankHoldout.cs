@@ -1,4 +1,18 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class TomeOfTheTankHoldout : ModProjectile, ILocalizedModType
     {
@@ -18,7 +32,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Jacob/TomeOfTheTank";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TomeOfTheTank";
 
         public override void SetStaticDefaults()
         {
@@ -56,7 +70,7 @@
             Projectile.rotation += 0.03f * Projectile.direction;
             if (Projectile.spriteDirection == -1)
             {
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
             }
 
             PerformAttack();
@@ -67,9 +81,9 @@
             Owner.heldProj = Projectile.whoAmI;
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
-            Owner.ChangeDir(Sign(Owner.AngleTo(Main.MouseWorld).ToRotationVector2().X));
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
-            Owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - PiOver2);
+            Owner.ChangeDir(MathF.Sign(Owner.AngleTo(Main.MouseWorld).ToRotationVector2().X));
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - MathHelper.PiOver2);
+            Owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Owner.Center.AngleTo(Main.MouseWorld) - MathHelper.PiOver2);
         }
 
         public void PerformAttack()
@@ -89,7 +103,7 @@
             {
                 if (ChargeTimer % 15 == 0f)
                 {
-                    pulseRingInitialScale = Clamp(pulseRingInitialScale + 0.25f, 0.5f, 3.5f);
+                    pulseRingInitialScale = MathHelper.Clamp(pulseRingInitialScale + 0.25f, 0.5f, 3.5f);
                     PulseRingParticle chargeUpRing = new(Owner.Center, Vector2.Zero, Color.CornflowerBlue, pulseRingInitialScale, 0.01f, 45);
                     chargeUpRing.SpawnCasParticle();
 
@@ -97,7 +111,7 @@
 
                     for (int i = 0; i < 36; i++)
                     {
-                        Vector2 magicDustSpawnOffset = (TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
+                        Vector2 magicDustSpawnOffset = (MathHelper.TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
                         Dust dust = Dust.NewDustPerfect(Owner.Center + magicDustSpawnOffset, 267);
                         dust.color = Color.Lerp(Color.CornflowerBlue, Color.Fuchsia, Main.rand.NextFloat());
                         dust.noGravity = true;
@@ -109,20 +123,19 @@
                 // Start to make the ritual circle visible after 3 seconds.
                 if (ChargeTimer >= 60)
                 {
-                    ritualCircleScale = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
-                    ritualCircleOpacity = Lerp(0f, 1f, TwilightEgressUtilities.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleScale = MathHelper.Lerp(0f, 1f, EasingFunctions.SineEaseInOut(ChargeTimer / 175f));
+                    ritualCircleOpacity = MathHelper.Lerp(0f, 1f, EasingFunctions.SineEaseInOut(ChargeTimer / 175f));
                 }
             }
 
-            else if (ChargeTimer >= chargeTime)
+            else if (ChargeTimer >= chargeTime && ChargeTimer % 120 == 0)
             {
-                if (ChargeTimer % 120 == 0)
-                {
-                    Owner.ConsumeManaManually(300);
-                    Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(TwoPi) * 250f;
-                    Vector2 velocity = -spawnPosition.DirectionTo(Owner.Center).SafeNormalize(Vector2.UnitY) * 5f;
-                    Projectile.BetterNewProjectile(spawnPosition, velocity, ModContent.ProjectileType<Rampart>(), Projectile.damage, Projectile.knockBack, SoundID.Item105);
-                }
+                if (Owner.CheckMana(300, true, false))
+                    Owner.manaRegenDelay = Owner.maxRegenDelay;
+
+                Vector2 spawnPosition = Owner.Center + Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * 250f;
+                Vector2 velocity = -spawnPosition.DirectionTo(Owner.Center).SafeNormalize(Vector2.UnitY) * 5f;
+                Projectile.BetterNewProjectile(spawnPosition, velocity, ModContent.ProjectileType<Rampart>(), Projectile.damage, Projectile.knockBack, SoundID.Item105);
             }
 
             ChargeTimer++;
@@ -150,8 +163,8 @@
             ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
             ref float orbitingSummoningCircleRotation = ref Projectile.TwilightEgress().ExtraAI[OrbitingSummoningCircleRotationIndex];
 
-            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
-            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
+            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
+            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
             Texture2D orbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredOrbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 
@@ -167,8 +180,8 @@
             // Draw the three orbiting summoning circles.
             for (int i = 0; i < 3; i++)
             {
-                orbitingSummoningCircleRotation += TwoPi / 1200f;
-                Vector2 orbitingRitualDrawPosition = mainRitualDrawPosition - Vector2.UnitY.RotatedBy(orbitingSummoningCircleRotation + TwoPi * i / 3f) * 192f;
+                orbitingSummoningCircleRotation += MathHelper.TwoPi / 1200f;
+                Vector2 orbitingRitualDrawPosition = mainRitualDrawPosition - Vector2.UnitY.RotatedBy(orbitingSummoningCircleRotation + MathHelper.TwoPi * i / 3f) * 192f;
 
                 Color outerOrbitingCircleColor = outerRitualColor * ritualCircleOpacity * 0.8f;
                 Color blurredOrbitingCircleColor = innerRitualColor * ritualCircleOpacity;
@@ -183,7 +196,7 @@
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            float rotation = Owner.AngleTo(Main.MouseWorld) + (Owner.direction < 0 ? Pi : 0f);
+            float rotation = Owner.AngleTo(Main.MouseWorld) + (Owner.direction < 0 ? MathHelper.Pi : 0f);
             Vector2 drawPosition = Owner.MountedCenter + new Vector2(0f, -2f) + rotation.ToRotationVector2() * (Owner.direction < 0 ? -30f : 30f) - Main.screenPosition;
 
             Main.EntitySpriteDraw(texture, drawPosition, texture.Frame(), Projectile.GetAlpha(lightColor), rotation, texture.Size() / 2f, Projectile.scale, effects, 0);

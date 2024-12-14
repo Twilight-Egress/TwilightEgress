@@ -1,4 +1,11 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class ManaInkParticle : CasParticle
     {
@@ -14,8 +21,8 @@
             BaseOpacity = baseOpacity;
             Lifetime = lifespan;
 
-            Rotation = Main.rand.NextFloat(TwoPi);
-            SmokeTexture = ModContent.Request<Texture2D>(TwilightEgressTextureRegistry.Smokes[Main.rand.Next(TwilightEgressTextureRegistry.Smokes.Count)]).Value;
+            Rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+            SmokeTexture = ModContent.Request<Texture2D>(AssetRegistry.Textures.Smokes[Main.rand.Next(AssetRegistry.Textures.Smokes.Count)]).Value;
         }
 
         public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";
@@ -28,7 +35,7 @@
             Velocity *= 0.98f;
 
             int fadeOutThreshold = Lifetime - 10;
-            Opacity = Lerp(BaseOpacity, 0f, (Time - fadeOutThreshold) / 10f);
+            Opacity = MathHelper.Lerp(BaseOpacity, 0f, (Time - fadeOutThreshold) / 10f);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

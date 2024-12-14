@@ -1,10 +1,15 @@
 ﻿using CalamityMod.Items;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class DroseraeDictionary : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Magic";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 1;
 

@@ -1,10 +1,17 @@
-﻿using TwilightEgress.Core.BaseEntities.ModNPCs;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
 {
-    public class GalileoPlanetoid : BasePlanetoid, ILocalizedModType
+    public class GalileoPlanetoid : Planetoid, ILocalizedModType
     {
         public new string LocalizationCategory => "NPCs.Misc";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override float MaximumAttractionRadius => 184f;
 
@@ -23,11 +30,17 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
         public override void SafeAI()
         {
             float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
-            Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(totalAttractionRadius, totalAttractionRadius);
             if (Main.rand.NextBool(2))
-                TwilightEgressUtilities.CreateDustLoop(15, dustPosition, Vector2.UnitX, DustID.Electric);
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(totalAttractionRadius, totalAttractionRadius);
+                    Dust dust = Dust.NewDustPerfect(dustPosition, DustID.Electric, Vector2.UnitX);
+                    dust.noGravity = true;
+                }
+            }
 
-            NPC.rotation += Tau / 600f;
+            NPC.rotation += MathF.Tau / 600f;
             NPC.ShowNameOnHover = false;
         }
     }

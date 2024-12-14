@@ -4,14 +4,23 @@ using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Items.Weapons.Summon;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using TwilightEgress.Content.Buffs.Debuffs;
-using TwilightEgress.Content.Projectiles.Misc;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
     public class MoonSpiritKhakkhara : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Summon";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -68,7 +77,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<UnderworldLantern>()] > 0)
             {
                 SpawnSkulls(player);
-                player.TwilightEgress_Buffs().CurseOfNecromancyMinionSlotStack++;
+                player.GetModPlayer<BuffHandler>().CurseOfNecromancyMinionSlotStack++;
                 player.AddBuff(ModContent.BuffType<CurseOfNecromancy>(), 3600);
                 lantern.Kill();
             }
@@ -81,7 +90,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             int type = ModContent.ProjectileType<CurseOfNecromancySkull>();
             int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI);
             if (Main.projectile.IndexInRange(p))
-                Main.projectile[p].ModProjectile<CurseOfNecromancySkull>().SkullIndex = player.ownedProjectileCounts[type];
+                (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).SkullIndex = player.ownedProjectileCounts[type];
             SoundEngine.PlaySound(SoundID.DD2_BetsysWrathShot, player.Center);
 
             int skullIndex = 0;
@@ -89,8 +98,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             {
                 if (Main.projectile[i].type == type && Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI)
                 {
-                    Main.projectile[i].ModProjectile<CurseOfNecromancySkull>().SkullIndex = skullIndex++;
-                    Main.projectile[i].ModProjectile<CurseOfNecromancySkull>().Timer = 0f;
+                    (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).SkullIndex = skullIndex++;
+                    (Main.projectile[p].ModProjectile as CurseOfNecromancySkull).Timer = 0f;
                     Main.projectile[i].netUpdate = true;
                 }
             }
@@ -103,6 +112,16 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 .AddIngredient(ModContent.ItemType<NightmareFuel>(), 20)
                 .AddTile(ModContent.TileType<CosmicAnvil>())
                 .Register();
+        }
+    }
+
+    public class MoonSpiritKhakkharaUseFix : GlobalItem
+    {
+        public override bool CanUseItem(Item item, Player player)
+        {
+            if (item.DamageType == DamageClass.Summon && player.HeldItem.type != ModContent.ItemType<MoonSpiritKhakkhara>())
+                return player.ownedProjectileCounts[ModContent.ProjectileType<UnderworldLantern>()] < 1;
+            return base.CanUseItem(item, player);
         }
     }
 }

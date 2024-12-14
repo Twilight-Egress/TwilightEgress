@@ -1,4 +1,7 @@
 using CalamityMod.Items.Materials;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {
@@ -19,7 +22,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
                 .AddIngredient(ItemID.BeeKeeper)
                 .AddIngredient(ItemID.EnchantedSword)
                 .AddIngredient(ItemID.CopperShortsword)
-                .AddIngredient(ModContent.ItemType<AuricBar>(),5)
+                .AddIngredient(ModContent.ItemType<AuricBar>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
 

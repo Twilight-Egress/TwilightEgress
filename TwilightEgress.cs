@@ -1,5 +1,4 @@
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Placeables.FurnitureAuric;
+using Terraria.ModLoader;
 using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress

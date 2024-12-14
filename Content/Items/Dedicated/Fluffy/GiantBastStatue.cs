@@ -1,4 +1,15 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Fluffy
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Core;
+
+namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class GiantBastStatue : ModProjectile, ILocalizedModType
     {
@@ -10,7 +21,7 @@
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Fluffy/HomingBastStatue";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/HomingBastStatue";
 
         public override void SetStaticDefaults()
         {
@@ -72,7 +83,7 @@
             // kibby
             for (int i = 0; i < KibbyCount; i++)
             {
-                Vector2 kibbyVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(13f, 19f);
+                Vector2 kibbyVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(13f, 19f);
                 Projectile.BetterNewProjectile(Projectile.Center, kibbyVelocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.damage, Projectile.knockBack);
             }
         }

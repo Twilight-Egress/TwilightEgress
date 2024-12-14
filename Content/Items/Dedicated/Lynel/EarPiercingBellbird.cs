@@ -1,5 +1,15 @@
-﻿using TwilightEgress.Content.Buffs.Debuffs;
-using TwilightEgress.Content.Buffs.Pets;
+﻿using CalamityMod;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
@@ -35,6 +45,10 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
         private const int ScreamChargeVisualOpacityIndex = 1;
 
         public new string LocalizationCategory => "Projectiles.Pets";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
+        public override string GlowTexture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -90,14 +104,14 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             // Chirp occasionally.
             if (canChirp)
             {
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.BellbirdChirp, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdChirp, Projectile.Center);
 
                 Vector2 velocity = new(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-4f, -2f));
                 new MusicNoteParticle(Projectile.Center, velocity).Spawn();
             }
 
             // Stop perching if the player inverts their gravity.
-            bool orbitalGravity = Owner.TwilightEgress_OrbitalGravity().Planetoid is not null && Owner.TwilightEgress_OrbitalGravity().Planetoid.NPC.active;
+            bool orbitalGravity = Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid is not null && Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid.NPC.active;
             bool shouldStopPerching = Owner.gravDir == -1 || orbitalGravity;
             if (shouldStopPerching && AIState == (float)BellbirdStates.Perching)
             {
@@ -184,12 +198,12 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
                 // Fade in then quickly fade out.
                 if (Timer <= ScreamChargeTime - 30)
                 {
-                    screamChargeVisualScale = Lerp(5f, 1f, screamChargeInterpolant);
-                    screamChargeVisualOpacity = Lerp(0f, 1f, screamChargeInterpolant);
+                    screamChargeVisualScale = MathHelper.Lerp(5f, 1f, screamChargeInterpolant);
+                    screamChargeVisualOpacity = MathHelper.Lerp(0f, 1f, screamChargeInterpolant);
                 }
 
                 if (Timer >= ScreamChargeTime - 15 && Timer <= ScreamChargeTime)
-                    screamChargeVisualOpacity = Clamp(screamChargeVisualOpacity - 0.1f, 0f, 1f);
+                    screamChargeVisualOpacity = MathHelper.Clamp(screamChargeVisualOpacity - 0.1f, 0f, 1f);
             }
 
             // Cry of God.
@@ -197,14 +211,14 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             {
                 // Make the player's ears bleed.
                 if (Timer is ScreamChargeTime)
-                    SoundEngine.PlaySound(TwilightEgressSoundRegistry.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
 
                 // Visual effects.
                 //TwilightEgressCameraSystem.Screenshake(8, 30, Projectile.Center);
                 ScreenShakeSystem.StartShakeAtPoint(Projectile.Center, 8f, shakeStrengthDissipationIncrement: 0.26f, intensityTaperEndDistance: 2000);
                 Projectile.UpdateProjectileAnimationFrames(0, 0, 1);
                 if (Timer % 10 == 0)
-                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, Color.White, 0.1f, Main.rand.NextFloat(TwoPi)).Spawn();
+                    new RoaringShockwaveParticle(45, Projectile.Center, Vector2.Zero, Color.White, 0.1f, Main.rand.NextFloat(MathHelper.TwoPi)).Spawn();
 
                 // Stun any nearby NPCs or Players.
                 StunPlayersAndNPCs();
@@ -244,8 +258,9 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
             Texture2D chargeVisualTexture = ModContent.Request<Texture2D>(GlowTexture).Value;
 
+            SpriteEffects directionEffects = Projectile.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             SpriteEffects effects = AIState == 1f && LocalAIState == 1f ? Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None
-                : Projectile.DirectionBasedSpriteEffects();
+                : directionEffects;
 
             ref float screamChargeVisualScale = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualScaleIndex];
             ref float screamChargeVisualOpacity = ref Projectile.TwilightEgress().ExtraAI[ScreamChargeVisualOpacityIndex];
@@ -257,7 +272,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 
             Main.EntitySpriteDraw(texture, drawPosition, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, effects);
-            Main.EntitySpriteDraw(chargeVisualTexture, drawPosition, rectangle, Color.White * screamChargeVisualOpacity, Projectile.rotation, origin, screamChargeVisualScale, Projectile.DirectionBasedSpriteEffects());
+            Main.EntitySpriteDraw(chargeVisualTexture, drawPosition, rectangle, Color.White * screamChargeVisualOpacity, Projectile.rotation, origin, screamChargeVisualScale, directionEffects);
             return false;
         }
     }

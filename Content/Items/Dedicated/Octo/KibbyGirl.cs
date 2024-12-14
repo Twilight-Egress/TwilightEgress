@@ -1,4 +1,7 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Octo
+﻿using Terraria;
+using Terraria.ModLoader;
+
+namespace TwilightEgress.Content.Items.Dedicated.Octo
 {
     public class KibbyGirl : ModProjectile, ILocalizedModType
     {
@@ -34,6 +37,8 @@
         public ref float AIState => ref Projectile.ai[2];
 
         public new string LocalizationCategory => "Projectiles.Summon";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {

@@ -1,4 +1,19 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Marv
+﻿using CalamityMod;
+using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+
+namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
     public class ThunderousFuryHoldout : ModProjectile, ILocalizedModType
     {
@@ -36,7 +51,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => "TwilightEgress/Content/Items/Dedicated/Marv/ThunderousFury";
+        public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Marv/ThunderousFury";
 
         public override void SetDefaults()
         {
@@ -80,14 +95,14 @@
             Projectile.Center = owner.RotatedRelativePoint(owner.MountedCenter, true);
             Projectile.rotation = owner.MountedCenter.AngleTo(owner.Calamity().mouseWorld);
             if (Projectile.spriteDirection == -1)
-                Projectile.rotation += Pi;
+                Projectile.rotation += MathHelper.Pi;
         }
 
         public void DoBehavior_Thunderbolt()
         {
             if (DelayTimer == 1)
             {
-                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.PikachuCry : CommonCalamitySounds.LightningSound;
+                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.PikachuCry : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(thunderboltStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Yellow, Color.Goldenrod, Main.rand.NextFloat());
@@ -95,7 +110,7 @@
                 float sparkScale = Main.rand.NextFloat(0.75f, 1.25f);
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                     SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, particleColor, sparkScale, sparkLifespan);
                     electricSpark.SpawnCasParticle();
                 }
@@ -105,7 +120,9 @@
             {
                 if (ChargeTimer % FireRate == 0)
                 {
-                    Owner.ConsumeManaManually(15, 75);
+                    if (Owner.CheckMana(15, true, false))
+                        Owner.manaRegenDelay = 75;
+
                     Vector2 spawnPosition = Main.MouseWorld + new Vector2(Main.rand.NextFloat(-300f, 300f), -900f);
                     Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<ElectricSkyBolt>(), Projectile.damage, Projectile.knockBack, owner: Projectile.owner);
                 }
@@ -117,7 +134,7 @@
         {
             if (DelayTimer == 1)
             {
-                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? TwilightEgressSoundRegistry.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
+                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
                 SoundEngine.PlaySound(boltStrikeStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Cyan, Color.SkyBlue, Main.rand.NextFloat());
@@ -125,7 +142,7 @@
                 float sparkScale = Main.rand.NextFloat(0.75f, 1.25f);
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                    Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                     SparkParticle electricSpark = new(Projectile.Center, sparkVelocity, particleColor, sparkScale, sparkLifespan);
                     electricSpark.SpawnCasParticle();
                 }
@@ -133,7 +150,9 @@
 
             if (DelayTimer == DelayBeforeFiring)
             {
-                Owner.ConsumeManaManually(100, 75);
+                if (Owner.CheckMana(100, true, false))
+                    Owner.manaRegenDelay = 75;
+
                 Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 120f;
                 Projectile.BetterNewProjectile(spawnPosition, Vector2.Zero, ModContent.ProjectileType<BoltStrike>(), Projectile.damage, Projectile.knockBack, owner: Projectile.owner);
             }
@@ -145,21 +164,21 @@
             owner.itemTime = 2;
             owner.itemAnimation = 2;
             owner.ChangeDir(Math.Sign(Projectile.rotation.ToRotationVector2().X));
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            float rotation = Projectile.rotation + (Owner.direction < 0 ? Pi : 0f);
+            float rotation = Projectile.rotation + (Owner.direction < 0 ? MathHelper.Pi : 0f);
             Vector2 drawPosition = Owner.MountedCenter + new Vector2(0f, -2f) + Projectile.rotation.ToRotationVector2() - Main.screenPosition;
 
             // Draw pulsing backglow effects.
             for (int i = 0; i < 4; i++)
             {
-                float backglowRadius = Lerp(2f, 5f, TwilightEgressUtilities.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * TwoPi / 4) * backglowRadius;
+                float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 4) * backglowRadius;
 
                 Main.spriteBatch.UseBlendState(BlendState.Additive);
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, texture.Frame(), Projectile.GetAlpha(Color.LightYellow), rotation, texture.Size() / 2f, Projectile.scale, effects, 0);

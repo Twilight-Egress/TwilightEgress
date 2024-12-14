@@ -1,4 +1,10 @@
-﻿using TwilightEgress.Core.Configs;
+﻿using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
+using Terraria;
+using Terraria.ID;
+using TwilightEgress.Core.Configs;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {
@@ -80,7 +86,7 @@ namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
         /// <summary>
         /// The texture name of this sky entity on the sky entity atlas. Should be prefixed with "TwilightEgress."
         /// </summary>
-        public abstract string AtlasTextureName { get; } 
+        public abstract string AtlasTextureName { get; }
 
         /// <summary>
         /// The amount of vertical frames this sky entity has in its spritesheet.

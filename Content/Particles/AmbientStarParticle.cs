@@ -1,4 +1,9 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class AmbientStarParticle : CasParticle
     {
@@ -28,12 +33,12 @@
             int fadeOutThreshold = Lifetime - 30;
 
             if (Time <= fadeInThreshold)
-                Opacity = Clamp(Opacity + 0.1f, InitialOpacity, MaxOpacity);
+                Opacity = MathHelper.Clamp(Opacity + 0.1f, InitialOpacity, MaxOpacity);
             if (Time >= fadeOutThreshold && Time <= Lifetime)
-                Opacity = Clamp(Opacity - 0.1f, InitialOpacity, MaxOpacity);
+                Opacity = MathHelper.Clamp(Opacity - 0.1f, InitialOpacity, MaxOpacity);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) 
+        public override void Draw(SpriteBatch spriteBatch)
             => spriteBatch.Draw(Texture, GetDrawPositionWithParallax(), Frame, DrawColor * Opacity, Rotation, scale: Scale * (ParallaxStrength / 2f));
     }
 }

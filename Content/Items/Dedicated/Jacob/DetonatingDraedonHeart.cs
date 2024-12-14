@@ -1,4 +1,19 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Jacob
+﻿using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+
+namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class DetonatingDraedonHeart : ModProjectile, ILocalizedModType
     {
@@ -47,7 +62,7 @@
 
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.rotation = Main.rand.NextFloat(TwoPi);
+            Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             RandomizedExplosionDelay = Main.rand.NextFloat(10f, 46f);
             FrameSpeed = 10f;
         }
@@ -60,20 +75,20 @@
 
             if (Timer <= MaxChargeTime)
             {
-                Projectile.scale = Lerp(Projectile.scale, 1.5f, TwilightEgressUtilities.SineEaseInOut(Timer / MaxChargeTime));
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 1.5f, EasingFunctions.SineEaseInOut(Timer / MaxChargeTime));
             }
 
             if (Timer >= MaxChargeTime && Timer <= MaxChargeTime + DetonationDelay + (int)RandomizedExplosionDelay && Timer % 5 == 0)
             {
-                pulseRingInitialScale = Clamp(pulseRingInitialScale + 0.5f, 0.5f, 3.5f);
+                pulseRingInitialScale = MathHelper.Clamp(pulseRingInitialScale + 0.5f, 0.5f, 3.5f);
                 PulseRingParticle detonantionRing = new(Projectile.Center, Vector2.Zero, Color.Red, pulseRingInitialScale, 0.01f, 45);
                 detonantionRing.SpawnCasParticle();
 
-                SoundEngine.PlaySound(TwilightEgressSoundRegistry.AsrielTargetBeep, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.AsrielTargetBeep, Projectile.Center);
 
                 for (int i = 0; i < 36; i++)
                 {
-                    Vector2 magicDustSpawnOffset = (TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
+                    Vector2 magicDustSpawnOffset = (MathHelper.TwoPi * i / 36f).ToRotationVector2() * 200f + Main.rand.NextVector2Circular(15f, 15f);
                     Dust dust = Dust.NewDustPerfect(Projectile.Center + magicDustSpawnOffset, 267);
                     dust.color = Color.Lerp(Color.Red, Color.Crimson, Main.rand.NextFloat());
                     dust.noGravity = true;
@@ -82,11 +97,11 @@
                 }
 
                 // Backglow visuals.
-                heartBackglowOpacity = Lerp(heartBackglowOpacity, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
-                heartBackglowRadius = Lerp(0f, 5f, TwilightEgressUtilities.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowOpacity = MathHelper.Lerp(heartBackglowOpacity, 1f, EasingFunctions.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
+                heartBackglowRadius = MathHelper.Lerp(0f, 5f, EasingFunctions.SineEaseInOut(Timer / 30 + RandomizedExplosionDelay));
 
                 // Decrease the frame speed to make the animation appear faster.
-                FrameSpeed = Clamp(FrameSpeed - 1f, 1f, 10f);
+                FrameSpeed = MathHelper.Clamp(FrameSpeed - 1f, 1f, 10f);
             }
 
             if (Timer >= MaxChargeTime + DetonationDelay + (int)RandomizedExplosionDelay)
@@ -135,7 +150,7 @@
             Color sparkColor = Color.Lerp(Color.Red, Color.Goldenrod, Main.rand.NextFloat());
             for (int i = 0; i < 25; i++)
             {
-                Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(9f, 16f);
+                Vector2 sparkVelocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(9f, 16f);
                 SparkParticle deathSparks = new(Projectile.Center, sparkVelocity, sparkColor, sparkScale, sparkLifespan);
                 deathSparks.SpawnCasParticle();
             }
@@ -149,13 +164,13 @@
             ref float heartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowRadiusIndex];
             ref float heartBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowSpinIndex];
 
-            Texture2D heartGlow = ModContent.Request<Texture2D>("TwilightEgress/Content/Items/Dedicated/Jacob/DetonatingDraedonHeartGlow").Value;
+            Texture2D heartGlow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/DetonatingDraedonHeartGlow").Value;
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)
             {
-                heartBackglowSpin += TwoPi / 240f;
-                Vector2 heartBackglowDrawPosition = Projectile.Center + Vector2.UnitY.RotatedBy(heartBackglowSpin + TwoPi * i / 8f) * heartBackglowRadius + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
+                heartBackglowSpin += MathHelper.TwoPi / 240f;
+                Vector2 heartBackglowDrawPosition = Projectile.Center + Vector2.UnitY.RotatedBy(heartBackglowSpin + MathHelper.TwoPi * i / 8f) * heartBackglowRadius + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
                 Color color = Color.Red;
                 Main.EntitySpriteDraw(heartGlow, heartBackglowDrawPosition, null, color * heartBackglowOpacity, Projectile.rotation, heartGlow.Size() / 2f, Projectile.scale * 1.085f, SpriteEffects.None, 0);
             }

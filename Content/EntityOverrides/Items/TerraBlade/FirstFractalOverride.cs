@@ -1,7 +1,10 @@
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
+using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 {
@@ -34,4 +37,4 @@ namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 
         }
     }
-} 
+}

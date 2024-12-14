@@ -14,7 +14,7 @@
 		<LangVersion>latest</LangVersion>
 		
 		<!-- for github workflows -->
-		<ExtraBuildModFlags Condition="'$(TML_SAVE_DIR)' != ''">$(ExtraBuildModFlags)-savedirectory &quot;$([System.IO.Path]::GetFullPath('.'))/$(TML_SAVE_DIR)&quot; </ExtraBuildModFlags>
+		<ExtraBuildModFlags Condition="'$(TML_SAVE_DIR)' != ''">$(ExtraBuildModFlags)-savedirectory "$([System.IO.Path]::GetFullPath('.'))/$(TML_SAVE_DIR)" </ExtraBuildModFlags>
 	</PropertyGroup>
 
 	<!-- References -->
@@ -26,6 +26,10 @@
 		<Reference Include="Luminance">
 			<HintPath>$(LuminanceBinary)</HintPath>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Assets\Models\" />
+	  <Folder Include="Assets\Structures\" />
 	</ItemGroup>
 
 </Project>

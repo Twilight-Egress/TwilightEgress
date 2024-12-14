@@ -1,4 +1,19 @@
-﻿using TwilightEgress.Content.Buffs.Minions;
+﻿using CalamityMod.Sounds;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
@@ -31,6 +46,8 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
         public const int UndeadSpiritFrameCounterIndex = 2;
 
         public new string LocalizationCategory => "Projectiles.Summon";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -119,15 +136,15 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             if (minionCount > 0)
             {
                 int order = brotherMinions.IndexOf(Projectile);
-                idleAngle = TwoPi * order / minionCount;
-                idleAngle += TwoPi * Main.GlobalTimeWrappedHourly / 8f;
-                idlePosition.X += 140f * Cos(idleAngle);
-                idlePosition.Y += -125f - 75f * Sin(idleAngle) + Owner.gfxOffY;
+                idleAngle = MathHelper.TwoPi * order / minionCount;
+                idleAngle += MathHelper.TwoPi * Main.GlobalTimeWrappedHourly / 8f;
+                idlePosition.X += 140f * MathF.Cos(idleAngle);
+                idlePosition.Y += -125f - 75f * MathF.Sin(idleAngle) + Owner.gfxOffY;
             }
 
             Projectile.Center = Vector2.Lerp(Projectile.Center, idlePosition, 0.225f);
-            Projectile.Opacity = Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
-            Projectile.scale = Clamp(Projectile.scale - 0.1f, 1f, 1.75f);
+            Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
+            Projectile.scale = MathHelper.Clamp(Projectile.scale - 0.1f, 1f, 1.75f);
             Projectile.rotation *= 0.9f;
             ShouldDrawUndeadSpirit = false;
 
@@ -173,7 +190,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                     if (Timer == 1f)
                         Projectile.velocity.Y -= 12f;
 
-                    Projectile.Opacity = Clamp(Projectile.Opacity - 0.05f, 0f, 1f);
+                    Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity - 0.05f, 0f, 1f);
 
                     if (Timer == floatTime)
                     {
@@ -190,11 +207,11 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (Timer <= chaseTime)
                 {
                     if (Timer == 0f)
-                        Projectile.Center = Owner.Center + Vector2.UnitX.RotatedByRandom(TwoPi) * 60f;
+                        Projectile.Center = Owner.Center + Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 60f;
 
                     // Fade back in and chase the enemy.
-                    Projectile.Opacity = Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
-                    Projectile.scale = Clamp(Projectile.scale + 0.1f, 0f, 1.75f);
+                    Projectile.Opacity = MathHelper.Clamp(Projectile.Opacity + 0.1f, 0f, 1f);
+                    Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.1f, 0f, 1.75f);
                     Projectile.SimpleMove(TargetToChase.Center, maxChaseSpeed, maxTurnResistance);
                     Projectile.rotation = Projectile.velocity.X * 0.03f;
 
@@ -220,9 +237,9 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 // Ease back to the player and fade out.
                 if (Timer <= returnTime)
                 {
-                    Projectile.Opacity = Lerp(Projectile.Opacity, 0f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.scale = Lerp(Projectile.scale, 1f, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
-                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, TwilightEgressUtilities.SineEaseInOut(Timer / returnTime));
+                    Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, EasingFunctions.SineEaseInOut(Timer / returnTime));
+                    Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, EasingFunctions.SineEaseInOut(Timer / returnTime));
+                    Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center, EasingFunctions.SineEaseInOut(Timer / returnTime));
                 }
 
                 // Head back to usual idle AI.
@@ -260,7 +277,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 Vector2 stretchFactor = new(1f, 3f);
                 Color slashColor = Color.Lerp(Color.Cyan, Color.LightSkyBlue, Main.rand.NextFloat());
                 Color bloomColor = Color.Lerp(slashColor, Color.Transparent, 0.15f);
-                new SwordSlashParticle(target.Center, slashColor, bloomColor, Main.rand.NextFloat(Tau), stretchFactor, 2f, 20).Spawn();
+                new SwordSlashParticle(target.Center, slashColor, bloomColor, Main.rand.NextFloat(MathF.Tau), stretchFactor, 2f, 20).Spawn();
             }
         }
 
@@ -268,7 +285,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
         {
             for (int i = 0; i < 15; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(2f, 8f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(2f, 8f);
                 Color color = Color.Lerp(Color.Cyan, Color.CornflowerBlue, Main.rand.NextFloat());
                 float scale = Main.rand.NextFloat(0.25f, 1.25f);
                 HeavySmokeParticle deathSmoke = new(Projectile.Center, velocity, color, Main.rand.Next(75, 140), scale, Main.rand.NextFloat(0.35f, 1f), 0.06f, true, 0);
@@ -325,7 +342,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         private bool CheckActive(Player owner)
         {
-            if (owner.HasBuff(ModContent.BuffType<UnderworldLanterns>()))
+            if (owner.HasBuff(ModContent.BuffType<UnderworldLanternBuff>()))
             {
                 Projectile.timeLeft = 2;
                 return true;

@@ -1,19 +1,29 @@
-﻿using TwilightEgress.Content.Items.Materials;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
+﻿using CalamityMod;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Items.CosmostoneShowers;
+using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
-    public class CosmostoneGeode : BaseAsteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class CosmostoneGeode : Asteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
         public PixelationPrimitiveLayer LayerToRenderTo => PixelationPrimitiveLayer.BeforeNPCs;
 
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -45,7 +55,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public override void SafeOnSpawn(IEntitySource source)
         {
             // Initialize a bunch of fields.
-            NPC.rotation = Main.rand.NextFloat(TwoPi);
+            NPC.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.scale = Main.rand.NextFloat(0.75f, 1.25f);
             NPC.spriteDirection = Main.rand.NextBool().ToDirectionInt();
             //NPC.frame.Y = Main.rand.Next(0, 8) * 54;
@@ -55,7 +65,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public override void SafeAI()
         {
             // Collision detection.
-            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidUtil.ViableCollisionTypes.Contains(npc.type)).ToList();
+            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
             int count = activeAsteroids.Count;
 
             if (count > 0)
@@ -75,11 +85,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public void HandleOnHitDrops(Player player, Item item)
         {
             // Also, drop pieces of Cosmostone and Cometstone at a 1/10 chance.
-            int chance = (int)(12 * Lerp(1f, 0.3f, NPC.scale / 2f) * Lerp(1f, 0.2f, item.pick / 250f));
+            int chance = (int)(12 * MathHelper.Lerp(1f, 0.3f, NPC.scale / 2f) * MathHelper.Lerp(1f, 0.2f, item.pick / 250f));
             if (Main.rand.NextBool(chance))
             {
                 int itemType = ModContent.ItemType<Cosmostone>();
-                int itemStack = (int)Round(1 * Lerp(1f, 3f, NPC.scale / 2f));
+                int itemStack = (int)Math.Round(1 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
                 int i = Item.NewItem(NPC.GetSource_OnHurt(player), NPC.Center + Main.rand.NextVector2Circular(NPC.width, NPC.height), itemType, itemStack);
                 if (Main.item.IndexInRange(i))
                     Main.item[i].velocity = Main.rand.NextVector2Circular(4f, 4f);
@@ -103,8 +113,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            int minimumStack = (int)Round(3 * Lerp(1f, 3f, NPC.scale / 2f));
-            int maximumStack = (int)Round(5 * Lerp(1f, 3f, NPC.scale / 2f));
+            int minimumStack = (int)Math.Round(3 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
+            int maximumStack = (int)Math.Round(5 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cosmostone>(), default, minimumStack, maximumStack));
         }
 
@@ -126,7 +136,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
                 for (int i = 0; i < 12; i++)
                 {
-                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(3f, 7f) * hit.HitDirection;
+                    Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 7f) * hit.HitDirection;
                     Color initialColor = Color.Lerp(Color.DarkGray, Color.Cyan, Main.rand.NextFloat());
                     Color fadeColor = Color.SaddleBrown;
                     float scale = Main.rand.NextFloat(0.85f, 1.75f) * NPC.scale;
@@ -154,7 +164,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Content/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow").Value;
 
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;
@@ -172,7 +182,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(TwilightEgressTextureRegistry.MagicStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.MagicStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => NPC.Size * 0.5f, true, true, smoothTrail);

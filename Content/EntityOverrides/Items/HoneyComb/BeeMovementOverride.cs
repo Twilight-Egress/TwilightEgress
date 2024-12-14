@@ -1,3 +1,9 @@
+using Luminance.Common.Utilities;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
 {
     public class BeeMovementOverride : ItemOverride
@@ -10,8 +16,8 @@ namespace TwilightEgress.Content.EntityOverrides.Items.HoneyComb
         };
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
-	    {
-            player.TwilightEgress_BeeFlightTimeBoost().BeeFlightBoost = 2; 
+        {
+            player.GetModPlayer<BeeFlightTimeBoostPlayer>().BeeFlightBoost = 2;
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

@@ -1,12 +1,20 @@
-﻿using CalamityMod.Items;
+﻿using CalamityMod;
+using CalamityMod.Items;
 using CalamityMod.Items.Weapons.Ranged;
 using CalamityMod.Items.Weapons.Rogue;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
     public class TheBastOffense : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -41,7 +49,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
         {
             float attackType = player.altFunctionUse == 2 ? 1 : 0;
             // Adrenaline on this weapon is simply meant to boost its attack by +50%.
-            int newDamage = player.Calamity().AdrenalineEnabled ? damage + damage.GetPercentageOfInteger(0.5f) : damage;
+            int newDamage = player.Calamity().AdrenalineEnabled ? damage + (int)(damage * 0.5f) : damage;
             Projectile.NewProjectile(source, position, velocity, type, newDamage, knockback, player.whoAmI, ai2: attackType);
             return false;
         }

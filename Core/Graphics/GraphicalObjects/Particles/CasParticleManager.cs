@@ -1,4 +1,8 @@
-﻿using ReLogic.Threading;
+﻿using Microsoft.Xna.Framework;
+using ReLogic.Threading;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
 {
@@ -15,7 +19,7 @@ namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
                 for (int i = x; i < y; i++)
                 {
                     CasParticle casParticle = ActiveCasParticles[i];
-                    casParticle.ParallaxStrength = Clamp(casParticle.ParallaxStrength, 1f, 100f);
+                    casParticle.ParallaxStrength = MathHelper.Clamp(casParticle.ParallaxStrength, 1f, 100f);
 
                     // Old data value updating.
                     switch (casParticle.TrailingMode)

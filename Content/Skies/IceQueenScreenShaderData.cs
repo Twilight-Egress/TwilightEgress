@@ -1,4 +1,8 @@
-﻿namespace TwilightEgress.Content.Skies
+﻿using Terraria;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+
+namespace TwilightEgress.Content.Skies
 {
     public class IceQueenScreenShaderData : ScreenShaderData
     {

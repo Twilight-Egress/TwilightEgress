@@ -1,12 +1,20 @@
-﻿using ReLogic.Threading;
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
 {
     public class SkyEntityManager : ModSystem
     {
-        #region Fields
         internal static List<SkyEntity> ActiveSkyEntities = [];
-        #endregion
 
         #region Overrides
         #region Loading and Unloading
@@ -104,7 +112,9 @@ namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
                 return;
 
             // Prepare for screen culling.
-            RasterizerState screenCullState = TwilightEgressUtilities.PrepareScissorRectangleState();
+            Main.Rasterizer.ScissorTestEnable = true;
+            Main.instance.GraphicsDevice.ScissorRectangle = new(-5, -5, Main.screenWidth + 10, Main.screenHeight + 10);
+            RasterizerState screenCullState = Main.Rasterizer;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, drawCollection.First().BlendState, Main.DefaultSamplerState, DepthStencilState.None, screenCullState, null, Main.GameViewMatrix.TransformationMatrix);
 

@@ -1,4 +1,13 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class PulseRingParticle : CasParticle
     {
@@ -28,7 +37,7 @@
             UseSoftTexture = useSoftTexture;
 
             Squish = Vector2.One;
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
         }
 
         // Directional Pulse Ring.
@@ -47,8 +56,8 @@
 
         public override void Update()
         {
-            Scale = new(Lerp(InitialScale, MaxScale, TwilightEgressUtilities.QuartEaseOut(LifetimeRatio)));
-            Opacity = Sin(PiOver2 + LifetimeRatio * PiOver2);
+            Scale = new(MathHelper.Lerp(InitialScale, MaxScale, EasingFunctions.QuartEaseOut(LifetimeRatio)));
+            Opacity = MathF.Sin(MathHelper.PiOver2 + LifetimeRatio * MathHelper.PiOver2);
 
             Velocity *= 0.98f;
         }

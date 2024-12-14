@@ -1,4 +1,12 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class HeavySmokeParticle : CasParticle
     {
@@ -26,7 +34,7 @@
             Glowing = glowing;
             HueShift = hueshift;
 
-            Rotation = Main.rand.NextFloat(Tau);
+            Rotation = Main.rand.NextFloat(MathF.Tau);
             FrameX = Main.rand.Next(FrameCount);
         }
 

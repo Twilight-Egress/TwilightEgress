@@ -1,4 +1,13 @@
-﻿namespace TwilightEgress.Content.Particles
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+
+namespace TwilightEgress.Content.Particles
 {
     public class SparkleParticle : CasParticle
     {
@@ -33,7 +42,7 @@
         public override void Update()
         {
             // Fade in and out.
-            Opacity = Sin(LifetimeRatio * Pi);
+            Opacity = MathF.Sin(LifetimeRatio * MathHelper.Pi);
 
             // Slow down and spin.
             Velocity *= 0.98f;

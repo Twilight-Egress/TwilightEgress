@@ -1,10 +1,13 @@
-﻿using TwilightEgress.Content.Buffs.Pets;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
     public class EarmuffFruit : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Accessories";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {

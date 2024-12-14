@@ -2,12 +2,19 @@
 using CalamityMod.Items.Accessories;
 using CalamityMod.Items.Materials;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
     public class TomeOfTheTank : ModItem, ILocalizedModType
     {
         public new string LocalizationCategory => "Items.Weapons.Magic";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {

@@ -1,4 +1,19 @@
-﻿namespace TwilightEgress.Content.Items.Dedicated.Raesh
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using TwilightEgress.Core.Globals.GlobalProjectiles;
+
+namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
     public class DroseraeDictionaryHoldout : ModProjectile, ILocalizedModType
     {
@@ -16,7 +31,7 @@
 
         public new string LocalizationCategory => "Projectiles.Magic";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetStaticDefaults()
         {
@@ -45,9 +60,8 @@
             ref float ritualCircleScale = ref Projectile.TwilightEgress().ExtraAI[RitualCircleScaleIndex];
 
             bool manaIsAvailable = Owner.CheckMana(Owner.HeldItem.mana);
-            bool weaponIsInUse = manaIsAvailable && Owner.PlayerIsChannelingWithItem(ModContent.ItemType<DroseraeDictionary>());
-            bool shouldDespawn = Owner.ShouldDespawnHeldProj(ModContent.ItemType<DroseraeDictionary>()) || !weaponIsInUse;
-
+            bool weaponIsInUse = manaIsAvailable && Owner.active && Owner.channel && Owner.HeldItem.type == ModContent.ItemType<DroseraeDictionary>();
+            bool shouldDespawn = (Owner.dead || Owner.CCed || Owner.noItems || !Owner.active || Owner.HeldItem.type != ModContent.ItemType<DroseraeDictionary>()) || !weaponIsInUse;
             if (shouldDespawn)
             {
                 Projectile.Kill();
@@ -59,7 +73,7 @@
             Timer++;
             Projectile.Center = Owner.MountedCenter + Projectile.rotation.ToRotationVector2() * 60f;
             Projectile.rotation = Owner.AngleTo(Main.MouseWorld);
-            ritualCircleRotation += TwoPi / 150f;
+            ritualCircleRotation += MathHelper.TwoPi / 150f;
             UpdatePlayerVariables();
         }
 
@@ -68,8 +82,8 @@
             // Scale up and fade in.
             if (Timer <= MaxChargeTime)
             {
-                ritualCircleOpacity = Lerp(ritualCircleOpacity, 1f, Timer / MaxChargeTime);
-                ritualCircleScale = Lerp(ritualCircleScale, 1f, Timer / MaxChargeTime);
+                ritualCircleOpacity = MathHelper.Lerp(ritualCircleOpacity, 1f, Timer / MaxChargeTime);
+                ritualCircleScale = MathHelper.Lerp(ritualCircleScale, 1f, Timer / MaxChargeTime);
                 DrawInChargeParticles();
             }
 
@@ -79,11 +93,13 @@
                 Vector2 flytrapMawSpawnPos = Projectile.Center;
                 Vector2 flyTrapMawVelocity = Projectile.SafeDirectionTo(Main.MouseWorld) * 35f;
 
-                float damageScaleFactor = Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
-                int damage = Projectile.originalDamage.GetPercentageOfInteger(damageScaleFactor);
-                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, TwilightEgressSoundRegistry.FlytrapMawSpawn, null, Projectile.owner);
+                float damageScaleFactor = MathHelper.Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
+                int damage = (int)(Projectile.originalDamage * damageScaleFactor);
+                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.FlytrapMawSpawn, null, Projectile.owner);
 
-                Owner.ConsumeManaManually(Owner.HeldItem.mana);
+                if (Owner.CheckMana(Owner.HeldItem.mana, true, false))
+                    Owner.manaRegenDelay = Owner.maxRegenDelay;
+
                 ParticleBurst();
                 Timer = MaxChargeTime;
             }
@@ -120,10 +136,14 @@
         {
             if (Main.rand.NextBool(3))
             {
-                Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.375f, Projectile.height * 0.485f);
-                Color dustColor = Color.Lerp(Color.Crimson, Color.DarkRed, Main.rand.NextFloat());
-                float dustScale = Main.rand.NextFloat(0.65f, 1f);
-                TwilightEgressUtilities.CreateDustLoop(3, spawnPosition, Vector2.Zero, 264, dustScale: dustScale, dustColor: dustColor);
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 spawnPosition = Projectile.Center + Main.rand.NextVector2Circular(Projectile.width * 0.375f, Projectile.height * 0.485f);
+                    Color dustColor = Color.Lerp(Color.Crimson, Color.DarkRed, Main.rand.NextFloat());
+                    float dustScale = Main.rand.NextFloat(0.65f, 1f);
+                    Dust dust = Dust.NewDustPerfect(spawnPosition, 264, Vector2.Zero, 1, dustColor, dustScale);
+                    dust.noGravity = true;
+                }
             }
         }
 
@@ -132,8 +152,8 @@
             Owner.heldProj = Projectile.whoAmI;
             Owner.itemTime = 2;
             Owner.itemAnimation = 2;
-            Owner.ChangeDir(Sign(Projectile.rotation.ToRotationVector2().X));
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+            Owner.ChangeDir(MathF.Sign(Projectile.rotation.ToRotationVector2().X));
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -2,6 +2,11 @@
 using CalamityMod.Items.Materials;
 using CalamityMod.Items.Weapons.Melee;
 using CalamityMod.Rarities;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
@@ -10,6 +15,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
         public static int WeaponState { get; set; }
 
         public new string LocalizationCategory => "Items.Support";
+
+        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 1;
 

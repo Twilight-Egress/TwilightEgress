@@ -1,4 +1,12 @@
-﻿using TwilightEgress.Core.Graphics;
+﻿using CalamityMod;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Terraria;
+using TwilightEgress.Assets;
+using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 
 namespace TwilightEgress.Content.Particles
 {
@@ -38,18 +46,23 @@ namespace TwilightEgress.Content.Particles
             if (!Initialized)
             {
                 Initialized = true;
-                LightningPoints = TwilightEgressUtilities.CreateLightningBoltPoints(Position, EndPosition, PointDisplacementVariance, JaggednessNumerator);
+                LightningPoints = new LightningPointsBuilder()
+                    .SetSource(Position)
+                    .SetDestination(EndPosition)
+                    .SetSway(PointDisplacementVariance)
+                    .SetJaggedness(JaggednessNumerator)
+                    .Create();
             }
         }
 
-        public float LightningWidthFunction(float trailLengthInterpolant) => Scale.X * Utils.GetLerpValue(1f, 0f, trailLengthInterpolant, true) * Lerp(1f, 0f, LifetimeRatio);
+        public float LightningWidthFunction(float trailLengthInterpolant) => Scale.X * Utils.GetLerpValue(1f, 0f, trailLengthInterpolant, true) * MathHelper.Lerp(1f, 0f, LifetimeRatio);
 
         public Color LightningColorFunction(float trailLengthInterpolant) => DrawColor;
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             ShaderManager.TryGetShader("Luminance.StandardPrimitiveShader", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(TwilightEgressTextureRegistry.ThinGlowStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.ThinGlowStreak, 1, SamplerState.LinearWrap);
 
             PrimitiveSettings settings = new(LightningWidthFunction, LightningColorFunction, null, false, false, smoothTrail);
             PrimitiveRenderer.RenderTrail(LightningPoints, settings, LightningPoints.Count);

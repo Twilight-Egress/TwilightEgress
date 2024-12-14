@@ -1,5 +1,9 @@
 ﻿using CalamityMod.Projectiles.Melee;
 using CalamityMod.Projectiles.Typeless;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress
 {

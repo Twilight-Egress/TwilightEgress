@@ -1,4 +1,14 @@
-﻿namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
+﻿using CalamityMod;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using TwilightEgress.Assets;
+using TwilightEgress.Content.Particles;
+using TwilightEgress.Core;
+
+namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonExplosion : ModProjectile, ILocalizedModType
     {
@@ -6,7 +16,7 @@
 
         public new string LocalizationCategory => "Projectiles.Ranged";
 
-        public override string Texture => TwilightEgressUtilities.EmptyPixelPath;
+        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
 
         public override void SetDefaults()
         {
@@ -30,7 +40,7 @@
 
             for (int i = 0; i < 25; i++)
             {
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(80f, 100f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(80f, 100f);
                 Color initialColor = Color.Lerp(Color.WhiteSmoke, Color.DarkGray, Main.rand.NextFloat()) * Main.rand.NextFloat(0.2f, 0.5f);
                 Color fadeColor = Color.DarkGray;
                 float scale = Main.rand.NextFloat(10f, 20f);
@@ -42,7 +52,7 @@
             for (int i = 0; i < 50; i++)
             {
                 Color fireColor = Color.Lerp(Color.Yellow, Color.Red, Main.rand.NextFloat(0.2f, 0.8f)) * Main.rand.NextFloat(0.2f, 0.5f);
-                Vector2 velocity = Vector2.UnitX.RotatedByRandom(TwoPi) * Main.rand.NextFloat(35f, 100f);
+                Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(35f, 100f);
                 float scale = Main.rand.NextFloat(4f, 6f);
                 HeavySmokeParticle flames = new(Projectile.Center, velocity, fireColor, Main.rand.Next(120, 150), scale, Main.rand.NextFloat(0.7f, 1.75f), 0.06f, true, 0);
                 flames.SpawnCasParticle();
