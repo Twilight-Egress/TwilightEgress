@@ -1,16 +1,15 @@
-﻿using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using Terraria.UI.Chat;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using System;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Terraria.GameContent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using TwilightEgress.SubModules.DialogueHelper.UI;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
+using Terraria.UI;
+using Terraria.UI.Chat;
 using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;
 
 namespace TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;

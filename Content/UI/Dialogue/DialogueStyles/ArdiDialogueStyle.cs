@@ -1,14 +1,14 @@
-﻿using static TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueUIState;
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
+using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
+using TwilightEgress.Content.UI.Dialogue.UIElements;
 using TwilightEgress.SubModules.DialogueHelper.UI;
 using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;
-using TwilightEgress.Content.UI.Dialogue.UIElements;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria;
-using System.Linq;
-using System;
+using static TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueUIState;
 
 namespace TwilightEgress.Content.UI.Dialogue.DialogueStyles
 {

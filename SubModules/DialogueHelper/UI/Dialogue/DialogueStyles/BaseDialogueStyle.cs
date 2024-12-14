@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria.GameContent.UI.Elements;
-using TwilightEgress.SubModules.DialogueHelper.UI;
 using static TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueUIState;
 
 namespace TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;

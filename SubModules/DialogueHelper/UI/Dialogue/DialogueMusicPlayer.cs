@@ -1,5 +1,5 @@
-﻿using Terraria.ModLoader;
-using Terraria;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
 public class DialogueMusicPlayer : ModPlayer

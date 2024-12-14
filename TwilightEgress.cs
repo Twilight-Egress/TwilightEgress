@@ -1,5 +1,3 @@
-using CalamityMod.Items.Accessories;
-using CalamityMod.Items.Placeables.FurnitureAuric;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

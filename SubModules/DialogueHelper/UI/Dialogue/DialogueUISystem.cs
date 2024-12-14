@@ -1,12 +1,12 @@
-﻿using System.Text.Json;
-using Terraria.UI;
-using System.IO;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
+using Terraria.UI;
 using TwilightEgress.SubModules.DialogueHelper.UI.Dialogue.DialogueStyles;
 
 namespace TwilightEgress.SubModules.DialogueHelper.UI.Dialogue;
