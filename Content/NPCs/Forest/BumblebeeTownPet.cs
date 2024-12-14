@@ -92,6 +92,15 @@ namespace TwilightEgress.Content.NPCs.Forest
 
             return chat;
         }
+
+        public override void FindFrame(int frameHeight)
+        {
+            // laziest possible way to do this
+            if (NPC.velocity.X == 0)
+                NPC.frame.Y = 0;
+            else 
+                NPC.frame.Y = NPC.frame.Y % (frameHeight * 5);
+        }
     }
 
     public class BumblebeeTownNPCProfile : ITownNPCProfile
