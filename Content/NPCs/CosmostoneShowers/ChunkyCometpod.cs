@@ -1,19 +1,16 @@
-﻿using CalamityMod.DataStructures;
-using CalamityMod.Items.Weapons.Melee;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
-using System.Data.Odbc;
-using Terraria.ModLoader;
-using Terraria;
-using Terraria.ID;
-using Terraria.DataStructures;
+﻿using CalamityMod;
+using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using TwilightEgress.Core.Globals.GlobalNPCs;
-using CalamityMod;
-using Luminance.Common.Utilities;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
