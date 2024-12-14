@@ -172,7 +172,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             {
                 pool.Clear();
                 pool.Add(ModContent.NPCType<Manaphage>(), 1f);
-                pool.Add(ModContent.NPCType<Miniphage>(), 1f);
                 pool.Add(ModContent.NPCType<ChunkyCometpod>(), 1f);
                 pool.Add(ModContent.NPCType<TerritorialCometpod>(), 1f);
             }
