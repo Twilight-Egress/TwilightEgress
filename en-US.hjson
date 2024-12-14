@@ -116,12 +116,5 @@ Mods: {
 			TimelessCascadeShards.DisplayName: Timeless Cascade Shards
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
 		}
-
-		Biomes: {
-			EnchantedOvergrowth: {
-				DisplayName: Enchanted Overgrowth
-				TownNPCDialogueName: the Enchanted Overgrowth
-			}
-		}
 	}
 }
