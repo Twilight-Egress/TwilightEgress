@@ -1,9 +1,9 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
-using Terraria.ModLoader.IO;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria.ModLoader;
 using Terraria;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Core.Systems.EventHandlerSystem
 {

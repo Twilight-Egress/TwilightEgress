@@ -24,7 +24,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid
             Lifetime = lifespan;
 
             Opacity = 0f;
-            Frame = Main.rand.Next(3);           
+            Frame = Main.rand.Next(3);
             Rotation = Main.rand.NextFloat(MathF.Tau);
             ShaderTimeMultiplier = Main.rand.NextFloat(0.1f, 1.5f) * Main.rand.NextBool().ToDirectionInt();
         }

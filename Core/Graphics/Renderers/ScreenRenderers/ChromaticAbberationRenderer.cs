@@ -49,7 +49,7 @@ namespace TwilightEgress.Core.Graphics.Renderers.ScreenRenderers
         }
 
         public override void DrawTarget(SpriteBatch spriteBatch)
-        {           
+        {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             ManagedScreenFilter shader = ShaderManager.GetFilter("TwilightEgress.ChromaticAbberation");

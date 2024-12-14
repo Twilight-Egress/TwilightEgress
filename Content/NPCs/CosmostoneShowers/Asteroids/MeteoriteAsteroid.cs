@@ -1,15 +1,15 @@
-﻿using Terraria.GameContent.ItemDropRules;
-using CalamityMod;
+﻿using CalamityMod;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids

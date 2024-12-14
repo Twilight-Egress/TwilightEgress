@@ -1,18 +1,18 @@
-﻿using Terraria.GameContent.ItemDropRules;
-using TwilightEgress.Assets;
-using CalamityMod;
-using Luminance.Core.Graphics;
+﻿using CalamityMod;
 using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Items.CosmostoneShowers;
 using TwilightEgress.Content.Particles;
 

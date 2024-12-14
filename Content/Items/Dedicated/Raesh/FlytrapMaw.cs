@@ -1,18 +1,16 @@
-﻿using TwilightEgress.Core.Graphics;
-using Terraria.Map;
-using TwilightEgress.Assets;
-using CalamityMod;
-using ReLogic.Content;
+﻿using CalamityMod;
 using Luminance.Core.Graphics;
-using System.Collections.Generic;
-using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
+using TwilightEgress.Assets;
 using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
@@ -106,7 +104,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             int dustCount = 15 * (int)MathHelper.Lerp(1f, 2f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float speed = MathHelper.Lerp(5f, 10f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
             float scale = Main.rand.NextFloat(0.65f, 1.25f) * Projectile.scale;
-            
+
             for (int i = 0; i < dustCount; i++)
             {
                 Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);

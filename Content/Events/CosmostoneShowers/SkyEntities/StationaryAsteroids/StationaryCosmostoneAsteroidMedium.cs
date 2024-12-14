@@ -54,7 +54,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids
             Rectangle frameRectangle = asteroid.Frame(1, MaxVerticalFrames, 0, Frame % MaxVerticalFrames);
             Vector2 mainOrigin = frameRectangle.Size() / 2f;
             Color color = Color.Lerp(Color.White, Color.Black, 0.15f + Depth / 10f) * Opacity;
-           
+
             // Draw the main sprite.
             spriteBatch.Draw(asteroid, GetDrawPositionBasedOnDepth(), frameRectangle, color, Rotation, mainOrigin, Scale / Depth, 0, 0f);
 

@@ -38,7 +38,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
                     Dust dust = Dust.NewDustPerfect(dustPosition, DustID.Electric, Vector2.UnitX);
                     dust.noGravity = true;
                 }
-            }    
+            }
 
             NPC.rotation += MathF.Tau / 600f;
             NPC.ShowNameOnHover = false;

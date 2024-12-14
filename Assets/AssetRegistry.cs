@@ -6,9 +6,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Assets 
+namespace TwilightEgress.Assets
 {
-    public class AssetRegistry : ModSystem 
+    public class AssetRegistry : ModSystem
     {
         // Please keep things in alphabetical order.
 
@@ -112,7 +112,7 @@ namespace TwilightEgress.Assets
             #endregion
         }
 
-        public static class Sounds 
+        public static class Sounds
         {
             #region Twilight Egress Sounds
 
@@ -186,7 +186,7 @@ namespace TwilightEgress.Assets
             #endregion
         }
 
-        public static class Effects 
+        public static class Effects
         {
 
         }

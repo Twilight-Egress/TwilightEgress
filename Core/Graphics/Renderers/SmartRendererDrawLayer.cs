@@ -1,6 +1,6 @@
 ﻿namespace TwilightEgress.Core.Graphics.Renderers
 {
-    public enum SmartRendererDrawLayer 
+    public enum SmartRendererDrawLayer
     {
         /// <summary>
         /// Draws the Renderer after NPCs, Projectiles, Players, Tiles and many other important draw calls.

@@ -1,9 +1,9 @@
-﻿using Terraria.ModLoader.Core;
+﻿using Microsoft.Xna.Framework;
 using System;
-using Terraria.ModLoader.IO;
 using System.Collections.Generic;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader.Core;
+using Terraria.ModLoader.IO;
 
 namespace TwilightEgress.Core.Systems.EventHandlerSystem
 {

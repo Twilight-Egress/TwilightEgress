@@ -37,4 +37,4 @@ namespace TwilightEgress.Content.EntityOverrides.Items.TerraBlade
 
         }
     }
-} 
+}

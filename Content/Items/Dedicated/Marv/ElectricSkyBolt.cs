@@ -95,7 +95,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
             }
         }
 
-        
+
         public override bool PreDraw(ref Color lightColor)
         {
             DrawBloomFlare();

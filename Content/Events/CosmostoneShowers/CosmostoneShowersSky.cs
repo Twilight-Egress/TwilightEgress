@@ -58,7 +58,7 @@ namespace TwilightEgress.Content.Skies
             {
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, transformationMatrix);
-                
+
                 CosmostoneShowers.RenderBackground(spriteBatch, FadeOpacity);
 
                 spriteBatch.End();

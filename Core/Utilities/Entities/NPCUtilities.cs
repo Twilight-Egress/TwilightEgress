@@ -1,9 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System.Linq;
+﻿using System.Linq;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.Utilities;
 using static Terraria.Utilities.NPCUtils;
 
 namespace TwilightEgress
@@ -21,7 +17,7 @@ namespace TwilightEgress
         /// <param name="maxNPCSearchDistance">The maximum distance in which this NPC can search for any NPCs.</param>
         /// <param name="specificNPCsToTarget">An optional array to add any specific NPC types that this NPC should target. If this array is used,
         /// the NPC will ONLY target the types specifically found within it. If it is left empty, the NPC will target ANY nearby NPC.</param>
-        public static void AdvancedNPCTargeting(this NPC searcher, bool targetPlayers, float maxPlayerSearchDistance, bool targetNPCs,  float maxNPCSearchDistance, params int[] specificNPCsToTarget)
+        public static void AdvancedNPCTargeting(this NPC searcher, bool targetPlayers, float maxPlayerSearchDistance, bool targetNPCs, float maxNPCSearchDistance, params int[] specificNPCsToTarget)
         {
             bool playerSearchFilter(Player player)
                 => player.WithinRange(searcher.Center, maxPlayerSearchDistance) && targetPlayers;

@@ -16,8 +16,6 @@ using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
-using TwilightEgress.Core.Graphics;
-using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.Items.Misc
 {

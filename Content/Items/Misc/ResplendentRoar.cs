@@ -10,7 +10,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
-using TwilightEgress.Core.Players;
 
 namespace TwilightEgress.Content.Items.Misc
 {

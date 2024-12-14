@@ -1,15 +1,15 @@
-﻿using CalamityMod.Items;
-using Terraria;
-using Terraria.ID;
-using System.Linq;
-using Terraria.DataStructures;
-using Terraria.ModLoader;
+﻿using CalamityMod;
+using CalamityMod.Items;
 using Microsoft.Xna.Framework;
-using CalamityMod;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
+using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
 {

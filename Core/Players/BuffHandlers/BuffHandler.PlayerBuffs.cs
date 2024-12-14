@@ -1,16 +1,14 @@
-﻿using TwilightEgress.Core.Globals.GlobalNPCs;
-using TwilightEgress.Core.Globals;
+﻿using CalamityMod;
 using Luminance.Common.Utilities;
-using CalamityMod;
-using System.Collections.Generic;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using TwilightEgress.Content.Items.Dedicated.Enchilada;
 
 namespace TwilightEgress.Core.Players.BuffHandlers
 {
-    public partial class BuffHandler 
+    public partial class BuffHandler
     {
         #region Minion Buffs
         public bool MoonSpiritLantern { get; set; }

@@ -31,7 +31,7 @@ namespace TwilightEgress.Core.Players.BuffHandlers
             if (CurseOfNecromancy)
             {
                 Player.maxMinions -= CurseOfNecromancyMinionSlotStack;
-                
+
                 // Particle visuals.
                 if (Main.rand.NextBool(8))
                 {

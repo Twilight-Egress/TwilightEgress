@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace TwilightEgress.Core
 {

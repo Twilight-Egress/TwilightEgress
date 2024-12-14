@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     public class ManaInk : ModProjectile, ILocalizedModType
     {

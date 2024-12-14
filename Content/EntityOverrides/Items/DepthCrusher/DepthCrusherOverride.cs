@@ -9,7 +9,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.DepthCrusher
         public override int TypeToOverride => ModContent.ItemType<CalamityMod.Items.Weapons.Melee.DepthCrusher>();
 
         public override void SetDefaults(Item item)
-	    {
+        {
             item.damage = 70;
             item.useTime = 50;
             item.useAnimation = 50;

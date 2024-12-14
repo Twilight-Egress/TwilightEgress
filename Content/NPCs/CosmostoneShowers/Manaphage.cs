@@ -18,7 +18,7 @@ using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     public class Manaphage : ModNPC
     {
@@ -183,7 +183,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
         {
             ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
-            NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance, 
+            NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance,
                 ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>());
             NPCAimedTarget target = NPC.GetTargetData();
 
@@ -198,7 +198,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             switch ((ManaphageBehavior)AIState)
             {
                 case ManaphageBehavior.Idle_JellyfishPropulsion:
-                    DoBehavior_JellyfishPropulsionIdle(target); 
+                    DoBehavior_JellyfishPropulsionIdle(target);
                     break;
 
                 case ManaphageBehavior.Idle_LazeAround:
@@ -251,7 +251,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             }
 
             if (LocalAIState == 1f)
-            {                
+            {
                 if (Timer <= jellyfishMovementInterval)
                 {
                     // Squash the sprite slightly before the propulsion movement to give a
@@ -358,7 +358,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             if (turnAround)
             {
                 Vector2 circularArea = NPC.Center + NPC.velocity.RotatedBy(MathHelper.TwoPi);
-                Vector2 turnAroundVelocity = circularArea.Y >= Main.maxTilesY + 750f ? Vector2.UnitY * -0.15f : circularArea.Y < Main.maxTilesY * 0.34f ?  Vector2.UnitY * 0.15f : NPC.velocity;
+                Vector2 turnAroundVelocity = circularArea.Y >= Main.maxTilesY + 750f ? Vector2.UnitY * -0.15f : circularArea.Y < Main.maxTilesY * 0.34f ? Vector2.UnitY * 0.15f : NPC.velocity;
 
                 float distanceFromTileCollisionLeft = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2)) ?? 1000f;
                 float distanceFromTileCollisionRight = Utilities.DistanceToTileCollisionHit(NPC.Center, NPC.velocity.RotatedBy(-MathHelper.PiOver2)) ?? 1000f;
@@ -368,7 +368,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
                 NPC.velocity = turnAroundVelocity;
             }
-            
+
             if (Timer % lazeMovementInterval == 0 && !turnAround)
                 NPC.velocity += velocity;
 
@@ -525,7 +525,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
             // Post-succ.
             if (LocalAIState == 1f)
-            {                
+            {
                 if (Timer % 30 == 0)
                 {
                     int damageToAsteroid = Main.rand.Next(10, 15);
@@ -536,9 +536,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                 NPC.SimpleMove(positionAroundAsteroid, 20f, 0f);
 
                 CurrentManaCapacity = MathHelper.Clamp(CurrentManaCapacity + 0.1f, 0f, MaximumManaCapacity);
-                UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);               
+                UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);
             }
-            
+
             if (spriteStretchX > 1f)
                 spriteStretchX *= 0.98f;
             if (spriteStretchX < 1f)
@@ -571,7 +571,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             ShouldTargetNPCs = false;
             manaSuckTimer = ManaRatio > 0.5f ? MaxManaSuckTimerOverFifty : MaxManaSuckTimerUnderFifty;
 
-            NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - 1.57f, 0.2f);    
+            NPC.rotation = NPC.rotation.AngleLerp(NPC.AngleTo(target.Center) - 1.57f, 0.2f);
             Vector2 areaAroundPlayer = target.Center + NPC.DirectionFrom(target.Center) * 250f;
             // Increase the Manaphage's movement speed depending on how much additional aggro range
             // it has ammased.
@@ -623,7 +623,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
                     return;
 
                 // Once the Manaphage reaches a low enough mana capacity, find the nearest asteroid and latch onto it.
-                bool canSuckMana = ManaRatio < 0.3f || (ManaRatio < 0.6f && manaSuckTimer <= 0);
+                bool canSuckMana = ManaRatio < 0.3f || ManaRatio < 0.6f && manaSuckTimer <= 0;
                 if (canSuckMana)
                     SwitchBehaviorState(ManaphageBehavior.Latching, cosmostoneAsteroids.FirstOrDefault());
             }
@@ -636,7 +636,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
             bool canFlee = target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Distance(target.Center) <= maxDetectionDistance && AIState != (float)ManaphageBehavior.Fleeing;
 
-            if ((ManaRatio < 0.3f && canFlee) || (LifeRatio < 0.2f && canFlee))
+            if (ManaRatio < 0.3f && canFlee || LifeRatio < 0.2f && canFlee)
                 SwitchBehaviorState(ManaphageBehavior.Fleeing);
         }
         #endregion
@@ -793,6 +793,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             AsteroidToSucc = asteroidToTarget;
             NPC.netUpdate = true;
         }
-#endregion
+        #endregion
     }
 }

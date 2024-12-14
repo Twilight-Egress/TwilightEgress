@@ -3,7 +3,6 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Core.Systems.OrbitalGravitySystem
