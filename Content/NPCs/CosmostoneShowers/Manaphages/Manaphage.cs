@@ -698,6 +698,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
             manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * manaTankShaderTime);
             manaTankShader.TrySetParameter("manaCapacity", manaCapacityInterpolant);
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
+            manaTankShader.SetTexture(manaphageTankMask, 0);
             manaTankShader.SetTexture(AssetRegistry.Textures.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
             manaTankShader.SetTexture(AssetRegistry.Textures.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
             manaTankShader.Apply();
