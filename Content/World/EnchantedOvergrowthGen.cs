@@ -86,7 +86,7 @@ namespace TwilightEgress.Content.World
                     {
                         tile.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
                     }
-                    else 
+                    else
                     {
                         tile.ClearTile();
                         tile2.TileType = (ushort)ModContent.TileType<OvergrowthDirt>();
@@ -167,10 +167,10 @@ namespace TwilightEgress.Content.World
         public bool TilesToAvoidNearby(int size, int x, int y)
         {
             int halfSize = (int)(size * 0.5f);
-            int[] iceTiles = 
+            int[] iceTiles =
             [
-                TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick, 
-                TileID.GreenDungeonBrick, TileID.PinkDungeonBrick, TileID.Sandstone, 
+                TileID.IceBlock, TileID.SnowBlock, TileID.BlueDungeonBrick,
+                TileID.GreenDungeonBrick, TileID.PinkDungeonBrick, TileID.Sandstone,
                 TileID.Sand, TileID.CrimsonGrass, TileID.CorruptGrass,
                 TileID.JungleGrass, TileID.Crimstone, TileID.Ebonstone
             ];
@@ -231,8 +231,8 @@ namespace TwilightEgress.Content.World
             ];
 
             GenerateTrees(size, bigTypes, 0, 0.25f);
-            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type ], 1, 0.8f);
-            GenerateTrees(size, [ TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type ], 2, 0.5f);
+            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type], 1, 0.8f);
+            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type], 2, 0.5f);
         }
 
         public void GenerateTrees(int size, int[] trees, int displacement, float chance)

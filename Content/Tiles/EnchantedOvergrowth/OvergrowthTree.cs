@@ -4,7 +4,6 @@ using ReLogic.Content;
 using System;
 using System.Linq;
 using Terraria;
-using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -58,7 +57,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             Framing.GetTileSafely(i, j).HasTile = false;
 
             AdjacencyData<int> adjacencyData = GetAdjacentTiles(i, j, (tile) => (int)tile.TileType);
-            int[] treeBases = 
+            int[] treeBases =
             [
                 Mod.Find<ModTile>("OvergrowthTreeBaseLarge").Type,
                 Mod.Find<ModTile>("OvergrowthTreeBaseLarge2").Type,
