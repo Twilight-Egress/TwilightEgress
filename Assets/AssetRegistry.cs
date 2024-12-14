@@ -116,47 +116,47 @@ namespace TwilightEgress.Assets
         {
             #region Twilight Egress Sounds
 
-            public static readonly SoundStyle GasterGone = new SoundStyle(SoundsPath + "Misc/MysteryManDisappear");
+            public static readonly SoundStyle GasterGone = new SoundStyle(SoundsPath + "NPCs/Misc/MysteryManDisappear");
 
-            public static readonly SoundStyle UndertaleExplosion = new SoundStyle(SoundsPath + "Misc/UndertaleExplosion");
+            public static readonly SoundStyle UndertaleExplosion = new SoundStyle(SoundsPath + "Extra/UndertaleExplosion");
 
-            public static readonly SoundStyle PokemonThunderbolt = new SoundStyle(SoundsPath + "Items/MarvWeapon/PokemonThunderbolt");
+            public static readonly SoundStyle PokemonThunderbolt = new SoundStyle(SoundsPath + "Items/Dedicated/Marv/PokemonThunderbolt");
 
-            public static readonly SoundStyle SuperEffective = new SoundStyle(SoundsPath + "Items/MarvWeapon/SuperEffective");
+            public static readonly SoundStyle SuperEffective = new SoundStyle(SoundsPath + "Items/Dedicated/Marv/SuperEffective");
 
-            public static readonly SoundStyle PikachuCry = new SoundStyle(SoundsPath + "Items/MarvWeapon/PikachuCry");
+            public static readonly SoundStyle PikachuCry = new SoundStyle(SoundsPath + "Items/Dedicated/Marv/PikachuCry");
 
-            public static readonly SoundStyle ZekromCry = new SoundStyle(SoundsPath + "Items/MarvWeapon/ZekromCry");
+            public static readonly SoundStyle ZekromCry = new SoundStyle(SoundsPath + "Items/Dedicated/Marv/ZekromCry");
 
-            public static readonly SoundStyle BellbirdChirp = new SoundStyle(SoundsPath + "Items/LynelBirb/NotSoStunningBellbirdScream");
+            public static readonly SoundStyle BellbirdChirp = new SoundStyle(SoundsPath + "Items/Dedicated/Lynel/NotSoStunningBellbirdScream");
 
-            public static readonly SoundStyle BellbirdStunningScream = new SoundStyle(SoundsPath + "Items/LynelBirb/TheCryOfGod");
+            public static readonly SoundStyle BellbirdStunningScream = new SoundStyle(SoundsPath + "Items/Dedicated/Lynel/TheCryOfGod");
 
-            public static readonly SoundStyle AsrielTargetBeep = new SoundStyle(SoundsPath + "Items/JacobWeapon/DraedonBombBeep");
+            public static readonly SoundStyle AsrielTargetBeep = new SoundStyle(SoundsPath + "Items/Dedicated/Jacob/DraedonBombBeep");
 
-            public static readonly SoundStyle AnvilHit = new SoundStyle(SoundsPath + "Items/JacobWeapon/AnvilCompleteHit");
+            public static readonly SoundStyle AnvilHit = new SoundStyle(SoundsPath + "Items/Dedicated/Jacob/AnvilCompleteHit");
 
-            public static readonly SoundStyle RequiemBouquetPerish = new SoundStyle(SoundsPath + "Items/MPGWeapon/RequiemBouquetPerish");
+            public static readonly SoundStyle RequiemBouquetPerish = new SoundStyle(SoundsPath + "Items/Dedicated/MPG/RequiemBouquetPerish");
 
-            public static readonly SoundStyle IceShock = new SoundStyle(SoundsPath + "Items/IceShock");
+            public static readonly SoundStyle IceShock = new SoundStyle(SoundsPath + "Items/FrostMoon/IceShock");
 
-            public static readonly SoundStyle IceShockPetrify = new SoundStyle(SoundsPath + "Items/IceShockPetrify");
+            public static readonly SoundStyle IceShockPetrify = new SoundStyle(SoundsPath + "Items/FrostMoon/IceShockPetrify");
 
-            public static readonly SoundStyle FleshySwordStab = new SoundStyle(SoundsPath + "Misc/FleshySwordStab");
+            public static readonly SoundStyle FleshySwordStab = new SoundStyle(SoundsPath + "Extra/FleshySwordStab");
 
-            public static readonly SoundStyle FleshySwordStab2 = new SoundStyle(SoundsPath + "Misc/FleshySwordStab2");
+            public static readonly SoundStyle FleshySwordStab2 = new SoundStyle(SoundsPath + "Extra/FleshySwordStab2");
 
-            public static readonly SoundStyle FleshySwordStab3 = new SoundStyle(SoundsPath + "Misc/FleshySwordStab3");
+            public static readonly SoundStyle FleshySwordStab3 = new SoundStyle(SoundsPath + "Extra/FleshySwordStab3");
 
-            public static readonly SoundStyle FleshySwordRip = new SoundStyle(SoundsPath + "Misc/FleshySwordRip");
+            public static readonly SoundStyle FleshySwordRip = new SoundStyle(SoundsPath + "Extra/FleshySwordRip");
 
-            public static readonly SoundStyle FleshySwordRip2 = new SoundStyle(SoundsPath + "Misc/FleshySwordRip2");
+            public static readonly SoundStyle FleshySwordRip2 = new SoundStyle(SoundsPath + "Extra/FleshySwordRip2");
 
-            public static readonly SoundStyle FlytrapMawSpawn = new SoundStyle(SoundsPath + "Items/RaeshWeapon/FlytrapMawSpawn");
+            public static readonly SoundStyle FlytrapMawSpawn = new SoundStyle(SoundsPath + "Items/Dedicated/Raesh/FlytrapMawSpawn");
 
-            public static readonly SoundStyle FlytrapMawBounce = new SoundStyle(SoundsPath + "Items/RaeshWeapon/FlytrapMawBounce");
+            public static readonly SoundStyle FlytrapMawBounce = new SoundStyle(SoundsPath + "Items/Dedicated/Raesh/FlytrapMawBounce");
 
-            public static readonly SoundStyle KibbyExplosion = new SoundStyle(SoundsPath + "Items/KibbyExplosion");
+            public static readonly SoundStyle KibbyExplosion = new SoundStyle(SoundsPath + "Items/Dedicated/Octo/KibbyExplosion");
 
             #endregion
 
