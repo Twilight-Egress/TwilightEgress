@@ -693,14 +693,27 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphages
 
             float manaCapacityInterpolant = Utils.GetLerpValue(1f, 0f, CurrentManaCapacity / MaximumManaCapacity, true);
 
+            Vector4[] colors =
+            [
+                new Color(96, 188, 246).ToVector4(),
+                new Color(81, 158, 245).ToVector4(),
+                new Color(76, 131, 242).ToVector4(),
+                new Color(3, 96, 243).ToVector4(),
+                new Color(48, 65, 197).ToVector4(),
+                new Color(104, 94, 228).ToVector4(),
+                new Color(157, 113, 239).ToVector4(),
+                new Color(0, 0, 0, 0).ToVector4()
+            ];
+
             Main.spriteBatch.PrepareForShaders();
             ShaderManager.TryGetShader("TwilightEgress.ManaphageTankShader", out ManagedShader manaTankShader);
             manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * manaTankShaderTime);
             manaTankShader.TrySetParameter("manaCapacity", manaCapacityInterpolant);
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
+            manaTankShader.TrySetParameter("palette", colors);
             manaTankShader.SetTexture(manaphageTankMask, 0);
-            manaTankShader.SetTexture(AssetRegistry.Textures.BlueCosmicGalaxy, 1, SamplerState.AnisotropicWrap);
-            manaTankShader.SetTexture(AssetRegistry.Textures.SmudgyNoise, 2, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.NeuronNebulaGalaxy, 1, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.SwirlyNoise, 2, SamplerState.AnisotropicWrap);
             manaTankShader.Apply();
 
             // Draw the tank mask with the shader applied to it.
