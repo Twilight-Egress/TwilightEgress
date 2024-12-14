@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     public class TerritorialCometpod : ChunkyCometpod
     {

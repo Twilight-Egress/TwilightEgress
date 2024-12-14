@@ -28,7 +28,6 @@ using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 using TwilightEgress.Core.Systems.EventHandlerSystem;
 using TwilightEgress.Content.Particles;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods;
 using CalamityMod;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers

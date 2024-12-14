@@ -15,7 +15,7 @@ using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     public class ChunkyCometpod : ModNPC
     {
@@ -73,7 +73,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
 
         public ref float Timer => ref NPC.ai[0];
 
-        public ref float AIState => ref NPC.ai[1];  
+        public ref float AIState => ref NPC.ai[1];
 
         public ref float LocalAIState => ref NPC.ai[2];
 
@@ -247,7 +247,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
             PassiveMovementTimer--;
             if (PassiveMovementTimer <= 0f)
             {
-                PassiveMovementSpeed = Main.rand.NextFloat(5f, 151f) * 0.01f; 
+                PassiveMovementSpeed = Main.rand.NextFloat(5f, 151f) * 0.01f;
                 PassiveMovementVectorX = Main.rand.NextFloat(-100f, 101f);
                 PassiveMovementVectorY = Main.rand.NextFloat(-100f, 101f);
                 PassiveMovementTimer = Main.rand.NextFloat(120f, 360f);
@@ -305,7 +305,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.netUpdate = true;
             }
 
-            NPC.rotation = NPC.rotation.AngleLerp(NPC.velocity.ToRotation() - MathHelper.Pi, 0.2f); 
+            NPC.rotation = NPC.rotation.AngleLerp(NPC.velocity.ToRotation() - MathHelper.Pi, 0.2f);
         }
 
         public void DoBehavior_AimlessCharging(NPCAimedTarget target, CometType cometType, ref float chargeAngle, ref float maxAimlessCharges, ref float aimlessChargeCounter, ref float initialization)
@@ -371,7 +371,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
                     NPC.velocity = NPC.oldVelocity * CalculateCollisionBounceSpeed(-0.42f);
                     switchToCooldown(ref aimlessChargeCounter);
                 }
-                
+
                 // Bump into nearby cometpods if collision between the two occurs.
                 if (NearestCometpod is not null && NPC.Hitbox.Intersects(NearestCometpod.Hitbox))
                 {
@@ -460,7 +460,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Copepods
                 NPC.rotation = NPC.velocity.ToRotation() - MathHelper.Pi;
 
                 if (NPC.velocity.Length() < 10f)
-                    NPC.velocity *= 1.06f;                    
+                    NPC.velocity *= 1.06f;
 
                 // Bounce off of the target when collision is made.
                 if (NPC.Hitbox.Intersects(target.Hitbox))
