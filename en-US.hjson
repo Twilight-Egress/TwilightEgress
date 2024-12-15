@@ -43,6 +43,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			TimelessCascade: {
+				DisplayName: Timeless Cascade
+				Tooltip: ""
+			}
+
 			Stargel: {
 				DisplayName: Stargel
 				Tooltip: ""
@@ -81,6 +86,9 @@ Mods: {
 			SailorsSingularityBlast.DisplayName: Sailors Singularity Blast
 			SailorsSingularityStar.DisplayName: Sailors Singularity Star
 			SailorsSingularityVortex.DisplayName: Sailors Singularity Vortex
+			TimelessCascadeProj.DisplayName: Timeless Cascade Proj
+			TimelessCascadeExplode.DisplayName: Timeless Cascade Explode
+			TimelessCascadeShards.DisplayName: Timeless Cascade Shards
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
 		}
 	}
