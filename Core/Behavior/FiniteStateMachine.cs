@@ -32,11 +32,8 @@ namespace TwilightEgress.Core.Behavior
 
         public void TrySetCurrentState(T stateID, float[] arguments = null)
         {
-            if (stateID.Equals(currentState.ID))
-                return;
-
-            if (states.TryGetValue(stateID, out State<T> value)) ;
-            SetCurrentState(value, arguments);
+            if (states.TryGetValue(stateID, out State<T> value))
+                SetCurrentState(value, arguments);
         }
     }
 
