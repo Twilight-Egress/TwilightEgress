@@ -13,7 +13,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            Entity.NPC.ai[0] = (int)ManaphageBehavior.SprayingInk;
+            Entity.AIState = (int)ManaphageBehavior.SprayingInk;
             Entity.NPC.netUpdate = true;
         }
 

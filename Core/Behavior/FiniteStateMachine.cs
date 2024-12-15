@@ -15,7 +15,7 @@ namespace TwilightEgress.Core.Behavior
 
         public void Add(int key, State state) => states.Add(key, state);
 
-        public void Update(float[] arguments) => currentState?.Update(arguments);
+        public void Update(float[] arguments = null) => currentState?.Update(arguments);
 
         public State GetState(int key) => states.TryGetValue(key, out State value) ? value : null;
 

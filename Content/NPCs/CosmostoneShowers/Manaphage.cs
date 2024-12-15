@@ -205,7 +205,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 // only if the Manaphage isn't currently fleeing from anything.
                 ShouldTargetNPCs = AIState != (float)ManaphageBehavior.Fleeing;
 
-            stateMachine?.Update([NPC.whoAmI]);
+            stateMachine?.Update();
             stateMachine?.SetCurrentState((int)AIState);
 
             float tankLightLevel = MathHelper.Lerp(0.3f, 1.25f, ManaRatio);

@@ -1,0 +1,36 @@
+﻿using Terraria;
+using TwilightEgress.Core.Behavior;
+using TwilightEgress.Core.Globals.GlobalNPCs;
+using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
+
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+{
+    // @ zarachard
+    public class Starstruck(FiniteStateMachine stateMachine, ChunkyCometpod cometpod) : EntityState<ChunkyCometpod>(stateMachine, cometpod)
+    {
+        public override void Enter(float[] arguments = null)
+        {
+            ref float maxStarstruckTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
+
+            maxStarstruckTime = Main.rand.Next(180, 300);
+            Entity.AIState = (int)CometpodBehavior.Starstruck;
+            Entity.NPC.netUpdate = true;
+        }
+
+        public override void Update(float[] arguments = null)
+        {
+            // extremely simple in comparison i know
+
+            ref float maxStarstruckTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
+
+            Entity.NPC.velocity *= 0.98f;
+            Entity.NPC.rotation += Entity.NPC.velocity.X * 0.03f;
+
+            if (Entity.Timer >= maxStarstruckTime)
+            {
+                maxStarstruckTime = 0f;
+                FiniteStateMachine.SetCurrentState((int)CometpodBehavior.PassiveWandering, [0f]);
+            }
+        }
+    }
+}
