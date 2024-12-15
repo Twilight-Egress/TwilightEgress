@@ -11,6 +11,7 @@ using Terraria.Utilities;
 
 namespace TwilightEgress.Content.NPCs.Forest
 {
+    [AutoloadHead]
     public class BumblebeeTownPet : ModNPC
     {
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
