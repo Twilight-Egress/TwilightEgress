@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TwilightEgress.Core.Behavior
 {
@@ -17,6 +18,12 @@ namespace TwilightEgress.Core.Behavior
         public void Update(float[] arguments) => currentState?.Update(arguments);
 
         public State GetState(int key) => states.TryGetValue(key, out State value) ? value : null;
+
+        public void ForEach(Action<KeyValuePair<int, State>> action)
+        {
+            foreach (KeyValuePair<int, State> state in states)
+                action(state);
+        }
 
         public void SetCurrentState(State state, float[] arguments = null)
         {

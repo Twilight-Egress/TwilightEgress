@@ -162,6 +162,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             stateMachine.Add((int)ManaphageBehavior.Latching, new Latching(stateMachine, this));
             stateMachine.Add((int)ManaphageBehavior.SprayingInk, new SprayingInk(stateMachine, this));
 
+            stateMachine.ForEach((keyValuePair) => {
+                keyValuePair.Value.OnExit += Exit;
+            });
+
             stateMachine.SetCurrentState((int)Utils.SelectRandom(Main.rand, ManaphageBehavior.JellyfishPropulsion, ManaphageBehavior.LazeAround), [NPC.whoAmI]);
 
             CurrentManaCapacity = Main.rand.NextBool(25) ? Main.rand.NextFloat(75f, 100f) : Main.rand.NextFloat(60f, 15f);
@@ -199,7 +203,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance,
                 ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>());
-            NPCAimedTarget target = NPC.GetTargetData();
 
             // Don't bother targetting any asteroids at 60% and above mana capacity.
             if (ManaRatio > 0.6f)
@@ -372,7 +375,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             // Manaphages can be knocked out of their latching phase if hit.
             if (AIState == (float)ManaphageBehavior.Latching)
-                SwitchBehaviorState(ManaphageBehavior.JellyfishPropulsion);
+                stateMachine.SetCurrentState((int)ManaphageBehavior.JellyfishPropulsion);
         }
 
         public void ManageExtraTimers()
@@ -411,14 +414,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             }
         }
 
-        public void SwitchBehaviorState(ManaphageBehavior nextBehaviorState, NPC asteroidToTarget = null)
+        public void Exit(float[] arguments = null)
         {
-            Timer = 0f;
-            LocalAIState = 0f;
-            AIState = (float)nextBehaviorState;
-            FoundValidRotationAngle = false;
-            AsteroidToSucc = asteroidToTarget;
-            NPC.netUpdate = true;
+            this.Timer = 0f;
+            this.LocalAIState = 0f;
+            this.FoundValidRotationAngle = false;
+
+            if (arguments.Length < 1)
+                this.AsteroidToSucc = Main.npc[(int)arguments[1]];
+
+            this.NPC.netUpdate = true;
         }
         #endregion
     }

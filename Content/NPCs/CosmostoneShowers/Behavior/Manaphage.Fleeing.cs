@@ -109,17 +109,5 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             Vector2 futureVelocity = Vector2.One.RotatedBy(jellyfishMovementAngle);
             Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() - 1.57f, 0.1f);
         }
-
-        public override void Exit(float[] arguments = null)
-        {
-            Entity.Timer = 0f;
-            Entity.LocalAIState = 0f;
-            Entity.FoundValidRotationAngle = false;
-
-            if (arguments.Length < 1)
-                Entity.AsteroidToSucc = Main.npc[(int)arguments[1]];
-
-            Entity.NPC.netUpdate = true;
-        }
     }
 }

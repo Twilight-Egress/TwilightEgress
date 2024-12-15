@@ -61,17 +61,5 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             Entity.SwitchBehavior_Fleeing(target);
         }
-
-        public override void Exit(float[] arguments = null)
-        {
-            Entity.Timer = 0f;
-            Entity.LocalAIState = 0f;
-            Entity.FoundValidRotationAngle = false;
-
-            if (arguments.Length < 1)
-                Entity.AsteroidToSucc = Main.npc[(int)arguments[1]];
-
-            Entity.NPC.netUpdate = true;
-        }
     }
 }
