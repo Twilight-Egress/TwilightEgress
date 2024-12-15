@@ -12,91 +12,87 @@ using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class Latching<ManaphageBehavior> : State<ManaphageBehavior>
+    public class Latching : EntityState<Manaphage>
     {
-        public Latching(ManaphageBehavior id) : base(id)
+        public Latching(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
         {
         }
 
         public override void Enter(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-
-            npc.ai[0] = (int)CosmostoneShowers.ManaphageBehavior.Latching;
-            npc.netUpdate = true;
+            Entity.NPC.ai[0] = (int)ManaphageBehavior.Latching;
+            Entity.NPC.netUpdate = true;
         }
 
         public override void Update(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-            Manaphage manaphage = npc.ModNPC as Manaphage;
-            NPCAimedTarget target = npc.GetTargetData();
+            NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float spriteStretchX = ref npc.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref npc.TwilightEgress().ExtraAI[SpriteStretchYIndex];
-            ref float initialRotation = ref npc.TwilightEgress().ExtraAI[InitialRotationIndex];
+            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
+            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
+            ref float initialRotation = ref Entity.NPC.TwilightEgress().ExtraAI[InitialRotationIndex];
 
-            if (manaphage.AsteroidToSucc is null)
+            if (Entity.AsteroidToSucc is null)
             {
                 int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
-                List<NPC> cosmostoneAsteroids = Main.npc.Take(Main.maxNPCs).Where(asteroid => asteroid.active && cosmostoneAsteroidTypes.Contains(asteroid.type) && npc.Distance(asteroid.Center) <= 300).ToList();
+                List<NPC> cosmostoneAsteroids = Main.npc.Take(Main.maxNPCs).Where(asteroid => asteroid.active && cosmostoneAsteroidTypes.Contains(asteroid.type) && Entity.NPC.Distance(asteroid.Center) <= 300).ToList();
                 if (cosmostoneAsteroids.Count <= 0)
                     return;
 
-                manaphage.AsteroidToSucc = Main.npc[cosmostoneAsteroids.FirstOrDefault().whoAmI];
+                Entity.AsteroidToSucc = Main.npc[cosmostoneAsteroids.FirstOrDefault().whoAmI];
             }
 
-            Rectangle asteroidHitbox = new((int)manaphage.AsteroidToSucc.position.X, (int)manaphage.AsteroidToSucc.position.Y, (int)(manaphage.AsteroidToSucc.width * 0.75f), (int)(manaphage.AsteroidToSucc.height * 0.75f));
+            Rectangle asteroidHitbox = new((int)Entity.AsteroidToSucc.position.X, (int)Entity.AsteroidToSucc.position.Y, (int)(Entity.AsteroidToSucc.width * 0.75f), (int)(Entity.AsteroidToSucc.height * 0.75f));
 
             // Reset if the asteroid target variable is null.
-            if (target.Invalid || !manaphage.AsteroidToSucc.active || manaphage.ManaRatio >= 1f)
+            if (target.Invalid || !Entity.AsteroidToSucc.active || Entity.ManaRatio >= 1f)
             {
-                manaphage.AsteroidToSucc = null;
-                npc.velocity = Vector2.UnitY.RotatedBy(npc.rotation) * -2f;
-                CosmostoneShowers.ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, CosmostoneShowers.ManaphageBehavior.JellyfishPropulsion, CosmostoneShowers.ManaphageBehavior.LazeAround);
-                manaphage.stateMachine.TrySetCurrentState(randomIdleState, [npc.whoAmI]);
+                Entity.AsteroidToSucc = null;
+                Entity.NPC.velocity = Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * -2f;
+                ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, ManaphageBehavior.JellyfishPropulsion, ManaphageBehavior.LazeAround);
+                FiniteStateMachine.SetCurrentState((int)randomIdleState, [Entity.NPC.whoAmI]);
                 return;
             }
 
             // Pre-succ.
-            if (manaphage.LocalAIState == 0f)
+            if (Entity.LocalAIState == 0f)
             {
-                if (manaphage.Timer >= 45)
+                if (Entity.Timer >= 45)
                 {
                     // Quickly move towards the selected asteroid and stop moving once the two hitboxes
                     // intersect with each other. 
-                    npc.SimpleMove(manaphage.AsteroidToSucc.Center, 12f, 6f);
-                    if (npc.Hitbox.Intersects(asteroidHitbox))
+                    Entity.NPC.SimpleMove(Entity.AsteroidToSucc.Center, 12f, 6f);
+                    if (Entity.NPC.Hitbox.Intersects(asteroidHitbox))
                     {
-                        initialRotation = npc.rotation - manaphage.AsteroidToSucc.rotation;
-                        manaphage.LocalAIState = 1f;
-                        manaphage.Timer = 0f;
-                        npc.netUpdate = true;
+                        initialRotation = Entity.NPC.rotation - Entity.AsteroidToSucc.rotation;
+                        Entity.LocalAIState = 1f;
+                        Entity.Timer = 0f;
+                        Entity.NPC.netUpdate = true;
                     }
                 }
 
-                if (manaphage.Timer <= 15f)
+                if (Entity.Timer <= 15f)
                 {
-                    int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 4f, manaphage.Timer / 15f));
-                    manaphage.UpdateAnimationFrames(ManaphageAnimation.Inject, 0f, frameY);
+                    int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 4f, Entity.Timer / 15f));
+                    Entity.UpdateAnimationFrames(ManaphageAnimation.Inject, 0f, frameY);
                 }
 
             }
 
             // Post-succ.
-            if (manaphage.LocalAIState == 1f)
+            if (Entity.LocalAIState == 1f)
             {
-                if (manaphage.Timer % 30 == 0)
+                if (Entity.Timer % 30 == 0)
                 {
                     int damageToAsteroid = Main.rand.Next(10, 15);
-                    manaphage.AsteroidToSucc.SimpleStrikeNPC(damageToAsteroid, 0, noPlayerInteraction: true);
+                    Entity.AsteroidToSucc.SimpleStrikeNPC(damageToAsteroid, 0, noPlayerInteraction: true);
                 }
 
-                Vector2 positionAroundAsteroid = manaphage.AsteroidToSucc.Center - Vector2.UnitY.RotatedBy(initialRotation + manaphage.AsteroidToSucc.rotation) * asteroidHitbox.Size();
-                npc.SimpleMove(positionAroundAsteroid, 20f, 0f);
+                Vector2 positionAroundAsteroid = Entity.AsteroidToSucc.Center - Vector2.UnitY.RotatedBy(initialRotation + Entity.AsteroidToSucc.rotation) * asteroidHitbox.Size();
+                Entity.NPC.SimpleMove(positionAroundAsteroid, 20f, 0f);
 
-                manaphage.CurrentManaCapacity = MathHelper.Clamp(manaphage.CurrentManaCapacity + 0.1f, 0f, manaphage.MaximumManaCapacity);
-                manaphage.UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);
+                Entity.CurrentManaCapacity = MathHelper.Clamp(Entity.CurrentManaCapacity + 0.1f, 0f, Entity.MaximumManaCapacity);
+                Entity.UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);
             }
 
             if (spriteStretchX > 1f)
@@ -109,22 +105,20 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             if (spriteStretchY < 1f)
                 spriteStretchY *= 1.02f;
 
-            npc.rotation = npc.rotation.AngleLerp(npc.AngleTo(manaphage.AsteroidToSucc.Center) - 1.57f, 0.2f);
-            manaphage.SwitchBehavior_Fleeing(target);
+            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(Entity.NPC.AngleTo(Entity.AsteroidToSucc.Center) - 1.57f, 0.2f);
+            Entity.SwitchBehavior_Fleeing(target);
         }
 
         public override void Exit(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-
-            (npc.ModNPC as Manaphage).Timer = 0f;
-            (npc.ModNPC as Manaphage).LocalAIState = 0f;
-            (npc.ModNPC as Manaphage).FoundValidRotationAngle = false;
+            Entity.Timer = 0f;
+            Entity.LocalAIState = 0f;
+            Entity.FoundValidRotationAngle = false;
 
             if (arguments.Length < 1)
-                (npc.ModNPC as Manaphage).AsteroidToSucc = Main.npc[(int)arguments[1]];
+                Entity.AsteroidToSucc = Main.npc[(int)arguments[1]];
 
-            npc.netUpdate = true;
+            Entity.NPC.netUpdate = true;
         }
     }
 }

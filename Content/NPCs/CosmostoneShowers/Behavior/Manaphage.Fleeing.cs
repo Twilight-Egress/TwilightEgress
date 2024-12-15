@@ -11,125 +11,119 @@ using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class Fleeing<ManaphageBehavior> : State<ManaphageBehavior>
+    public class Fleeing : EntityState<Manaphage>
     {
-        public Fleeing(ManaphageBehavior id) : base(id)
+        public Fleeing(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
         {
         }
 
         public override void Enter(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-
-            npc.ai[0] = (int)CosmostoneShowers.ManaphageBehavior.Fleeing;
-            npc.netUpdate = true;
+            Entity.NPC.ai[0] = (int)ManaphageBehavior.Fleeing;
+            Entity.NPC.netUpdate = true;
         }
 
         public override void Update(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-            Manaphage manaphage = npc.ModNPC as Manaphage;
-            NPCAimedTarget target = npc.GetTargetData();
+            NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float additionalAggroRange = ref npc.TwilightEgress().ExtraAI[Manaphage.AdditionalAggroRangeIndex];
-            ref float jellyfishMovementAngle = ref npc.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementAngleIndex];
-            ref float spriteStretchX = ref npc.TwilightEgress().ExtraAI[Manaphage.SpriteStretchXIndex];
-            ref float spriteStretchY = ref npc.TwilightEgress().ExtraAI[Manaphage.SpriteStretchYIndex];
+            ref float additionalAggroRange = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.AdditionalAggroRangeIndex];
+            ref float jellyfishMovementAngle = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementAngleIndex];
+            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchXIndex];
+            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchYIndex];
 
             int maxTime = 45;
             int timeBeforePropulsion = 30;
-            float avoidanceSpeedInterpolant = Utils.GetLerpValue(0f, 1f, manaphage.LifeRatio / 0.2f, true);
-            bool targetIsFarEnoughAway = npc.Distance(target.Center) >= 400f + additionalAggroRange;
+            float avoidanceSpeedInterpolant = Utils.GetLerpValue(0f, 1f, Entity.LifeRatio / 0.2f, true);
+            bool targetIsFarEnoughAway = Entity.NPC.Distance(target.Center) >= 400f + additionalAggroRange;
 
             if (targetIsFarEnoughAway || target.Type != Terraria.Enums.NPCTargetType.Player || target.Invalid)
             {
-                CosmostoneShowers.ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, CosmostoneShowers.ManaphageBehavior.JellyfishPropulsion, CosmostoneShowers.ManaphageBehavior.LazeAround);
-                manaphage.stateMachine.TrySetCurrentState(randomIdleState, [npc.whoAmI]);
+                ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, ManaphageBehavior.SprayingInk, ManaphageBehavior.LazeAround);
+                FiniteStateMachine.SetCurrentState((int)randomIdleState, [Entity.NPC.whoAmI]);
                 return;
             }
 
-            manaphage.CheckForTurnAround(out bool turnAround);
+            Entity.CheckForTurnAround(out bool turnAround);
 
             // Same code found in the DoBehavior_JellyfishPropulsion method above.
-            if (manaphage.Timer <= timeBeforePropulsion)
+            if (Entity.Timer <= timeBeforePropulsion)
             {
-                float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(manaphage.Timer / timeBeforePropulsion), true);
+                float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(Entity.Timer / timeBeforePropulsion), true);
                 spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
                 spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
 
-                if (!manaphage.FoundValidRotationAngle)
+                if (!Entity.FoundValidRotationAngle)
                 {
-                    Vector2 vectorToPlayer = npc.SafeDirectionTo(target.Center);
-                    if (manaphage.Timer == 1 && !turnAround)
+                    Vector2 vectorToPlayer = Entity.NPC.SafeDirectionTo(target.Center);
+                    if (Entity.Timer == 1 && !turnAround)
                         jellyfishMovementAngle = vectorToPlayer.ToRotation();
 
                     int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 1f, stretchInterpolant));
-                    manaphage.UpdateAnimationFrames(default, 0f, frameY);
+                    Entity.UpdateAnimationFrames(default, 0f, frameY);
 
                     if (!turnAround)
                     {
-                        manaphage.FoundValidRotationAngle = true;
-                        npc.netUpdate = true;
+                        Entity.FoundValidRotationAngle = true;
+                        Entity.NPC.netUpdate = true;
                     }
 
-                    Vector2 centerAhead = npc.Center - Vector2.UnitY.RotatedBy(npc.rotation) * 128f;
+                    Vector2 centerAhead = Entity.NPC.Center - Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * 128f;
                     jellyfishMovementAngle += -centerAhead.ToRotation() * 12f;
                 }
             }
 
-            if (manaphage.Timer == timeBeforePropulsion)
+            if (Entity.Timer == timeBeforePropulsion)
             {
                 float avoidanceSpeed = MathHelper.Lerp(-3f, -7f, avoidanceSpeedInterpolant);
-                Vector2 fleeVelocity = Vector2.UnitY.RotatedBy(npc.rotation) * avoidanceSpeed;
-                npc.velocity = fleeVelocity;
+                Vector2 fleeVelocity = Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * avoidanceSpeed;
+                Entity.NPC.velocity = fleeVelocity;
 
-                manaphage.UpdateAnimationFrames(default, 0f, 2);
+                Entity.UpdateAnimationFrames(default, 0f, 2);
 
                 for (int i = 0; i < 15; i++)
                 {
                     Vector2 dustVelocity = Main.rand.NextVector2Circular(1f, 1f);
-                    Dust dust = Dust.NewDustPerfect(npc.Center, DustID.BlueFairy, dustVelocity * 5f);
+                    Dust dust = Dust.NewDustPerfect(Entity.NPC.Center, DustID.BlueFairy, dustVelocity * 5f);
                     dust.noGravity = true;
                 }
 
-                PulseRingParticle propulsionRing = new(npc.Center - npc.SafeDirectionTo(npc.Center) * 60f, npc.SafeDirectionTo(npc.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), npc.velocity.ToRotation(), 45);
+                PulseRingParticle propulsionRing = new(Entity.NPC.Center - Entity.NPC.SafeDirectionTo(Entity.NPC.Center) * 60f, Entity.NPC.SafeDirectionTo(Entity.NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), Entity.NPC.velocity.ToRotation(), 45);
                 propulsionRing.SpawnCasParticle();
 
                 spriteStretchX = 0.8f;
                 spriteStretchY = 1.25f;
             }
 
-            if (manaphage.Timer >= timeBeforePropulsion)
+            if (Entity.Timer >= timeBeforePropulsion)
             {
-                float animationInterpolant = Utils.GetLerpValue(0f, 1f, (manaphage.Timer - maxTime) / timeBeforePropulsion + 30, true);
+                float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Entity.Timer - maxTime) / timeBeforePropulsion + 30, true);
                 int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, EasingFunctions.SineEaseIn(animationInterpolant)));
-                manaphage.UpdateAnimationFrames(default, 0f, frameY);
+                Entity.UpdateAnimationFrames(default, 0f, frameY);
             }
 
-            if (manaphage.Timer >= maxTime)
+            if (Entity.Timer >= maxTime)
             {
-                manaphage.Timer = 0f;
-                manaphage.FoundValidRotationAngle = false;
-                npc.netUpdate = true;
+                Entity.Timer = 0f;
+                Entity.FoundValidRotationAngle = false;
+                Entity.NPC.netUpdate = true;
             }
 
-            npc.velocity *= 0.98f;
+            Entity.NPC.velocity *= 0.98f;
             Vector2 futureVelocity = Vector2.One.RotatedBy(jellyfishMovementAngle);
-            npc.rotation = npc.rotation.AngleLerp(futureVelocity.ToRotation() - 1.57f, 0.1f);
+            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() - 1.57f, 0.1f);
         }
 
         public override void Exit(float[] arguments = null)
         {
-            NPC npc = Main.npc[(int)arguments[0]];
-
-            (npc.ModNPC as Manaphage).Timer = 0f;
-            (npc.ModNPC as Manaphage).LocalAIState = 0f;
-            (npc.ModNPC as Manaphage).FoundValidRotationAngle = false;
+            Entity.Timer = 0f;
+            Entity.LocalAIState = 0f;
+            Entity.FoundValidRotationAngle = false;
 
             if (arguments.Length < 1)
-                (npc.ModNPC as Manaphage).AsteroidToSucc = Main.npc[(int)arguments[1]];
+                Entity.AsteroidToSucc = Main.npc[(int)arguments[1]];
 
-            npc.netUpdate = true;
+            Entity.NPC.netUpdate = true;
         }
     }
 }
