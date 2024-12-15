@@ -16,27 +16,27 @@ namespace TwilightEgress.Core.Behavior
 
         public void Add(T stateID, State<T> state) => states.Add(stateID, state);
 
-        public void Update(T[] arguments) => currentState?.Update(arguments);
+        public void Update(float[] arguments) => currentState?.Update(arguments);
 
         public State<T> GetState(T stateID) => states.TryGetValue(stateID, out State<T> value) ? value : null;
 
-        public void SetCurrentState(State<T> state)
+        public void SetCurrentState(State<T> state, float[] arguments = null)
         {
             if (currentState == state)
                 return;
 
-            currentState?.Exit();
+            currentState?.Exit(arguments);
             currentState = state;
-            currentState?.Enter();
+            currentState?.Enter(arguments);
         }
 
-        public void TrySetCurrentState(T stateID)
+        public void TrySetCurrentState(T stateID, float[] arguments = null)
         {
             if (stateID.Equals(currentState.ID))
                 return;
 
             if (states.TryGetValue(stateID, out State<T> value)) ;
-            SetCurrentState(value);
+            SetCurrentState(value, arguments);
         }
     }
 
@@ -47,10 +47,10 @@ namespace TwilightEgress.Core.Behavior
         public T ID { get; private set; }
 
         public delegate void DelegateNoArguments();
-        public delegate void DelegateMethod(T[] arguments);
+        public delegate void DelegateMethod(float[] arguments);
 
-        public DelegateNoArguments OnEnter;
-        public DelegateNoArguments OnExit;
+        public DelegateMethod OnEnter;
+        public DelegateMethod OnExit;
         public DelegateMethod OnUpdate;
 
         public State(T id)
@@ -63,24 +63,24 @@ namespace TwilightEgress.Core.Behavior
             Name = name;
         }
 
-        public State(T id, DelegateNoArguments onEnter, DelegateNoArguments onExit = null, DelegateMethod onUpdate = null) : this(id)
+        public State(T id, DelegateMethod onEnter, DelegateMethod onExit = null, DelegateMethod onUpdate = null) : this(id)
         {
             OnEnter = onEnter;
             OnExit = onExit;
             OnUpdate = onUpdate;
         }
 
-        public State(T id, string name, DelegateNoArguments onEnter, DelegateNoArguments onExit = null, DelegateMethod onUpdate = null) : this(id, name)
+        public State(T id, string name, DelegateMethod onEnter, DelegateMethod onExit = null, DelegateMethod onUpdate = null) : this(id, name)
         {
             OnEnter = onEnter;
             OnExit = onExit;
             OnUpdate = onUpdate;
         }
 
-        public virtual void Enter() => OnEnter?.Invoke();
+        public virtual void Enter(float[] arguments = null) => OnEnter?.Invoke(arguments);
 
-        public virtual void Exit() => OnExit?.Invoke();
+        public virtual void Exit(float[] arguments = null) => OnExit?.Invoke(arguments);
 
-        public virtual void Update(T[] arguments = null) => OnUpdate?.Invoke(arguments);
+        public virtual void Update(float[] arguments = null) => OnUpdate?.Invoke(arguments);
     }
 }
