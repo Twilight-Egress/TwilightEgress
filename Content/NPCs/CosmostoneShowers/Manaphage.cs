@@ -20,18 +20,18 @@ using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
-    public enum ManaphageBehavior
-    {
-        JellyfishPropulsion = 0,
-        LazeAround = 1,
-        Fleeing = 2,
-        Latching = 3,
-        SprayingInk = 4
-    }
-
     public class Manaphage : ModNPC
     {
         #region Enums
+        public enum ManaphageBehavior
+        {
+            JellyfishPropulsion = 0,
+            LazeAround = 1,
+            Fleeing = 2,
+            Latching = 3,
+            SprayingInk = 4
+        }
+
         public enum ManaphageAnimation
         {
             Idle,
