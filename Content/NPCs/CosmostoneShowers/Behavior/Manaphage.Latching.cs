@@ -24,8 +24,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
             ref float initialRotation = ref Entity.NPC.TwilightEgress().ExtraAI[InitialRotationIndex];
 
             if (Entity.AsteroidToSucc is null)
@@ -91,15 +89,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 Entity.UpdateAnimationFrames(ManaphageAnimation.Suck, 5f);
             }
 
-            if (spriteStretchX > 1f)
-                spriteStretchX *= 0.98f;
-            if (spriteStretchX < 1f)
-                spriteStretchX *= 1.02f;
+            if (Entity.SpriteStretchX > 1f)
+                Entity.SpriteStretchX *= 0.98f;
+            if (Entity.SpriteStretchX < 1f)
+                Entity.SpriteStretchX *= 1.02f;
 
-            if (spriteStretchY > 1f)
-                spriteStretchY *= 0.98f;
-            if (spriteStretchY < 1f)
-                spriteStretchY *= 1.02f;
+            if (Entity.SpriteStretchY > 1f)
+                Entity.SpriteStretchY *= 0.98f;
+            if (Entity.SpriteStretchY < 1f)
+                Entity.SpriteStretchY *= 1.02f;
 
             Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(Entity.NPC.AngleTo(Entity.AsteroidToSucc.Center) - 1.57f, 0.2f);
             Entity.SwitchBehavior_Fleeing(target);

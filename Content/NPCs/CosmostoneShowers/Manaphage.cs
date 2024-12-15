@@ -58,19 +58,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public const int JellyfishMovementAngleIndex = 6;
 
-        public const int SpriteStretchXIndex = 7;
+        public const int JellyfishPropulsionsLeftIndex = 7;
 
-        public const int SpriteStretchYIndex = 8;
+        public const int ManaTankShaderTimeIndex = 8;
 
-        public const int JellyfishPropulsionCountIndex = 9;
-
-        public const int MaxPropulsionsIndex = 10;
-
-        public const int FrameSpeedIndex = 11;
-
-        public const int ManaTankShaderTimeIndex = 12;
-
-        public const int InitialRotationIndex = 13;
+        public const int InitialRotationIndex = 9;
 
         public const float MaximumPlayerSearchDistance = 1200f;
 
@@ -97,6 +89,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public int FrameX;
 
         public int FrameY;
+
+        public float SpriteStretchX;
+
+        public float SpriteStretchY;
 
         public NPC AsteroidToSucc;
 
@@ -149,8 +145,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void OnSpawn(IEntitySource source)
         {
-            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
             ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
             ref float jellyfishMovementAngle = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementAngleIndex];
 
@@ -170,8 +164,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             stateMachine.SetCurrentState((int)Utils.SelectRandom(Main.rand, ManaphageBehavior.JellyfishPropulsion, ManaphageBehavior.LazeAround), [NPC.whoAmI]);
 
             CurrentManaCapacity = Main.rand.NextBool(25) ? Main.rand.NextFloat(75f, 100f) : Main.rand.NextFloat(60f, 15f);
-            spriteStretchX = 1f;
-            spriteStretchY = 1f;
+            SpriteStretchX = 1f;
+            SpriteStretchY = 1f;
             manaTankShaderTime = Main.rand.NextFloat(0.25f, 0.75f) * Main.rand.NextBool().ToDirectionInt();
             jellyfishMovementAngle = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.netUpdate = true;
@@ -200,8 +194,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void AI()
         {
-            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
-
             NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance,
                 ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>());
 
@@ -217,7 +209,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             stateMachine?.SetCurrentState((int)AIState);
 
             float tankLightLevel = MathHelper.Lerp(0.3f, 1.25f, ManaRatio);
-            Vector2 tankPosition = NPC.Center - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * spriteStretchY;
+            Vector2 tankPosition = NPC.Center - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * SpriteStretchY;
             Lighting.AddLight(tankPosition, Color.Cyan.ToVector3() * tankLightLevel);
 
             CurrentManaCapacity = MathHelper.Clamp(CurrentManaCapacity, 0f, MaximumManaCapacity);
@@ -298,12 +290,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void DrawMainSprite(Color drawColor)
         {
-            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
-
             Texture2D texture = TextureAssets.Npc[Type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;
-            Vector2 stretchFactor = new(spriteStretchX, spriteStretchY);
+            Vector2 stretchFactor = new(SpriteStretchX, SpriteStretchY);
 
             Rectangle rectangle = texture.Frame(6, Main.npcFrameCount[Type], FrameX, FrameY);
             Main.EntitySpriteDraw(texture, drawPosition, rectangle, NPC.GetAlpha(drawColor), NPC.rotation, rectangle.Size() / 2f, NPC.scale * stretchFactor, 0);
@@ -311,16 +300,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void DrawManaTank()
         {
-            ref float spriteStretchX = ref NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
             ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
 
             Texture2D manaphageTank = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank.Value;
             Texture2D manaphageTankMask = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank_Mask.Value;
 
-            Vector2 stretchFactor = new(spriteStretchX, spriteStretchY);
+            Vector2 stretchFactor = new(SpriteStretchX, SpriteStretchY);
             Vector2 origin = manaphageTank.Size() / 2f;
-            Vector2 drawPosition = NPC.Center - Main.screenPosition - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * spriteStretchY;
+            Vector2 drawPosition = NPC.Center - Main.screenPosition - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * SpriteStretchY;
 
             float manaCapacityInterpolant = Utils.GetLerpValue(1f, 0f, CurrentManaCapacity / MaximumManaCapacity, true);
 
@@ -421,7 +408,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             this.LocalAIState = 0f;
             this.FoundValidRotationAngle = false;
 
-            if (arguments.Length < 1)
+            if (arguments?.Length < 1)
                 this.AsteroidToSucc = Main.npc[(int)arguments[0]];
 
             this.NPC.netUpdate = true;

@@ -25,8 +25,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             ref float additionalAggroRange = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.AdditionalAggroRangeIndex];
             ref float jellyfishMovementAngle = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementAngleIndex];
-            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchXIndex];
-            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchYIndex];
 
             int maxTime = 45;
             int timeBeforePropulsion = 30;
@@ -46,8 +44,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             if (Entity.Timer <= timeBeforePropulsion)
             {
                 float stretchInterpolant = Utils.GetLerpValue(0f, 1f, (float)(Entity.Timer / timeBeforePropulsion), true);
-                spriteStretchX = MathHelper.Lerp(spriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
-                spriteStretchY = MathHelper.Lerp(spriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
+                Entity.SpriteStretchX = MathHelper.Lerp(Entity.SpriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
+                Entity.SpriteStretchY = MathHelper.Lerp(Entity.SpriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
 
                 if (!Entity.FoundValidRotationAngle)
                 {
@@ -87,8 +85,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 PulseRingParticle propulsionRing = new(Entity.NPC.Center - Entity.NPC.SafeDirectionTo(Entity.NPC.Center) * 60f, Entity.NPC.SafeDirectionTo(Entity.NPC.Center) * -5f, Color.DeepSkyBlue, 0f, 0.3f, new Vector2(0.5f, 2f), Entity.NPC.velocity.ToRotation(), 45);
                 propulsionRing.SpawnCasParticle();
 
-                spriteStretchX = 0.8f;
-                spriteStretchY = 1.25f;
+                Entity.SpriteStretchX = 0.8f;
+                Entity.SpriteStretchY = 1.25f;
             }
 
             if (Entity.Timer >= timeBeforePropulsion)

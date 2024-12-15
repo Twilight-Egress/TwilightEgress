@@ -23,8 +23,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             ref float additionalAggroRange = ref Entity.NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
             ref float manaSuckTimer = ref Entity.NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
-            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchXIndex];
-            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
 
             float aggroRange = 400f + additionalAggroRange;
             bool targetOutOfRange = Entity.NPC.Distance(target.Center) >= aggroRange;
@@ -56,8 +54,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             }
 
             Entity.UpdateAnimationFrames(ManaphageAnimation.Attack, 5f);
-            spriteStretchX = MathHelper.Lerp(1f, 0.85f, EasingFunctions.SineEaseInOut(Entity.Timer / 10f));
-            spriteStretchY = MathHelper.Lerp(0.95f, 1.05f, EasingFunctions.SineEaseInOut(Entity.Timer / 10f));
+            Entity.SpriteStretchX = MathHelper.Lerp(1f, 0.85f, EasingFunctions.SineEaseInOut(Entity.Timer / 10f));
+            Entity.SpriteStretchY = MathHelper.Lerp(0.95f, 1.05f, EasingFunctions.SineEaseInOut(Entity.Timer / 10f));
 
             Entity.SwitchBehavior_Fleeing(target);
         }

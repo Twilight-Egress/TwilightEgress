@@ -27,8 +27,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             ref float lazeMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.LazeMovementIntervalIndex];
             ref float idleMovementDirection = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.IdleMovementDirectionIndex];
-            ref float spriteStretchX = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchXIndex];
-            ref float spriteStretchY = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.SpriteStretchYIndex];
 
             int idleSwitchInterval = 1800;
             Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
@@ -61,8 +59,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.JellyfishPropulsion);
 
             // Squash and stretch the sprite passively.
-            spriteStretchX = MathHelper.Lerp(1f, 1.10f, EasingFunctions.SineEaseInOut(Entity.Timer / 60f));
-            spriteStretchY = MathHelper.Lerp(1f, 0.8f, EasingFunctions.SineEaseInOut(Entity.Timer / 120f));
+            Entity.SpriteStretchX = MathHelper.Lerp(1f, 1.10f, EasingFunctions.SineEaseInOut(Entity.Timer / 60f));
+            Entity.SpriteStretchY = MathHelper.Lerp(1f, 0.8f, EasingFunctions.SineEaseInOut(Entity.Timer / 120f));
 
             Entity.UpdateAnimationFrames(default, 10f);
 
