@@ -1,17 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Luminance.Common.Utilities;
+using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using TwilightEgress.Core.Globals.GlobalNPCs;
-using Terraria.DataStructures;
-using Luminance.Common.Utilities;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {

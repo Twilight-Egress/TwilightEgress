@@ -15,8 +15,6 @@ using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
-using TwilightEgress.Content.Particles;
-using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
@@ -235,7 +233,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
                 bool playerWithinRange = Vector2.Distance(NPC.Center, target.Center) < maxDetectionDistance;
                 if (playerWithinRange)
-                    stateMachine.TrySetCurrentState(ManaphageBehavior.SprayingInk, [ NPC.whoAmI ]);
+                    stateMachine.TrySetCurrentState(ManaphageBehavior.SprayingInk, [NPC.whoAmI]);
             }
         }
 
@@ -254,7 +252,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 // Once the Manaphage reaches a low enough mana capacity, find the nearest asteroid and latch onto it.
                 bool canSuckMana = ManaRatio < 0.3f || ManaRatio < 0.6f && manaSuckTimer <= 0;
                 if (canSuckMana)
-                    stateMachine.TrySetCurrentState(ManaphageBehavior.Latching, [NPC.whoAmI, cosmostoneAsteroids.FirstOrDefault().whoAmI ]);
+                    stateMachine.TrySetCurrentState(ManaphageBehavior.Latching, [NPC.whoAmI, cosmostoneAsteroids.FirstOrDefault().whoAmI]);
             }
         }
 
@@ -266,7 +264,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             bool canFlee = target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Distance(target.Center) <= maxDetectionDistance && AIState != (float)ManaphageBehavior.Fleeing;
 
             if (ManaRatio < 0.3f && canFlee || LifeRatio < 0.2f && canFlee)
-                stateMachine.TrySetCurrentState(ManaphageBehavior.Fleeing, [ NPC.whoAmI ] );
+                stateMachine.TrySetCurrentState(ManaphageBehavior.Fleeing, [NPC.whoAmI]);
         }
         #endregion
 

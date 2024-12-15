@@ -1,15 +1,9 @@
 ﻿using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using TwilightEgress.Core.Globals.GlobalNPCs;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
