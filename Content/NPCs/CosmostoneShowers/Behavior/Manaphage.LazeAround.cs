@@ -58,7 +58,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             // Randomly switch to the other idle AI state.
             if (Entity.Timer >= idleSwitchInterval && Main.rand.NextBool(2))
-                FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.JellyfishPropulsion, [Entity.NPC.whoAmI]);
+                FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.JellyfishPropulsion);
 
             // Squash and stretch the sprite passively.
             spriteStretchX = MathHelper.Lerp(1f, 1.10f, EasingFunctions.SineEaseInOut(Entity.Timer / 60f));
@@ -69,18 +69,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             Entity.SwitchBehavior_Attacking(Entity.NPC.GetTargetData());
             Entity.SwitchBehavior_Latching(Entity.NPC.GetTargetData());
             Entity.SwitchBehavior_Fleeing(Entity.NPC.GetTargetData());
-        }
-
-        public override void Exit(float[] arguments = null)
-        {
-            Entity.Timer = 0f;
-            Entity.LocalAIState = 0f;
-            Entity.FoundValidRotationAngle = false;
-
-            if (arguments.Length < 1)
-                Entity.AsteroidToSucc = Main.npc[(int)arguments[1]];
-
-            Entity.NPC.netUpdate = true;
         }
     }
 }

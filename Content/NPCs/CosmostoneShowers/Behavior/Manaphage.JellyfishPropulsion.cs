@@ -114,7 +114,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             // Randomly switch to the other idle AI state.
             if (jellyfishPropulsionCount >= maxPropulsions && Main.rand.NextBool(2))
-                FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.LazeAround, [Entity.NPC.whoAmI]);
+                FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.LazeAround);
 
             Entity.SwitchBehavior_Attacking(Entity.NPC.GetTargetData());
             Entity.SwitchBehavior_Latching(Entity.NPC.GetTargetData());

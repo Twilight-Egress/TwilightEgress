@@ -31,7 +31,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             if (target.Invalid || target.Type != Terraria.Enums.NPCTargetType.Player || targetOutOfRange)
             {
                 ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, ManaphageBehavior.JellyfishPropulsion, ManaphageBehavior.LazeAround);
-                FiniteStateMachine.SetCurrentState((int)randomIdleState, [Entity.NPC.whoAmI]);
+                FiniteStateMachine.SetCurrentState((int)randomIdleState);
                 return;
             }
 

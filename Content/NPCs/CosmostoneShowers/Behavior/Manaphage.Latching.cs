@@ -46,7 +46,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 Entity.AsteroidToSucc = null;
                 Entity.NPC.velocity = Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * -2f;
                 ManaphageBehavior randomIdleState = Utils.SelectRandom(Main.rand, ManaphageBehavior.JellyfishPropulsion, ManaphageBehavior.LazeAround);
-                FiniteStateMachine.SetCurrentState((int)randomIdleState, [Entity.NPC.whoAmI]);
+                FiniteStateMachine.SetCurrentState((int)randomIdleState);
                 return;
             }
 

@@ -162,7 +162,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             stateMachine.Add((int)ManaphageBehavior.Latching, new Latching(stateMachine, this));
             stateMachine.Add((int)ManaphageBehavior.SprayingInk, new SprayingInk(stateMachine, this));
 
-            stateMachine.ForEach((keyValuePair) => {
+            stateMachine.ForEach((keyValuePair) =>
+            {
                 keyValuePair.Value.OnExit += Exit;
             });
 
@@ -213,7 +214,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 ShouldTargetNPCs = AIState != (float)ManaphageBehavior.Fleeing;
 
             stateMachine?.Update([NPC.whoAmI]);
-            stateMachine?.SetCurrentState((int)AIState, [NPC.whoAmI]);
+            stateMachine?.SetCurrentState((int)AIState);
 
             float tankLightLevel = MathHelper.Lerp(0.3f, 1.25f, ManaRatio);
             Vector2 tankPosition = NPC.Center - Vector2.UnitY.RotatedBy(NPC.rotation) * 31f * spriteStretchY;
@@ -236,7 +237,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
                 bool playerWithinRange = Vector2.Distance(NPC.Center, target.Center) < maxDetectionDistance;
                 if (playerWithinRange)
-                    stateMachine.SetCurrentState((int)ManaphageBehavior.SprayingInk, [NPC.whoAmI]);
+                    stateMachine.SetCurrentState((int)ManaphageBehavior.SprayingInk);
             }
         }
 
@@ -255,7 +256,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 // Once the Manaphage reaches a low enough mana capacity, find the nearest asteroid and latch onto it.
                 bool canSuckMana = ManaRatio < 0.3f || ManaRatio < 0.6f && manaSuckTimer <= 0;
                 if (canSuckMana)
-                    stateMachine.SetCurrentState((int)ManaphageBehavior.Latching, [NPC.whoAmI, cosmostoneAsteroids.FirstOrDefault().whoAmI]);
+                    stateMachine.SetCurrentState((int)ManaphageBehavior.Latching, [cosmostoneAsteroids.FirstOrDefault().whoAmI]);
             }
         }
 
@@ -267,7 +268,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             bool canFlee = target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Distance(target.Center) <= maxDetectionDistance && AIState != (float)ManaphageBehavior.Fleeing;
 
             if (ManaRatio < 0.3f && canFlee || LifeRatio < 0.2f && canFlee)
-                stateMachine.SetCurrentState((int)ManaphageBehavior.Fleeing, [NPC.whoAmI]);
+                stateMachine.SetCurrentState((int)ManaphageBehavior.Fleeing);
         }
         #endregion
 
@@ -421,7 +422,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             this.FoundValidRotationAngle = false;
 
             if (arguments.Length < 1)
-                this.AsteroidToSucc = Main.npc[(int)arguments[1]];
+                this.AsteroidToSucc = Main.npc[(int)arguments[0]];
 
             this.NPC.netUpdate = true;
         }
