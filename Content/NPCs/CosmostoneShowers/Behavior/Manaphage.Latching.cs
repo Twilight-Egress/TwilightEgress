@@ -12,12 +12,8 @@ using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class Latching : EntityState<Manaphage>
+    public class Latching(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
-        public Latching(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
-        {
-        }
-
         public override void Enter(float[] arguments = null)
         {
             Entity.NPC.ai[0] = (int)ManaphageBehavior.Latching;

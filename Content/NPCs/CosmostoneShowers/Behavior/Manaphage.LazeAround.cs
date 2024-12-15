@@ -7,12 +7,8 @@ using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class LazeAround : EntityState<Manaphage>
+    public class LazeAround(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
-        public LazeAround(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
-        {
-        }
-
         public override void Enter(float[] arguments = null)
         {
             ref float lazeMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.LazeMovementIntervalIndex];

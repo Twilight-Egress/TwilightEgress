@@ -11,12 +11,8 @@ using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class Fleeing : EntityState<Manaphage>
+    public class Fleeing(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
-        public Fleeing(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
-        {
-        }
-
         public override void Enter(float[] arguments = null)
         {
             Entity.NPC.ai[0] = (int)ManaphageBehavior.Fleeing;

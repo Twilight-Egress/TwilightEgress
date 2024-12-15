@@ -1,13 +1,8 @@
 ﻿namespace TwilightEgress.Core.Behavior
 {
-    public abstract class State
+    public abstract class State(FiniteStateMachine stateMachine)
     {
-        protected FiniteStateMachine FiniteStateMachine { get; private set; }
-
-        public State(FiniteStateMachine stateMachine)
-        {
-            FiniteStateMachine = stateMachine;
-        }
+        protected FiniteStateMachine FiniteStateMachine { get; private set; } = stateMachine;
 
         public delegate void StateDelegate(float[] arguments);
         public StateDelegate OnEnter { get; set; } = null;

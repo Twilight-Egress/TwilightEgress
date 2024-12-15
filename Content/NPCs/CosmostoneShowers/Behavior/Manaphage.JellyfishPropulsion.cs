@@ -10,12 +10,8 @@ using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class JellyfishPropulsion : EntityState<Manaphage>
+    public class JellyfishPropulsion(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
-        public JellyfishPropulsion(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
-        {
-        }
-
         public override void Enter(float[] arguments = null)
         {
             ref float jellyfishMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementIntervalIndex];

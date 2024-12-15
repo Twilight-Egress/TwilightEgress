@@ -9,12 +9,8 @@ using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class SprayingInk : EntityState<Manaphage>
+    public class SprayingInk(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
-        public SprayingInk(FiniteStateMachine stateMachine, Manaphage manaphage) : base(stateMachine, manaphage)
-        {
-        }
-
         public override void Enter(float[] arguments = null)
         {
             Entity.NPC.ai[0] = (int)ManaphageBehavior.SprayingInk;

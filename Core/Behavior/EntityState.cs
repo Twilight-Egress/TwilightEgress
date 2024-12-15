@@ -1,12 +1,7 @@
 ﻿namespace TwilightEgress.Core.Behavior
 {
-    public class EntityState<T> : State
+    public class EntityState<T>(FiniteStateMachine stateMachine, T entity) : State(stateMachine)
     {
-        protected T Entity;
-
-        public EntityState(FiniteStateMachine stateMachine, T entity) : base(stateMachine)
-        {
-            Entity = entity;
-        }
+        protected T Entity = entity;
     }
 }
