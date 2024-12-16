@@ -309,7 +309,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             for (int i = 0; i < bastCatCount; i++)
             {
                 Vector2 velocity = Vector2.UnitX.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(10f, 15f);
-                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.KibbyExplosion, null, Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.Octo.KibbyExplosion, null, Projectile.owner);
             }
 
             // Particle effects.

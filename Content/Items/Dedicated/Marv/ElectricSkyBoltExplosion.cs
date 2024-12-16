@@ -81,7 +81,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D Vortex = AssetRegistry.Textures.GreyscaleVortex.Value;
+            Texture2D Vortex = AssetRegistry.Textures.GreyscaleObjects.GreyscaleVortex.Value;
             Color electroColor = Color.Lerp(Color.Goldenrod, Color.LightYellow, 0.35f);
             // Vortex 1.
             Projectile.DrawTextureOnProjectile(Projectile.GetAlpha(electroColor), -Projectile.rotation * 1.5f, Projectile.scale * 4f, texture: Vortex);

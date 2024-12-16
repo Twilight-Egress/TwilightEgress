@@ -175,7 +175,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (ViableEasterEggNames.Contains(Owner.name))
                 {
                     CombatText.NewText(Owner.Hitbox, Color.SkyBlue, "Requiem Bouquet", true);
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.RequiemBouquetPerish, Owner.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.MPG.RequiemBouquetPerish, Owner.Center);
                 }
             }
 

@@ -12,7 +12,7 @@ namespace TwilightEgress.Content.Projectiles
 
         public new string LocalizationCategory => "Projectiles";
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public override void SetDefaults()
         {

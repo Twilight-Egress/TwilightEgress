@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "GreyscaleObjects/SoftStar";
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SoftStar";
 
         public override void SetStaticDefaults() => ProjectileID.Sets.DrawScreenCheckFluff[Type] = 10000;
 
@@ -73,7 +73,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
                 }
 
                 bool correctPlayerName = owner.name == "Marv" || owner.name == "EmolgaLover";
-                SoundStyle lightning = correctPlayerName ? AssetRegistry.Sounds.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
+                SoundStyle lightning = correctPlayerName ? AssetRegistry.Sounds.Marv.PokemonThunderbolt : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(lightning, StrikePosition);
                 Projectile.netUpdate = true;
             }

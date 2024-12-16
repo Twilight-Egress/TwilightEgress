@@ -102,7 +102,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
         {
             if (DelayTimer == 1)
             {
-                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.PikachuCry : CommonCalamitySounds.LightningSound;
+                SoundStyle thunderboltStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.Marv.PikachuCry : CommonCalamitySounds.LightningSound;
                 SoundEngine.PlaySound(thunderboltStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Yellow, Color.Goldenrod, Main.rand.NextFloat());
@@ -134,7 +134,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
         {
             if (DelayTimer == 1)
             {
-                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
+                SoundStyle boltStrikeStartSound = ViableEasterEggNames.Contains(Owner.name) ? AssetRegistry.Sounds.Marv.ZekromCry : CommonCalamitySounds.ExoPlasmaShootSound;
                 SoundEngine.PlaySound(boltStrikeStartSound, Projectile.Center);
 
                 Color particleColor = Color.Lerp(Color.Cyan, Color.SkyBlue, Main.rand.NextFloat());

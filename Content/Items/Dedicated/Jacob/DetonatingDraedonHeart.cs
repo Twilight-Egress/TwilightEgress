@@ -84,7 +84,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 PulseRingParticle detonantionRing = new(Projectile.Center, Vector2.Zero, Color.Red, pulseRingInitialScale, 0.01f, 45);
                 detonantionRing.SpawnCasParticle();
 
-                SoundEngine.PlaySound(AssetRegistry.Sounds.AsrielTargetBeep, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Jacob.DraedonBombBeep, Projectile.Center);
 
                 for (int i = 0; i < 36; i++)
                 {

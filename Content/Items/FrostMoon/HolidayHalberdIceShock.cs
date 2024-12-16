@@ -18,6 +18,8 @@ namespace TwilightEgress.Content.Items.FrostMoon
 {
     public class HolidayHalberdIceShock : ModProjectile
     {
+        public readonly SoundStyle CryogenShieldBreak = new SoundStyle("CalamityMod/Sounds/NPCKilled/CryogenShieldBreak");
+
         private ref float Timer => ref Projectile.ai[0];
 
         private ref float RandomNewScale => ref Projectile.ai[1];
@@ -49,7 +51,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
         {
             RandomNewScale = Main.rand.NextFloat(1f, 1.75f);
             Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-            SoundEngine.PlaySound(AssetRegistry.Sounds.IceShock, Projectile.Center);
+            SoundEngine.PlaySound(AssetRegistry.Sounds.FrostMoon.IceShock, Projectile.Center);
         }
 
         public override void AI()
@@ -106,7 +108,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(AssetRegistry.Sounds.CryogenShieldBreak, Projectile.Center);
+            SoundEngine.PlaySound(CryogenShieldBreak, Projectile.Center);
             // Spawn a ring of arcing snowflakes, similar to the original Iceshock.
             float snowflakeAngularVelocity = MathHelper.ToRadians(3f);
             for (int i = 0; i < 6; i++)
@@ -124,7 +126,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
             if (Main.rand.NextBool(10) && !target.HasBuff(ModContent.BuffType<GlacialState>()))
             {
                 target.AddBuff(ModContent.BuffType<GlacialState>(), 180);
-                SoundEngine.PlaySound(AssetRegistry.Sounds.IceShockPetrify, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.FrostMoon.IceShockPetrify, Projectile.Center);
             }
 
         }

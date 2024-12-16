@@ -159,7 +159,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
         {
 
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(AssetRegistry.Textures.FadedStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.Trails.FadedStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             Vector2 trailOffset = Projectile.Size * 0.5f + Vector2.UnitX.RotatedBy(Projectile.rotation) * 90f;

@@ -104,7 +104,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             // Chirp occasionally.
             if (canChirp)
             {
-                SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdChirp, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Lynel.NotSoStunningBellbirdScream, Projectile.Center);
 
                 Vector2 velocity = new(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-4f, -2f));
                 new MusicNoteParticle(Projectile.Center, velocity).Spawn();
@@ -211,7 +211,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             {
                 // Make the player's ears bleed.
                 if (Timer is ScreamChargeTime)
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.Lynel.TheCryOfGod with { Volume = 30f }, Projectile.Center);
 
                 // Visual effects.
                 //TwilightEgressCameraSystem.Screenshake(8, 30, Projectile.Center);

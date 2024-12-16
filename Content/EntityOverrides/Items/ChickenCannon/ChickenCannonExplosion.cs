@@ -16,7 +16,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
         public override string LocalizationCategory => "Projectiles.ChickenCannon";
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public override void SetDefaults()
         {

@@ -12,7 +12,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public ref float Timer => ref Projectile.ai[0];
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public override void SetDefaults()
         {

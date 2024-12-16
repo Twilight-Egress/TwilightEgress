@@ -2,6 +2,7 @@
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using TwilightEgress.Assets;
 using TwilightEgress.Core;
@@ -11,6 +12,16 @@ namespace TwilightEgress.Content.Skies.SkyEntities
 {
     public class ShiningStar : SkyEntity
     {
+        public readonly List<string> FourPointedStars_Atlas =
+        [
+            "TwilightEgress.FourPointedStar_Small.png",
+            "TwilightEgress.FourPointedStar_Small_2.png",
+            "TwilightEgress.FourPointedStar_Medium.png",
+            "TwilightEgress.FourPointedStar_Medium_2.png",
+            "TwilightEgress.FourPointedStar_Large.png",
+            "TwilightEgress.FourPointedStar_Large_2.png"
+        ];
+
         public float MaxScale;
 
         public float MinScale;
@@ -71,7 +82,7 @@ namespace TwilightEgress.Content.Skies.SkyEntities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(AssetRegistry.Textures.FourPointedStars_Atlas[TextureIndex]);
+            AtlasTexture starTextures = AtlasManager.GetTexture(FourPointedStars_Atlas[TextureIndex]);
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = starTextures.Size / 2f;

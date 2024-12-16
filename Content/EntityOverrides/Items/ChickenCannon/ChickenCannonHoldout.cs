@@ -19,6 +19,10 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 {
     public class ChickenCannonHoldout : ModProjectile
     {
+        public static readonly SoundStyle YharonRoar = new SoundStyle("CalamityMod/Sounds/Custom/Yharon/YharonRoar");
+
+        public static readonly SoundStyle YharonRoarShort = new SoundStyle("CalamityMod/Sounds/Custom/Yharon/YharonRoarShort");
+
         private Player Owner => Main.player[Projectile.owner];
 
         private ref float Timer => ref Projectile.ai[0];
@@ -84,9 +88,9 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
                     chargeUpRing.SpawnCasParticle();
 
                     // Play a different yharon sound at every interval.
-                    SoundStyle sound = AssetRegistry.Sounds.YharonHurt;
+                    SoundStyle sound = YharonRoar;
                     if (Timer >= 180f)
-                        sound = AssetRegistry.Sounds.YharonRoarShort;
+                        sound = YharonRoarShort;
                     SoundEngine.PlaySound(sound, Projectile.Center);
                 }
 

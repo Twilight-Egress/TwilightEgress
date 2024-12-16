@@ -249,7 +249,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
         {
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(AssetRegistry.Textures.MagicStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.Trails.MagicStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => NPC.Size * 0.5f, true, true, smoothTrail);
