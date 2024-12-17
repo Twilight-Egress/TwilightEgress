@@ -17,6 +17,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         private Asset<Texture2D> topsTexture;
         private Asset<Texture2D> topsGlowTexture;
 
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth";
+
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()

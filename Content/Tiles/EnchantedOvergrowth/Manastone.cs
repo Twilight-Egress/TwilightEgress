@@ -14,6 +14,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
     {
         private Asset<Texture2D> glowTexture;
 
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth";
+
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
@@ -67,7 +69,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
     public class ManastoneItem : ModItem
     {
-        public new string LocalizationCategory => "Items.Placeables";
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth.Manastone.Items";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone_Item";
 

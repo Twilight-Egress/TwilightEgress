@@ -40,6 +40,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
         private Asset<Texture2D> glowTexture;
 
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth";
+
         public override string Name => internalName;
         public override string Texture => tileTexture;
 
