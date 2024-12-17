@@ -98,6 +98,13 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> TheBastOffense = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/TheBastOffense");
             }
 
+            public class Forest
+            {
+                public static readonly Asset<Texture2D> Bumblebee = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/Forest/Bumblebee");
+                public static readonly Asset<Texture2D> BumblebeeTownPet_Head = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/Forest/BumblebeeTownPet_Head");
+                public static readonly Asset<Texture2D> BumblebeeTownPet = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/Forest/BumblebeeTownPet");
+            }
+
             public class FrostMoon
             {
                 public static readonly Asset<Texture2D> HolidayHalberd = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/FrostMoon/HolidayHalberd");
