@@ -1,0 +1,20 @@
+OvergrowthGrass: {
+	DisplayName: Enchanted Grass
+	Tooltip: ""
+
+	Items.OvergrowthGrassSeeds.DisplayName: Enchanted Grass Seeds
+}
+
+OvergrowthDirt: {
+	DisplayName: Overgrowth Dirt
+	Tooltip: ""
+
+	Items.OvergrowthDirtItem.DisplayName: Overgrowth Dirt
+}
+
+Manastone: {
+	DisplayName: Manastone
+	Tooltip: ""
+
+	Items.ManastoneItem.DisplayName: Manastone
+}

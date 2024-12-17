@@ -17,6 +17,8 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         private Asset<Texture2D> grassTexture;
         private Asset<Texture2D> glowTexture;
 
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth";
+
         public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthDirt";
 
         public override void SetStaticDefaults()
@@ -111,7 +113,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
     public class OvergrowthGrassSeeds : ModItem, ILocalizedModType
     {
-        public new string LocalizationCategory => "Items.Placeables";
+        public override string LocalizationCategory => "Tiles.EnchantedOvergrowth.OvergrowthGrass.Items";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthGrass_Seeds";
 
