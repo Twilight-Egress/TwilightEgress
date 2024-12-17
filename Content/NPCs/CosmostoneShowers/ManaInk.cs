@@ -6,13 +6,13 @@ using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
-    public class ManaInk : ModProjectile, ILocalizedModType
+    public class ManaInk : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Hostile";
+        public override string LocalizationCategory => "NPCs.CosmostoneShowers.Manaphage.Projectiles";
 
         public ref float Timer => ref Projectile.ai[0];
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public override void SetDefaults()
         {

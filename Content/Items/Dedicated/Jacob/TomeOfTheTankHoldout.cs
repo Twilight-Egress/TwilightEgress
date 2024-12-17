@@ -14,7 +14,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class TomeOfTheTankHoldout : ModProjectile, ILocalizedModType
+    public class TomeOfTheTankHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -30,7 +30,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         private bool IsManaThresholdMet => Owner.statMana >= 300;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TomeOfTheTank";
 

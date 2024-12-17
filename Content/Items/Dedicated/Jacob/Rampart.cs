@@ -17,7 +17,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class Rampart : ModProjectile, ILocalizedModType
+    public class Rampart : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -35,7 +35,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         private const int RampartBackglowSpinIndex = 4;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
         public override string Texture => "CalamityMod/Items/Accessories/RampartofDeities";
 
@@ -117,7 +117,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                         Dust dust = Dust.NewDustPerfect(dustRotation + dustVelocity, dustType, Vector2.Normalize(dustVelocity) * 10f);
                         dust.noGravity = true;
                     }
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.AnvilHit, Projectile.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.Jacob.AnvilCompleteHit, Projectile.Center);
                 }
             }
 

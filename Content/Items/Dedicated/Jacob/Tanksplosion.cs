@@ -3,9 +3,9 @@ using TwilightEgress.Content.Items.Dedicated.Fluffy;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class Tanksplosion : Bastsplosion, ILocalizedModType
+    public class Tanksplosion : Bastsplosion
     {
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

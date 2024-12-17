@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
-    public class Cosmostone : ModItem, ILocalizedModType
+    public class Cosmostone : ModItem
     {
-        public new string LocalizationCategory => "Items.Materials";
+        public override string LocalizationCategory => "Items.CosmostoneShowers";
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()

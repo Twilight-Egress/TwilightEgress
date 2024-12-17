@@ -11,7 +11,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
-    public class GiantBastStatue : ModProjectile, ILocalizedModType
+    public class GiantBastStatue : ModProjectile
     {
         public ref float Timer => ref Projectile.ai[0];
 
@@ -19,7 +19,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public ref float KibbyCount => ref Projectile.ai[2];
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Dedicated.TheBastOffense.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/HomingBastStatue";
 

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Octo
 {
-    public class KibbyGirl : ModProjectile, ILocalizedModType
+    public class KibbyGirl : ModProjectile
     {
         public enum BehaviorState
         {
@@ -36,7 +36,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Octo
 
         public ref float AIState => ref Projectile.ai[2];
 
-        public new string LocalizationCategory => "Projectiles.Summon";
+        public override string LocalizationCategory => "Items.Dedicated.OctoLeash.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

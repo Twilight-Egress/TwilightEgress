@@ -19,8 +19,12 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Misc
 {
-    public class ResplendentRoarHoldout : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class ResplendentRoarHoldout : ModProjectile, IPixelatedPrimitiveRenderer
     {
+        public static readonly SoundStyle YharonHurt = new SoundStyle("CalamityMod/Sounds/NPCHit/YharonHurt");
+        public static readonly SoundStyle YharonRoar = new SoundStyle("CalamityMod/Sounds/Custom/Yharon/YharonRoar");
+        public static readonly SoundStyle YharonRoarShort = new SoundStyle("CalamityMod/Sounds/Custom/Yharon/YharonRoarShort");
+
         private enum AttackTypes
         {
             RebirthSlashes,
@@ -77,7 +81,7 @@ namespace TwilightEgress.Content.Items.Misc
 
         public float SwingRatio(bool small) => ThrustCurve.Evaluate(Timer / (small ? SmallSwingMaxTime : LargeSwingMaxTime));
 
-        public new string LocalizationCategory => "Projectiles.Melee";
+        public override string LocalizationCategory => "Items.Misc.ResplendentRoar.Projectiles";
 
         public override string Texture => "CalamityMod/Items/Weapons/Melee/TheBurningSky";
 
@@ -173,7 +177,7 @@ namespace TwilightEgress.Content.Items.Misc
             float distanceToMiddle = MathHelper.Distance(SwingRatio(true), 0.5f);
             if (Timer == SmallSwingMaxTime / 2)
             {
-                SoundEngine.PlaySound(AssetRegistry.Sounds.YharonHurt with { PitchVariance = 1f }, Projectile.Center);
+                SoundEngine.PlaySound(YharonHurt with { PitchVariance = 1f }, Projectile.Center);
                 SoundEngine.PlaySound(CommonCalamitySounds.LouderSwingWoosh, Projectile.Center);
             }
 
@@ -201,7 +205,7 @@ namespace TwilightEgress.Content.Items.Misc
             float distanceToMiddle = MathHelper.Distance(SwingRatio(false), 0.5f);
             if (Timer == LargeSwingMaxTime / 2)
             {
-                SoundEngine.PlaySound(AssetRegistry.Sounds.YharonRoarShort with { PitchVariance = 0.15f }, Projectile.Center);
+                SoundEngine.PlaySound(YharonRoarShort with { PitchVariance = 0.15f }, Projectile.Center);
                 SoundEngine.PlaySound(CommonCalamitySounds.LouderPhantomPhoenix, Projectile.Center);
             }
 
@@ -222,7 +226,7 @@ namespace TwilightEgress.Content.Items.Misc
                 Direction.Normalize();
                 BaseRotation = Projectile.velocity.ToRotation();
                 Projectile.rotation = BaseRotation;
-                SoundEngine.PlaySound(AssetRegistry.Sounds.YharonRoarShort with { PitchVariance = 1f }, Projectile.Center);
+                SoundEngine.PlaySound(YharonRoarShort with { PitchVariance = 1f }, Projectile.Center);
                 Projectile.netUpdate = true;
                 Projectile.netSpam = 0;
             }
@@ -247,7 +251,7 @@ namespace TwilightEgress.Content.Items.Misc
                 {
                     AIState = 1f;
                     Timer = 0f;
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.YharonRoar with { Volume = 4f }, Projectile.Center);
+                    SoundEngine.PlaySound(YharonRoar with { Volume = 4f }, Projectile.Center);
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -494,7 +498,7 @@ namespace TwilightEgress.Content.Items.Misc
             Projectile.oldPos[0] = Projectile.position + Projectile.rotation.ToRotationVector2() * 128f * Projectile.scale;
 
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(AssetRegistry.Textures.FlameStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.Trails.FlameStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => Projectile.Size * 0.5f, true, true, smoothTrail);

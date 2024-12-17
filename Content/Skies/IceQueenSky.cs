@@ -63,7 +63,7 @@ namespace TwilightEgress.Content.Skies
         }
 
         private Asset<Texture2D> GlowStarTexture;
-        private Asset<Texture2D> PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+        private Asset<Texture2D> PerlinTexture = AssetRegistry.Textures.Gradients.PerlinNoise3;
         private Asset<Texture2D> CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
 
         private bool isActive;
@@ -107,8 +107,8 @@ namespace TwilightEgress.Content.Skies
 
         public override void OnLoad()
         {
-            GlowStarTexture = AssetRegistry.Textures.SoftStar;
-            PerlinTexture = AssetRegistry.Textures.PerlinNoise3;
+            GlowStarTexture = AssetRegistry.Textures.GreyscaleObjects.SoftStar;
+            PerlinTexture = AssetRegistry.Textures.Gradients.PerlinNoise3;
             CracksTexture = ModContent.Request<Texture2D>("CalamityMod/ExtraTextures/GreyscaleGradients/Cracks");
         }
 
@@ -173,7 +173,7 @@ namespace TwilightEgress.Content.Skies
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.Additive);
                 Vector2 drawPosition = GlowStars[i].Position - Main.screenPosition;
                 spriteBatch.Draw(TextureAssets.Extra[49].Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 2f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(AssetRegistry.Textures.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
+                spriteBatch.Draw(AssetRegistry.Textures.GreyscaleObjects.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
                 CalamityUtils.SetBlendState(spriteBatch, BlendState.AlphaBlend);
             }
         }

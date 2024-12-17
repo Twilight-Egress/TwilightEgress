@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
-    public class EarmuffFruit : ModItem, ILocalizedModType
+    public class EarmuffFruit : ModItem
     {
-        public new string LocalizationCategory => "Items.Accessories";
+        public new string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

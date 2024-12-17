@@ -4,9 +4,9 @@ using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class UnderworldLanternBuff : ModBuff, ILocalizedModType
+    public class UnderworldLanternBuff : ModBuff
     {
-        public new string LocalizationCategory => "Buffs";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Buffs";
 
         public override string Texture => "Terraria/Images/Buff";
 

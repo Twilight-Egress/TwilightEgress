@@ -7,9 +7,9 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class ElectricSkyBoltMist : ModProjectile, ILocalizedModType
+    public class ElectricSkyBoltMist : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
         public override string Texture => "CalamityMod/Projectiles/Summon/SmallAresArms/MinionPlasmaGas";
 

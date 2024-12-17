@@ -15,7 +15,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class DetonatingDraedonHeart : ModProjectile, ILocalizedModType
+    public class DetonatingDraedonHeart : ModProjectile
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -35,7 +35,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
 
         private const int HeartBackglowRadiusIndex = 3;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
         public override string Texture => "CalamityMod/Items/Accessories/DraedonsHeart";
 
@@ -84,7 +84,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
                 PulseRingParticle detonantionRing = new(Projectile.Center, Vector2.Zero, Color.Red, pulseRingInitialScale, 0.01f, 45);
                 detonantionRing.SpawnCasParticle();
 
-                SoundEngine.PlaySound(AssetRegistry.Sounds.AsrielTargetBeep, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Jacob.DraedonBombBeep, Projectile.Center);
 
                 for (int i = 0; i < 36; i++)
                 {

@@ -1,0 +1,11 @@
+SilicateClusterBrick: {
+	DisplayName: Silicate Cluster Brick
+	Tooltip: ""
+
+	Items: {
+		SilicateClusterBrickItem: {
+			DisplayName: Silicate Cluster Brick Item
+			Tooltip: ""
+		}
+	}
+}

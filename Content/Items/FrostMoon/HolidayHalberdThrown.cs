@@ -13,7 +13,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberdThrown : ModProjectile, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class HolidayHalberdThrown : ModProjectile, IPixelatedPrimitiveRenderer
     {
         private ref float Timer => ref Projectile.ai[0];
 
@@ -21,7 +21,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
 
         private Player Owner => Main.player[Projectile.owner];
 
-        public new string LocalizationCategory => "Projectiles.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/FrostMoon/HolidayHalberd";
 
@@ -159,7 +159,7 @@ namespace TwilightEgress.Content.Items.FrostMoon
         {
 
             ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(AssetRegistry.Textures.FadedStreak, 1, SamplerState.LinearWrap);
+            smoothTrail.SetTexture(AssetRegistry.Textures.Trails.FadedStreak, 1, SamplerState.LinearWrap);
             smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
 
             Vector2 trailOffset = Projectile.Size * 0.5f + Vector2.UnitX.RotatedBy(Projectile.rotation) * 90f;

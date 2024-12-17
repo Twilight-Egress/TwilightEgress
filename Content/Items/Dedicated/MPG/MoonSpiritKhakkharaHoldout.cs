@@ -17,7 +17,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class MoonSpiritKhakkharaHoldout : ModProjectile, ILocalizedModType
+    public class MoonSpiritKhakkharaHoldout : ModProjectile
     {
         private enum AttackState
         {
@@ -62,7 +62,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             "TestPG"
         };
 
-        public new string LocalizationCategory => "Projectiles.Summon";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/MPG/MoonSpiritKhakkhara";
 
@@ -175,7 +175,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
                 if (ViableEasterEggNames.Contains(Owner.name))
                 {
                     CombatText.NewText(Owner.Hitbox, Color.SkyBlue, "Requiem Bouquet", true);
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.RequiemBouquetPerish, Owner.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.MPG.RequiemBouquetPerish, Owner.Center);
                 }
             }
 

@@ -9,9 +9,9 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.FrostMoon
 {
-    public class HolidayHalberdAcceleratingBauble : ModProjectile, ILocalizedModType
+    public class HolidayHalberdAcceleratingBauble : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Rogue";
+        public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

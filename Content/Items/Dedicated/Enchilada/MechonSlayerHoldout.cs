@@ -13,7 +13,7 @@ using EasingType = Luminance.Common.Easings.EasingType;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
-    public class MechonSlayerHoldout : ModProjectile, ILocalizedModType
+    public class MechonSlayerHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -30,7 +30,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         private bool Initialized { get; set; } = false;
 
-        public new string LocalizationCategory => "Projectiles.Misc";
+        public override string LocalizationCategory => "Items.Dedicated.MechonSlayer.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

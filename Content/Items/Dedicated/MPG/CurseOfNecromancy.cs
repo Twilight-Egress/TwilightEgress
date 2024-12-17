@@ -5,9 +5,9 @@ using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class CurseOfNecromancy : ModBuff, ILocalizedModType
+    public class CurseOfNecromancy : ModBuff
     {
-        public new string LocalizationCategory => "Buffs.Debuffs";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Buffs";
 
         public override string Texture => "Terraria/Images/Buff";
 

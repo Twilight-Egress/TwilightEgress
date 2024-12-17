@@ -7,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Jungle
 {
-    public class PoisonRound : ModItem, ILocalizedModType
+    public class PoisonRound : ModItem
     {
-        public new string LocalizationCategory => "Items.Ammo";
+        public override string LocalizationCategory => "Items.Jungle";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
@@ -40,9 +40,9 @@ namespace TwilightEgress.Content.Items.Jungle
         }
     }
 
-    public class PoisonRoundProjectile : ModProjectile, ILocalizedModType
+    public class PoisonRoundProjectile : ModProjectile
     {
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Jungle.PoisonRound.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

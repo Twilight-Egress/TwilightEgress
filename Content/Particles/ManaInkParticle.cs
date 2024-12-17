@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
@@ -13,6 +14,16 @@ namespace TwilightEgress.Content.Particles
 
         private readonly Texture2D SmokeTexture;
 
+        private readonly List<string> Smokes =
+        [
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud",
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud2",
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud3",
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud4",
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud5",
+            "TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud6"
+        ];
+
         public ManaInkParticle(Vector2 position, Color color, float scale, float baseOpacity, int lifespan)
         {
             Position = position;
@@ -22,7 +33,7 @@ namespace TwilightEgress.Content.Particles
             Lifetime = lifespan;
 
             Rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-            SmokeTexture = ModContent.Request<Texture2D>(AssetRegistry.Textures.Smokes[Main.rand.Next(AssetRegistry.Textures.Smokes.Count)]).Value;
+            SmokeTexture = ModContent.Request<Texture2D>(Smokes[Main.rand.Next(Smokes.Count)]).Value;
         }
 
         public override string AtlasTextureName => "TwilightEgress.EmptyPixel.png";

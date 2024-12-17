@@ -15,7 +15,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
-    public class HomingBastStatue : ModProjectile, ILocalizedModType
+    public class HomingBastStatue : ModProjectile
     {
         public Player Owner => Main.player[Projectile.owner];
 
@@ -35,7 +35,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         private bool CollidedWithTeamPlayer = false;
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Dedicated.TheBastOffense.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

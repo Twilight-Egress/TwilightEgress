@@ -13,13 +13,13 @@ using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Misc
 {
-    public class ResplendentRoar : ModItem, ILocalizedModType
+    public class ResplendentRoar : ModItem
     {
         public int SwingDirection { get; set; }
 
         public static int AttackCounter { get; set; }
 
-        public new string LocalizationCategory => "Items.Weapons.Melee";
+        public override string LocalizationCategory => "Items.Misc";
 
         public override string Texture => "CalamityMod/Items/Weapons/Melee/TheBurningSky";
 
@@ -106,7 +106,7 @@ namespace TwilightEgress.Content.Items.Misc
                 ResplendentRazeCharge = 100f;
                 if (!FinishedChargingResplendentRaze)
                 {
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.YharonFireBreath);
+                    SoundEngine.PlaySound(new SoundStyle("CalamityMod/Sounds/Custom/Yharon/YharonFire"));
 
                     Color colorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.IndianRed, Color.Yellow, Color.Red);
                     Color secondColorGroup = Utilities.MulticolorLerp(Main.GlobalTimeWrappedHourly * 0.75f, Color.OrangeRed, Color.Sienna, Color.PaleVioletRed);

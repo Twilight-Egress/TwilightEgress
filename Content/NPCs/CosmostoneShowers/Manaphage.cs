@@ -117,6 +117,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         #endregion
 
         #region Overrides
+        public override string LocalizationCategory => "NPCs.CosmostoneShowers";
+
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
@@ -684,8 +686,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             ref float spriteStretchY = ref NPC.TwilightEgress().ExtraAI[SpriteStretchYIndex];
             ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
 
-            Texture2D manaphageTank = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank").Value;
-            Texture2D manaphageTankMask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphages/Manaphage_Tank_Mask").Value;
+            Texture2D manaphageTank = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank.Value;
+            Texture2D manaphageTankMask = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank_Mask.Value;
 
             Vector2 stretchFactor = new(spriteStretchX, spriteStretchY);
             Vector2 origin = manaphageTank.Size() / 2f;
@@ -712,8 +714,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
             manaTankShader.TrySetParameter("palette", colors);
             manaTankShader.SetTexture(manaphageTankMask, 0);
-            manaTankShader.SetTexture(AssetRegistry.Textures.NeuronNebulaGalaxy, 1, SamplerState.AnisotropicWrap);
-            manaTankShader.SetTexture(AssetRegistry.Textures.SwirlyNoise, 2, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.Gradients.NeuronNebulaGalaxy, 1, SamplerState.AnisotropicWrap);
+            manaTankShader.SetTexture(AssetRegistry.Textures.Gradients.SwirlyNoise, 2, SamplerState.AnisotropicWrap);
             manaTankShader.Apply();
 
             // Draw the tank mask with the shader applied to it.

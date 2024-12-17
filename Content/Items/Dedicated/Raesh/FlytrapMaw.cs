@@ -15,7 +15,7 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
-    public class FlytrapMaw : ModProjectile, ILocalizedModType
+    public class FlytrapMaw : ModProjectile
     {
         private ref float ViableTargetIndex => ref Projectile.ai[0];
 
@@ -25,7 +25,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private Asset<Texture2D> trailTexture;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.DroseraeDictionary.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
@@ -81,7 +81,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
                 /* Add the whoAmI indexes of each hit NPC to the list. 
                  * This is how we'll keep track of which NPCs we shouldn't target. */
                 NPCsWhoHaveBeenHit.Add(target);
-                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Raesh.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
             }
 
             // Find the closest target in range and bounce to them from the last enemy.
@@ -131,7 +131,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
             else
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(AssetRegistry.Sounds.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Raesh.FlytrapMawBounce with { MaxInstances = 1 }, Projectile.Center);
 
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     Projectile.velocity.X = -oldVelocity.X;

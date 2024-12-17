@@ -286,21 +286,21 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             float fadeOutInterpolant = MathHelper.Lerp(2f, 0.1f, Main.Camera.Center.Y / (float)(Main.worldSurface * 16f - Main.maxTilesY * 0.3f));
 
             // Bakcground nebula.
-            Texture2D skyTexture = AssetRegistry.Textures.CosmostoneShowersNebulaColors.Value;
+            Texture2D skyTexture = AssetRegistry.Textures.Gradients.CosmostoneShowersNebulaColors.Value;
 
             ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersSkyShader", out ManagedShader cosmoSkyShader);
             cosmoSkyShader.TrySetParameter("galaxyOpacity", globalOpacity);
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 1, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 2, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.PerlinNoise2, 3, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.RealisticClouds, 1, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.RealisticClouds, 2, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise2, 3, samplerState);
             cosmoSkyShader.Apply();
 
             spriteBatch.Draw(skyTexture, new Rectangle(0, (int)(Main.worldSurface * gradientHeightInterpolant + 50f), (int)(Main.screenWidth * 1.5f), (int)(Main.screenHeight * 1.5f)), Color.White * globalOpacity);
 
             // Clouds below the nebula.
-            Texture2D cloudTexture = AssetRegistry.Textures.NeuronNebulaGalaxyBlurred.Value;
+            Texture2D cloudTexture = AssetRegistry.Textures.Gradients.NeuronNebulaGalaxyBlurred.Value;
 
             ShaderManager.TryGetShader("TwilightEgress.CosmostoneShowersCloudsShader", out ManagedShader cosmoCloudsShader);
             cosmoCloudsShader.TrySetParameter("cloudOpacity", globalOpacity * 0.6f);
@@ -308,8 +308,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             cosmoCloudsShader.TrySetParameter("fadeOutMarginBottom", 0.75f);
             cosmoCloudsShader.TrySetParameter("erosionStrength", 0.8f);
             cosmoCloudsShader.TrySetParameter("textureSize", cloudTexture.Size());
-            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.RealisticClouds, 1, samplerState);
-            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.PerlinNoise3, 2, samplerState);
+            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.Gradients.RealisticClouds, 1, samplerState);
+            cosmoCloudsShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise3, 2, samplerState);
             cosmoCloudsShader.SetTexture(MiscTexturesRegistry.WavyBlotchNoise.Value, 3, samplerState);
             cosmoCloudsShader.Apply();
 

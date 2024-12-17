@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!-- Environment Variables -->
 	<PropertyGroup> 
 		<TargetsPath Condition="'$(TargetsPath)' == ''">..\tModLoader.targets</TargetsPath>
@@ -31,5 +31,19 @@
 	  <Folder Include="Assets\Models\" />
 	  <Folder Include="Assets\Structures\" />
 	</ItemGroup>
+
+	<!-- Asset Generator -->
+	<ItemGroup>
+		<AdditionalFiles Remove="AssetGenerator\**" />
+		<Compile Remove="AssetGenerator\**" />
+		<EmbeddedResource Remove="AssetGenerator\**" />
+		<None Remove="AssetGenerator\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="AssetGenerator\AssetGenerator.csproj" />
+	</ItemGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="dotnet build ./AssetGenerator/&#xD;&#xA;dotnet ./AssetGenerator/bin/Debug/net8.0/AssetGenerator.dll &quot;../TwilightEgress/Assets/&quot; &quot;../TwilightEgress/Assets/AssetRegistry.cs&quot; &quot;TwilightEgress&quot;" />
+	</Target>
 
 </Project>

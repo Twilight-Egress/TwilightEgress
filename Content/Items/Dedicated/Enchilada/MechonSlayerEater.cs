@@ -14,7 +14,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public override bool ShouldPlayEndSound => true;
 
-        public override LocalizedText DisplayName => Language.GetText($"Mods.TwilightEgress.UI.Cooldowns.{ID}");
+        public override LocalizedText DisplayName => Language.GetText($"Mods.TwilightEgress.Items.Dedicated.MechonSlayer.Cooldowns.{ID}");
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayerEater";
 

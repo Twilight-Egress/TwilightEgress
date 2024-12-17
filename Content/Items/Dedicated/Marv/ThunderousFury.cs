@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
-    public class ThunderousFury : ModItem, ILocalizedModType
+    public class ThunderousFury : ModItem
     {
-        public new string LocalizationCategory => "Items.Weapons.Magic";
+        public override string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

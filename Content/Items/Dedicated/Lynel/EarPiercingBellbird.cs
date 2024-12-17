@@ -13,7 +13,7 @@ using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Content.Items.Dedicated.Lynel
 {
-    public class EarPiercingBellbird : ModProjectile, ILocalizedModType
+    public class EarPiercingBellbird : ModProjectile
     {
         public enum BellbirdStates
         {
@@ -44,7 +44,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         private const int ScreamChargeVisualOpacityIndex = 1;
 
-        public new string LocalizationCategory => "Projectiles.Pets";
+        public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
@@ -104,7 +104,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             // Chirp occasionally.
             if (canChirp)
             {
-                SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdChirp, Projectile.Center);
+                SoundEngine.PlaySound(AssetRegistry.Sounds.Lynel.NotSoStunningBellbirdScream, Projectile.Center);
 
                 Vector2 velocity = new(Main.rand.NextFloat(-3f, 3f), Main.rand.NextFloat(-4f, -2f));
                 new MusicNoteParticle(Projectile.Center, velocity).Spawn();
@@ -211,7 +211,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             {
                 // Make the player's ears bleed.
                 if (Timer is ScreamChargeTime)
-                    SoundEngine.PlaySound(AssetRegistry.Sounds.BellbirdStunningScream with { Volume = 30f }, Projectile.Center);
+                    SoundEngine.PlaySound(AssetRegistry.Sounds.Lynel.TheCryOfGod with { Volume = 30f }, Projectile.Center);
 
                 // Visual effects.
                 //TwilightEgressCameraSystem.Screenshake(8, 30, Projectile.Center);

@@ -17,8 +17,10 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
         private static readonly SoundStyle StarSoundstyle1 = SoundID.Item4 with { Pitch = 0.5f, PitchVariance = 0.5f, MaxInstances = 4 };
         private static readonly SoundStyle StarSoundStyle2 = SoundID.Item9 with { Pitch = 0.5f, PitchVariance = 0.5f, MaxInstances = 4 };
 
+        public override string LocalizationCategory => "Items.CosmostoneShowers.Stellascope.Projectiles";
+
         // Star drawcode shtuff
-        public override string Texture => AssetRegistry.Textures.FourPointedStars[4];
+        public override string Texture => $"{nameof(TwilightEgress)}/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Medium_2";
         private static readonly Color[] StarColorArray = [Color.RoyalBlue, Color.Cyan, Color.Blue, Color.BlueViolet, Color.Azure];
         private Color StarColor = StarColorArray[Main.rand.Next(StarColorArray.Length)];
         private static Asset<Texture2D> StarTexture;

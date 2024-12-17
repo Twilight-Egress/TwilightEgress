@@ -18,7 +18,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 {
-    public class TheBastOffenseHoldout : ModProjectile, ILocalizedModType
+    public class TheBastOffenseHoldout : ModProjectile
     {
         private enum AttackState
         {
@@ -48,7 +48,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
 
         public const int RecoilStrengthIndex = 5;
 
-        public new string LocalizationCategory => "Projectiles.Ranged";
+        public override string LocalizationCategory => "Items.Dedicated.TheBastOffense.Projectiles";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Items/Dedicated/Fluffy/TheBastOffense";
 
@@ -309,7 +309,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
             for (int i = 0; i < bastCatCount; i++)
             {
                 Vector2 velocity = Vector2.UnitX.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(10f, 15f);
-                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.KibbyExplosion, null, Projectile.owner);
+                Projectile.BetterNewProjectile(Projectile.Center, velocity, ModContent.ProjectileType<HomingBastStatue>(), Projectile.originalDamage, Projectile.knockBack, AssetRegistry.Sounds.Octo.KibbyExplosion, null, Projectile.owner);
             }
 
             // Particle effects.

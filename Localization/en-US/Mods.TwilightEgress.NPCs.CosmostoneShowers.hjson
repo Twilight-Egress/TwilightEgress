@@ -1,9 +1,29 @@
-Manaphage.DisplayName: Manaphage
-SilicateAsteroidLarge.DisplayName: Silicate Asteroid Large
-CosmostoneAsteroidSmall.DisplayName: Cosmostone Asteroid Small
-SilicateAsteroidMedium.DisplayName: Silicate Asteroid Medium
-SilicateAsteroidSmall.DisplayName: Silicate Asteroid Small
+Manaphage: {
+	DisplayName: Manaphage
+	Projectiles.ManaInk.DisplayName: Mana Ink
+}
+
+Asteroids: {
+	SilicateAsteroidLarge.DisplayName: Silicate Asteroid Large
+	CosmostoneAsteroidSmall.DisplayName: Cosmostone Asteroid Small
+	SilicateAsteroidMedium.DisplayName: Silicate Asteroid Medium
+	SilicateAsteroidSmall.DisplayName: Silicate Asteroid Small
+	CosmostoneAsteroidLarge.DisplayName: Cosmostone Asteroid Large
+	CosmostoneAsteroidMedium.DisplayName: Cosmostone Asteroid Medium
+	CosmostoneGeode.DisplayName: Cosmostone Geode
+	MeteoriteAsteroid.DisplayName: Meteorite Asteroid
+}
+
+Planetoids: {
+	GalileoPlanetoid.DisplayName: Galileo Planetoid
+	ShatteredPlanetoid.DisplayName: Shattered Planetoid
+}
+
 CosmostoneAsteroidLarge.DisplayName: Cosmostone Asteroid Large
 CosmostoneAsteroidMedium.DisplayName: Cosmostone Asteroid Medium
+CosmostoneAsteroidSmall.DisplayName: Cosmostone Asteroid Small
 CosmostoneGeode.DisplayName: Cosmostone Geode
 MeteoriteAsteroid.DisplayName: Meteorite Asteroid
+SilicateAsteroidLarge.DisplayName: Silicate Asteroid Large
+SilicateAsteroidMedium.DisplayName: Silicate Asteroid Medium
+SilicateAsteroidSmall.DisplayName: Silicate Asteroid Small

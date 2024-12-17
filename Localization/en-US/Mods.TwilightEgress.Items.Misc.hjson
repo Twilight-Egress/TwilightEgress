@@ -1,12 +1,48 @@
-CosmostoneShowersDebugItem: {
-	DisplayName: Cosmsotone Showers Spawner
+ResplendentRoar: {
+	DisplayName: Resplendent Roar
 	Tooltip:
 		'''
-		Tries to start a Cosmotone Showers event under the right circumstances.
-		The event cannot be started during Blood, Pumpkin or Frost Moons.
-		The event cannot be started during Boss Rush.
-		The event can only occur at Night.
-		The event can only occur if there is no other Cosmostone Showers event active.
-		This item will give you warnings if you fail to meet the above requirements.
+		Performs a 4-piece swing combo, comprising of 2 small swings and 2 larger swings
+		Striking enemies builds up the Resplendent Raze, igniting it in Resplendent Flames
+		Upon reaching 75% of the Resplendent Raze charge, attacks will inflict Dragonfire
+		Using RMB at 100% Resplendent Raze charge will allow the player to channel all the energy into the blade, before unleashing it in a dash
+		A large flame vortex is left at the point of impact, releasing a volley of Flare Bombs with it
+		[c/f57542:You feel like you can burn the sky with this kind of power...]
 		'''
+	Projectiles.ResplendentRoarHoldout.DisplayName: Resplendent Roar Holdout
+}
+
+Triploon: {
+	DisplayName: Triploon
+	Tooltip: Fires a trio of piercing harpoons which embed themselves into enemies
+}
+
+TestSword: {
+	DisplayName: Test Sword
+	Tooltip: meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow
+}
+
+GeminiGenieLamp: {
+	DisplayName: Gemini Genie Lamp
+	Tooltip:
+		'''
+		Summons the Gemini Genie Twins to aid you in battle
+		Duna attacks with Gold and Sand, while Psytri attacks with telekinetically-controlled weapons
+		"An ancient relic from a bygone era. It's imbued with an elemental power..."
+		'''
+
+	Projectiles: {
+		GeminiGeniePsychic.DisplayName: Gemini Genie Psychic
+		GeminiGenieSandy.DisplayName: Gemini Genie Sandy
+		Sandnado.DisplayName: Sandnado
+		SpiritFlame.DisplayName: Spirit Flame
+		TelekineticallyControlledWeapon.DisplayName: Telekinetically Controlled Weapon
+	}
+
+	Buffs: {
+		GeminiGenies: {
+			DisplayName: Gemini Genies
+			Description: You beat us, so now we'll help ya out!
+		}
+	}
 }

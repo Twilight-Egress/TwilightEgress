@@ -17,7 +17,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class UnderworldLantern : ModProjectile, ILocalizedModType
+    public class UnderworldLantern : ModProjectile
     {
         public enum AttackState
         {
@@ -45,7 +45,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public const int UndeadSpiritFrameCounterIndex = 2;
 
-        public new string LocalizationCategory => "Projectiles.Summon";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

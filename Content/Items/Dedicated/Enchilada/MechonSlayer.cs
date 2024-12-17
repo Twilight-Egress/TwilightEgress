@@ -10,11 +10,11 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 {
-    public class MechonSlayer : ModItem, ILocalizedModType
+    public class MechonSlayer : ModItem
     {
         public static int WeaponState { get; set; }
 
-        public new string LocalizationCategory => "Items.Support";
+        public override string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

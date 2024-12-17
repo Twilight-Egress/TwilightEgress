@@ -10,9 +10,9 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {
-    public class TomeOfTheTank : ModItem, ILocalizedModType
+    public class TomeOfTheTank : ModItem
     {
-        public new string LocalizationCategory => "Items.Weapons.Magic";
+        public override string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

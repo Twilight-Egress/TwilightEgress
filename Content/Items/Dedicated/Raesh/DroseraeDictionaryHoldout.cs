@@ -15,7 +15,7 @@ using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {
-    public class DroseraeDictionaryHoldout : ModProjectile, ILocalizedModType
+    public class DroseraeDictionaryHoldout : ModProjectile
     {
         private Player Owner => Main.player[Projectile.owner];
 
@@ -29,9 +29,9 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         private const int RitualCircleScaleIndex = 2;
 
-        public new string LocalizationCategory => "Projectiles.Magic";
+        public override string LocalizationCategory => "Items.Dedicated.DroseraeDictionary.Projectiles";
 
-        public override string Texture => AssetRegistry.ExtraTexturesPath + "EmptyPixel";
+        public override string Texture => AssetRegistry.Textures.Extra.EmptyPixel.GetPath();
 
         public override void SetStaticDefaults()
         {
@@ -95,7 +95,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
                 float damageScaleFactor = MathHelper.Lerp(1f, 5f, Utils.GetLerpValue(Owner.statLifeMax, 100f, Owner.statLife, true));
                 int damage = (int)(Projectile.originalDamage * damageScaleFactor);
-                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.FlytrapMawSpawn, null, Projectile.owner);
+                Projectile.BetterNewProjectile(flytrapMawSpawnPos, flyTrapMawVelocity, ModContent.ProjectileType<FlytrapMaw>(), damage, Projectile.knockBack, AssetRegistry.Sounds.Raesh.FlytrapMawSpawn, null, Projectile.owner);
 
                 if (Owner.CheckMana(Owner.HeldItem.mana, true, false))
                     Owner.manaRegenDelay = Owner.maxRegenDelay;

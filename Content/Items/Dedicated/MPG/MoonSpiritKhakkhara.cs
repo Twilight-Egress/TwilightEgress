@@ -16,9 +16,9 @@ using TwilightEgress.Core.Players.BuffHandlers;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class MoonSpiritKhakkhara : ModItem, ILocalizedModType
+    public class MoonSpiritKhakkhara : ModItem
     {
-        public new string LocalizationCategory => "Items.Weapons.Summon";
+        public override string LocalizationCategory => "Items.Dedicated";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 

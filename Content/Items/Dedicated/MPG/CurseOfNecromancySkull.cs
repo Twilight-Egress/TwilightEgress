@@ -10,7 +10,7 @@ using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
 {
-    public class CurseOfNecromancySkull : ModProjectile, ILocalizedModType
+    public class CurseOfNecromancySkull : ModProjectile
     {
         public int SkullIndex;
 
@@ -29,7 +29,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
             }
         }
 
-        public new string LocalizationCategory => "Projectiles.Misc";
+        public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Projectiles";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
