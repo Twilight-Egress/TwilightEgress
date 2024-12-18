@@ -8,7 +8,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalNPCs;

@@ -28,7 +28,7 @@
 			<HintPath>$(LuminanceBinary)</HintPath>
 		</Reference>
 		
-		<Reference Include="Box2D.NetStandard" Version="1.0.4" >
+		<Reference Include="Box2D.NetStandard" Version="1.0.4">
 			<HintPath>$(Box2DBinary)</HintPath>
 		</Reference>
 	</ItemGroup>

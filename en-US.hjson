@@ -67,6 +67,11 @@ Mods: {
 				DisplayName: Sparkling Grenade
 				Tooltip: ""
 			}
+
+			EarmuffFruit: {
+				DisplayName: Earmuff Fruit
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

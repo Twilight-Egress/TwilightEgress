@@ -31,7 +31,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Raesh
 
         public override string LocalizationCategory => "Items.Dedicated.DroseraeDictionary.Projectiles";
 
-        public override string Texture => AssetRegistry.Textures.Extra.EmptyPixel.GetPath();
+        public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public override void SetStaticDefaults()
         {
