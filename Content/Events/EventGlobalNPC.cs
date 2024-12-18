@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Core.Globals.GlobalNPCs
 {
-    public partial class TwilightEgressGlobalNPC
+    public class EventGlobalNPC : GlobalNPC
     {
         public delegate void EditSpawnPoolDelegate(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo);
         public static event EditSpawnPoolDelegate EditSpawnPoolEvent;

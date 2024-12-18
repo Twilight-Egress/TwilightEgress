@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
+using TwilightEgress.Content.Events;
 using TwilightEgress.Content.Events.CosmostoneShowers;
-using TwilightEgress.Core.Systems.EventHandlerSystem;
 
 namespace TwilightEgress.Content.Skies
 {

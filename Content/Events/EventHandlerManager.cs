@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using Terraria.ModLoader.IO;
 
-namespace TwilightEgress.Core.Systems.EventHandlerSystem
+namespace TwilightEgress.Content.Events
 {
     public class EventHandlerManager : ModSystem
     {

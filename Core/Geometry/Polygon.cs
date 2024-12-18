@@ -46,7 +46,7 @@ namespace TwilightEgress.Core.Geometry
         {
             List<Vector2> vertices = Vertices.ToList();
             vertices.Add(Vertices[0]);
-            
+
             float polygonArea = 0;
             for (int i = 0; i < Vertices.Length; i++)
                 polygonArea += (vertices[i + 1].X - vertices[i].X) * (vertices[i + 1].Y + vertices[i].Y) / 2;

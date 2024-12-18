@@ -26,7 +26,6 @@ using TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
-using TwilightEgress.Core.Systems.EventHandlerSystem;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {

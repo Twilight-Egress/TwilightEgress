@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 
-namespace TwilightEgress.Core.Systems.EventHandlerSystem
+namespace TwilightEgress.Content.Events
 {
     public abstract class Event
     {
@@ -41,15 +41,15 @@ namespace TwilightEgress.Core.Systems.EventHandlerSystem
 
         public void OnModLoad()
         {
-            TwilightEgressGlobalNPC.EditSpawnPoolEvent += EditSpawnPool;
-            TwilightEgressGlobalNPC.EditSpawnRateEvent += EditSpawnRate;
+            EventGlobalNPC.EditSpawnPoolEvent += EditSpawnPool;
+            EventGlobalNPC.EditSpawnRateEvent += EditSpawnRate;
             SafeOnModLoad();
         }
 
         public void OnModUnload()
         {
-            TwilightEgressGlobalNPC.EditSpawnPoolEvent -= EditSpawnPool;
-            TwilightEgressGlobalNPC.EditSpawnRateEvent -= EditSpawnRate;
+            EventGlobalNPC.EditSpawnPoolEvent -= EditSpawnPool;
+            EventGlobalNPC.EditSpawnRateEvent -= EditSpawnRate;
             SafeOnModUnload();
         }
 
