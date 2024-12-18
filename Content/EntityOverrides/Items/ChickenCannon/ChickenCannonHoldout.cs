@@ -10,8 +10,6 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Globals.GlobalNPCs;
-using TwilightEgress.Core.Globals.GlobalProjectiles;
 using ChickenCannonItem = CalamityMod.Items.Weapons.Ranged.ChickenCannon;
 
 namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
@@ -26,13 +24,13 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
         private ref float Timer => ref Projectile.ai[0];
 
+        private ref float OldRotation => ref Projectile.ai[1];
+
+        private ref float BackglowRotation => ref Projectile.ai[2];
+
         private const int ChargeUpTime = 180;
 
         private const int TimeSpentReloading = 60;
-
-        public const int OldRotationIndex = 0;
-
-        public const int BackglowRotationIndex = 1;
 
         public override string LocalizationCategory => "Projectiles.ChickenCannon";
 
@@ -72,8 +70,6 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
         public void DoBehavior()
         {
-            ref float oldRotation = ref Projectile.TwilightEgress().ExtraAI[OldRotationIndex];
-
             Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter, true);
 
             if (Timer <= ChargeUpTime)
@@ -95,7 +91,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
                 if (Timer == ChargeUpTime)
                 {
-                    oldRotation = Projectile.AngleTo(Main.MouseWorld);
+                    OldRotation = Projectile.AngleTo(Main.MouseWorld);
                     Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 60f;
                     Vector2 velocity = Projectile.SafeDirectionTo(Main.MouseWorld) * 15f;
 
@@ -106,7 +102,7 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             // Rotate backwards from recoil and animate the projectile.
             if (Timer >= ChargeUpTime && Timer <= ChargeUpTime + TimeSpentReloading)
             {
-                Projectile.rotation = MathHelper.Lerp(Projectile.rotation, oldRotation + MathHelper.ToRadians(-65f) * Owner.direction, 0.3f);
+                Projectile.rotation = MathHelper.Lerp(Projectile.rotation, OldRotation + MathHelper.ToRadians(-65f) * Owner.direction, 0.3f);
                 Projectile.UpdateProjectileAnimationFrames(0, 4, 4);
             }
 
@@ -128,8 +124,6 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ref float backglowRotation = ref Projectile.TwilightEgress().ExtraAI[BackglowRotationIndex];
-
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             SpriteEffects effects = Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             float rotation = Projectile.rotation + (Owner.direction < 0 ? MathHelper.Pi : 0f);
@@ -143,9 +137,9 @@ namespace TwilightEgress.Content.EntityOverrides.Items.ChickenCannon
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 4; i++)
             {
-                backglowRotation += MathHelper.TwoPi / 300f;
+                BackglowRotation += MathHelper.TwoPi / 300f;
                 float backglowRadius = MathHelper.Lerp(2f, 5f, EasingFunctions.SineEaseInOut((float)(Main.timeForVisualEffects / 30f)));
-                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(backglowRotation + MathHelper.TwoPi * i / 4) * backglowRadius;
+                Vector2 backglowDrawPositon = drawPosition + Vector2.UnitY.RotatedBy(BackglowRotation + MathHelper.TwoPi * i / 4) * backglowRadius;
 
                 Main.EntitySpriteDraw(texture, backglowDrawPositon, projRec, Projectile.GetAlpha(Color.Orange), rotation, projRec.Size() / 2f, Projectile.scale, effects, 0);
             }

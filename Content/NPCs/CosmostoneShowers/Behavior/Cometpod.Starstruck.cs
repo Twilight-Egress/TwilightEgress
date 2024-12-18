@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using TwilightEgress.Core.Behavior;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior

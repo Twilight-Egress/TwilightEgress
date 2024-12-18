@@ -4,7 +4,6 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior

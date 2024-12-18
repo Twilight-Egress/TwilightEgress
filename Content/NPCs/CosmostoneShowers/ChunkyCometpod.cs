@@ -11,7 +11,6 @@ using Terraria.ModLoader;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
 using TwilightEgress.Core.Behavior;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {

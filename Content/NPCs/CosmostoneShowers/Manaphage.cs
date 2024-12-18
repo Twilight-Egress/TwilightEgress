@@ -12,12 +12,10 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
 using TwilightEgress.Core.Behavior;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {

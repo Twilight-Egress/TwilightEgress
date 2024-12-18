@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior

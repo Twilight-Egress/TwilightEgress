@@ -6,7 +6,6 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.Misc
 {
