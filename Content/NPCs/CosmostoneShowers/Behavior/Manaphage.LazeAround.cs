@@ -12,13 +12,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            ref float lazeMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.LazeMovementIntervalIndex];
-            ref float idleMovementDirection = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.IdleMovementDirectionIndex];
-
             Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
 
-            lazeMovementInterval = Main.rand.Next(360, 720);
-            idleMovementDirection = Main.rand.NextBool().ToDirectionInt();
+            Entity.LazeMovementInterval = Main.rand.Next(360, 720);
+            Entity.IdleMovementDirection = Main.rand.NextBool().ToDirectionInt();
             Entity.NPC.velocity += velocity;
             Entity.NPC.ai[0] = (int)ManaphageBehavior.LazeAround;
             Entity.NPC.netUpdate = true;
@@ -26,9 +23,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
         public override void Update(float[] arguments = null)
         {
-            ref float lazeMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.LazeMovementIntervalIndex];
-            ref float idleMovementDirection = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.IdleMovementDirectionIndex];
-
             int idleSwitchInterval = 1800;
             Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(0.1f, 0.13f);
 
@@ -47,7 +41,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 Entity.NPC.velocity = turnAroundVelocity;
             }
 
-            if (Entity.Timer % lazeMovementInterval == 0 && !turnAround)
+            if (Entity.Timer % Entity.LazeMovementInterval == 0 && !turnAround)
                 Entity.NPC.velocity += velocity;
 
             if (Entity.NPC.velocity.Length() > 0.13f)

@@ -15,11 +15,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            ref float jellyfishMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementIntervalIndex];
-            ref float jellyfishPropulsionsLeft = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishPropulsionsLeftIndex];
-
-            jellyfishMovementInterval = Utils.SelectRandom(Main.rand, 60, 80, 100, 120);
-            jellyfishPropulsionsLeft = Main.rand.NextFloat(10f, 25f);
+            Entity.JellyfishMovementInterval = Utils.SelectRandom(Main.rand, 60, 80, 100, 120);
+            Entity.JellyfishPropulsionsLeft = Main.rand.NextFloat(10f, 25f);
             Entity.NPC.ai[0] = (int)ManaphageBehavior.JellyfishPropulsion;
             Entity.NPC.ai[1] = 0f;
             Entity.NPC.netUpdate = true;
@@ -27,18 +24,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
         public override void Update(float[] arguments = null)
         {
-            ref float jellyfishMovementInterval = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementIntervalIndex];
-            ref float jellyfishMovementAngle = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementAngleIndex];
-            ref float jellyfishPropulsionsLeft = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishPropulsionsLeftIndex];
-
             float propulsionSpeed = Main.rand.NextFloat(5f, 7f);
             Entity.CheckForTurnAround(out bool turnAround);
 
-            if (Entity.NPC.ai[1] <= jellyfishMovementInterval)
+            if (Entity.NPC.ai[1] <= Entity.JellyfishMovementInterval)
             {
                 // Squash the sprite slightly before the propulsion movement to give a
                 // more cartoony, jellyfish-like feeling to the movement.
-                float stretchInterpolant = Utils.GetLerpValue(0f, 1f, Entity.Timer / jellyfishMovementInterval, true);
+                float stretchInterpolant = Utils.GetLerpValue(0f, 1f, Entity.Timer / Entity.JellyfishMovementInterval, true);
                 Entity.SpriteStretchX = MathHelper.Lerp(Entity.SpriteStretchX, 1.25f, EasingFunctions.SineEaseInOut(stretchInterpolant));
                 Entity.SpriteStretchY = MathHelper.Lerp(Entity.SpriteStretchY, 0.75f, EasingFunctions.SineEaseInOut(stretchInterpolant));
 
@@ -50,7 +43,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 {
                     // Set a random movement angle initially.
                     if (Entity.Timer == 1 && !turnAround)
-                        jellyfishMovementAngle = Main.rand.NextFloat(MathF.Tau);
+                        Entity.JellyfishMovementAngle = Main.rand.NextFloat(MathF.Tau);
 
                     // Stop searching for valid rotation angles once the Manaphage no longer needs to turn around.
                     if (!turnAround)
@@ -61,14 +54,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
                     // Keep rotating to find a valid angle to rotate towards.
                     Vector2 centerAhead = Entity.NPC.Center - Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * 128f;
-                    jellyfishMovementAngle += -centerAhead.ToRotation() * 6f;
+                    Entity.JellyfishMovementAngle += -centerAhead.ToRotation() * 6f;
                 }
             }
 
             // Move forward every few seconds.
-            if (Entity.Timer == jellyfishMovementInterval)
+            if (Entity.Timer == Entity.JellyfishMovementInterval)
             {
-                Vector2 velocity = Vector2.One.RotatedBy(jellyfishMovementAngle) * propulsionSpeed;
+                Vector2 velocity = Vector2.One.RotatedBy(Entity.JellyfishMovementAngle) * propulsionSpeed;
                 Entity.NPC.velocity = velocity;
 
                 Entity.UpdateAnimationFrames(default, 0f, 2);
@@ -88,17 +81,17 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 Entity.SpriteStretchX = 0.8f;
                 Entity.SpriteStretchY = 1.25f;
 
-                jellyfishPropulsionsLeft--;
+                Entity.JellyfishPropulsionsLeft--;
             }
 
-            if (Entity.Timer >= jellyfishMovementInterval + 30)
+            if (Entity.Timer >= Entity.JellyfishMovementInterval + 30)
             {
-                float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Entity.Timer - jellyfishMovementInterval + 45) / jellyfishMovementInterval + 30, true);
+                float animationInterpolant = Utils.GetLerpValue(0f, 1f, (Entity.Timer - Entity.JellyfishMovementInterval + 45) / Entity.JellyfishMovementInterval + 30, true);
                 int frameY = (int)Math.Floor(MathHelper.Lerp(1f, 4f, EasingFunctions.SineEaseIn(animationInterpolant)));
                 Entity.UpdateAnimationFrames(default, 0f, frameY);
             }
 
-            if (Entity.Timer >= jellyfishMovementInterval + 45)
+            if (Entity.Timer >= Entity.JellyfishMovementInterval + 45)
             {
                 Entity.Timer = 0f;
                 Entity.FoundValidRotationAngle = false;
@@ -106,11 +99,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             }
 
             Entity.NPC.velocity *= 0.96f;
-            Vector2 futureVelocity = Vector2.One.RotatedBy(jellyfishMovementAngle);
-            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() + 1.57f, Entity.Timer / (float)jellyfishMovementInterval);
+            Vector2 futureVelocity = Vector2.One.RotatedBy(Entity.JellyfishMovementAngle);
+            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() + 1.57f, Entity.Timer / (float)Entity.JellyfishMovementInterval);
 
             // Randomly switch to the other idle AI state.
-            if (jellyfishPropulsionsLeft <= 0 && Main.rand.NextBool(2))
+            if (Entity.JellyfishPropulsionsLeft <= 0 && Main.rand.NextBool(2))
                 FiniteStateMachine.SetCurrentState((int)ManaphageBehavior.LazeAround);
 
             Entity.SwitchBehavior_Attacking(Entity.NPC.GetTargetData());

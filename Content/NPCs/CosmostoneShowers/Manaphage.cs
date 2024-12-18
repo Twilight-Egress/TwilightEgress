@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
@@ -44,25 +45,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         #endregion
 
         #region Fields and Properties
-        public const int JellyfishMovementIntervalIndex = 0;
-
-        public const int LazeMovementIntervalIndex = 1;
-
-        public const int IdleMovementDirectionIndex = 2;
-
-        public const int AdditionalAggroRangeIndex = 3;
-
-        public const int AggroRangeTimerIndex = 4;
-
-        public const int ManaSuckTimerIndex = 5;
-
-        public const int JellyfishMovementAngleIndex = 6;
-
-        public const int JellyfishPropulsionsLeftIndex = 7;
-
-        public const int ManaTankShaderTimeIndex = 8;
-
-        public const int InitialRotationIndex = 9;
 
         public const float MaximumPlayerSearchDistance = 1200f;
 
@@ -78,7 +60,25 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public const float AggroRangeWhileLatching = 50f;
 
-        public float CurrentManaCapacity;
+        public float JellyfishMovementInterval;
+
+        public float LazeMovementInterval;
+
+        public float IdleMovementDirection;
+
+        public float AdditionalAggroRange;
+
+        public float AggroRangeTimer;
+
+        public float ManaSuckTimer;
+
+        public float JellyfishMovementAngle;
+
+        public float JellyfishPropulsionsLeft;
+
+        public float ManaTankShaderTime;
+
+        public float InitialRotation;
 
         public bool ShouldTargetPlayers;
 
@@ -110,6 +110,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public ref float AIState => ref NPC.ai[0];
 
         public ref float LocalAIState => ref NPC.ai[2];
+
+        public ref float CurrentManaCapacity => ref NPC.ai[3];
 
         public virtual float MaximumManaCapacity => 100f;
 
@@ -145,9 +147,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void OnSpawn(IEntitySource source)
         {
-            ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
-            ref float jellyfishMovementAngle = ref NPC.TwilightEgress().ExtraAI[JellyfishMovementAngleIndex];
-
             stateMachine = new FiniteStateMachine();
 
             stateMachine.Add((int)ManaphageBehavior.JellyfishPropulsion, new JellyfishPropulsion(stateMachine, this));
@@ -166,14 +165,22 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             CurrentManaCapacity = Main.rand.NextBool(25) ? Main.rand.NextFloat(75f, 100f) : Main.rand.NextFloat(60f, 15f);
             SpriteStretchX = 1f;
             SpriteStretchY = 1f;
-            manaTankShaderTime = Main.rand.NextFloat(0.25f, 0.75f) * Main.rand.NextBool().ToDirectionInt();
-            jellyfishMovementAngle = Main.rand.NextFloat(MathHelper.TwoPi);
+            ManaTankShaderTime = Main.rand.NextFloat(0.25f, 0.75f) * Main.rand.NextBool().ToDirectionInt();
+            JellyfishMovementAngle = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.netUpdate = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write(CurrentManaCapacity);
+            writer.Write(JellyfishMovementInterval);
+            writer.Write(LazeMovementInterval);
+            writer.Write(IdleMovementDirection);
+            writer.Write(AdditionalAggroRange);
+            writer.Write(AggroRangeTimer);
+            writer.Write(ManaSuckTimer);
+            writer.Write(JellyfishMovementAngle);
+            writer.Write(JellyfishPropulsionsLeft);
+            writer.Write(InitialRotation);
             writer.Write(ShouldTargetPlayers);
             writer.Write(ShouldTargetNPCs);
             writer.Write(FoundValidRotationAngle);
@@ -181,7 +188,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            CurrentManaCapacity = reader.ReadSingle();
+            JellyfishMovementInterval = reader.ReadSingle();
+            LazeMovementInterval = reader.ReadSingle();
+            IdleMovementDirection = reader.ReadSingle();
+            AdditionalAggroRange = reader.ReadSingle();
+            AggroRangeTimer = reader.ReadSingle();
+            ManaSuckTimer = reader.ReadSingle();
+            JellyfishMovementAngle = reader.ReadSingle();
+            JellyfishPropulsionsLeft = reader.ReadSingle();
+            InitialRotation = reader.ReadSingle();
             ShouldTargetPlayers = reader.ReadBoolean();
             ShouldTargetNPCs = reader.ReadBoolean();
             FoundValidRotationAngle = reader.ReadBoolean();
@@ -220,13 +235,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         #region AI Methods
         public void SwitchBehavior_Attacking(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
-            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
-
             bool canAtack = ManaRatio > 0.3f && LifeRatio > 0.2f;
             if (canAtack && target.Type == Terraria.Enums.NPCTargetType.Player)
             {
-                float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
+                float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + AdditionalAggroRange;
                 bool playerWithinRange = Vector2.Distance(NPC.Center, target.Center) < maxDetectionDistance;
                 if (playerWithinRange)
                     stateMachine.SetCurrentState((int)ManaphageBehavior.SprayingInk);
@@ -235,7 +247,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void SwitchBehavior_Latching(NPCAimedTarget target)
         {
-            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
             int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
 
             // If the Manaphage starts becoming low on mana, start looking for nearby Asteroids.
@@ -246,7 +257,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     return;
 
                 // Once the Manaphage reaches a low enough mana capacity, find the nearest asteroid and latch onto it.
-                bool canSuckMana = ManaRatio < 0.3f || ManaRatio < 0.6f && manaSuckTimer <= 0;
+                bool canSuckMana = ManaRatio < 0.3f || ManaRatio < 0.6f && ManaSuckTimer <= 0;
                 if (canSuckMana)
                     stateMachine.SetCurrentState((int)ManaphageBehavior.Latching, [cosmostoneAsteroids.FirstOrDefault().whoAmI]);
             }
@@ -254,9 +265,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void SwitchBehavior_Fleeing(NPCAimedTarget target)
         {
-            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
-
-            float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + additionalAggroRange;
+            float maxDetectionDistance = (AIState == (float)ManaphageBehavior.Latching ? AggroRangeWhileLatching : DefaultAggroRange) + AdditionalAggroRange;
             bool canFlee = target.Type == Terraria.Enums.NPCTargetType.Player && NPC.Distance(target.Center) <= maxDetectionDistance && AIState != (float)ManaphageBehavior.Fleeing;
 
             if (ManaRatio < 0.3f && canFlee || LifeRatio < 0.2f && canFlee)
@@ -300,8 +309,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void DrawManaTank()
         {
-            ref float manaTankShaderTime = ref NPC.TwilightEgress().ExtraAI[ManaTankShaderTimeIndex];
-
             Texture2D manaphageTank = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank.Value;
             Texture2D manaphageTankMask = AssetRegistry.Textures.CosmostoneShowers.Manaphage_Tank_Mask.Value;
 
@@ -325,7 +332,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             Main.spriteBatch.PrepareForShaders();
             ShaderManager.TryGetShader("TwilightEgress.ManaphageTankShader", out ManagedShader manaTankShader);
-            manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * manaTankShaderTime);
+            manaTankShader.TrySetParameter("time", Main.GlobalTimeWrappedHourly * ManaTankShaderTime);
             manaTankShader.TrySetParameter("manaCapacity", manaCapacityInterpolant);
             manaTankShader.TrySetParameter("pixelationFactor", 0.075f);
             manaTankShader.TrySetParameter("palette", colors);
@@ -346,20 +353,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         #region Helper Methods
         public void OnHitEffects(NPC.HitInfo hit)
         {
-            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
-            ref float aggroRangeTimer = ref NPC.TwilightEgress().ExtraAI[AggroRangeTimerIndex];
-            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
-
             // Apply an extra 50 pixels of aggro range everytime the Manaphage is attacked.
             // 100 is added instead if the hit was critical.
             // 250 is added instead if the hit happened during the Manaphage's latching stage.
-            additionalAggroRange += AIState == (float)ManaphageBehavior.Latching ? 250f : hit.Crit ? 100f : 50f;
-            if (additionalAggroRange > 500f)
-                additionalAggroRange = 500f;
+            AdditionalAggroRange += AIState == (float)ManaphageBehavior.Latching ? 250f : hit.Crit ? 100f : 50f;
+            if (AdditionalAggroRange > 500f)
+                AdditionalAggroRange = 500f;
 
             // Timer resetting.
-            aggroRangeTimer = 720f;
-            manaSuckTimer = ManaRatio > 0.5f ? MaxManaSuckTimerOverFifty : MaxManaSuckTimerUnderFifty;
+            AggroRangeTimer = 720f;
+            ManaSuckTimer = ManaRatio > 0.5f ? MaxManaSuckTimerOverFifty : MaxManaSuckTimerUnderFifty;
 
             // Manaphages can be knocked out of their latching phase if hit.
             if (AIState == (float)ManaphageBehavior.Latching)
@@ -369,22 +372,18 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public void ManageExtraTimers()
         {
             // Manages the extra additional aggro range and mana suck timers.
-            ref float additionalAggroRange = ref NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
-            ref float aggroRangeTimer = ref NPC.TwilightEgress().ExtraAI[AggroRangeTimerIndex];
-            ref float manaSuckTimer = ref NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
-
             // This timer controls how long the additional aggro range is applied for.
-            aggroRangeTimer = MathHelper.Clamp(aggroRangeTimer - 1f, 0f, 1200f);
-            if (aggroRangeTimer <= 0f)
+            AggroRangeTimer = MathHelper.Clamp(AggroRangeTimer - 1f, 0f, 1200f);
+            if (AggroRangeTimer <= 0f)
             {
-                aggroRangeTimer = 0f;
-                additionalAggroRange = MathHelper.Clamp(additionalAggroRange - 1f, 0f, 500f);
+                AggroRangeTimer = 0f;
+                AdditionalAggroRange = MathHelper.Clamp(AdditionalAggroRange - 1f, 0f, 500f);
             }
 
             // This timer controls if a Manaphage should target an asteroid and absorb
             // mana at 50% mana capacity. Manaphages typically start fleeing and looking 
             // Asteroids at aunder 30% mana capacity.
-            manaSuckTimer = MathHelper.Clamp(manaSuckTimer - 1f, 0f, 720f);
+            ManaSuckTimer = MathHelper.Clamp(ManaSuckTimer - 1f, 0f, 720f);
         }
 
         public void CheckForTurnAround(out bool turnAround)

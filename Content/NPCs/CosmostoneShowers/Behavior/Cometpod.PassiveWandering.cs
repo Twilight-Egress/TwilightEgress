@@ -15,18 +15,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            ref float maxPassiveWanderingTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxPassiveWanderingTimeIndex];
-
-            maxPassiveWanderingTime = Main.rand.Next(480, 1200);
+            Entity.MaxPassiveWanderingTime = Main.rand.Next(480, 1200);
             Entity.AIState = (int)CometpodBehavior.PassiveWandering;
             Entity.NPC.netUpdate = true;
         }
 
         public override void Update(float[] arguments = null)
         {
-            ref float playerAggroTimer = ref Entity.NPC.TwilightEgress().ExtraAI[PlayerAggroTimerIndex];
-            ref float playerTargettingChanceReduction = ref Entity.NPC.TwilightEgress().ExtraAI[PlayerTargettingChanceReductionIndex];
-            ref float maxPassiveWanderingTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxPassiveWanderingTimeIndex];
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
             // Move slowly in a random direction every few seconds.
@@ -79,11 +74,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             }
 
             // Randomly select a player and switch AI states.
-            int playerTargetChance = (int)(1500 - playerTargettingChanceReduction);
+            int playerTargetChance = (int)(1500 - Entity.PlayerTargettingChanceReduction);
             if (Main.rand.NextBool(playerTargetChance) && Entity.ShouldTargetPlayers && target.Type == Terraria.Enums.NPCTargetType.Player && !target.Invalid)
                 FiniteStateMachine.SetCurrentState((int)CometpodBehavior.ChargeTowardsPlayer, [1f]);
 
-            if (Entity.Timer >= maxPassiveWanderingTime && Main.rand.NextBool(5))
+            if (Entity.Timer >= Entity.MaxPassiveWanderingTime && Main.rand.NextBool(5))
                 FiniteStateMachine.SetCurrentState((int)CometpodBehavior.AimlessCharging, [0f]);
             else
             {

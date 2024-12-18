@@ -24,13 +24,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float additionalAggroRange = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.AdditionalAggroRangeIndex];
-            ref float jellyfishMovementAngle = ref Entity.NPC.TwilightEgress().ExtraAI[Manaphage.JellyfishMovementAngleIndex];
-
             int maxTime = 45;
             int timeBeforePropulsion = 30;
             float avoidanceSpeedInterpolant = Utils.GetLerpValue(0f, 1f, Entity.LifeRatio / 0.2f, true);
-            bool targetIsFarEnoughAway = Entity.NPC.Distance(target.Center) >= 400f + additionalAggroRange;
+            bool targetIsFarEnoughAway = Entity.NPC.Distance(target.Center) >= 400f + Entity.AdditionalAggroRange;
 
             if (targetIsFarEnoughAway || target.Type != Terraria.Enums.NPCTargetType.Player || target.Invalid)
             {
@@ -52,7 +49,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 {
                     Vector2 vectorToPlayer = Entity.NPC.SafeDirectionTo(target.Center);
                     if (Entity.Timer == 1 && !turnAround)
-                        jellyfishMovementAngle = vectorToPlayer.ToRotation();
+                        Entity.JellyfishMovementAngle = vectorToPlayer.ToRotation();
 
                     int frameY = (int)Math.Floor(MathHelper.Lerp(0f, 1f, stretchInterpolant));
                     Entity.UpdateAnimationFrames(default, 0f, frameY);
@@ -64,7 +61,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                     }
 
                     Vector2 centerAhead = Entity.NPC.Center - Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * 128f;
-                    jellyfishMovementAngle += -centerAhead.ToRotation() * 12f;
+                    Entity.JellyfishMovementAngle += -centerAhead.ToRotation() * 12f;
                 }
             }
 
@@ -105,7 +102,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             }
 
             Entity.NPC.velocity *= 0.98f;
-            Vector2 futureVelocity = Vector2.One.RotatedBy(jellyfishMovementAngle);
+            Vector2 futureVelocity = Vector2.One.RotatedBy(Entity.JellyfishMovementAngle);
             Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() - 1.57f, 0.1f);
         }
     }

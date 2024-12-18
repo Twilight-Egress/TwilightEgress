@@ -21,10 +21,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float additionalAggroRange = ref Entity.NPC.TwilightEgress().ExtraAI[AdditionalAggroRangeIndex];
-            ref float manaSuckTimer = ref Entity.NPC.TwilightEgress().ExtraAI[ManaSuckTimerIndex];
-
-            float aggroRange = 400f + additionalAggroRange;
+            float aggroRange = 400f + Entity.AdditionalAggroRange;
             bool targetOutOfRange = Entity.NPC.Distance(target.Center) >= aggroRange;
             if (target.Invalid || target.Type != Terraria.Enums.NPCTargetType.Player || targetOutOfRange)
             {
@@ -34,13 +31,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             }
 
             Entity.ShouldTargetNPCs = false;
-            manaSuckTimer = Entity.ManaRatio > 0.5f ? MaxManaSuckTimerOverFifty : MaxManaSuckTimerUnderFifty;
+            Entity.ManaSuckTimer = Entity.ManaRatio > 0.5f ? MaxManaSuckTimerOverFifty : MaxManaSuckTimerUnderFifty;
 
             Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(Entity.NPC.AngleTo(target.Center) - 1.57f, 0.2f);
             Vector2 areaAroundPlayer = target.Center + Entity.NPC.DirectionFrom(target.Center) * 250f;
             // Increase the Manaphage's movement speed depending on how much additional aggro range
             // it has ammased.
-            float movementSpeed = MathHelper.Lerp(2f, 6f, Utils.GetLerpValue(0f, 1f, additionalAggroRange / 500f, true));
+            float movementSpeed = MathHelper.Lerp(2f, 6f, Utils.GetLerpValue(0f, 1f, Entity.AdditionalAggroRange / 500f, true));
             Entity.NPC.SimpleMove(areaAroundPlayer, movementSpeed, 20f);
 
             if (Entity.Timer % 5 == 0)

@@ -55,22 +55,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public const float MaxPlayerTargettingChanceReduction = 600f;
 
-        public const int PlayerAggroTimerIndex = 0;
-
-        public const int ChargeAngleIndex = 1;
-
-        public const int MaxAimlessChargesIndex = 2;
-
-        public const int AimlessChargeCounterIndex = 3;
-
-        public const int InitializationIndex = 4;
-
-        public const int MaxStarstruckTimeIndex = 5;
-
-        public const int PlayerTargettingChanceReductionIndex = 6;
-
-        public const int MaxPassiveWanderingTimeIndex = 7;
-
         public ref float Timer => ref NPC.ai[0];
 
         public ref float AIState => ref NPC.ai[1];
@@ -86,6 +70,20 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public ref float PassiveMovementVectorX => ref NPC.localAI[2];
 
         public ref float PassiveMovementVectorY => ref NPC.localAI[3];
+
+        public float PlayerAggroTimer;
+
+        public float ChargeAngle;
+
+        public float MaxAimlessCharges;
+
+        public float AimlessChargeCounter;
+
+        public float MaxStarstruckTime;
+
+        public float PlayerTargettingChanceReduction;
+
+        public float MaxPassiveWanderingTime;
 
         public float LifeRatio => NPC.life / (float)NPC.lifeMax;
 
@@ -144,24 +142,37 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             for (int i = 0; i < NPC.localAI.Length; i++)
                 writer.Write(NPC.localAI[i]);
+
+            writer.Write(PlayerAggroTimer);
+            writer.Write(ChargeAngle);
+            writer.Write(MaxAimlessCharges);
+            writer.Write(AimlessChargeCounter);
+            writer.Write(MaxStarstruckTime);
+            writer.Write(PlayerTargettingChanceReduction);
+            writer.Write(MaxPassiveWanderingTime);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             for (int i = 0; i < NPC.localAI.Length; i++)
                 NPC.localAI[i] = reader.ReadSingle();
+
+            PlayerAggroTimer = reader.ReadSingle();
+            ChargeAngle = reader.ReadSingle();
+            MaxAimlessCharges = reader.ReadSingle();
+            AimlessChargeCounter = reader.ReadSingle();
+            MaxStarstruckTime = reader.ReadSingle();
+            PlayerTargettingChanceReduction = reader.ReadSingle();
+            MaxPassiveWanderingTime = reader.ReadSingle();
         }
 
         public float CalculateCollisionBounceSpeed(float baseSpeed, float velocityDividend = 20f) => baseSpeed * (NPC.velocity.Length() / velocityDividend);
 
         public void OnHit_HandleExtraVariables()
         {
-            ref float playerAggroTimer = ref NPC.TwilightEgress().ExtraAI[PlayerAggroTimerIndex];
-            ref float playerTargettingChanceReduction = ref NPC.TwilightEgress().ExtraAI[PlayerTargettingChanceReductionIndex];
-
             if (LifeRatio > 0.5f)
-                playerAggroTimer = Math.Clamp(playerAggroTimer + 180f, 0f, MaxPlayerAggroTimer);
-            playerTargettingChanceReduction = Math.Clamp(playerTargettingChanceReduction + 100f, 0f, MaxPlayerTargettingChanceReduction);
+                PlayerAggroTimer = Math.Clamp(PlayerAggroTimer + 180f, 0f, MaxPlayerAggroTimer);
+            PlayerTargettingChanceReduction = Math.Clamp(PlayerTargettingChanceReduction + 100f, 0f, MaxPlayerTargettingChanceReduction);
         }
 
         public override void AI()
@@ -171,15 +182,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 NPC.AdvancedNPCTargeting(ShouldTargetPlayers, MaxPlayerSearchDistance, ShouldTargetNPCs, MaxNPCSearchDistance, asteroids);
             NPCAimedTarget target = NPC.GetTargetData();
 
-            ref float playerAggroTimer = ref NPC.TwilightEgress().ExtraAI[PlayerAggroTimerIndex];
-            ref float chargeAngle = ref NPC.TwilightEgress().ExtraAI[ChargeAngleIndex];
-            ref float maxAimlessCharges = ref NPC.TwilightEgress().ExtraAI[MaxAimlessChargesIndex];
-            ref float aimlessChargeCounter = ref NPC.TwilightEgress().ExtraAI[AimlessChargeCounterIndex];
-            ref float maxStarstruckTime = ref NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
-            ref float playerTargettingChanceReduction = ref NPC.TwilightEgress().ExtraAI[PlayerTargettingChanceReductionIndex];
-            ref float maxPassiveWanderingTime = ref NPC.TwilightEgress().ExtraAI[MaxPassiveWanderingTimeIndex];
-
-            CometType currentCometType = (CometType)CurrentCometType;
             NearestCometpod = NPC.FindClosestNPC(out _, ModContent.NPCType<ChunkyCometpod>());
 
             stateMachine?.Update();
@@ -199,8 +201,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             }
 
             // Decrement certain values passively.
-            playerAggroTimer--;
-            playerTargettingChanceReduction--;
+            PlayerAggroTimer--;
+            PlayerTargettingChanceReduction--;
 
             Timer++;
             NPC.spriteDirection = NPC.direction;

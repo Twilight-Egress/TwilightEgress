@@ -24,8 +24,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            ref float initialRotation = ref Entity.NPC.TwilightEgress().ExtraAI[InitialRotationIndex];
-
             if (Entity.AsteroidToSucc is null)
             {
                 int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
@@ -58,7 +56,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                     Entity.NPC.SimpleMove(Entity.AsteroidToSucc.Center, 12f, 6f);
                     if (Entity.NPC.Hitbox.Intersects(asteroidHitbox))
                     {
-                        initialRotation = Entity.NPC.rotation - Entity.AsteroidToSucc.rotation;
+                        Entity.InitialRotation = Entity.NPC.rotation - Entity.AsteroidToSucc.rotation;
                         Entity.LocalAIState = 1f;
                         Entity.Timer = 0f;
                         Entity.NPC.netUpdate = true;
@@ -82,7 +80,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                     Entity.AsteroidToSucc.SimpleStrikeNPC(damageToAsteroid, 0, noPlayerInteraction: true);
                 }
 
-                Vector2 positionAroundAsteroid = Entity.AsteroidToSucc.Center - Vector2.UnitY.RotatedBy(initialRotation + Entity.AsteroidToSucc.rotation) * asteroidHitbox.Size();
+                Vector2 positionAroundAsteroid = Entity.AsteroidToSucc.Center - Vector2.UnitY.RotatedBy(Entity.InitialRotation + Entity.AsteroidToSucc.rotation) * asteroidHitbox.Size();
                 Entity.NPC.SimpleMove(positionAroundAsteroid, 20f, 0f);
 
                 Entity.CurrentManaCapacity = MathHelper.Clamp(Entity.CurrentManaCapacity + 0.1f, 0f, Entity.MaximumManaCapacity);

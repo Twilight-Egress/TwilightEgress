@@ -14,21 +14,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            ref float maxAimlessCharges = ref Entity.NPC.TwilightEgress().ExtraAI[MaxAimlessChargesIndex];
-            ref float aimlessChargeCounter = ref Entity.NPC.TwilightEgress().ExtraAI[AimlessChargeCounterIndex];
-
-            maxAimlessCharges = Main.rand.Next(3, 6);
-            aimlessChargeCounter = 0f;
+            Entity.MaxAimlessCharges = Main.rand.Next(3, 6);
+            Entity.AimlessChargeCounter = 0f;
             Entity.AIState = (int)CometpodBehavior.AimlessCharging;
             Entity.NPC.netUpdate = true;
         }
 
         public override void Update(float[] arguments = null)
         {
-            ref float chargeAngle = ref Entity.NPC.TwilightEgress().ExtraAI[ChargeAngleIndex];
-            ref float maxAimlessCharges = ref Entity.NPC.TwilightEgress().ExtraAI[MaxAimlessChargesIndex];
-            ref float aimlessChargeCounter = ref Entity.NPC.TwilightEgress().ExtraAI[AimlessChargeCounterIndex];
-
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
             int lineUpTime = 75;
@@ -46,9 +39,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             {
                 // Pick a random angle to turn towards and charge at.
                 if (Entity.Timer is 1)
-                    chargeAngle = Main.rand.NextFloat(MathF.Tau);
+                    Entity.ChargeAngle = Main.rand.NextFloat(MathF.Tau);
 
-                Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(chargeAngle - MathHelper.Pi, 0.2f);
+                Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(Entity.ChargeAngle - MathHelper.Pi, 0.2f);
                 Entity.NPC.velocity *= 0.9f;
 
                 if (Entity.Timer >= lineUpTime)
@@ -61,7 +54,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             if (Entity.LocalAIState == 1f)
             {
-                Vector2 chargeVelocity = chargeAngle.ToRotationVector2() * 10f;
+                Vector2 chargeVelocity = Entity.ChargeAngle.ToRotationVector2() * 10f;
                 Entity.NPC.velocity = Vector2.Lerp(Entity.NPC.velocity, chargeVelocity, 0.06f);
                 Entity.NearestAsteroid = Entity.NPC.FindClosestNPC(out _, asteroids);
 
@@ -75,13 +68,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
                 // Simply stop if either the max time is reached or if the cometpod is outside of the space boundaries.
                 if (Entity.Timer >= chargeTime || leavingSpace)
-                    switchToCooldown(ref aimlessChargeCounter);
+                    switchToCooldown(ref Entity.AimlessChargeCounter);
 
                 // Bump into any tiles.
                 if (Entity.NPC.collideX || Entity.NPC.collideY)
                 {
                     Entity.NPC.velocity = Entity.NPC.oldVelocity * Entity.CalculateCollisionBounceSpeed(-0.42f);
-                    switchToCooldown(ref aimlessChargeCounter);
+                    switchToCooldown(ref Entity.AimlessChargeCounter);
                 }
 
                 // Bump into nearby cometpods if collision between the two occurs.
@@ -94,7 +87,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                     if (Entity.NearestCometpod.ModNPC is ChunkyCometpod cometpod && cometpod.AIState != (float)CometpodBehavior.AimlessCharging)
                         FiniteStateMachine.SetCurrentState((int)CometpodBehavior.Starstruck, [0f]);
 
-                    switchToCooldown(ref aimlessChargeCounter);
+                    switchToCooldown(ref Entity.AimlessChargeCounter);
                 }
 
                 // Bump into the player if collision between the two occurs.
@@ -102,7 +95,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 {
                     Entity.NPC.velocity = Entity.NPC.DirectionFrom(target.Center) * Entity.CalculateCollisionBounceSpeed(0.8f);
                     target.Velocity = target.Center.DirectionFrom(Entity.NPC.Center) * Entity.CalculateCollisionBounceSpeed(2f);
-                    switchToCooldown(ref aimlessChargeCounter);
+                    switchToCooldown(ref Entity.AimlessChargeCounter);
                 }
 
                 // Bump into any nearby asteroids if collision between the two occurs.
@@ -114,7 +107,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                     int damageTaken = (int)(Main.rand.Next(1, 3) * Entity.NPC.velocity.Length());
                     Entity.NPC.SimpleStrikeNPC(damageTaken, Entity.NPC.direction, noPlayerInteraction: true);
                     Entity.NearestAsteroid.SimpleStrikeNPC(damageTaken * 8, -Entity.NPC.direction, noPlayerInteraction: true);
-                    switchToCooldown(ref aimlessChargeCounter);
+                    switchToCooldown(ref Entity.AimlessChargeCounter);
                 }
             }
 
@@ -125,7 +118,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
                 if (Entity.Timer >= postBonkCooldownTime)
                 {
-                    if (aimlessChargeCounter >= maxAimlessCharges || leavingSpace)
+                    if (Entity.AimlessChargeCounter >= Entity.MaxAimlessCharges || leavingSpace)
                     {
                         FiniteStateMachine.SetCurrentState((int)CometpodBehavior.PassiveWandering, [0f]);
                     }

@@ -9,11 +9,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
     public abstract class Asteroid : ModNPC
     {
-        public ref float RotationSpeedSpawnFactor => ref NPC.TwilightEgress().ExtraAI[0];
-
-        public ref float MaxTime => ref NPC.TwilightEgress().ExtraAI[1];
-
         public ref float Timer => ref NPC.ai[0];
+
+        public ref float RotationSpeedSpawnFactor => ref NPC.ai[1];
+
+        public ref float MaxTime => ref NPC.ai[2];
 
         public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
 

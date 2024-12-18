@@ -10,9 +10,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
     {
         public override void Enter(float[] arguments = null)
         {
-            ref float maxStarstruckTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
-
-            maxStarstruckTime = Main.rand.Next(180, 300);
+            Entity.MaxStarstruckTime = Main.rand.Next(180, 300);
             Entity.AIState = (int)CometpodBehavior.Starstruck;
             Entity.NPC.netUpdate = true;
         }
@@ -20,15 +18,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         public override void Update(float[] arguments = null)
         {
             // extremely simple in comparison i know
-
-            ref float maxStarstruckTime = ref Entity.NPC.TwilightEgress().ExtraAI[MaxStarstruckTimeIndex];
-
             Entity.NPC.velocity *= 0.98f;
             Entity.NPC.rotation += Entity.NPC.velocity.X * 0.03f;
 
-            if (Entity.Timer >= maxStarstruckTime)
+            if (Entity.Timer >= Entity.MaxStarstruckTime)
             {
-                maxStarstruckTime = 0f;
+                Entity.MaxStarstruckTime = 0f;
                 FiniteStateMachine.SetCurrentState((int)CometpodBehavior.PassiveWandering, [0f]);
             }
         }
