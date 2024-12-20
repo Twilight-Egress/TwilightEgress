@@ -1,7 +1,9 @@
 ﻿using CalamityMod.Items.Weapons.Melee;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -23,7 +25,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public Polygon shape;
-        public List<Vector2> triangleMesh;
+        public List<Triangle> TriangleMesh;
 
         public ref float Seed => ref NPC.ai[0];
 
@@ -58,7 +60,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             Seed = Main.rand.Next();
             shape = RandomPolygon.GeneratePolygon((int)Seed, NPC.Center, 7.5f * 16f, 0.8f, 0.2f, 8);
-            triangleMesh = shape.Triangulate();
+            TriangleMesh = shape.Triangulate();
 
             NPC.netUpdate = true;
         }
@@ -68,7 +70,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void OnKill()
         {
             shape = null;
-            triangleMesh.Clear();
+            TriangleMesh.Clear();
         }
     }
 
@@ -84,7 +86,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
-            On_Collision.TileCollision += AsteroidTileCollision;
+            //On_Collision.TileCollision += AsteroidTileCollision;
             On_Collision.SolidCollision_Vector2_int_int += AsteroidSolidCollision_Vector2_int_int;
             On_Collision.SolidCollision_Vector2_int_int_bool += AsteroidSolidCollision_Vector2_int_int_bool;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
@@ -93,7 +95,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
-            On_Collision.TileCollision -= AsteroidTileCollision;
+            //On_Collision.TileCollision -= AsteroidTileCollision;
             On_Collision.SolidCollision_Vector2_int_int -= AsteroidSolidCollision_Vector2_int_int;
             On_Collision.SolidCollision_Vector2_int_int_bool -= AsteroidSolidCollision_Vector2_int_int_bool;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
@@ -102,8 +104,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         private Vector2 AsteroidTileCollision(On_Collision.orig_TileCollision orig, Vector2 position, Vector2 velocity, int width, int height, bool fallThrough, bool fall2, int gravDir)
         {
             Vector2? collision = AsteroidCollision(position, width, height);
-            if (collision != null)
-                return collision.Value + velocity;
+            /*if (collision != null)
+                return collision.Value + velocity;*/
 
             return orig(position, velocity, width, height, fallThrough, fall2, gravDir);
         }
@@ -131,8 +133,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             Vector2? collision = AsteroidCollision(position, width, height);
             if (collision != null)
             {
-                Vector4 slopeCollisionVector = new Vector4(position.X + collision.Value.X, position.Y + collision.Value.Y, velocity.X, collision.Value.Y);
-                return slopeCollisionVector;
+                Vector2 normal = collision.Value;
+                normal.Normalize();
+                velocity.Y = Math.Abs(normal.X * velocity.X);
+                return new Vector4(position.X, position.Y + collision.Value.Y, velocity.X, velocity.Y);
             }    
 
             return orig(position, velocity, width, height, gravity, fall);
@@ -172,9 +176,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     position + new Vector2(width, height),
                 ]);
 
-                Vector2? collision = collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
+                /*foreach (Triangle triangle in closestAsteroid.TriangleMesh)
+                {
+                    Vector2? collision = collider.SeparatingAxisTheorem(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
 
-                return collision;
+                    if (collision is not null && collision != Vector2.Zero)
+                        return collision;
+                }*/
+
+                return collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
             }
 
             return null;
@@ -193,7 +203,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             foreach (NPC npc in Main.npc)
             {
                 if (npc.ModNPC is Asteroid asteroid && npc.active)
-                    triangleVertices.AddRange(asteroid.triangleMesh);
+                {
+                    foreach (Triangle triangle in asteroid.TriangleMesh)
+                        triangleVertices.AddRange(triangle.Vertices);
+                }
             }
 
             if (triangleVertices.Count is 0)

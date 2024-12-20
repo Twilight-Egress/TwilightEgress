@@ -20,7 +20,7 @@ namespace TwilightEgress.Core.Geometry
         /// Triangulates the polygon using the ear clipping method.
         /// </summary>
         /// <returns></returns>
-        public List<Vector2> Triangulate()
+        public List<Triangle> Triangulate()
         {
             Vector2[] trianglePoints = new Vector2[Vertices.Length];
             trianglePoints = Vertices;
@@ -28,13 +28,13 @@ namespace TwilightEgress.Core.Geometry
 
             polygon.OrientClockwise();
 
-            List<Vector2> triangles = new List<Vector2>();
+            List<Triangle> triangles = new List<Triangle>();
 
             // If the polygon is not a triangle remove an ear from the polygon.
             while (polygon.Vertices.Count() > 3)
                 polygon.FindAndRemoveEar(ref triangles);
 
-            triangles.AddRange([polygon.Vertices[0], polygon.Vertices[1], polygon.Vertices[2]]);
+            triangles.Add(new Triangle(polygon.Vertices[0], polygon.Vertices[1], polygon.Vertices[2]));
             return triangles;
         }
 
@@ -55,7 +55,7 @@ namespace TwilightEgress.Core.Geometry
                 Vertices.Reverse();
         }
 
-        private void FindAndRemoveEar(ref List<Vector2> triangles)
+        private void FindAndRemoveEar(ref List<Triangle> triangles)
         {
             // Check for an ear
             int[] triangle = [0, 0, 0];
@@ -64,7 +64,7 @@ namespace TwilightEgress.Core.Geometry
             // Add a new ear to the list
             if (triangle != null)
             {
-                triangles.AddRange([Vertices[triangle[0]], Vertices[triangle[1]], Vertices[triangle[2]]]);
+                triangles.Add(new Triangle(Vertices[triangle[0]], Vertices[triangle[1]], Vertices[triangle[2]]));
                 // Remove the ear from the polygon.
                 List<Vector2> vertices = Vertices.ToList();
                 vertices.RemoveAt(triangle[1]);
