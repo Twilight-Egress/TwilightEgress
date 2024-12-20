@@ -62,7 +62,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             NPC.netUpdate = true;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Microsoft.Xna.Framework.Color drawColor) => false;
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => false;
 
         public override void OnKill()
         {
@@ -97,26 +97,40 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             // help me
 
             Vector2 asteroidCollision = Vector2.Zero;
+            Vector2 entityPosition = position + (0.5f * new Vector2(width, height));
 
-            // This could maybe only run calculations for the closest asteroid to the middle of the entity
-            foreach (NPC npc in Main.npc)
+            Asteroid closestAsteroid = null;
+            float distanceToAsteroid = float.MaxValue;
+
+            foreach (NPC activeNPC in Main.ActiveNPCs)
             {
-                if (npc.ModNPC is Asteroid asteroid && npc.active)
+                if (activeNPC.ModNPC is not Asteroid)
+                    continue;
+
+                bool canHit = Collision.CanHit(entityPosition, 1, 1, activeNPC.Center, 1, 1);
+                if (Vector2.DistanceSquared(entityPosition, activeNPC.Center) < distanceToAsteroid && canHit)
                 {
-                    Collider collider = new Collider();
-
-                    Polygon hitbox = new Polygon([
-                        position,
-                        position + new Vector2(width, 0),
-                        position + new Vector2(0, height),
-                        position + new Vector2(width, height),
-                    ]);
-
-                    Vector2? collision = collider.SeparatingAxisTheorem(asteroid.shape, asteroid.NPC.Center, hitbox, position + (0.5f * new Vector2(width, height)));
-
-                    if (collision != null)
-                        return collision.Value + velocity;
+                    distanceToAsteroid = Vector2.DistanceSquared(entityPosition, activeNPC.Center);
+                    closestAsteroid = activeNPC.ModNPC as Asteroid;
                 }
+            }
+
+            if (closestAsteroid is not null)
+            {
+                // This could maybe only run calculations for the closest asteroid to the middle of the entity
+                Collider collider = new Collider();
+
+                Polygon hitbox = new Polygon([
+                    position,
+                    position + new Vector2(width, 0),
+                    position + new Vector2(0, height),
+                    position + new Vector2(width, height),
+                ]);
+
+                Vector2? collision = collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
+
+                if (collision != null)
+                    return collision.Value + velocity;
             }
 
             return orig(position, velocity, width, height, fallThrough, fall2, gravDir);

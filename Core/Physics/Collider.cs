@@ -58,7 +58,7 @@ namespace TwilightEgress.Core.Physics
                 return null;
 
             // Calc the final separation
-            return new Vector2(normal.X * distance, normal.Y * distance);
+            return normal * distance;
         }
 
         /// <summary>
