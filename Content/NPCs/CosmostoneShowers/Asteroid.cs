@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod.Projectiles.Magic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -123,9 +124,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             for (int i = 0; i < triangleVertices.Count; i++)
             {
-                Color vertexColor = Color.White /* Lighting.GetColor(triangleMesh[i].ToPoint())*/;
+                Vector3 lightColor = Lighting.GetSubLight(triangleVertices[i]) * Color.White.ToVector3();
                 Vector2 triangle = WorldToWorldMatrixPos(triangleVertices[i] - Main.screenPosition);
-                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), vertexColor);
+                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Color(lightColor));
             }
 
             vertexBuffer?.SetData<VertexPositionColor>(vertices);
