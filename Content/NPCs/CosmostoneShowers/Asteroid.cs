@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CalamityMod.Items.Weapons.Melee;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -11,9 +12,9 @@ using TwilightEgress.Core.Physics;
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
-    // 1. find an algo that turns concave polygons into multiple convex polygons
-    // 2. find an algo that turns triangles into more triangles
-    // 3. why cant i walk while touching an asteroid
+    // 1. find an algo that turns triangles into more triangles
+    // 2. make the asteroid less bouncy and slippery
+    // 3. make grappling hooks work
 
     public class Asteroid : ModNPC
     {
@@ -83,19 +84,63 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
-            On_Collision.TileCollision += AsteroidCollision;
+            On_Collision.TileCollision += AsteroidTileCollision;
+            On_Collision.SolidCollision_Vector2_int_int += AsteroidSolidCollision_Vector2_int_int;
+            On_Collision.SolidCollision_Vector2_int_int_bool += AsteroidSolidCollision_Vector2_int_int_bool;
+            On_Collision.SlopeCollision += AsteroidSlopeCollision;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
-            On_Collision.TileCollision -= AsteroidCollision;
+            On_Collision.TileCollision -= AsteroidTileCollision;
+            On_Collision.SolidCollision_Vector2_int_int -= AsteroidSolidCollision_Vector2_int_int;
+            On_Collision.SolidCollision_Vector2_int_int_bool -= AsteroidSolidCollision_Vector2_int_int_bool;
+            On_Collision.SlopeCollision -= AsteroidSlopeCollision;
         }
 
-        private Vector2 AsteroidCollision(On_Collision.orig_TileCollision orig, Vector2 position, Vector2 velocity, int width, int height, bool fallThrough, bool fall2, int gravDir)
+        private Vector2 AsteroidTileCollision(On_Collision.orig_TileCollision orig, Vector2 position, Vector2 velocity, int width, int height, bool fallThrough, bool fall2, int gravDir)
+        {
+            Vector2? collision = AsteroidCollision(position, width, height);
+            if (collision != null)
+                return collision.Value + velocity;
+
+            return orig(position, velocity, width, height, fallThrough, fall2, gravDir);
+        }
+
+        private bool AsteroidSolidCollision_Vector2_int_int(On_Collision.orig_SolidCollision_Vector2_int_int orig, Vector2 position, int width, int height)
+        {
+            Vector2? collision = AsteroidCollision(position, width, height);
+            if (collision != null)
+                return true;
+
+            return orig(position, width, height);
+        }
+
+        private bool AsteroidSolidCollision_Vector2_int_int_bool(On_Collision.orig_SolidCollision_Vector2_int_int_bool orig, Vector2 position, int width, int height, bool acceptTopSurfaces)
+        {
+            Vector2? collision = AsteroidCollision(position, width, height);
+            if (collision != null)
+                return true;
+
+            return orig(position, width, height, acceptTopSurfaces);
+        }
+
+        private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
+        {
+            Vector2? collision = AsteroidCollision(position, width, height);
+            if (collision != null)
+            {
+                Vector4 slopeCollisionVector = new Vector4(position.X + collision.Value.X, position.Y + collision.Value.Y, velocity.X, collision.Value.Y);
+                return slopeCollisionVector;
+            }    
+
+            return orig(position, velocity, width, height, gravity, fall);
+        }
+
+        private Vector2? AsteroidCollision(Vector2 position, int width, int height)
         {
             // help me
-
             Vector2 asteroidCollision = Vector2.Zero;
             Vector2 entityPosition = position + (0.5f * new Vector2(width, height));
 
@@ -129,11 +174,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
                 Vector2? collision = collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
 
-                if (collision != null)
-                    return collision.Value + velocity;
+                return collision;
             }
 
-            return orig(position, velocity, width, height, fallThrough, fall2, gravDir);
+            return null;
         }
 
         private Vector2 WorldToWorldMatrixPos(Vector2 input)
