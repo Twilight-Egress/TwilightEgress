@@ -1,5 +1,4 @@
-﻿using CalamityMod.Projectiles.Magic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -78,8 +77,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             0, Main.GameViewMatrix.Zoom.X, 0, 0,
             0, 0, 1, 0,
             0, 0, 0, 1);
-        Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 0, 0.01f, 100.0f);
-        double angle = 0;
 
         public override void Load()
         {
@@ -115,7 +112,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             BasicEffect basicEffect = new BasicEffect(graphicsDevice);
             basicEffect.World = world;
             basicEffect.View = view;
-            //basicEffect.Projection = projection;
             basicEffect.VertexColorEnabled = true;
 
             VertexBuffer vertexBuffer = new VertexBuffer(Main.graphics.GraphicsDevice, typeof(VertexPositionColor), triangleVertices.Count, BufferUsage.WriteOnly);
@@ -124,9 +120,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             for (int i = 0; i < triangleVertices.Count; i++)
             {
-                Vector3 lightColor = Lighting.GetSubLight(triangleVertices[i]) * Color.White.ToVector3();
+                Vector3 vertexColor = Lighting.GetSubLight(triangleVertices[i]) * Color.White.ToVector3();
                 Vector2 triangle = WorldToWorldMatrixPos(triangleVertices[i] - Main.screenPosition);
-                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Color(lightColor));
+                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Color(vertexColor));
             }
 
             vertexBuffer?.SetData<VertexPositionColor>(vertices);
