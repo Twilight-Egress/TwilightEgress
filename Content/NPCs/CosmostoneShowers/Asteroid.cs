@@ -69,8 +69,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
     public class AsteroidRenderer : ModSystem
     {
-        public static MassiveObject[] planetoids;
-
         Matrix world = Matrix.CreateTranslation(0, 0, 0);
         Matrix view = new Matrix(
             Main.GameViewMatrix.Zoom.X, 0, 0, 0,
