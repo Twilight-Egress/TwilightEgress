@@ -20,5 +20,23 @@ namespace TwilightEgress.Core
             Vector2 origin = rectangle.Size() / 2f;
             Main.spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), lightColor, rotation, origin, scale, spriteEffects, 0);
         }
+
+        public static void DrawHitbox(this SpriteBatch spriteBatch, NPC npc, Color color)
+        {
+            Rectangle screenRectangle = new Rectangle(npc.getRect().X - (int)Main.screenPosition.X, npc.getRect().Y - (int)Main.screenPosition.Y, npc.getRect().Width, npc.getRect().Height);
+            spriteBatch.Draw(TextureAssets.BlackTile.Value, screenRectangle, color);
+        }
+
+        public static void DrawHitbox(this SpriteBatch spriteBatch, Projectile projectile, Color color)
+        {
+            Rectangle screenRectangle = new Rectangle(projectile.getRect().X - (int)Main.screenPosition.X, projectile.getRect().Y - (int)Main.screenPosition.Y, projectile.getRect().Width, projectile.getRect().Height);
+            spriteBatch.Draw(TextureAssets.BlackTile.Value, screenRectangle, color);
+        }
+
+        public static void DrawHitbox(this SpriteBatch spriteBatch, Player player, Color color)
+        {
+            Rectangle screenRectangle = new Rectangle(player.getRect().X - (int)Main.screenPosition.X, player.getRect().Y - (int)Main.screenPosition.Y, player.getRect().Width, player.getRect().Height);
+            spriteBatch.Draw(TextureAssets.BlackTile.Value, screenRectangle, color);
+        }
     }
 }
