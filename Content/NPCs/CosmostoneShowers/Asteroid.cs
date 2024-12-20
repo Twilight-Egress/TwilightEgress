@@ -98,6 +98,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             Vector2 asteroidCollision = Vector2.Zero;
 
+            // This could maybe only run calculations for the closest asteroid to the middle of the entity
             foreach (NPC npc in Main.npc)
             {
                 if (npc.ModNPC is Asteroid asteroid && npc.active)
@@ -114,11 +115,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     Vector2? collision = collider.SeparatingAxisTheorem(asteroid.shape, asteroid.NPC.Center, hitbox, position + (0.5f * new Vector2(width, height)));
 
                     if (collision != null)
-                        asteroidCollision = collision.Value + velocity;
+                        return collision.Value + velocity;
                 }
             }
 
-            return asteroidCollision + orig(position, velocity, width, height, fallThrough, fall2, gravDir);
+            return orig(position, velocity, width, height, fallThrough, fall2, gravDir);
         }
 
         private Vector2 WorldToWorldMatrixPos(Vector2 input)
