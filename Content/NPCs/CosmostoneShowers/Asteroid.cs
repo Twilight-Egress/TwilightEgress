@@ -10,6 +10,11 @@ using TwilightEgress.Core.Physics;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
+    // things to do:
+    // 1. find an algo that turns concave polygons into multiple convex polygons
+    // 2. find an algo that turns triangles into more triangles
+    // 3. why cant i walk while touching an asteroid
+
     public class Asteroid : ModNPC
     {
         public override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";

@@ -30,29 +30,26 @@ namespace TwilightEgress.Core.Physics
             {
                 // Get the perpendicular axis that we will be projecting onto
                 Vector2 axis = GetPerpendicularAxis(polygon1.Vertices, i);
-                // Project each point onto the axis 
-                (float, float) poly1Range = ProjectVerticesForMinMax(axis, polygon1.Vertices);
-                (float, float) poly2Range = ProjectVerticesForMinMax(axis, polygon2.Vertices);
 
-                // Shift the first polygons min max along the axis by the amount of offset between them
+                (float, float) polygon1Range = ProjectVerticesForMinMax(axis, polygon1.Vertices);
+                (float, float) polygon2Range = ProjectVerticesForMinMax(axis, polygon2.Vertices);
+
                 float scalerOffset = Vector2.Dot(axis, vOffset);
-                poly1Range.Item1 += scalerOffset;
-                poly2Range.Item2 += scalerOffset;
+                polygon1Range.Item1 += scalerOffset;
+                polygon2Range.Item2 += scalerOffset;
 
                 // Now check for a gap betwen the relative min's and max's
-                if ((poly1Range.Item1 - poly2Range.Item2 > 0) || (poly2Range.Item1 - poly1Range.Item2 > 0))
+                if ((polygon1Range.Item1 - polygon2Range.Item2 > 0) || (polygon2Range.Item1 - polygon1Range.Item2 > 0))
                     return null;
 
-                // Calc the separation and store if this is the shortest
-                float distMin = (poly2Range.Item2 - poly1Range.Item1) * -1;
+                float distanceMinimum = (polygon2Range.Item2 - polygon1Range.Item1) * -1;
 
-                // Check if this is the shortest by using the absolute val
-                float distMinAbs = Math.Abs(distMin);
-                if (distMinAbs < shortestDist)
+                float distMinimumAbs = Math.Abs(distanceMinimum);
+                if (distMinimumAbs < shortestDist)
                 {
-                    shortestDist = distMinAbs;
+                    shortestDist = distMinimumAbs;
 
-                    distance = distMin;
+                    distance = distanceMinimum;
                     vector = axis;
                 }
             }
@@ -76,18 +73,24 @@ namespace TwilightEgress.Core.Physics
             float minimum = Vector2.Dot(axis, vertices[0]);
             float maximum = minimum;
 
-            // Now we loop over the remiaing vers, updating min/max as required
             for (int j = 1; j < vertices.Length; j++)
             {
                 float temp = Vector2.Dot(axis, vertices[j]);
-                if (temp < minimum) minimum = temp;
-                if (temp > maximum) maximum = temp;
+                if (temp < minimum)
+                    minimum = temp;
+                if (temp > maximum)
+                    maximum = temp;
             }
 
             return (minimum, maximum);
         }
 
-        // Small helper method that looks at the verts of the polygon and return the perpendicular axis of a particular side
+        /// <summary>
+        /// Small helper method that looks at the verts of the polygon and return the perpendicular axis of a particular side
+        /// </summary>
+        /// <param name="vertices"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private Vector2 GetPerpendicularAxis(Vector2[] vertices, int index)
         {
             Vector2 point1 = vertices[index];
