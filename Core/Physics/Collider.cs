@@ -20,10 +20,10 @@ namespace TwilightEgress.Core.Physics
             float shortestDist = float.MaxValue;
 
             // Get the offset between the two shapes
-            Vector2 vOffset = new Vector2(polygon1Position.X - polygon2Position.X, polygon1Position.Y - polygon2Position.Y);
+            Vector2 offset = new Vector2(polygon1Position.X - polygon2Position.X, polygon1Position.Y - polygon2Position.Y);
 
             float distance = 0f;
-            Vector2 vector = Vector2.Zero;
+            Vector2 normal = Vector2.Zero;
 
             // Loop over all of the sides on the first polygon and check the perpendicular axis
             for (int i = 0; i < polygon1.Vertices.Length; i++)
@@ -34,7 +34,7 @@ namespace TwilightEgress.Core.Physics
                 (float, float) polygon1Range = ProjectVerticesForMinMax(axis, polygon1.Vertices);
                 (float, float) polygon2Range = ProjectVerticesForMinMax(axis, polygon2.Vertices);
 
-                float scalerOffset = Vector2.Dot(axis, vOffset);
+                float scalerOffset = Vector2.Dot(axis, offset);
                 polygon1Range.Item1 += scalerOffset;
                 polygon2Range.Item2 += scalerOffset;
 
@@ -50,15 +50,15 @@ namespace TwilightEgress.Core.Physics
                     shortestDist = distMinimumAbs;
 
                     distance = distanceMinimum;
-                    vector = axis;
+                    normal = axis;
                 }
             }
 
-            if (distance == 0f && vector == Vector2.Zero)
+            if (distance == 0f && normal == Vector2.Zero)
                 return null;
 
             // Calc the final separation
-            return new Vector2(vector.X * distance, vector.Y * distance);
+            return new Vector2(normal.X * distance, normal.Y * distance);
         }
 
         /// <summary>
