@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Core.Geometry;
-using TwilightEgress.Core.Physics.Gravity;
+using TwilightEgress.Core.Physics;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
@@ -17,7 +17,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
         public Polygon shape;
-
         public List<Vector2> triangleMesh;
 
         public ref float Seed => ref NPC.ai[0];
@@ -58,7 +57,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             NPC.netUpdate = true;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => false;
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Microsoft.Xna.Framework.Color drawColor) => false;
 
         public override void OnKill()
         {
@@ -67,7 +66,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         }
     }
 
-    public class AsteroidRenderer : ModSystem
+    public class AsteroidSystem : ModSystem
     {
         Matrix world = Matrix.CreateTranslation(0, 0, 0);
         Matrix view = new Matrix(
@@ -79,11 +78,42 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
+            On_Collision.TileCollision += AsteroidCollision;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
+            On_Collision.TileCollision -= AsteroidCollision;
+        }
+
+        private Vector2 AsteroidCollision(On_Collision.orig_TileCollision orig, Vector2 position, Vector2 velocity, int width, int height, bool fallThrough, bool fall2, int gravDir)
+        {
+            // help me
+
+            Vector2 asteroidCollision = Vector2.Zero;
+
+            foreach (NPC npc in Main.npc)
+            {
+                if (npc.ModNPC is Asteroid asteroid && npc.active)
+                {
+                    Collider collider = new Collider();
+
+                    Polygon hitbox = new Polygon([
+                        position,
+                        position + new Vector2(width, 0),
+                        position + new Vector2(0, height),
+                        position + new Vector2(width, height),
+                    ]);
+
+                    Vector2? collision = collider.SeparatingAxisTheorem(asteroid.shape, asteroid.NPC.Center, hitbox, position + (0.5f * new Vector2(width, height)));
+
+                    if (collision != null)
+                        asteroidCollision = collision.Value + velocity;
+                }
+            }
+
+            return asteroidCollision + orig(position, velocity, width, height, fallThrough, fall2, gravDir);
         }
 
         private Vector2 WorldToWorldMatrixPos(Vector2 input)
@@ -118,9 +148,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             for (int i = 0; i < triangleVertices.Count; i++)
             {
-                Vector3 vertexColor = Lighting.GetSubLight(triangleVertices[i]) * Color.White.ToVector3();
+                Vector3 vertexColor = Lighting.GetSubLight(triangleVertices[i]) * Microsoft.Xna.Framework.Color.White.ToVector3();
                 Vector2 triangle = WorldToWorldMatrixPos(triangleVertices[i] - Main.screenPosition);
-                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Color(vertexColor));
+                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Microsoft.Xna.Framework.Color(vertexColor));
             }
 
             vertexBuffer?.SetData<VertexPositionColor>(vertices);

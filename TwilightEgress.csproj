@@ -4,7 +4,6 @@
 		<TargetsPath Condition="'$(TargetsPath)' == ''">..\tModLoader.targets</TargetsPath>
 		<CalamityBinary Condition="'$(CalamityBinary)' == ''">..\..\ModReader\CalamityMod\CalamityMod.dll</CalamityBinary>
 		<LuminanceBinary Condition="'$(LuminanceBinary)' == ''">..\..\ModReader\Luminance\Luminance.dll</LuminanceBinary>
-		<Box2DBinary Condition="'$(Box2DBinary)' == ''">.\lib\Box2D.NetStandard.dll</Box2DBinary>
 	</PropertyGroup>  
 	<!-- Import tModLoader mod properties -->
 	<Import Project="$(TargetsPath)" />
@@ -26,10 +25,6 @@
 		
 		<Reference Include="Luminance">
 			<HintPath>$(LuminanceBinary)</HintPath>
-		</Reference>
-		
-		<Reference Include="Box2D.NetStandard" Version="1.0.4">
-			<HintPath>$(Box2DBinary)</HintPath>
 		</Reference>
 	</ItemGroup>
 	<ItemGroup>
