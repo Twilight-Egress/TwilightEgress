@@ -13,9 +13,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
     // 1. make the mesh and hitbox move and rotate with the asteroid
-    // 2. find an algo that turns triangles into more triangles
-    // 3. make grappling hooks work
-    // 4. make them appear during the event so i can start making sure movement feels good
+    // 2. make grappling hooks work
+    // 3. make them appear during the event so i can start making sure movement feels good
+    // 4. find an algo that turns triangles into more triangles
     // 5. draw the rest of the owl (shader that draws the asteroid)
     // 6. probably gonna have to redo how the shapes generate based on the art
 
