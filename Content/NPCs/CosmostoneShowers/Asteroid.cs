@@ -13,8 +13,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
     // 1. find an algo that turns triangles into more triangles
-    // 2. make jumping work, make it not do the falling frame on the player
-    // 3. make grappling hooks work
+    // 2. make collision iterate through the triangle mesh instead of the shape
+    // 3. make jumping work while moving
+    // 4. make grappling hooks work
 
     public class Asteroid : ModNPC
     {
@@ -99,6 +100,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 normal.Normalize();
 
                 Collision.down = true;
+                Collision.stair = true;
                 //velocity.X *= 0.95f;
                 Vector2 newVelocity = velocity;
 
@@ -112,8 +114,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 else if (velocity.X != 0)
                 {
                     newVelocity.Y = velocity.X * normal.X;
-                    newVelocity.X *= 0.95f;
                     position.X += collision.Value.X;
+                    newVelocity.X *= 0.95f;
                 }
                 else
                 {
@@ -121,7 +123,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     newVelocity.X *= 0.95f;
                 }
 
-                return new Vector4(position.X, position.Y + collision.Value.Y, newVelocity.X, newVelocity.Y);
+                if (collision.Value.Y <= 0)
+                {
+                    position.Y += newVelocity.Y;
+                    newVelocity.Y = 0;
+                }
+                return new Vector4(position.X, position.Y + collision.Value.Y + newVelocity.Y, newVelocity.X, 0);
             }
 
             return orig(position, velocity, width, height, gravity, fall);
