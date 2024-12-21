@@ -1,9 +1,7 @@
-﻿using CalamityMod.Items.Weapons.Melee;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -15,7 +13,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
     // 1. find an algo that turns triangles into more triangles
-    // 2. make the asteroid less bouncy and slippery
+    // 2. make jumping work, make it not do the falling frame on the player
     // 3. make grappling hooks work
 
     public class Asteroid : ModNPC
@@ -31,29 +29,20 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.ProjectileNPC[Type] = true;
             NPCID.Sets.CannotDropSouls[Type] = true;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.TeleportationImmune[Type] = true;
+            NPCID.Sets.ImmuneToAllBuffs[Type] = true;
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 60;
-            NPC.height = 60;
-            NPC.damage = 0;
-            NPC.defense = 20;
-            NPC.lifeMax = 500;
             NPC.aiStyle = -1;
-            NPC.dontCountMe = true;
-            NPC.lavaImmune = true;
-            NPC.noTileCollide = false;
             NPC.noGravity = true;
-            NPC.dontTakeDamageFromHostiles = true;
-            NPC.chaseable = false;
-            NPC.knockBackResist = 0.4f;
-            NPC.Opacity = 0f;
-
-            NPC.HitSound = SoundID.Tink;
-            NPC.DeathSound = SoundID.Item70;
+            NPC.noTileCollide = true;
+            NPC.lavaImmune = true;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -86,46 +75,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
-            //On_Collision.TileCollision += AsteroidTileCollision;
-            On_Collision.SolidCollision_Vector2_int_int += AsteroidSolidCollision_Vector2_int_int;
-            On_Collision.SolidCollision_Vector2_int_int_bool += AsteroidSolidCollision_Vector2_int_int_bool;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
-            //On_Collision.TileCollision -= AsteroidTileCollision;
-            On_Collision.SolidCollision_Vector2_int_int -= AsteroidSolidCollision_Vector2_int_int;
-            On_Collision.SolidCollision_Vector2_int_int_bool -= AsteroidSolidCollision_Vector2_int_int_bool;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
-        }
-
-        private Vector2 AsteroidTileCollision(On_Collision.orig_TileCollision orig, Vector2 position, Vector2 velocity, int width, int height, bool fallThrough, bool fall2, int gravDir)
-        {
-            Vector2? collision = AsteroidCollision(position, width, height);
-            /*if (collision != null)
-                return collision.Value + velocity;*/
-
-            return orig(position, velocity, width, height, fallThrough, fall2, gravDir);
-        }
-
-        private bool AsteroidSolidCollision_Vector2_int_int(On_Collision.orig_SolidCollision_Vector2_int_int orig, Vector2 position, int width, int height)
-        {
-            Vector2? collision = AsteroidCollision(position, width, height);
-            if (collision != null)
-                return true;
-
-            return orig(position, width, height);
-        }
-
-        private bool AsteroidSolidCollision_Vector2_int_int_bool(On_Collision.orig_SolidCollision_Vector2_int_int_bool orig, Vector2 position, int width, int height, bool acceptTopSurfaces)
-        {
-            Vector2? collision = AsteroidCollision(position, width, height);
-            if (collision != null)
-                return true;
-
-            return orig(position, width, height, acceptTopSurfaces);
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
@@ -135,9 +91,39 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             {
                 Vector2 normal = collision.Value;
                 normal.Normalize();
-                velocity.Y = Math.Abs(normal.X * velocity.X);
-                return new Vector4(position.X, position.Y + collision.Value.Y, velocity.X, velocity.Y);
-            }    
+
+                Collision.up = true;
+                Collision.stair = true;
+                //velocity.X *= 0.95f;
+                Vector2 newVelocity = velocity;
+
+                newVelocity.Y = Math.Abs(velocity.Y) * normal.Y;
+
+                if (collision.Value.Y > 0)
+                {
+                    newVelocity.X = Math.Abs(velocity.X) * normal.X;
+                    position.X += collision.Value.X;
+                }
+                else if (velocity.X != 0)
+                {
+                    newVelocity.Y += velocity.X * normal.X;
+                    newVelocity.X *= 0.96f;
+                    position.X += collision.Value.X;
+                }
+                else
+                {
+                    newVelocity.Y = 0;
+                    newVelocity.X *= 0.96f;
+                }
+
+                if (velocity != Vector2.Zero)
+                {
+                    position.X += collision.Value.X;
+                }
+
+                //position.X += collision.Value.X + newVelocity.X;
+                return new Vector4(position.X, position.Y + collision.Value.Y, newVelocity.X, newVelocity.Y);
+            }
 
             return orig(position, velocity, width, height, gravity, fall);
         }
