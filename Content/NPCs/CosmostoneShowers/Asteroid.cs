@@ -189,7 +189,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     collisionVector += collision.Value;
                 }
 
-                return collisionVector;
+                return collisionVector / collisions.Count;
 
                 //return collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
             }
