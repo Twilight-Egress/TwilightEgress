@@ -13,6 +13,7 @@ using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Jacob
 {

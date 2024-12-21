@@ -23,7 +23,7 @@ using TwilightEgress.Content.Projectiles;
 using TwilightEgress.Content.Skies.SkyEntities;
 using TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids;
 using TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid;
-using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 

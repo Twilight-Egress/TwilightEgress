@@ -11,7 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Core;
+using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Raesh
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 
-namespace TwilightEgress.Core
+namespace TwilightEgress.Core.Graphics
 {
     public class LightningPointsBuilder
     {

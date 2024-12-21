@@ -10,7 +10,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {

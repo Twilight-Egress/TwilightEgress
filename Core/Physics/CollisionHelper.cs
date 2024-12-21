@@ -4,7 +4,7 @@ using TwilightEgress.Core.Geometry;
 
 namespace TwilightEgress.Core.Physics
 {
-    public class Collider
+    public class CollisionHelper
     {
         /// <summary>
         /// Test collisions between polygons. 
@@ -15,7 +15,7 @@ namespace TwilightEgress.Core.Physics
         /// <param name="polygon2"></param>
         /// <param name="polygon2Position"></param>
         /// <returns></returns>
-        public Vector2? TestCollisions(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position)
+        public static Vector2? TestCollisions(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position)
         {
             // Run a test of each polygon against the other
             Tuple<Vector2?, float> testAB = SeparatingAxisTheorem(polygon1, polygon1Position, polygon2, polygon2Position);
@@ -40,7 +40,7 @@ namespace TwilightEgress.Core.Physics
         /// <param name="polygon2"></param>
         /// <param name="polygon2Position"></param>
         /// <returns></returns>
-        public Tuple<Vector2?, float> SeparatingAxisTheorem(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position, bool flipResultPositions = false)
+        private static Tuple<Vector2?, float> SeparatingAxisTheorem(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position, bool flipResultPositions = false)
         {
             float shortestDist = float.MaxValue;
 
@@ -56,18 +56,18 @@ namespace TwilightEgress.Core.Physics
                 // Get the perpendicular axis that we will be projecting onto
                 Vector2 axis = GetPerpendicularAxis(polygon1.Vertices, i);
 
-                (float, float) polygon1Range = ProjectVerticesForMinMax(axis, polygon1.Vertices);
-                (float, float) polygon2Range = ProjectVerticesForMinMax(axis, polygon2.Vertices);
+                Vector2 polygon1Range = ProjectVerticesForMinMax(axis, polygon1.Vertices);
+                Vector2 polygon2Range = ProjectVerticesForMinMax(axis, polygon2.Vertices);
 
                 float scalerOffset = Vector2.Dot(axis, offset);
-                polygon1Range.Item1 += scalerOffset;
-                polygon2Range.Item2 += scalerOffset;
+                polygon1Range.X += scalerOffset;
+                polygon2Range.Y += scalerOffset;
 
                 // Now check for a gap betwen the relative min's and max's
-                if ((polygon1Range.Item1 - polygon2Range.Item2 > 0) || (polygon2Range.Item1 - polygon1Range.Item2 > 0))
+                if ((polygon1Range.X - polygon2Range.Y > 0) || (polygon2Range.X - polygon1Range.Y > 0))
                     return null;
 
-                float distanceMinimum = (polygon2Range.Item2 - polygon1Range.Item1) * -1;
+                float distanceMinimum = (polygon2Range.Y - polygon1Range.X) * -1;
                 if (flipResultPositions)
                     distanceMinimum *= -1;
 
@@ -94,7 +94,7 @@ namespace TwilightEgress.Core.Physics
         /// <param name="axis"></param>
         /// <param name="vertices"></param>
         /// <returns></returns>
-        public (float, float) ProjectVerticesForMinMax(Vector2 axis, Vector2[] vertices)
+        private static Vector2 ProjectVerticesForMinMax(Vector2 axis, Vector2[] vertices)
         {
             // Note that we project the first point to both min and max
             float minimum = Vector2.Dot(axis, vertices[0]);
@@ -109,7 +109,7 @@ namespace TwilightEgress.Core.Physics
                     maximum = temp;
             }
 
-            return (minimum, maximum);
+            return new Vector2(minimum, maximum);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace TwilightEgress.Core.Physics
         /// <param name="vertices"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        private Vector2 GetPerpendicularAxis(Vector2[] vertices, int index)
+        private static Vector2 GetPerpendicularAxis(Vector2[] vertices, int index)
         {
             Vector2 point1 = vertices[index];
             Vector2 point2 = index >= vertices.Length - 1 ? vertices[0] : vertices[index + 1];  // Get the next index, or wrap around if at the end

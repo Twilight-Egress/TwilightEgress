@@ -25,7 +25,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
 
-        public Polygon shape;
         public List<Triangle> TriangleMesh;
 
         public ref float Seed => ref NPC.ai[0];
@@ -57,19 +56,14 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void OnSpawn(IEntitySource source)
         {
             Seed = Main.rand.Next();
-            shape = RandomPolygon.GeneratePolygon((int)Seed, NPC.Center, 7.5f * 16f, 0.8f, 0.2f, 8);
-            TriangleMesh = shape.Triangulate();
+            TriangleMesh = RandomPolygon.GeneratePolygon((int)Seed, NPC.Center, 7.5f * 16f, 0.8f, 0.2f, 8).Triangulate();
 
             NPC.netUpdate = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => false;
 
-        public override void OnKill()
-        {
-            shape = null;
-            TriangleMesh.Clear();
-        }
+        public override void OnKill() => TriangleMesh.Clear();
     }
 
     public class AsteroidSystem : ModSystem
@@ -160,9 +154,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             if (closestAsteroid is not null)
             {
-                // This could maybe only run calculations for the closest asteroid to the middle of the entity
-                Collider collider = new Collider();
-
                 Polygon hitbox = new Polygon([
                     position,
                     position + new Vector2(width, 0),
@@ -174,7 +165,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
                 foreach (Triangle triangle in closestAsteroid.TriangleMesh)
                 {
-                    Vector2? collision = collider.TestCollisions(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
+                    Vector2? collision = CollisionHelper.TestCollisions(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
 
                     if (collision is not null && collision != Vector2.Zero)
                         collisions.Add(collision);
