@@ -39,6 +39,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void SetDefaults()
         {
+            NPC.width = 128;
+            NPC.height = 128;
+            NPC.lifeMax = 2;
+            NPC.damage = 0;
+            NPC.defense = 0;
+            NPC.dontTakeDamage = true;
             NPC.aiStyle = -1;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -92,8 +98,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 Vector2 normal = collision.Value;
                 normal.Normalize();
 
-                Collision.up = true;
-                Collision.stair = true;
+                Collision.down = true;
                 //velocity.X *= 0.95f;
                 Vector2 newVelocity = velocity;
 
@@ -106,22 +111,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 }
                 else if (velocity.X != 0)
                 {
-                    newVelocity.Y += velocity.X * normal.X;
-                    newVelocity.X *= 0.96f;
+                    newVelocity.Y = velocity.X * normal.X;
+                    newVelocity.X *= 0.95f;
                     position.X += collision.Value.X;
                 }
                 else
                 {
                     newVelocity.Y = 0;
-                    newVelocity.X *= 0.96f;
+                    newVelocity.X *= 0.95f;
                 }
 
-                if (velocity != Vector2.Zero)
-                {
-                    position.X += collision.Value.X;
-                }
-
-                //position.X += collision.Value.X + newVelocity.X;
                 return new Vector4(position.X, position.Y + collision.Value.Y, newVelocity.X, newVelocity.Y);
             }
 
