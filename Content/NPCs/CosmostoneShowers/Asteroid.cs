@@ -174,7 +174,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
                 foreach (Triangle triangle in closestAsteroid.TriangleMesh)
                 {
-                    Vector2? collision = collider.SeparatingAxisTheorem(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
+                    Vector2? collision = collider.TestCollisions(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
 
                     if (collision is not null && collision != Vector2.Zero)
                         collisions.Add(collision);

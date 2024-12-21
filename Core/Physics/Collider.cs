@@ -7,6 +7,31 @@ namespace TwilightEgress.Core.Physics
     public class Collider
     {
         /// <summary>
+        /// Test collisions between polygons. 
+        /// Testing twice with one being in reverse order, and then comparing length, removes artifacts where the hitbox extends too far.
+        /// </summary>
+        /// <param name="polygon1"></param>
+        /// <param name="polygon1Position"></param>
+        /// <param name="polygon2"></param>
+        /// <param name="polygon2Position"></param>
+        /// <returns></returns>
+        public Vector2? TestCollisions(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position)
+        {
+            // Run a test of each polygon against the other
+            Tuple<Vector2?, float> testAB = SeparatingAxisTheorem(polygon1, polygon1Position, polygon2, polygon2Position);
+            if (testAB is null) 
+                return null;
+
+            Tuple<Vector2?, float> testBA = SeparatingAxisTheorem(polygon2, polygon2Position, polygon1, polygon1Position, true);  // note the 'flip' flag is set.
+            if (testBA is null) 
+                return null;
+
+            Vector2? result = (Math.Abs(testAB.Item2) < Math.Abs(testBA.Item2)) ? testAB.Item1 : testBA.Item1;
+
+            return result;
+        }
+
+        /// <summary>
         /// https://dyn4j.org/2010/01/sat/
         /// Separating axis theorem
         /// </summary>
@@ -15,12 +40,12 @@ namespace TwilightEgress.Core.Physics
         /// <param name="polygon2"></param>
         /// <param name="polygon2Position"></param>
         /// <returns></returns>
-        public Vector2? SeparatingAxisTheorem(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position)
+        public Tuple<Vector2?, float> SeparatingAxisTheorem(Polygon polygon1, Vector2 polygon1Position, Polygon polygon2, Vector2 polygon2Position, bool flipResultPositions = false)
         {
             float shortestDist = float.MaxValue;
 
             // Get the offset between the two shapes
-            Vector2 offset = new Vector2(polygon1Position.X - polygon2Position.X, polygon1Position.Y - polygon2Position.Y);
+            Vector2 offset = polygon1Position - polygon2Position;
 
             float distance = 0f;
             Vector2 normal = Vector2.Zero;
@@ -43,6 +68,8 @@ namespace TwilightEgress.Core.Physics
                     return null;
 
                 float distanceMinimum = (polygon2Range.Item2 - polygon1Range.Item1) * -1;
+                if (flipResultPositions) 
+                    distanceMinimum *= -1;
 
                 float distMinimumAbs = Math.Abs(distanceMinimum);
                 if (distMinimumAbs < shortestDist)
@@ -58,7 +85,7 @@ namespace TwilightEgress.Core.Physics
                 return null;
 
             // Calc the final separation
-            return normal * distance;
+            return new Tuple<Vector2?, float>(normal * distance, distance);
         }
 
         /// <summary>
