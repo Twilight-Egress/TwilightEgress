@@ -12,10 +12,12 @@ using TwilightEgress.Core.Physics;
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
-    // 1. find an algo that turns triangles into more triangles
-    // 2. make collision iterate through the triangle mesh instead of the shape
-    // 3. make jumping work while moving
-    // 4. make grappling hooks work
+    // 1. make the mesh and hitbox move and rotate with the asteroid
+    // 2. find an algo that turns triangles into more triangles
+    // 3. make grappling hooks work
+    // 4. make them appear during the event so i can start making sure movement feels good
+    // 5. draw the rest of the owl (shader that draws the asteroid)
+    // 6. probably gonna have to redo how the shapes generate based on the art
 
     public class Asteroid : ModNPC
     {
@@ -168,15 +170,28 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     position + new Vector2(width, height),
                 ]);
 
-                /*foreach (Triangle triangle in closestAsteroid.TriangleMesh)
+                List<Vector2?> collisions = new List<Vector2?>();
+
+                foreach (Triangle triangle in closestAsteroid.TriangleMesh)
                 {
                     Vector2? collision = collider.SeparatingAxisTheorem(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
 
                     if (collision is not null && collision != Vector2.Zero)
-                        return collision;
-                }*/
+                        collisions.Add(collision);
+                }
 
-                return collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
+                if (collisions.Count == 0)
+                    return null;
+
+                Vector2 collisionVector = Vector2.Zero;
+                foreach (Vector2? collision in collisions)
+                {
+                    collisionVector += collision.Value;
+                }
+
+                return collisionVector;
+
+                //return collider.SeparatingAxisTheorem(closestAsteroid.shape, closestAsteroid.NPC.Center, hitbox, entityPosition);
             }
 
             return null;
