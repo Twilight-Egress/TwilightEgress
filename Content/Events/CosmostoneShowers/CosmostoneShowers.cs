@@ -1,6 +1,8 @@
 ﻿using CalamityMod.Events;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.NPCs.TownNPCs;
 using Luminance.Assets;
+using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,9 +25,11 @@ using TwilightEgress.Content.Projectiles;
 using TwilightEgress.Content.Skies.SkyEntities;
 using TwilightEgress.Content.Skies.SkyEntities.StationaryAsteroids;
 using TwilightEgress.Content.Skies.SkyEntities.TravellingAsteroid;
+using TwilightEgress.Core.BaseEntities.ModNPCs;
 using TwilightEgress.Core.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+using static TwilightEgress.Assets.AssetRegistry.Textures;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -206,7 +210,54 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     activePlanetoidsOnScreen.Add(planetoid);
             }
 
-            // Asteroids.
+            List<NPC> activeAsteroids = Main.npc.Where(n => n.active && n.type == ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>()).ToList();
+            List<NPC> activeAsteroidsOnScreen = new();
+
+            foreach (NPC asteroid in activeAsteroids)
+            {
+                Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
+                if (screenBounds.Intersects(asteroid.getRect()))
+                    activeAsteroidsOnScreen.Add(asteroid);
+            }
+
+            // Walkable asteroids
+            if (activeAsteroidsOnScreen.Count <= 10 && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
+            {
+                float x = Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X);
+                float y = Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y);
+
+                bool canSpawn = true;
+
+                foreach (NPC asteroid in activeAsteroids)
+                {
+                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 82400)
+                    {
+                        canSpawn = false;
+                        break;
+                    }
+                }
+
+                foreach (NPC planetoid in activePlanetoids)
+                {
+                    if (planetoid.Center.DistanceSQ(new Vector2(x, y)) <= MathF.Pow((planetoid.ModNPC as Planetoid).MaximumAttractionRadius * 1.5f, 2))
+                    {
+                        canSpawn = false;
+                        break;
+                    }
+                }
+
+                if (canSpawn)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(new Vector2(x, y), 300, 300))
+                    {
+                        int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), new Vector2(x, y), Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>());
+                        if (Main.projectile.IndexInRange(p))
+                            NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+                    }
+                }
+            }
+
+            /* Asteroids.
             if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && Main.rand.NextBool(asteroidSpawnChance))
             {
                 // Default spawn position.
@@ -241,7 +292,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     if (Main.projectile.IndexInRange(p))
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
-            }
+            }*/
 
             // Planetoids.
             if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f && Main.rand.NextBool(planetoidSpawnChance))

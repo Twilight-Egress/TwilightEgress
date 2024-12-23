@@ -63,6 +63,20 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             NPC.netUpdate = true;
         }
 
+        public override void AI()
+        {
+            bool shouldKill = true;
+
+            foreach (Player player in Main.player)
+            {
+                if (player.Center.DistanceSQ(NPC.Center) <= 2560000)
+                    shouldKill = false;
+            }
+
+            if (shouldKill)
+                NPC.active = false;
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => false;
 
         public override void OnKill() => TriangleMesh.Clear();
