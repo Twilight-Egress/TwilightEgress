@@ -12,11 +12,10 @@ using TwilightEgress.Core.Physics;
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
-    // 1. make them appear during the event so i can start making sure movement feels good
-    // 2. make the mesh and hitbox rotate with the asteroid
-    // 3. find an algo that turns triangles into more triangles
-    // 4. draw the rest of the owl (shader that draws the asteroid)
-    // 5. probably gonna have to redo how the shapes generate based on the art
+    // 1. make the mesh and hitbox rotate with the asteroid
+    // 2. find an algo that turns triangles into more triangles
+    // 3. draw the rest of the owl (shader that draws the asteroid)
+    // 4. probably gonna have to redo how the shapes generate based on the art
 
     public class Asteroid : ModNPC
     {

@@ -1,6 +1,5 @@
 ﻿using CalamityMod.Events;
 using CalamityMod.NPCs.NormalNPCs;
-using CalamityMod.NPCs.TownNPCs;
 using Luminance.Assets;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
@@ -18,7 +17,6 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
@@ -29,7 +27,6 @@ using TwilightEgress.Core.BaseEntities.ModNPCs;
 using TwilightEgress.Core.Graphics;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
-using static TwilightEgress.Assets.AssetRegistry.Textures;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -230,7 +227,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                 foreach (NPC asteroid in activeAsteroids)
                 {
-                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 102400)
+                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 129600)
                     {
                         canSpawn = false;
                         break;
