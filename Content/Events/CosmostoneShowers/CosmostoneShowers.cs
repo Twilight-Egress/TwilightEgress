@@ -230,7 +230,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                 foreach (NPC asteroid in activeAsteroids)
                 {
-                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 82400)
+                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 102400)
                     {
                         canSpawn = false;
                         break;
@@ -374,7 +374,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         {
             // Ambient star particles; small sparkles that appear over the screen.
             int foregroundStarCount = Main.rand.Next(3) + 1;
-            for (int i = 0; i < foregroundStarCount; i++)
+            if (Main.rand.NextBool(3))
             {
                 Vector2 starSpawnPos = Main.LocalPlayer.Center + Main.rand.NextVector2Circular(Main.screenWidth, Main.screenHeight);
                 Vector2 starVelocity = Vector2.One.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(-0.2f, 0.2f);
