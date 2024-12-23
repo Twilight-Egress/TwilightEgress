@@ -12,18 +12,19 @@ using TwilightEgress.Core.Physics;
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
     // things to do:
-    // 1. make the mesh and hitbox move and rotate with the asteroid
-    // 2. make grappling hooks work
-    // 3. make them appear during the event so i can start making sure movement feels good
-    // 4. find an algo that turns triangles into more triangles
-    // 5. draw the rest of the owl (shader that draws the asteroid)
-    // 6. probably gonna have to redo how the shapes generate based on the art
+    // 1. make them appear during the event so i can start making sure movement feels good
+    // 2. make the mesh and hitbox rotate with the asteroid
+    // 3. find an algo that turns triangles into more triangles
+    // 4. draw the rest of the owl (shader that draws the asteroid)
+    // 5. probably gonna have to redo how the shapes generate based on the art
 
     public class Asteroid : ModNPC
     {
         public override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
 
         public override string Texture => "TwilightEgress/Assets/Textures/Extra/EmptyPixel";
+
+        public Polygon Shape;
 
         public List<Triangle> TriangleMesh;
 
@@ -56,7 +57,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void OnSpawn(IEntitySource source)
         {
             Seed = Main.rand.Next();
-            TriangleMesh = RandomPolygon.GeneratePolygon((int)Seed, NPC.Center, 7.5f * 16f, 0.8f, 0.2f, 8).Triangulate();
+            Shape = RandomPolygon.GeneratePolygon((int)Seed, Vector2.Zero, 7.5f * 16f, 0.8f, 0.2f, 8);
+            TriangleMesh = Shape.Triangulate();
 
             NPC.netUpdate = true;
         }
@@ -79,12 +81,40 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             On_Main.DrawNPCs += DrawAsteroids;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
+            On_Projectile.AI_007_GrapplingHooks += GrappleAsteroid;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
+            On_Projectile.AI_007_GrapplingHooks -= GrappleAsteroid;
+        }
+
+        private void GrappleAsteroid(On_Projectile.orig_AI_007_GrapplingHooks orig, Projectile self)
+        {
+            orig(self);
+
+            Vector2? collision = AsteroidCollision(self.position, self.width, self.height);
+            if (collision != null && self.ai[0] != 2)
+                SetGrapple(self.position, self);
+        }
+
+        /// <summary>
+        /// Makes a grappling hook think it's grappled onto an object.
+        /// This function was written by @Impaxim on discord. Thank you Impaxim!
+        /// </summary>
+        /// <param name="position">The position you want the grappling hook to grapple to.</param>
+        /// <param name="grapple">The grappling hook projectile.</param>
+        private void SetGrapple(Vector2 position, Projectile grapple)
+        {
+            //grapple.tileCollide = true;
+            grapple.ai[0] = 2;
+            Main.player[grapple.owner].grappling[Main.player[grapple.owner].grapCount] = grapple.whoAmI;
+            Main.player[grapple.owner].grapCount++;
+            grapple.velocity = Vector2.Zero;
+            grapple.netUpdate = true;
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, grapple.Center);
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
@@ -134,7 +164,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             // help me
             Vector2 asteroidCollision = Vector2.Zero;
-            Vector2 entityPosition = position + (0.5f * new Vector2(width, height));
+            Vector2 entityPosition = position;
 
             Asteroid closestAsteroid = null;
             float distanceToAsteroid = float.MaxValue;
@@ -154,11 +184,13 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             if (closestAsteroid is not null)
             {
+                entityPosition = position - closestAsteroid.NPC.Center;
+
                 Polygon hitbox = new Polygon([
-                    position,
-                    position + new Vector2(width, 0),
-                    position + new Vector2(0, height),
-                    position + new Vector2(width, height),
+                    entityPosition,
+                    entityPosition + new Vector2(width, 0),
+                    entityPosition + new Vector2(0, height),
+                    entityPosition + new Vector2(width, height),
                 ]);
 
                 List<Vector2?> collisions = new List<Vector2?>();
@@ -203,7 +235,11 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 if (npc.ModNPC is Asteroid asteroid && npc.active)
                 {
                     foreach (Triangle triangle in asteroid.TriangleMesh)
-                        triangleVertices.AddRange(triangle.Vertices);
+                    {
+                        triangleVertices.Add(triangle.Vertices[0] + npc.Center);
+                        triangleVertices.Add(triangle.Vertices[1] + npc.Center);
+                        triangleVertices.Add(triangle.Vertices[2] + npc.Center);
+                    }
                 }
             }
 
