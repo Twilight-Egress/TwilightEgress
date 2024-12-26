@@ -9,7 +9,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
-using TwilightEgress.Content.Walls;
+using TwilightEgress.Content.Walls.EnchantedOvergrowth;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.World
