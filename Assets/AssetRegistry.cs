@@ -190,6 +190,7 @@ namespace TwilightEgress.Assets
             {
                 public static readonly Asset<Texture2D> ResplendentRoarYharon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Misc/ResplendentRoarYharon");
                 public static readonly Asset<Texture2D> NoxusVision = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/Misc/NoxusVision");
+                public static readonly Asset<Texture2D> PantsEnemy = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/Misc/PantsEnemy");
             }
 
             public class MPG
