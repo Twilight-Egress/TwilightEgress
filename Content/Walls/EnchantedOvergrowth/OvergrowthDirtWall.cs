@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Content.Walls
+namespace TwilightEgress.Content.Walls.EnchantedOvergrowth
 {
     public class OvergrowthDirtWall : ModWall
     {
