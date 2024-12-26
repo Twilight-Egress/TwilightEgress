@@ -45,5 +45,10 @@ namespace TwilightEgress.Content.NPCs.Misc
 
             AIType = NPCID.Zombie;
         }
+
+        public override void AI()
+        {
+            NPC.rotation += (NPC.velocity.X + NPC.velocity.Y * NPC.direction) / MathF.Tau;
+        }
     }
 }

@@ -1,0 +1,12 @@
+Mods: {
+	TwilightEgress: {
+		Items: {
+			EarmuffFruit: {
+				DisplayName: Earmuff Fruit
+				Tooltip: ""
+			}
+		}
+
+		NPCs.PantsEnemy.DisplayName: Pants Enemy
+	}
+}
