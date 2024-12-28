@@ -193,15 +193,16 @@ namespace TwilightEgress.Content.World
         {
         }
 
-        private int[] FoliageTiles = [
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile1x1").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile1x2").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x1").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x2").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x3").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x4").Type,
-            TwilightEgress.Instance.Find<ModTile>("AmbientTile3x6").Type
-        ];
+        private Dictionary<int, int> FoliageTiles = new Dictionary<int, int>
+        {
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile1x1").Type, 4 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile1x2").Type, 2 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile2x1").Type, 1 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile2x2").Type, 3 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile2x3").Type, 1 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile2x4").Type, 3 },
+            { TwilightEgress.Instance.Find<ModTile>("AmbientTile3x6").Type, 1 }
+        };
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -278,10 +279,8 @@ namespace TwilightEgress.Content.World
                     }
 
                     // attempt to place the tile
-                    int tileType = WorldGen.genRand.Next(FoliageTiles);
-
-                    WorldGen.PlaceTile(i, j - 1, tileType, mute: true);
-
+                    int tileType = WorldGen.genRand.Next(FoliageTiles.Keys.ToArray());
+                    WorldGen.PlaceTile(i, j - 1, tileType, mute: true, style: WorldGen.genRand.Next(0, FoliageTiles[tileType]));
                     success = true;
                 }
             }
