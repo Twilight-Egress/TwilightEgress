@@ -38,7 +38,7 @@ namespace TwilightEgress.Content.World
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Polluting the land with magic";
+            progress.Message = "Polluting the land with mana";
 
             // set the size and initial position of the biome
             int size = (int)(Main.maxTilesX * 0.065f);
@@ -93,7 +93,6 @@ namespace TwilightEgress.Content.World
                     }
                 }
             }
-
 
             // generate the biome with noise
             // to-do: use sobel operator or nearest neighbor to get rid of random dirt splotches
@@ -194,6 +193,16 @@ namespace TwilightEgress.Content.World
         {
         }
 
+        private int[] FoliageTiles = [
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile1x1").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile1x2").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x1").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x2").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x3").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile2x4").Type,
+            TwilightEgress.Instance.Find<ModTile>("AmbientTile3x6").Type
+        ];
+
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Growing toxic enchanted plants";
@@ -230,9 +239,51 @@ namespace TwilightEgress.Content.World
                 TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type
             ];
 
-            GenerateTrees(size, bigTypes, 0, 0.25f);
-            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type], 1, 0.8f);
-            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type], 2, 0.5f);
+            GenerateTrees(size, bigTypes, 0, 0.0625f);
+            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseMedium").Type], 1, 0.2f);
+            GenerateTrees(size, [TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseSmall").Type], 2, 0.125f);
+            GenerateFoliage(size);
+        }
+
+        public void GenerateFoliage(float size)
+        {
+            int innerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X - (int)(size * 0.5f);
+            int outerBoundX = EnchantedOvergrowthGen.OvergrowthPos.X + (int)(size * 0.5f);
+
+            for (int i = innerBoundX; i < outerBoundX; i++)
+            {
+                int j = (int)(Main.worldSurface - (Main.maxTilesY * 0.125f));
+                bool success = false;
+                while (j <= Main.maxTilesY - 20 && !success)
+                {
+                    Tile tile = Framing.GetTileSafely(i, j);
+
+                    if (!tile.HasTile)
+                    {
+                        j++;
+                        continue;
+                    }
+
+                    if (tile.TileType != (ushort)ModContent.TileType<OvergrowthGrass>())
+                    {
+                        success = true;
+                        break;
+                    }
+
+                    if (Framing.GetTileSafely(i, j - 1).HasTile)
+                    {
+                        success = true;
+                        break;
+                    }
+
+                    // attempt to place the tile
+                    int tileType = WorldGen.genRand.Next(FoliageTiles);
+
+                    WorldGen.PlaceTile(i, j - 1, tileType, mute: true);
+
+                    success = true;
+                }
+            }
         }
 
         public void GenerateTrees(int size, int[] trees, int displacement, float chance)
