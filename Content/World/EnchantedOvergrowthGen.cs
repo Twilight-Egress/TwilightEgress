@@ -236,7 +236,8 @@ namespace TwilightEgress.Content.World
             int[] bigTypes =
             [
                 TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge").Type,
-                TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type
+                TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type,
+                TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge3").Type
             ];
 
             GenerateTrees(size, bigTypes, 0, 0.0625f);
@@ -335,7 +336,8 @@ namespace TwilightEgress.Content.World
 
             // attempt to place the base
             int tileType = WorldGen.genRand.Next(typesToPlace);
-            int placeStyle = tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
+            bool tileTypeIsAwkwardLarge = tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge2").Type || tileType == TwilightEgress.Instance.Find<ModTile>("OvergrowthTreeBaseLarge3").Type;
+            int placeStyle = tileTypeIsAwkwardLarge ? WorldGen.genRand.Next(2) : WorldGen.genRand.Next(4);
 
             WorldGen.PlaceTile(i, j, tileType, mute: true, style: placeStyle);
             if (Framing.GetTileSafely(i, j).TileType != tileType)

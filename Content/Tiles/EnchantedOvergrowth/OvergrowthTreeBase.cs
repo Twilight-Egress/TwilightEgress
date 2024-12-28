@@ -13,14 +13,13 @@ using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 {
-    // to-do: add 3rd large type
-
     public class OvergrowthTreeBaseLoader : ModSystem
     {
         public override void Load()
         {
             Mod.AddContent(new OvergrowthTreeBase("OvergrowthTreeBaseLarge", 7, 4, new Point16(3, 3), 4));
             Mod.AddContent(new OvergrowthTreeBase("OvergrowthTreeBaseLarge2", 7, 4, new Point16(2, 3), 2));
+            Mod.AddContent(new OvergrowthTreeBase("OvergrowthTreeBaseLarge3", 7, 4, new Point16(4, 3), 2));
             Mod.AddContent(new OvergrowthTreeBase("OvergrowthTreeBaseMedium", 5, 3, new Point16(2, 2), 4));
             Mod.AddContent(new OvergrowthTreeBase("OvergrowthTreeBaseSmall", 3, 2, new Point16(1, 1), 4, false));
         }

@@ -104,6 +104,8 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseLarge = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseLarge");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseLarge2_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseLarge2_Glow");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseLarge2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseLarge2");
+                public static readonly Asset<Texture2D> OvergrowthTreeBaseLarge3_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseLarge3_Glow");
+                public static readonly Asset<Texture2D> OvergrowthTreeBaseLarge3 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseLarge3");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseMedium_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseMedium_Glow");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseMedium");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseSmall");
