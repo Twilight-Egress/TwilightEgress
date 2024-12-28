@@ -73,6 +73,13 @@ namespace TwilightEgress.Assets
 
             public class EnchantedOvergrowth
             {
+                public static readonly Asset<Texture2D> AmbientTile1x1 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile1x1");
+                public static readonly Asset<Texture2D> AmbientTile1x2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile1x2");
+                public static readonly Asset<Texture2D> AmbientTile2x1 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile2x1");
+                public static readonly Asset<Texture2D> AmbientTile2x2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile2x2");
+                public static readonly Asset<Texture2D> AmbientTile2x3 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile2x3");
+                public static readonly Asset<Texture2D> AmbientTile2x4 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile2x4");
+                public static readonly Asset<Texture2D> AmbientTile3x6 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/AmbientTile3x6");
                 public static readonly Asset<Texture2D> Manastone_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone_Glow");
                 public static readonly Asset<Texture2D> Manastone_Item = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone_Item");
                 public static readonly Asset<Texture2D> Manastone = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/Manastone");
@@ -92,6 +99,7 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseMedium_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseMedium_Glow");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseMedium");
                 public static readonly Asset<Texture2D> OvergrowthTreeBaseSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/EnchantedOvergrowth/OvergrowthTreeBaseSmall");
+                public static readonly Asset<Texture2D> OvergrowthDirtWall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Walls/EnchantedOvergrowth/OvergrowthDirtWall");
             }
 
             public class Enchilada
@@ -260,11 +268,6 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> MagicStreak = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/Trails/MagicStreak");
                 public static readonly Asset<Texture2D> SwordSmearStreak = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/Trails/SwordSmearStreak");
                 public static readonly Asset<Texture2D> ThinGlowStreak = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/Trails/ThinGlowStreak");
-            }
-
-            public class Walls
-            {
-                public static readonly Asset<Texture2D> OvergrowthDirtWall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Walls/OvergrowthDirtWall");
             }
 
         }

@@ -92,6 +92,11 @@ Mods: {
 				DisplayName: Overgrowth Dirt Item
 				Tooltip: ""
 			}
+
+			EarmuffFruit: {
+				DisplayName: Earmuff Fruit
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
