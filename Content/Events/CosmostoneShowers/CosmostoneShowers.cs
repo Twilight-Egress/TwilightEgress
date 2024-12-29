@@ -193,6 +193,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         // -fryzahh
         private void Entities_SpawnSpecialSpaceNPCs(Player closestPlayer)
         {
+            float asteroidSpawnChance = 125f;
+
             List<ISpawnAvoidZone> activeObjects = new List<ISpawnAvoidZone>();
 
             foreach (NPC npc in Main.npc.Where(a => a.active && a.ModNPC is ISpawnAvoidZone))
@@ -223,6 +225,16 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>(), 1f);
                     thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.008f);
+
+                    if (NPC.downedBoss2)
+                        thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
 
                     int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPos, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
                     if (Main.projectile.IndexInRange(p))
@@ -247,17 +259,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                 if (NPC.downedBoss2)
                     asteroids.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f);
-
-                // Search for any active Planetoids currently viewable on-screen.
-                // Change the spawn position of asteroids to a radius around the center of these Planetoids if there are any active at the time.
-                // This allows most asteroids to not just spawn directly inside of Planetoids or their radius (may be buggy if there are 
-                // multiple Planetoids close to each other).
-                foreach (NPC planetoid in activePlanetoidsOnScreen)
-                {
-                    float radiusAroundPlanetoid = planetoid.localAI[0] + planetoid.localAI[1] + Main.rand.NextFloat(1000f, 200f);
-                    Vector2 planetoidPositionWithRadius = planetoid.Center + Vector2.UnitX.RotatedByRandom(Math.Tau) * radiusAroundPlanetoid;
-                    asteroidSpawnPosition = planetoidPositionWithRadius;
-                }
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
                 {
