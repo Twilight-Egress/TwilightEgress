@@ -180,7 +180,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             return orig(position, velocity, width, height, gravity, fall);
         }
 
-        private Vector2? AsteroidCollision(Vector2 position, int width, int height)
+        public static Vector2? AsteroidCollision(Vector2 position, int width, int height)
         {
             // help me
             Vector2 asteroidCollision = Vector2.Zero;

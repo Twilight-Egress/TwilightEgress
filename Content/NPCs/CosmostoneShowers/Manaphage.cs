@@ -394,7 +394,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 bool leavingWorldBounds = centerAhead.Y >= Main.maxTilesY + 750f || centerAhead.Y < Main.maxTilesY * 0.34f;
                 turnAround = leavingWorldBounds;
 
-                if (!Collision.CanHit(NPC.Center, NPC.width, NPC.height, centerAhead, NPC.width, NPC.height))
+                Vector2? collision = AsteroidSystem.AsteroidCollision(centerAhead, NPC.width, NPC.height);
+                if (!Collision.CanHit(NPC.Center, NPC.width, NPC.height, centerAhead, NPC.width, NPC.height) || collision is not null)
                     turnAround = true;
             }
         }

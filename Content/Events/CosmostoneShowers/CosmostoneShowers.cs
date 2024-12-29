@@ -230,6 +230,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.008f);
                     thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.008f);
                     thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 0.2f);
 
                     if (NPC.downedBoss2)
                         thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
@@ -239,60 +240,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
             }
-
-            // Creatures
-            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
-            {
-                Vector2 creatureSpawnPosition = closestPlayer.Center + Main.rand.NextVector2CircularEdge(Main.rand.NextFloat(1250f, 250f), Main.rand.NextFloat(600f, 200f));
-
-                bool canSpawn = !Collision.SolidCollision(creatureSpawnPosition, 300, 300);
-
-                foreach (ISpawnAvoidZone obj in activeObjects)
-                {
-                    if ((obj.Position - creatureSpawnPosition).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
-                    {
-                        canSpawn = false;
-                        break;
-                    }
-                }
-
-                if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(125))
-                {
-                    WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
-                    thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 1f);
-                    thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 1f);
-
-                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), creatureSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
-                    if (Main.projectile.IndexInRange(p))
-                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                }
-            }
-
-            /* Asteroids.
-            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && Main.rand.NextBool(asteroidSpawnChance))
-            {
-                // Default spawn position.
-                Vector2 asteroidSpawnPosition = closestPlayer.Center + Main.rand.NextVector2CircularEdge(Main.rand.NextFloat(1250f, 250f), Main.rand.NextFloat(600f, 200f));
-
-                WeightedRandom<int> asteroids = new WeightedRandom<int>();
-                asteroids.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4);
-                asteroids.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2);
-                asteroids.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1);
-                asteroids.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5);
-                asteroids.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8);
-                asteroids.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4);
-                asteroids.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2);
-
-                if (NPC.downedBoss2)
-                    asteroids.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f);
-
-                if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(asteroidSpawnPosition, 300, 300))
-                {
-                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), asteroidSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, asteroids.Get());
-                    if (Main.projectile.IndexInRange(p))
-                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                }
-            }*/
         }
         #endregion
 
