@@ -339,8 +339,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             cosmoSkyShader.TrySetParameter("galaxyOpacity", globalOpacity);
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.MeltyNoise, 1, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.SwirlyNoise, 2, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.SwirlyNoise, 1, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.MeltyNoise, 2, samplerState);
             cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise2, 3, samplerState);
             cosmoSkyShader.Apply();
 
