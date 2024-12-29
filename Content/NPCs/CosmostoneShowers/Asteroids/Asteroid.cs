@@ -6,13 +6,19 @@ using Terraria.ModLoader;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 {
-    public abstract class Asteroid : ModNPC
+    public abstract class Asteroid : ModNPC, ISpawnAvoidZone
     {
         public ref float Timer => ref NPC.ai[0];
 
         public ref float RotationSpeedSpawnFactor => ref NPC.ai[1];
 
         public ref float MaxTime => ref NPC.ai[2];
+
+        public float RadiusCovered => 100f;
+
+        public Vector2 Position => NPC.Center;
+
+        public bool Active => NPC.active;
 
         public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
 
