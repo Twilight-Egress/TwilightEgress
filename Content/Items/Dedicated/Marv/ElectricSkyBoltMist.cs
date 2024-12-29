@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using TwilightEgress.Core.Graphics;
+using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {

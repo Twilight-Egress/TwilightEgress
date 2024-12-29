@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TwilightEgress.Core.Graphics
+namespace TwilightEgress.Core
 {
     public class InterpolatedColorBuilder
     {

@@ -9,7 +9,6 @@ using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Graphics;
 
 namespace TwilightEgress.Content.Items.Dedicated.Marv
 {
