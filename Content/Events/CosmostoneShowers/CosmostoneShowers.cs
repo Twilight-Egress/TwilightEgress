@@ -193,9 +193,12 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         // -fryzahh
         private void Entities_SpawnSpecialSpaceNPCs(Player closestPlayer)
         {
-            List<ISpawnAvoidZone> activeObjects = TwilightEgress.SpawnAvoidZoneInheriters;
+            List<ISpawnAvoidZone> activeObjects = new List<ISpawnAvoidZone>();
 
-            Main.NewText(TwilightEgress.SpawnAvoidZoneInheriters.Count);
+            foreach (NPC npc in Main.npc.Where(a => a.active && a.ModNPC is ISpawnAvoidZone))
+            {
+                activeObjects.Add(npc.ModNPC as ISpawnAvoidZone);
+            } 
 
             // Walkable objects :3
             if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
@@ -207,12 +210,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                 foreach (ISpawnAvoidZone obj in activeObjects)
                 {
-                    if (!obj.Active)
-                    {
-                        TwilightEgress.SpawnAvoidZoneInheriters.Remove(obj);
-                        continue;
-                    }
-
                     if ((obj.Position - spawnPos).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
                     {
                         canSpawn = false;

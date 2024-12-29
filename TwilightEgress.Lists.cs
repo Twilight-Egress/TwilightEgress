@@ -11,8 +11,6 @@ namespace TwilightEgress
     public partial class TwilightEgress
     {
         #region NPC Lists
-        internal static List<ISpawnAvoidZone> SpawnAvoidZoneInheriters { get; set; }
-
         public static List<NPC> BaseAsteroidInheriters { get; set; }
         #endregion
 
@@ -22,7 +20,6 @@ namespace TwilightEgress
 
         private static void LoadLists()
         {
-            SpawnAvoidZoneInheriters = [];
             BaseAsteroidInheriters = [];
 
             PickaxeProjectileIDs = new()
@@ -49,7 +46,6 @@ namespace TwilightEgress
 
         private static void UnloadLists()
         {
-            SpawnAvoidZoneInheriters = null;
             BaseAsteroidInheriters = null;
             PickaxeProjectileIDs = null;
         }

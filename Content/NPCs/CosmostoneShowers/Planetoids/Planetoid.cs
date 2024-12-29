@@ -97,10 +97,6 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
                 }
             }
 
-            // Add to the global list of Planetoid NPC instances.
-            if (!TwilightEgress.SpawnAvoidZoneInheriters.Contains(this))
-                TwilightEgress.SpawnAvoidZoneInheriters.Add(this);
-
             // Store these values for access outside of this Base class.
             StoredMaximumAttractionRadius = MaximumAttractionRadius;
             StoredWalkableRadius = WalkableRadius;

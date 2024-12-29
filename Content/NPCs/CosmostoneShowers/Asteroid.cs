@@ -73,10 +73,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             bool shouldKill = true;
 
-            // Add to the global list of asteroid NPC instances.
-            if (!TwilightEgress.SpawnAvoidZoneInheriters.Contains(this))
-                TwilightEgress.SpawnAvoidZoneInheriters.Add(this);
-
             foreach (Player player in Main.player)
             {
                 if (player.Center.DistanceSQ(NPC.Center) <= 2560000)
