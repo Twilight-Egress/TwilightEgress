@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,7 +18,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
     // 3. draw the rest of the owl (shader that draws the asteroid)
     // 4. probably gonna have to redo how the shapes generate based on the art
 
-    public class Asteroid : ModNPC
+    public class Asteroid : ModNPC, ISpawnAvoidZone
     {
         public override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
 
@@ -26,6 +27,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public Polygon Shape;
 
         public List<Triangle> TriangleMesh;
+
+        public float RadiusCovered => 360f;
+
+        public Vector2 Position => NPC.Center;
+
+        public bool Active => NPC.active;
 
         public ref float Seed => ref NPC.ai[0];
 
@@ -65,6 +72,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void AI()
         {
             bool shouldKill = true;
+
+            // Add to the global list of asteroid NPC instances.
+            if (!TwilightEgress.SpawnAvoidZoneInheriters.Contains(this))
+                TwilightEgress.SpawnAvoidZoneInheriters.Add(this);
 
             foreach (Player player in Main.player)
             {

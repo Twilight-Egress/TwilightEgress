@@ -1,5 +1,6 @@
 ﻿using CalamityMod.Events;
 using CalamityMod.NPCs.NormalNPCs;
+using CalamityMod.World.Planets;
 using Luminance.Assets;
 using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
@@ -17,6 +18,7 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
@@ -27,6 +29,7 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.BaseEntities.ModNPCs;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+using static TwilightEgress.Assets.AssetRegistry.Textures;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -190,65 +193,43 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         // -fryzahh
         private void Entities_SpawnSpecialSpaceNPCs(Player closestPlayer)
         {
-            int asteroidSpawnChance = 125;
-            int planetoidSpawnChance = 500;
+            List<ISpawnAvoidZone> activeObjects = TwilightEgress.SpawnAvoidZoneInheriters;
 
-            List<NPC> activePlanetoids = TwilightEgress.BasePlanetoidInheriters.Where(p => p.active).ToList();
-            List<NPC> activePlanetoidsOnScreen = new();
+            Main.NewText(TwilightEgress.SpawnAvoidZoneInheriters.Count);
 
-            // Get all active planetoids that are on-screen.
-            foreach (NPC planetoid in activePlanetoids)
+            // Walkable objects :3
+            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
             {
-                Rectangle planetoidBounds = new((int)planetoid.Center.X, (int)planetoid.Center.Y, (int)planetoid.localAI[0], (int)planetoid.localAI[1]);
+                Vector2 spawnPos = new Vector2(Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X), Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y));
                 Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
-                if (planetoidBounds.Intersects(screenBounds))
-                    activePlanetoidsOnScreen.Add(planetoid);
-            }
 
-            List<NPC> activeAsteroids = Main.npc.Where(n => n.active && n.type == ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>()).ToList();
-            List<NPC> activeAsteroidsOnScreen = new();
+                bool canSpawn = !Collision.SolidCollision(spawnPos, 300, 300) && screenBounds.Contains((int)spawnPos.X, (int)spawnPos.Y);
 
-            foreach (NPC asteroid in activeAsteroids)
-            {
-                Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
-                if (screenBounds.Intersects(asteroid.getRect()))
-                    activeAsteroidsOnScreen.Add(asteroid);
-            }
-
-            // Walkable asteroids
-            if (activeAsteroidsOnScreen.Count <= 10 && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
-            {
-                float x = Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X);
-                float y = Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y);
-
-                bool canSpawn = true;
-
-                foreach (NPC asteroid in activeAsteroids)
+                foreach (ISpawnAvoidZone obj in activeObjects)
                 {
-                    if (asteroid.Center.DistanceSQ(new Vector2(x, y)) <= 129600)
+                    if (!obj.Active)
+                    {
+                        TwilightEgress.SpawnAvoidZoneInheriters.Remove(obj);
+                        continue;
+                    }
+
+                    if ((obj.Position - spawnPos).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
                     {
                         canSpawn = false;
                         break;
                     }
                 }
 
-                foreach (NPC planetoid in activePlanetoids)
+                if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (planetoid.Center.DistanceSQ(new Vector2(x, y)) <= MathF.Pow((planetoid.ModNPC as Planetoid).MaximumAttractionRadius * 1.5f, 2))
-                    {
-                        canSpawn = false;
-                        break;
-                    }
-                }
+                    WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
+                    thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
 
-                if (canSpawn)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(new Vector2(x, y), 300, 300))
-                    {
-                        int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), new Vector2(x, y), Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>());
-                        if (Main.projectile.IndexInRange(p))
-                            NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                    }
+                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPos, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
+                    if (Main.projectile.IndexInRange(p))
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
             }
 
@@ -288,37 +269,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
             }*/
-
-            // Planetoids.
-            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f && Main.rand.NextBool(planetoidSpawnChance))
-            {
-                Vector2 planetoidSpawnPosition = closestPlayer.Center + Main.rand.NextVector2CircularEdge(Main.rand.NextFloat(2500f, 1500f), 600f);
-                if (activePlanetoidsOnScreen.Count > 0)
-                {
-                    NPC otherPlanetoid = activePlanetoids.LastOrDefault();
-                    if (otherPlanetoid.active)
-                    {
-                        float radiusAroundPlanetoid = otherPlanetoid.localAI[0] + otherPlanetoid.localAI[1] + Main.rand.NextFloat(2000f, 750f);
-                        Vector2 planetoidPositionWithRadius = otherPlanetoid.Center + Vector2.UnitX.RotatedByRandom(Math.Tau) * radiusAroundPlanetoid;
-                        planetoidSpawnPosition = planetoidPositionWithRadius;
-                    }
-                }
-
-                if (Main.netMode != NetmodeID.MultiplayerClient && !Collision.SolidCollision(planetoidSpawnPosition, 1600, 1600) && activePlanetoids.Count < 10)
-                {
-                    int[] planetoidTypes =
-                    {
-                        ModContent.NPCType<GalileoPlanetoid>(),
-                        ModContent.NPCType<ShatteredPlanetoid>()
-                    };
-
-                    int planetoid = planetoidTypes[Main.rand.Next(0, planetoidTypes.Length)];
-
-                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), planetoidSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, planetoid);
-                    if (Main.projectile.IndexInRange(p))
-                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
-                }
-            }
         }
         #endregion
 

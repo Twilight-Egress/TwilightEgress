@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 
 namespace TwilightEgress
 {
     public partial class TwilightEgress
     {
         #region NPC Lists
-        public static List<NPC> BasePlanetoidInheriters { get; set; }
+        internal static List<ISpawnAvoidZone> SpawnAvoidZoneInheriters { get; set; }
 
         public static List<NPC> BaseAsteroidInheriters { get; set; }
         #endregion
@@ -21,8 +22,8 @@ namespace TwilightEgress
 
         private static void LoadLists()
         {
-            BasePlanetoidInheriters = new();
-            BaseAsteroidInheriters = new();
+            SpawnAvoidZoneInheriters = [];
+            BaseAsteroidInheriters = [];
 
             PickaxeProjectileIDs = new()
             {
@@ -48,7 +49,7 @@ namespace TwilightEgress
 
         private static void UnloadLists()
         {
-            BasePlanetoidInheriters = null;
+            SpawnAvoidZoneInheriters = null;
             BaseAsteroidInheriters = null;
             PickaxeProjectileIDs = null;
         }

@@ -3,11 +3,12 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
-    public abstract class Planetoid : ModNPC
+    public abstract class Planetoid : ModNPC, ISpawnAvoidZone
     {
         public float GravitationalVariable = 0f;
 
@@ -20,6 +21,12 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
         public abstract float MaximumAttractionRadius { get; }
 
         public abstract float WalkableRadius { get; }
+
+        public float RadiusCovered => (MaximumAttractionRadius + WalkableRadius) * 1.5f;
+
+        public Vector2 Position => NPC.Center;
+
+        public bool Active => NPC.active;
 
         public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Planetoids";
 
@@ -91,8 +98,8 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
             }
 
             // Add to the global list of Planetoid NPC instances.
-            if (!TwilightEgress.BasePlanetoidInheriters.Contains(NPC))
-                TwilightEgress.BasePlanetoidInheriters.Add(NPC);
+            if (!TwilightEgress.SpawnAvoidZoneInheriters.Contains(this))
+                TwilightEgress.SpawnAvoidZoneInheriters.Add(this);
 
             // Store these values for access outside of this Base class.
             StoredMaximumAttractionRadius = MaximumAttractionRadius;
