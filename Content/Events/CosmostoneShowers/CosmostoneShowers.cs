@@ -101,13 +101,11 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         public override void SafeOnModLoad()
         {
             ShiningStarColorBuilder = new InterpolatedColorBuilder()
-                .AddColor(Color.Violet)
-                .AddColor(Color.DeepSkyBlue)
-                .AddColor(Color.CornflowerBlue)
-                .AddColor(Color.White)
-                .AddColor(Color.Yellow)
-                .AddColor(Color.Orange)
-                .AddColor(Color.Red);
+                .AddColor(new Color(71, 126, 255))
+                .AddColor(new Color(228, 211, 200))
+                .AddColor(new Color(249, 221, 77))
+                .AddColor(new Color(232, 103, 39))
+                .AddColor(new Color(255, 0, 68));
         }
 
         public override void SafeOnModUnload()
@@ -341,8 +339,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             cosmoSkyShader.TrySetParameter("galaxyOpacity", globalOpacity);
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.RealisticClouds, 1, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.RealisticClouds, 2, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.MeltyNoise, 1, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.SwirlyNoise, 2, samplerState);
             cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise2, 3, samplerState);
             cosmoSkyShader.Apply();
 

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 
-namespace TwilightEgress.Core.Graphics
+namespace TwilightEgress.Core
 {
     public static class DrawingHelper
     {
