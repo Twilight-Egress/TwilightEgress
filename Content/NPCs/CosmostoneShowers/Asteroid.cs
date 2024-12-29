@@ -63,7 +63,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void OnSpawn(IEntitySource source)
         {
             Seed = Main.rand.Next();
-            Shape = RandomPolygon.GeneratePolygon((int)Seed, Vector2.Zero, 7.5f * 16f, 0.8f, 0.2f, 8);
+            Shape = RandomPolygon.GeneratePolygon((int)Seed, Vector2.Zero, 7.5f * 16f, 0.8f, 0f, 8);
             TriangleMesh = Shape.Triangulate();
 
             NPC.netUpdate = true;

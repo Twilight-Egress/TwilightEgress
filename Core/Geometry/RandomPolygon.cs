@@ -33,7 +33,7 @@ namespace TwilightEgress.Core.Geometry
 
             for (int i = 0; i < numberOfVertices; i++)
             {
-                float radius = MathHelper.Clamp(random.NextGaussian(averageRadius, spikiness), 0.5f * averageRadius, 2 * averageRadius);
+                float radius = MathHelper.Clamp(random.NextGaussian(averageRadius, spikiness), 0.75f * averageRadius, 1.5f * averageRadius);
                 points.Add(new Vector2(center.X + radius * MathF.Cos(angle), center.Y + radius * MathF.Sin(angle)));
                 angle += angles[i];
             }
