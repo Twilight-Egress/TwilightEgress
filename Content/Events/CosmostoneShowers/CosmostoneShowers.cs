@@ -396,7 +396,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         private void Visuals_SpawnAmbientSkyEntities()
         {
             int totalStarLayers = 7;
-            int totalAsteroidsLayers = 5;
+            //int totalAsteroidsLayers = 5;
 
             // Shining Stars.
             if (SkyEntityManager.CountActiveSkyEntities<ShiningStar>() < MaxShiningStars && Main.rand.NextBool(ShiningStarSpawnChance))
@@ -421,7 +421,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 }
             }
 
-            // Horizontally-travelling Asteroids.
+            /* Horizontally-travelling Asteroids.
             int travellingAsteroids = SkyEntityManager.CountActiveSkyEntities<TravellingCosmostoneAsteroidSmall>()
                 + SkyEntityManager.CountActiveSkyEntities<TravellingCosmostoneAsteroidMedium>()
                 + SkyEntityManager.CountActiveSkyEntities<TravellingCosmostoneAsteroidLarge>()
@@ -500,7 +500,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
 
                     asteroids.Get().Spawn();
                 }
-            }
+            }*/
 
             // Have an extremely low chance for exactly one Sirius star to spawn.
             if (SkyEntityManager.CountActiveSkyEntities<Sirius>() < 1 && Main.rand.NextBool(SiriusSpawnChance))
