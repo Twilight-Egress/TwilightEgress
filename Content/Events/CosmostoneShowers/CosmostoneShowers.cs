@@ -193,8 +193,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         // -fryzahh
         private void Entities_SpawnSpecialSpaceNPCs(Player closestPlayer)
         {
-            float asteroidSpawnChance = 125f;
-
             List<ISpawnAvoidZone> activeObjects = new List<ISpawnAvoidZone>();
 
             foreach (NPC npc in Main.npc.Where(a => a.active && a.ModNPC is ISpawnAvoidZone))
@@ -203,16 +201,16 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             } 
 
             // Walkable objects :3
-            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 300f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
+            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
             {
-                Vector2 spawnPos = new Vector2(Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X), Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y));
+                Vector2 spawnPosition = new Vector2(Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X), Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y));
                 Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
 
-                bool canSpawn = !Collision.SolidCollision(spawnPos, 300, 300) && screenBounds.Contains((int)spawnPos.X, (int)spawnPos.Y);
+                bool canSpawn = !Collision.SolidCollision(spawnPosition, 300, 300) && screenBounds.Contains((int)spawnPosition.X, (int)spawnPosition.Y);
 
                 foreach (ISpawnAvoidZone obj in activeObjects)
                 {
-                    if ((obj.Position - spawnPos).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
+                    if ((obj.Position - spawnPosition).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
                     {
                         canSpawn = false;
                         break;
@@ -236,7 +234,35 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     if (NPC.downedBoss2)
                         thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
 
-                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPos, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
+                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
+                    if (Main.projectile.IndexInRange(p))
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
+                }
+            }
+
+            // Creatures
+            if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
+            {
+                Vector2 creatureSpawnPosition = closestPlayer.Center + Main.rand.NextVector2CircularEdge(Main.rand.NextFloat(1250f, 250f), Main.rand.NextFloat(600f, 200f));
+
+                bool canSpawn = !Collision.SolidCollision(creatureSpawnPosition, 300, 300);
+
+                foreach (ISpawnAvoidZone obj in activeObjects)
+                {
+                    if ((obj.Position - creatureSpawnPosition).LengthSquared() <= MathF.Pow(obj.RadiusCovered, 2))
+                    {
+                        canSpawn = false;
+                        break;
+                    }
+                }
+
+                if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient && Main.rand.NextBool(125))
+                {
+                    WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
+                    thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 1f);
+
+                    int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), creatureSpawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
                     if (Main.projectile.IndexInRange(p))
                         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }

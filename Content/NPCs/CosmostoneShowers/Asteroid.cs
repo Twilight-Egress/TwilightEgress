@@ -134,7 +134,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             Main.player[grapple.owner].grapCount++;
             grapple.velocity = Vector2.Zero;
             grapple.netUpdate = true;
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, grapple.Center);
+            //Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, grapple.Center);
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
