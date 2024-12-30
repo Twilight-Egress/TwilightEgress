@@ -174,10 +174,10 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             // Walkable objects :3
             if (closestPlayer.active && !closestPlayer.dead && closestPlayer.Center.Y <= Main.maxTilesY + 1000f && closestPlayer.Center.Y >= Main.maxTilesY * 0.5f)
             {
-                Vector2 spawnPosition = new Vector2(Main.rand.NextGaussian(0.5f * (Main.screenWidth + 100), closestPlayer.Center.X), Main.rand.NextGaussian(0.5f * (Main.screenHeight + 100), closestPlayer.Center.Y));
+                Vector2 spawnPosition = new Vector2(Main.rand.NextGaussian(Main.screenWidth + 100, closestPlayer.Center.X), Main.rand.NextGaussian(Main.screenHeight + 100, closestPlayer.Center.Y));
                 Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
 
-                bool canSpawn = !Collision.SolidCollision(spawnPosition, 300, 300) && screenBounds.Contains((int)spawnPosition.X, (int)spawnPosition.Y);
+                bool canSpawn = !Collision.SolidCollision(spawnPosition, 300, 300) && !screenBounds.Contains((int)spawnPosition.X, (int)spawnPosition.Y);
 
                 foreach (ISpawnAvoidZone obj in activeObjects)
                 {
@@ -235,8 +235,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
             cosmoSkyShader.TrySetParameter("fadeOutMargin", fadeOutInterpolant);
             cosmoSkyShader.TrySetParameter("textureSize", new Vector2(skyTexture.Width, skyTexture.Height));
             cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.SwirlyNoise, 1, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.MeltyNoise, 2, samplerState);
-            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise2, 3, samplerState);
+            cosmoSkyShader.SetTexture(AssetRegistry.Textures.Gradients.PerlinNoise2, 2, samplerState);
             cosmoSkyShader.Apply();
 
             spriteBatch.Draw(skyTexture, new Rectangle(0, (int)(Main.worldSurface * gradientHeightInterpolant + 50f), (int)(Main.screenWidth * 1.5f), (int)(Main.screenHeight * 1.5f)), Color.White * globalOpacity);

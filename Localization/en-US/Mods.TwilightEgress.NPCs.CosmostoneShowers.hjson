@@ -13,6 +13,7 @@ Asteroids: {
 	CosmostoneGeode.DisplayName: Cosmostone Geode
 	MeteoriteAsteroid.DisplayName: Meteorite Asteroid
 	Asteroid.DisplayName: Asteroid
+	PolygonAsteroid.DisplayName: Polygon Asteroid
 }
 
 Planetoids: {
