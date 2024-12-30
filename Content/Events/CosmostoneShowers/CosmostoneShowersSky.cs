@@ -10,6 +10,8 @@ namespace TwilightEgress.Content.Skies
 {
     public class CosmostoneShowersSceneEffect : ModSceneEffect
     {
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CosmostoneShowers");
+
         public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
 
         public override float GetWeight(Player player) => 0.8f;
