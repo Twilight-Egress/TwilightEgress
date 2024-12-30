@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Core.Systems.EventHandlerSystem;
+using TwilightEgress.Content.Events;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
 {

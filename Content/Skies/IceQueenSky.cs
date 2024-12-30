@@ -200,4 +200,13 @@ namespace TwilightEgress.Content.Skies
 
         public override bool IsActive() => isActive || FadeOpacity > 0f;
     }
+
+    public class IceQueenFullbrightGlobalNPC : GlobalNPC
+    {
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+            if (npc.type == NPCID.IceQueen)
+                drawColor = Color.White;
+        }
+    }
 }

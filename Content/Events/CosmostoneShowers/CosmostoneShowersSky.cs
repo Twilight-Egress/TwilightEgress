@@ -3,13 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
+using TwilightEgress.Content.Events;
 using TwilightEgress.Content.Events.CosmostoneShowers;
-using TwilightEgress.Core.Systems.EventHandlerSystem;
 
 namespace TwilightEgress.Content.Skies
 {
     public class CosmostoneShowersSceneEffect : ModSceneEffect
     {
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/CosmostoneShowers");
+
         public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
 
         public override float GetWeight(Player player) => 0.8f;

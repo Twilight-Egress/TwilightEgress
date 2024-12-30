@@ -1,7 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 // Code here is by Lucille Karma (https://github.com/DominicKarma), she wrote this for WoTG and let me use it
 // Some minor changes by me

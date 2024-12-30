@@ -10,8 +10,6 @@ namespace TwilightEgress
     public partial class TwilightEgress
     {
         #region NPC Lists
-        public static List<NPC> BasePlanetoidInheriters { get; set; }
-
         public static List<NPC> BaseAsteroidInheriters { get; set; }
         #endregion
 
@@ -21,8 +19,7 @@ namespace TwilightEgress
 
         private static void LoadLists()
         {
-            BasePlanetoidInheriters = new();
-            BaseAsteroidInheriters = new();
+            BaseAsteroidInheriters = [];
 
             PickaxeProjectileIDs = new()
             {
@@ -48,7 +45,6 @@ namespace TwilightEgress
 
         private static void UnloadLists()
         {
-            BasePlanetoidInheriters = null;
             BaseAsteroidInheriters = null;
             PickaxeProjectileIDs = null;
         }

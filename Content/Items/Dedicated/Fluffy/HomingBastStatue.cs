@@ -10,7 +10,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 
 namespace TwilightEgress.Content.Items.Dedicated.Fluffy

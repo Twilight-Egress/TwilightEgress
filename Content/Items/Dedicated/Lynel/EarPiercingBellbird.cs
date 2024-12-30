@@ -7,7 +7,6 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
 using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 

@@ -58,7 +58,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
             NPC.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.scale = Main.rand.NextFloat(0.75f, 1.25f);
             NPC.spriteDirection = Main.rand.NextBool().ToDirectionInt();
-            NPC.frame.Y = 138 * Main.rand.NextFloat() < 0.03f ? Main.rand.NextBool().ToInt() + 1 : 0;
+            NPC.frame.Y = 138 * Main.rand.Next(0, 3) * 38;
             NPC.netUpdate = true;
         }
 

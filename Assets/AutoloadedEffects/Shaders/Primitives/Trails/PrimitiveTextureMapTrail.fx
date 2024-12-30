@@ -2,6 +2,7 @@
 matrix uWorldViewProjection;
 
 bool flipVertically;
+bool flipHorizontally;
 float mapTextureSize;
 float textureScaleFactor;
 
@@ -41,6 +42,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     coords.y = saturate(baseCoords.y);
     if (flipVertically)
         coords.y = 1 - coords.y;
+    if (flipHorizontally)
+        coords.x = 1 - coords.x;
     
     float4 textureColor = tex2D(mapTexture, coords);
     return textureColor * baseColor;

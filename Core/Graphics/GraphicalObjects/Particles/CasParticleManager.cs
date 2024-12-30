@@ -14,7 +14,7 @@ namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
 
         public override void PostUpdateDusts()
         {
-            FastParallel.For(0, ActiveCasParticles.Count, (int x, int y, object context) =>
+            FastParallel.For(0, ActiveCasParticles.Count, (x, y, context) =>
             {
                 for (int i = x; i < y; i++)
                 {

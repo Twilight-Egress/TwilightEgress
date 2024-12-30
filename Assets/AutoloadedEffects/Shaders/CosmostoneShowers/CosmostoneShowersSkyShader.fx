@@ -1,7 +1,6 @@
 ﻿sampler maskTexture : register(s0);
 sampler cloudLayerOneTexture : register(s1);
-sampler cloudLayerTwoTexture : register(s2);
-sampler distortionTexture : register(s3);
+sampler distortionTexture : register(s2);
 
 float globalTime;
 float2 textureSize;
@@ -36,16 +35,12 @@ float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD
     layerOneCoords *= 0.4;
     float4 layerOneNoise = tex2D(cloudLayerOneTexture, layerOneCoords);
     
-    float2 layerTwoCoords = coords + distortion * 0.1;
-    layerTwoCoords += float2(globalTime * -0.03, globalTime * -0.007);
-    float4 layerTwoNoise = tex2D(cloudLayerTwoTexture, layerTwoCoords);
-    
     float2 maskCoords = float2(coords.x - cos(globalTime * 0.04), coords.y + sin(globalTime * 0.06));
     maskCoords *= 0.75;
     float4 mask = tex2D(maskTexture, maskCoords);
     
     // Make everything fade out at a certain margin.
-    float4 finalColor = mask * 2.65 * (layerOneNoise * (layerTwoNoise * 0.5)) * galaxyOpacity;
+    float4 finalColor = mask * 2.65 * (layerOneNoise * 0.5) * galaxyOpacity;
     finalColor.rgba = finalColor.rgba * (1 - (coords.y * 2 - fadeOutMargin));
     return finalColor;
 }

@@ -6,7 +6,6 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Core.Globals.GlobalNPCs;
 
 namespace TwilightEgress.Content.NPCs.Misc
 {
@@ -55,9 +54,9 @@ namespace TwilightEgress.Content.NPCs.Misc
 
         public override void AI()
         {
-            ref float glowingBackIllusionsAngle = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsAngleIndex];
-            ref float glowingBackIllusionsOutwardness = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
-            ref float eyeGlareScale = ref NPC.TwilightEgress().ExtraAI[EyeGlareScaleIndex];
+            ref float glowingBackIllusionsAngle = ref NPC.ai[GlowingBackIllusionsAngleIndex];
+            ref float glowingBackIllusionsOutwardness = ref NPC.ai[GlowingBackIllusionsOutwardnessIndex];
+            ref float eyeGlareScale = ref NPC.ai[EyeGlareScaleIndex];
 
             // Vanish into thin air.
             if (NPC.ai[0] == 1f)
@@ -81,9 +80,9 @@ namespace TwilightEgress.Content.NPCs.Misc
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            ref float glowingBackIllusionsAngle = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsAngleIndex];
-            ref float glowingBackIllusionsOutwardness = ref NPC.TwilightEgress().ExtraAI[GlowingBackIllusionsOutwardnessIndex];
-            ref float eyeGlareScale = ref NPC.TwilightEgress().ExtraAI[EyeGlareScaleIndex];
+            ref float glowingBackIllusionsAngle = ref NPC.ai[GlowingBackIllusionsAngleIndex];
+            ref float glowingBackIllusionsOutwardness = ref NPC.ai[GlowingBackIllusionsOutwardnessIndex];
+            ref float eyeGlareScale = ref NPC.ai[EyeGlareScaleIndex];
 
             Texture2D noxus = TextureAssets.Npc[NPC.type].Value;
             Texture2D eyeGlare = AssetRegistry.Textures.GreyscaleObjects.SoftStar.Value;

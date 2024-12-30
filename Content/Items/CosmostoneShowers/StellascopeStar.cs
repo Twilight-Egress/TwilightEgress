@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Assets;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
