@@ -204,7 +204,10 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 0.2f);
 
                     if (NPC.downedBoss2)
+                    {
                         thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
+                        thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 0.2f);
+                    }
 
                     int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());
                     if (Main.projectile.IndexInRange(p))
