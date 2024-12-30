@@ -64,7 +64,7 @@ namespace TwilightEgress
                 Vector2 arcVector = checkDirection.HasValue ? checkDirection.Value.SafeNormalize(Vector2.Zero).RotatedBy(i) :
                     entity.velocity.SafeNormalize(Vector2.Zero).RotatedBy(i);
 
-                Vector2? collision = AsteroidSystem.AsteroidCollision(entity.Center + arcVector * 60f, 1, 1);
+                Vector2? collision = PolygonAsteroidSystem.AsteroidCollision(entity.Center + arcVector * 60f, 1, 1);
                 if (!Collision.CanHit(entity.Center, 1, 1, entity.Center + arcVector * 60f, 1, 1) || collision is not null)
                 {
                     shouldTurnAround = true;

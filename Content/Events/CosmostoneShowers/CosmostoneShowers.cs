@@ -191,7 +191,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
-                    thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.Asteroid>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.PolygonAsteroid>(), 1f);
                     thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.008f);
