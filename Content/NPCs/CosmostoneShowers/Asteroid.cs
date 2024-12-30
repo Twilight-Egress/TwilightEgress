@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
