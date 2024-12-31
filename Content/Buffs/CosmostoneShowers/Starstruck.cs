@@ -1,5 +1,7 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Content.Events;
 
 namespace TwilightEgress.Content.Buffs.CosmostoneShowers
 {
@@ -7,9 +9,9 @@ namespace TwilightEgress.Content.Buffs.CosmostoneShowers
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = false;
-            Main.buffNoSave[Type] = false;
             Main.buffNoTimeDisplay[Type] = true;
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -27,6 +29,12 @@ namespace TwilightEgress.Content.Buffs.CosmostoneShowers
     {
         public bool active;
 
+        public override void PreUpdateBuffs()
+        {
+            if (EventHandlerManager.SpecificEventIsActive<Events.CosmostoneShowers.CosmostoneShowers>())
+                Player.AddBuff(ModContent.BuffType<Starstruck>(), 10);
+        }
+
         public override void PostUpdateBuffs()
         {
             if (active)
@@ -34,7 +42,7 @@ namespace TwilightEgress.Content.Buffs.CosmostoneShowers
                 Player.tileSpeed += 0.75f;
                 Player.wallSpeed += 0.75f;
                 Player.blockRange += 8;
-                Player.gravity = 0.1f;
+                Player.gravity = 0.2f;
             }
         }
 
@@ -47,10 +55,18 @@ namespace TwilightEgress.Content.Buffs.CosmostoneShowers
 
         public bool active;
 
+        public override bool PreAI(NPC npc)
+        {
+            if (EventHandlerManager.SpecificEventIsActive<Events.CosmostoneShowers.CosmostoneShowers>())
+                npc.AddBuff(ModContent.BuffType<Starstruck>(), 10);
+
+            return base.PreAI(npc);
+        }
+
         public override void PostAI(NPC npc)
         {
             if (active)
-                npc.GravityMultiplier *= 0.25f;
+                npc.GravityMultiplier *= 0.5f;
         }
 
         public override void ResetEffects(NPC npc) => active = false;
