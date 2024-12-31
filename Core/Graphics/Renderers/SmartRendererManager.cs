@@ -24,7 +24,7 @@ namespace TwilightEgress.Core.Graphics.Renderers
             {
                 On_Main.CheckMonoliths += DrawToSmartTargets;
                 On_Main.DrawInfernoRings += DrawRenderers_AfterEverything;
-                On_Main.DrawNPCs += DrawRenderers_AfterNPCs;
+                //On_Main.DrawNPCs += DrawRenderers_AfterNPCs;
                 On_Main.DrawProjectiles += DrawRenderers_AfterProjectiles;
                 On_Main.DrawPlayers_AfterProjectiles += DrawRenderers_AfterPlayers;
                 On_Main.DrawBackgroundBlackFill += DrawRenderers_BeforeTiles;
@@ -41,7 +41,7 @@ namespace TwilightEgress.Core.Graphics.Renderers
             {
                 On_Main.CheckMonoliths -= DrawToSmartTargets;
                 On_Main.DrawInfernoRings -= DrawRenderers_AfterEverything;
-                On_Main.DrawNPCs -= DrawRenderers_AfterNPCs;
+                //On_Main.DrawNPCs -= DrawRenderers_AfterNPCs;
                 On_Main.DrawProjectiles -= DrawRenderers_AfterProjectiles;
                 On_Main.DrawPlayers_AfterProjectiles -= DrawRenderers_AfterPlayers;
                 On_Main.DrawBackgroundBlackFill -= DrawRenderers_BeforeTiles;

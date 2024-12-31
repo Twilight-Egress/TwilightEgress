@@ -95,17 +95,26 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             0, Main.GameViewMatrix.Zoom.X, 0, 0,
             0, 0, 1, 0,
             0, 0, 0, 1);
+        BasicEffect basicEffect;
 
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
+
+            basicEffect = new BasicEffect(Main.graphics.GraphicsDevice);
+            basicEffect.World = world;
+            basicEffect.View = view;
+            basicEffect.VertexColorEnabled = true;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
+
+            basicEffect?.Dispose();
+            basicEffect = null;
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
@@ -239,12 +248,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
 
-            BasicEffect basicEffect = new BasicEffect(graphicsDevice);
-            basicEffect.World = world;
-            basicEffect.View = view;
-            basicEffect.VertexColorEnabled = true;
-
-            VertexBuffer vertexBuffer = new VertexBuffer(Main.graphics.GraphicsDevice, typeof(VertexPositionColor), triangleVertices.Count, BufferUsage.WriteOnly);
+            VertexBuffer vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), triangleVertices.Count, BufferUsage.WriteOnly);
 
             VertexPositionColor[] vertices = new VertexPositionColor[triangleVertices.Count];
 
@@ -271,12 +275,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             }
 
             graphicsDevice.SetVertexBuffer(null);
-
-            basicEffect?.Dispose();
-            basicEffect = null;
-
-            vertexBuffer?.Dispose();
-            vertexBuffer = null;
         }
     }
 }
