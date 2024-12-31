@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Core;
+using TwilightEgress.Core.DataStructures;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -73,13 +74,13 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
         {
             // TO-DO: theres absolutely a better way to do this all lmao
             Color paintColor = WorldGen.paintColor(Framing.GetTileSafely(i, j).TileColor);
-            AdjacencyData<bool> adjacencyData = GetAdjacentTiles(i, j, (tile) => tile.TileType == Type);
+            AdjacencyData<bool> adjacencyData = new AdjacencyData<bool>(i, j, (tile) => tile.TileType == Type);
 
-            int offsetX = (!adjacencyData.left && !adjacencyData.right) ? 180 + 54 * (i % 2) : 90 * (i % 2);
+            int offsetX = (!adjacencyData.Left && !adjacencyData.Right) ? 180 + 54 * (i % 2) : 90 * (i % 2);
             int offsetY = 54 * (i % 3);
 
-            if (adjacencyData.left)
-                offsetX += adjacencyData.right ? 18 : 36;
+            if (adjacencyData.Left)
+                offsetX += adjacencyData.Right ? 18 : 36;
 
             List<Point> framesToDraw =
             [
@@ -88,14 +89,14 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 new Point(0, -1),
             ];
 
-            if (!adjacencyData.right)
+            if (!adjacencyData.Right)
             {
                 framesToDraw.Add(new Point(1, 0));
                 framesToDraw.Add(new Point(1, 1));
                 framesToDraw.Add(new Point(1, -1));
             }
 
-            if (!adjacencyData.left)
+            if (!adjacencyData.Left)
             {
                 framesToDraw.Add(new Point(-1, 0));
                 framesToDraw.Add(new Point(-1, 1));
