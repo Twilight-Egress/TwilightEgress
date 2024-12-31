@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Core;
+using TwilightEgress.Core.DataStructures;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
@@ -58,7 +59,7 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
 
             Framing.GetTileSafely(i, j).HasTile = false;
 
-            AdjacencyData<int> adjacencyData = GetAdjacentTiles(i, j, (tile) => (int)tile.TileType);
+            AdjacencyData<int> adjacencyData = new AdjacencyData<int>(i, j, (tile) => (int)tile.TileType);
             int[] treeBases =
             [
                 Mod.Find<ModTile>("OvergrowthTreeBaseLarge").Type,
@@ -67,9 +68,9 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
                 Mod.Find<ModTile>("OvergrowthTreeBaseSmall").Type
             ];
 
-            if (adjacencyData.top == Type)
+            if (adjacencyData.Top == Type)
                 WorldGen.KillTile(i, j - 1);
-            if (adjacencyData.bottom == Type || treeBases.Contains(adjacencyData.bottom))
+            if (adjacencyData.Bottom == Type || treeBases.Contains(adjacencyData.Bottom))
                 WorldGen.KillTile(i, j + 1);
         }
     }

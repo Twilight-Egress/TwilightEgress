@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using TwilightEgress.Content.Tiles.EnchantedOvergrowth;
 using TwilightEgress.Content.Walls.EnchantedOvergrowth;
+using TwilightEgress.Core.DataStructures;
 using static TwilightEgress.TwilightEgressUtilities;
 
 namespace TwilightEgress.Content.World
@@ -222,9 +223,9 @@ namespace TwilightEgress.Content.World
                         if (tile.TileType != ModContent.TileType<OvergrowthDirt>())
                             continue;
 
-                        AdjacencyData<bool> tileData = GetAdjacentTiles(i, j, (tile) => tile.HasTile);
+                        AdjacencyData<bool> tileData = new AdjacencyData<bool>(i, j, (tile) => tile.HasTile);
 
-                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.top)
+                        if (tile.TileType == ModContent.TileType<OvergrowthDirt>() && !tileData.Top)
                             tile.TileType = (ushort)ModContent.TileType<OvergrowthGrass>();
                     }
                 }
