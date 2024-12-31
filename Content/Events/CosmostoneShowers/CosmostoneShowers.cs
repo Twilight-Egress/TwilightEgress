@@ -178,7 +178,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
 
                 bool spawningInsideBounds = spawnPosition.X > 1200 && spawnPosition.X < Main.maxTilesX * 16f - 1200 && spawnPosition.Y > 1200 && spawnPosition.Y < Main.maxTilesY * 16f - 1200;
-                bool canSpawn = spawningInsideBounds && !Collision.SolidCollision(spawnPosition, 300, 300);
+                bool canSpawn = spawningInsideBounds && !Collision.SolidCollision(spawnPosition, 1200, 1200);
 
                 foreach (ISpawnAvoidZone obj in activeObjects)
                 {
