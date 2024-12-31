@@ -8,7 +8,7 @@ using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
 namespace TwilightEgress.Core.BaseEntities.ModNPCs
 {
-    public abstract class Planetoid : ModNPC, ISpawnAvoidZone
+    public abstract class DwarfMoon : ModNPC, ISpawnAvoidZone
     {
         public float GravitationalVariable = 0f;
 

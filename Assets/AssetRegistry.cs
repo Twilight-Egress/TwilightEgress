@@ -79,6 +79,12 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> SilicateClusterBrick = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/CosmostoneShowers/SilicateClusterBrick");
             }
 
+            public class DwarfMoons
+            {
+                public static readonly Asset<Texture2D> GalileoDwarfMoon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfMoons/GalileoDwarfMoon");
+                public static readonly Asset<Texture2D> ShatteredDwarfMoon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfMoons/ShatteredDwarfMoon");
+            }
+
             public class EnchantedOvergrowth
             {
                 public static readonly Asset<Texture2D> ManaGrassSeeds = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/EnchantedOvergrowth/ManaGrassSeeds");
@@ -225,12 +231,6 @@ namespace TwilightEgress.Assets
             public class Particles
             {
                 public static readonly Asset<Texture2D> PrimordialWyrmEyes = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Particles/PrimordialWyrmEyes");
-            }
-
-            public class Planetoids
-            {
-                public static readonly Asset<Texture2D> GalileoPlanetoid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid");
-                public static readonly Asset<Texture2D> ShatteredPlanetoid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/ShatteredPlanetoid");
             }
 
             public class Raesh

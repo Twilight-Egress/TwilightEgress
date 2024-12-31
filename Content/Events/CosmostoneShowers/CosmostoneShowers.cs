@@ -192,8 +192,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 {
                     WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
                     thingsToSpawn.Add(ModContent.NPCType<PolygonAsteroid>(), 1f);
-                    thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<GalileoDwarfMoon>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<ShatteredDwarfMoon>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.02f);

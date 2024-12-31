@@ -6,20 +6,20 @@ using TwilightEgress.Core.BaseEntities.ModNPCs;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
 {
-    public class ShatteredPlanetoid : Planetoid, ILocalizedModType
+    public class GalileoDwarfMoon : DwarfMoon, ILocalizedModType
     {
         public new string LocalizationCategory => "NPCs.Misc";
 
         public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
-        public override float MaximumAttractionRadius => 176f;
+        public override float MaximumAttractionRadius => 184f;
 
-        public override float WalkableRadius => 120f;
+        public override float WalkableRadius => 128f;
 
         public override void SafeSetDefaults()
         {
-            NPC.width = 120;
-            NPC.height = 120;
+            NPC.width = 128;
+            NPC.height = 128;
             NPC.lifeMax = 2;
             NPC.damage = 0;
             NPC.defense = 0;

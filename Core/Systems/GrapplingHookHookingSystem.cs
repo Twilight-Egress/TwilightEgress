@@ -28,7 +28,7 @@ namespace TwilightEgress.Core.Systems
 
             foreach (NPC activeNPC in Main.ActiveNPCs)
             {
-                if (activeNPC.ModNPC is not Planetoid planetoid)
+                if (activeNPC.ModNPC is not DwarfMoon planetoid)
                     continue;
 
                 if ((self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(planetoid.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))

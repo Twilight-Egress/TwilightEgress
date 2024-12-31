@@ -9,7 +9,7 @@ namespace TwilightEgress.Core.Systems.OrbitalGravitySystem
 {
     public class OrbitalGravityPlayer : ModPlayer
     {
-        public Planetoid Planetoid = null;
+        public DwarfMoon Planetoid = null;
 
         public float PlayerAngle = 0f;
 
