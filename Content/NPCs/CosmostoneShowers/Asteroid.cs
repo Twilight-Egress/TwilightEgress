@@ -96,16 +96,27 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             0, 0, 1, 0,
             0, 0, 0, 1);
         BasicEffect basicEffect;
+        VertexBuffer vertexBuffer;
+
+        private const short MaxVertices = 6144;
 
         public override void Load()
         {
             On_Main.DrawNPCs += DrawAsteroids;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
 
-            basicEffect = new BasicEffect(Main.graphics.GraphicsDevice);
-            basicEffect.World = world;
-            basicEffect.View = view;
-            basicEffect.VertexColorEnabled = true;
+            Main.QueueMainThreadAction(() =>
+            {
+                if (Main.netMode == NetmodeID.Server)
+                    return;
+
+                basicEffect = new BasicEffect(Main.graphics.GraphicsDevice);
+                basicEffect.World = world;
+                basicEffect.View = view;
+                basicEffect.VertexColorEnabled = true;
+
+                vertexBuffer = new VertexBuffer(Main.graphics.GraphicsDevice, typeof(VertexPositionColor), (int)Math.Floor(short.MaxValue * 0.3), BufferUsage.WriteOnly);
+            });
         }
 
         public override void Unload()
@@ -113,8 +124,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             On_Main.DrawNPCs -= DrawAsteroids;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
 
-            basicEffect?.Dispose();
-            basicEffect = null;
+            Main.QueueMainThreadAction(() =>
+            {
+                if (Main.netMode == NetmodeID.Server)
+                    return;
+
+                basicEffect?.Dispose();
+                basicEffect = null;
+                vertexBuffer?.Dispose();
+                vertexBuffer = null;
+            });
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
@@ -248,18 +267,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             GraphicsDevice graphicsDevice = Main.graphics.GraphicsDevice;
 
-            VertexBuffer vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), triangleVertices.Count, BufferUsage.WriteOnly);
-
             VertexPositionColor[] vertices = new VertexPositionColor[triangleVertices.Count];
 
             for (int i = 0; i < triangleVertices.Count; i++)
             {
-                Vector3 vertexColor = Lighting.GetSubLight(triangleVertices[i]) * Microsoft.Xna.Framework.Color.White.ToVector3();
+                Vector3 vertexColor = Lighting.GetSubLight(triangleVertices[i]) * Color.White.ToVector3();
                 Vector2 triangle = WorldToWorldMatrixPos(triangleVertices[i] - Main.screenPosition);
-                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Microsoft.Xna.Framework.Color(vertexColor));
+                vertices[i] = new VertexPositionColor(new Vector3(triangle.X, triangle.Y, 0f), new Color(vertexColor));
             }
 
-            vertexBuffer?.SetData<VertexPositionColor>(vertices);
+            vertexBuffer?.SetData<VertexPositionColor>(vertices, SetDataOptions.Discard);
 
             graphicsDevice.SetVertexBuffer(vertexBuffer);
 
