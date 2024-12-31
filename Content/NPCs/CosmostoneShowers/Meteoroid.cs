@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -142,45 +143,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             }
         }
 
-        public sealed override bool? CanBeHitByItem(Player player, Item item)
-        {
-            if (item.pick <= 0)
-                return false;
-            return null;
-        }
-
-        public sealed override bool? CanBeHitByProjectile(Projectile projectile)
-        {
-            if (!TwilightEgress.PickaxeProjectileIDs.Contains(projectile.type))
-                return false;
-            return null;
-        }
-
-        public sealed override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
-            if (item.pick > 0)
-            {
-                modifiers.Knockback *= 0f;
-                modifiers.FinalDamage *= 2f * MathHelper.Lerp(1f, 0.2f, item.pick / 250f);
-            }
-
-            SafeModifyHitByItem(player, item, ref modifiers);
-        }
-
-        public sealed override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
-        {
-            Player player = Main.player[projectile.owner];
-            Item item = player.ActiveItem();
-            if (item.pick > 0 && projectile.owner == player.whoAmI)
-            {
-                modifiers.Knockback *= 0f;
-                modifiers.FinalDamage *= 2f * MathHelper.Lerp(1f, 0.2f, item.pick / 250f);
-            }
-
-            SafeModifyHitByProjectile(projectile, ref modifiers);
-        }
-
-
         public virtual void OnMeteorCrashKill() { }
 
         public virtual void SafeOnSpawn(IEntitySource source) { }
@@ -192,5 +154,36 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public virtual void SafeModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers) { }
 
         public virtual void SafeModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) { }
+    }
+
+    public class MeteoroidSystem : ModSystem
+    {
+        public override void Load()
+        {
+            On_Player.ItemCheck_UseMiningTools_ActuallyUseMiningTool += MineMeteoroid;
+        }
+
+        public override void Unload()
+        {
+            On_Player.ItemCheck_UseMiningTools_ActuallyUseMiningTool -= MineMeteoroid;
+        }
+
+        private void MineMeteoroid(On_Player.orig_ItemCheck_UseMiningTools_ActuallyUseMiningTool orig, Player self, Item sItem, out bool canHitWalls, int x, int y)
+        {
+            orig(self, sItem, out canHitWalls, x, y);
+
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.ModNPC is Meteoroid && (self.Center - Main.MouseWorld).LengthSquared() <= Math.Pow((Player.tileRangeX + sItem.tileBoost) * 16, 2) && self.whoAmI == Main.myPlayer)
+                {
+                    if (npc.Hitbox.Contains((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y))
+                    {
+                        int damageToAsteroid = sItem.pick;
+                        npc.SimpleStrikeNPC(damageToAsteroid, 0, noPlayerInteraction: false);
+                        self.ApplyItemTime(sItem, self.pickSpeed * 1.5f);
+                    }
+                }
+            }
+        }
     }
 }
