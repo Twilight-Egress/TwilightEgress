@@ -24,6 +24,7 @@ namespace TwilightEgress.Assets
 
             public class CosmostoneShowers
             {
+                public static readonly Asset<Texture2D> Starstruck = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Buffs/CosmostoneShowers/Starstruck");
                 public static readonly Asset<Texture2D> CosmostoneShowersSky = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Events/CosmostoneShowers/CosmostoneShowersSky");
                 public static readonly Asset<Texture2D> BurningQuasar = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/BurningQuasar");
                 public static readonly Asset<Texture2D> Cosmostone = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/Cosmostone");

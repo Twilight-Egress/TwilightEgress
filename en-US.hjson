@@ -96,5 +96,12 @@ Mods: {
 			TimelessCascadeShards.DisplayName: Timeless Cascade Shards
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
 		}
+
+		Buffs: {
+			Starstruck: {
+				DisplayName: Starstruck
+				Description: Mods.TwilightEgress.Buffs.Starstruck.Description
+			}
+		}
 	}
 }

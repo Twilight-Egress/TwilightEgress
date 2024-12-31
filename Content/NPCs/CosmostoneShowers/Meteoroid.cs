@@ -9,35 +9,6 @@ using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
-    internal class MeteoroidValues
-    {
-        internal static List<int> ViableCollisionTypes = new List<int>()
-        {
-            ModContent.NPCType<CosmostoneMeteoroidSmall>(),
-            ModContent.NPCType<CosmostoneMeteoroidMedium>(),
-            ModContent.NPCType<CosmostoneMeteoroidLarge>(),
-            ModContent.NPCType<CosmostoneGeode>(),
-            ModContent.NPCType<SilicateMeteoroidSmall>(),
-            ModContent.NPCType<SilicateMeteoroidMedium>(),
-            ModContent.NPCType<SilicateMeteoroidLarge>(),
-            ModContent.NPCType<MeteoriteMeteoroid>()
-        };
-
-        /// <summary>
-        /// The palette used for mana flowing through Cosmostone Asteroids.
-        /// </summary>
-        public static readonly Vector4[] CosmostonePalette =
-        {
-            new Color(96, 188, 246).ToVector4(),
-            new Color(81, 158, 245).ToVector4(),
-            new Color(76, 131, 242).ToVector4(),
-            new Color(3, 96, 243).ToVector4(),
-            new Color(48, 65, 197).ToVector4(),
-            new Color(104, 94, 228).ToVector4(),
-            new Color(157, 113, 239).ToVector4(),
-        };
-    }
-
     public abstract class Meteoroid : ModNPC, ISpawnAvoidZone
     {
         public ref float Timer => ref NPC.ai[0];
@@ -156,7 +127,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public virtual void SafeModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) { }
     }
 
-    public class MeteoroidSystem : ModSystem
+    public class MeteoroidMiningSystem : ModSystem
     {
         public override void Load()
         {
@@ -174,7 +145,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             foreach (NPC npc in Main.ActiveNPCs)
             {
-                if (npc.ModNPC is Meteoroid && (self.Center - Main.MouseWorld).LengthSquared() <= Math.Pow((Player.tileRangeX + sItem.tileBoost) * 16, 2) && self.whoAmI == Main.myPlayer)
+                if (npc.ModNPC is Meteoroid && (self.Center - Main.MouseWorld).LengthSquared() <= Math.Pow((self.blockRange + sItem.tileBoost) * 16, 2) && self.whoAmI == Main.myPlayer)
                 {
                     if (npc.Hitbox.Contains((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y))
                     {
@@ -185,5 +156,34 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 }
             }
         }
+    }
+
+    internal class MeteoroidValues
+    {
+        internal static List<int> ViableCollisionTypes = new List<int>()
+        {
+            ModContent.NPCType<CosmostoneMeteoroidSmall>(),
+            ModContent.NPCType<CosmostoneMeteoroidMedium>(),
+            ModContent.NPCType<CosmostoneMeteoroidLarge>(),
+            ModContent.NPCType<CosmostoneGeode>(),
+            ModContent.NPCType<SilicateMeteoroidSmall>(),
+            ModContent.NPCType<SilicateMeteoroidMedium>(),
+            ModContent.NPCType<SilicateMeteoroidLarge>(),
+            ModContent.NPCType<MeteoriteMeteoroid>()
+        };
+
+        /// <summary>
+        /// The palette used for mana flowing through Cosmostone Asteroids.
+        /// </summary>
+        public static readonly Vector4[] CosmostonePalette =
+        {
+            new Color(96, 188, 246).ToVector4(),
+            new Color(81, 158, 245).ToVector4(),
+            new Color(76, 131, 242).ToVector4(),
+            new Color(3, 96, 243).ToVector4(),
+            new Color(48, 65, 197).ToVector4(),
+            new Color(104, 94, 228).ToVector4(),
+            new Color(157, 113, 239).ToVector4(),
+        };
     }
 }
