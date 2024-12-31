@@ -49,12 +49,12 @@ namespace TwilightEgress.Core.Systems.OrbitalGravitySystem
 
                 // Adjust the player's angle by the player's velocity, ensuring the player is constantly moving around the
                 // Planetoid at the correct speed.
-                PlayerAngle += Planetoid.NPC.rotation / (Planetoid.NPC.rotation * 95f) + Player.velocity.X / Planetoid.WalkableRadius;
+                PlayerAngle += Player.velocity.X / Planetoid.WalkableRadius;
                 PlayerAngle %= MathF.Tau;
 
                 // Eject the player from the Planetoid either once they jump or manage to leave a planetoid's attraction radius.
                 float totalAttractionRadius = Planetoid.MaximumAttractionRadius + Planetoid.WalkableRadius;
-                bool canEjectPlayer = Player.justJumped || Player.pulley || Vector2.Distance(Planetoid.NPC.Center, Player.Center) > totalAttractionRadius;
+                bool canEjectPlayer = Player.justJumped || Player.pulley || Vector2.Distance(Planetoid.NPC.Center, Player.Center) > totalAttractionRadius || Player.grapCount > 0;
                 if (canEjectPlayer)
                 {
                     Player.jump = 0;

@@ -40,7 +40,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
                 }
             }
 
-            NPC.rotation += MathF.Tau / 600f;
             NPC.ShowNameOnHover = false;
         }
     }

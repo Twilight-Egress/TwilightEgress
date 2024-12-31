@@ -100,40 +100,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         {
             On_Main.DrawNPCs += DrawAsteroids;
             On_Collision.SlopeCollision += AsteroidSlopeCollision;
-            On_Projectile.AI_007_GrapplingHooks += GrappleAsteroid;
         }
 
         public override void Unload()
         {
             On_Main.DrawNPCs -= DrawAsteroids;
             On_Collision.SlopeCollision -= AsteroidSlopeCollision;
-            On_Projectile.AI_007_GrapplingHooks -= GrappleAsteroid;
-        }
-
-        private void GrappleAsteroid(On_Projectile.orig_AI_007_GrapplingHooks orig, Projectile self)
-        {
-            orig(self);
-
-            Vector2? collision = AsteroidCollision(self.position, self.width, self.height);
-            if (collision != null && self.ai[0] != 2)
-                SetGrapple(self.position, self);
-        }
-
-        /// <summary>
-        /// Makes a grappling hook think it's grappled onto an object.
-        /// This function was written by @Impaxim on discord. Thank you Impaxim!
-        /// </summary>
-        /// <param name="position">The position you want the grappling hook to grapple to.</param>
-        /// <param name="grapple">The grappling hook projectile.</param>
-        private void SetGrapple(Vector2 position, Projectile grapple)
-        {
-            //grapple.tileCollide = true;
-            grapple.ai[0] = 2;
-            Main.player[grapple.owner].grappling[Main.player[grapple.owner].grapCount] = grapple.whoAmI;
-            Main.player[grapple.owner].grapCount++;
-            grapple.velocity = Vector2.Zero;
-            grapple.netUpdate = true;
-            //Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, grapple.Center);
         }
 
         private Vector4 AsteroidSlopeCollision(On_Collision.orig_SlopeCollision orig, Vector2 position, Vector2 velocity, int width, int height, float gravity, bool fall)
