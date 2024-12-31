@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+using TwilightEgress.Core.Graphics.Particles;
 
 namespace TwilightEgress.Content.Particles
 {

@@ -10,7 +10,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
+namespace TwilightEgress.Content.SkyEntities
 {
     public class SkyEntityManager : ModSystem
     {

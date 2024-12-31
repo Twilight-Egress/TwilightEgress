@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
+namespace TwilightEgress.Core.Graphics.Particles
 {
     public class CasParticleManager : ModSystem
     {

@@ -1,4 +1,4 @@
-﻿namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
+﻿namespace TwilightEgress.Content.SkyEntities
 {
     public enum SkyEntityDrawContext
     {
