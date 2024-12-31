@@ -1,12 +1,43 @@
 ﻿using CalamityMod;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 {
-    public abstract class Asteroid : ModNPC, ISpawnAvoidZone
+    internal class MeteoroidValues
+    {
+        internal static List<int> ViableCollisionTypes = new List<int>()
+        {
+            ModContent.NPCType<CosmostoneMeteoroidSmall>(),
+            ModContent.NPCType<CosmostoneMeteoroidMedium>(),
+            ModContent.NPCType<CosmostoneMeteoroidLarge>(),
+            ModContent.NPCType<CosmostoneGeode>(),
+            ModContent.NPCType<SilicateMeteoroidSmall>(),
+            ModContent.NPCType<SilicateMeteoroidMedium>(),
+            ModContent.NPCType<SilicateMeteoroidLarge>(),
+            ModContent.NPCType<MeteoriteMeteoroid>()
+        };
+
+        /// <summary>
+        /// The palette used for mana flowing through Cosmostone Asteroids.
+        /// </summary>
+        public static readonly Vector4[] CosmostonePalette =
+        {
+            new Color(96, 188, 246).ToVector4(),
+            new Color(81, 158, 245).ToVector4(),
+            new Color(76, 131, 242).ToVector4(),
+            new Color(3, 96, 243).ToVector4(),
+            new Color(48, 65, 197).ToVector4(),
+            new Color(104, 94, 228).ToVector4(),
+            new Color(157, 113, 239).ToVector4(),
+        };
+    }
+
+    public abstract class Meteoroid : ModNPC, ISpawnAvoidZone
     {
         public ref float Timer => ref NPC.ai[0];
 
@@ -20,7 +51,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public bool Active => NPC.active;
 
-        public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
+        public sealed override string LocalizationCategory => "NPCs.CosmostoneShowers.Meteoroids";
 
         public sealed override void OnSpawn(IEntitySource source)
         {

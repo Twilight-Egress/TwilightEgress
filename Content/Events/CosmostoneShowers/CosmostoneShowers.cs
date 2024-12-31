@@ -17,11 +17,11 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
-using TwilightEgress.Content.Skies.SkyEntities;
+using TwilightEgress.Content.SkyEntities.CosmostoneShowers;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
@@ -191,21 +191,21 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
-                    thingsToSpawn.Add(ModContent.NPCType<PolygonAsteroid>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<Asteroid>(), 1f);
                     thingsToSpawn.Add(ModContent.NPCType<GalileoDwarfMoon>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<ShatteredDwarfMoon>(), 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidSmall>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidMedium>(), 2 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidLarge>(), 1 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidSmall>(), 8 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidMedium>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidLarge>(), 2 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 0.2f);
 
                     if (NPC.downedBoss2)
                     {
-                        thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
+                        thingsToSpawn.Add(ModContent.NPCType<MeteoriteMeteoroid>(), 0.5f * 0.008f);
                         //thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 0.2f);
                     }
 

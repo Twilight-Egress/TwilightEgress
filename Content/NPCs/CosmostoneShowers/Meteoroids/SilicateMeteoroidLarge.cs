@@ -13,9 +13,9 @@ using Terraria.ModLoader;
 using TwilightEgress.Content.Items.CosmostoneShowers;
 using TwilightEgress.Content.Particles;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
 {
-    public class SilicateAsteroidSmall : Asteroid, ILocalizedModType
+    public class SilicateMeteoroidLarge : Meteoroid, ILocalizedModType
     {
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
@@ -23,15 +23,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[Type] = 6;
+            Main.npcFrameCount[Type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.CannotDropSouls[Type] = true;
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 40;
-            NPC.height = 40;
+            NPC.width = 120;
+            NPC.height = 120;
             NPC.damage = 0;
             NPC.defense = 20;
             NPC.lifeMax = 500;
@@ -51,18 +51,21 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public override void SafeOnSpawn(IEntitySource source)
         {
+            // Slower rotation
+            RotationSpeedSpawnFactor = Main.rand.NextFloat(300f, 960f) * Utils.SelectRandom(Main.rand, -1, 1);
+
             // Initialize a bunch of fields.
             NPC.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.scale = Main.rand.NextFloat(0.75f, 1.25f);
             NPC.spriteDirection = Main.rand.NextBool().ToDirectionInt();
-            NPC.frame.Y = Main.rand.Next(0, 6) * 42;
+            NPC.frame.Y = 138 * Main.rand.Next(0, 3) * 38;
             NPC.netUpdate = true;
         }
 
         public override void SafeAI()
         {
             // Collision detection.
-            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
+            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((NPC npc) => npc.active && npc.whoAmI != NPC.whoAmI && MeteoroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
             int count = activeAsteroids.Count;
 
             if (count > 0)

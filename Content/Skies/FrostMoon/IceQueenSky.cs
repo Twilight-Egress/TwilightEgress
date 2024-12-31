@@ -13,7 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 
-namespace TwilightEgress.Content.Skies
+namespace TwilightEgress.Content.Skies.FrostMoon
 {
     public class IceQueenSceneEffect : ModSceneEffect
     {
@@ -150,7 +150,7 @@ namespace TwilightEgress.Content.Skies
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            CalamityUtils.EnterShaderRegion(Main.spriteBatch, BlendState.Additive);
+            Main.spriteBatch.EnterShaderRegion(BlendState.Additive);
 
             ManagedShader shader = ShaderManager.GetShader("TwilightEgress.NoisyVignette");
             shader.SetTexture(PerlinTexture, 1);
@@ -170,11 +170,11 @@ namespace TwilightEgress.Content.Skies
 
             for (int i = 0; i < GlowStars.Count; i++)
             {
-                CalamityUtils.SetBlendState(spriteBatch, BlendState.Additive);
+                spriteBatch.SetBlendState(BlendState.Additive);
                 Vector2 drawPosition = GlowStars[i].Position - Main.screenPosition;
                 spriteBatch.Draw(TextureAssets.Extra[49].Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 2f, SpriteEffects.None, 0f);
                 spriteBatch.Draw(AssetRegistry.Textures.GreyscaleObjects.SoftStar.Value, drawPosition, null, GlowStars[i].Color * FadeOpacity, 0f, GlowStarTexture.Size() / 2f, GlowStars[i].Scale / 12f, SpriteEffects.None, GlowStars[i].Depth);
-                CalamityUtils.SetBlendState(spriteBatch, BlendState.AlphaBlend);
+                spriteBatch.SetBlendState(BlendState.AlphaBlend);
             }
         }
 

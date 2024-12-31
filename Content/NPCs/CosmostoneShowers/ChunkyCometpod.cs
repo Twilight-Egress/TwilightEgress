@@ -8,8 +8,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
@@ -176,7 +176,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public override void AI()
         {
-            int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
+            int[] asteroids = [ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>()];
             if (!ShouldStopActivelyTargetting)
                 NPC.AdvancedNPCTargeting(ShouldTargetPlayers, MaxPlayerSearchDistance, ShouldTargetNPCs, MaxNPCSearchDistance, asteroids);
             NPCAimedTarget target = NPC.GetTargetData();

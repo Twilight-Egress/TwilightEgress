@@ -5,7 +5,7 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
@@ -25,7 +25,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             if (Entity.AsteroidToSucc is null)
             {
-                int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
+                int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>()];
                 List<NPC> cosmostoneAsteroids = Main.npc.Take(Main.maxNPCs).Where(asteroid => asteroid.active && cosmostoneAsteroidTypes.Contains(asteroid.type) && Entity.NPC.Distance(asteroid.Center) <= 300).ToList();
                 if (cosmostoneAsteroids.Count <= 0)
                     return;

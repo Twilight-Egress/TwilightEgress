@@ -16,9 +16,9 @@ using TwilightEgress.Assets;
 using TwilightEgress.Content.Items.CosmostoneShowers;
 using TwilightEgress.Content.Particles;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
 {
-    public class CosmostoneAsteroidMedium : Asteroid, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class CosmostoneMeteoroidMedium : Meteoroid, ILocalizedModType, IPixelatedPrimitiveRenderer
     {
         public PixelationPrimitiveLayer LayerToRenderTo => PixelationPrimitiveLayer.BeforeNPCs;
 
@@ -98,7 +98,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
         public override void SafeAI()
         {
             // Collision detection.
-            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((npc) => npc.active && npc.whoAmI != NPC.whoAmI && AsteroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
+            List<NPC> activeAsteroids = Main.npc.Take(Main.maxNPCs).Where((npc) => npc.active && npc.whoAmI != NPC.whoAmI && MeteoroidValues.ViableCollisionTypes.Contains(npc.type)).ToList();
             int count = activeAsteroids.Count;
 
             if (count > 0)
@@ -226,7 +226,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
 
         public void DrawCosmostone(Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless = 0f)
         {
-            Texture2D glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidMedium_Glowmask").Value;
+            Texture2D glowmask = AssetRegistry.Textures.Meteoroids.CosmostoneMeteoroidMedium_Glowmask.Value;
 
             Main.spriteBatch.PrepareForShaders();
 
@@ -234,7 +234,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids
             shader.TrySetParameter("flowCompactness", 3.0f);
             shader.TrySetParameter("gradientPrecision", 10f);
             shader.TrySetParameter("timeMultiplier", ShaderTimeMultiplier);
-            shader.TrySetParameter("palette", AsteroidValues.CosmostonePalette);
+            shader.TrySetParameter("palette", MeteoroidValues.CosmostonePalette);
             shader.TrySetParameter("opacity", NPC.Opacity);
             shader.Apply();
 

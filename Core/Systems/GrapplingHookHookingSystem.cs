@@ -38,7 +38,7 @@ namespace TwilightEgress.Core.Systems
                 }
             }
 
-            Vector2? collision = PolygonAsteroidSystem.AsteroidCollision(self.position, self.width, self.height);
+            Vector2? collision = AsteroidSystem.AsteroidCollision(self.position, self.width, self.height);
             if (collision != null)
             {
                 SetGrapple(self.position, self);

@@ -4,7 +4,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Content.Skies;
+using TwilightEgress.Content.Events.CosmostoneShowers;
+using TwilightEgress.Content.Skies.FrostMoon;
 
 namespace TwilightEgress.Core.Systems
 {

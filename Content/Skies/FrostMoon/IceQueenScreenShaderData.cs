@@ -2,7 +2,7 @@
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 
-namespace TwilightEgress.Content.Skies
+namespace TwilightEgress.Content.Skies.FrostMoon
 {
     public class IceQueenScreenShaderData : ScreenShaderData
     {

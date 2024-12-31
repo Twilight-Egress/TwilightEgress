@@ -17,7 +17,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
     // 3. draw the rest of the owl (shader that draws the asteroid)
     // 4. probably gonna have to redo how the shapes generate based on the art
 
-    public class PolygonAsteroid : ModNPC, ISpawnAvoidZone
+    public class Asteroid : ModNPC, ISpawnAvoidZone
     {
         public override string LocalizationCategory => "NPCs.CosmostoneShowers.Asteroids";
 
@@ -87,7 +87,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void OnKill() => TriangleMesh.Clear();
     }
 
-    public class PolygonAsteroidSystem : ModSystem
+    public class AsteroidSystem : ModSystem
     {
         Matrix world = Matrix.CreateTranslation(0, 0, 0);
         Matrix view = new Matrix(
@@ -157,19 +157,19 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             Vector2 asteroidCollision = Vector2.Zero;
             Vector2 entityPosition = position;
 
-            PolygonAsteroid closestAsteroid = null;
+            Asteroid closestAsteroid = null;
             float distanceToAsteroid = float.MaxValue;
 
             foreach (NPC activeNPC in Main.ActiveNPCs)
             {
-                if (activeNPC.ModNPC is not PolygonAsteroid)
+                if (activeNPC.ModNPC is not Asteroid)
                     continue;
 
                 bool canHit = Collision.CanHit(entityPosition, 1, 1, activeNPC.Center, 1, 1);
                 if (Vector2.DistanceSquared(entityPosition, activeNPC.Center) < distanceToAsteroid && canHit)
                 {
                     distanceToAsteroid = Vector2.DistanceSquared(entityPosition, activeNPC.Center);
-                    closestAsteroid = activeNPC.ModNPC as PolygonAsteroid;
+                    closestAsteroid = activeNPC.ModNPC as Asteroid;
                 }
             }
 
@@ -223,7 +223,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
             foreach (NPC npc in Main.npc)
             {
-                if (npc.ModNPC is PolygonAsteroid asteroid && npc.active)
+                if (npc.ModNPC is Asteroid asteroid && npc.active)
                 {
                     foreach (Triangle triangle in asteroid.TriangleMesh)
                     {

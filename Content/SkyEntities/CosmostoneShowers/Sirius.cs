@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
 
-namespace TwilightEgress.Content.Skies.SkyEntities
+namespace TwilightEgress.Content.SkyEntities.CosmostoneShowers
 {
     public class Sirius : SkyEntity
     {

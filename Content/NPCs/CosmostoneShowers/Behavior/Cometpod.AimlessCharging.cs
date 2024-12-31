@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
@@ -26,7 +26,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             int lineUpTime = 75;
             int chargeTime = 240;
             int postBonkCooldownTime = 180;
-            int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
+            int[] asteroids = [ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>()];
 
             Entity.ShouldTargetPlayers = true;
             Entity.ShouldTargetNPCs = true;

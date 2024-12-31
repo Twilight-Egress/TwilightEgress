@@ -4,7 +4,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
@@ -65,7 +65,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
             Entity.ShouldTargetPlayers = true;
 
             // Randomly select an asteroid and switch AI states.
-            int[] asteroids = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
+            int[] asteroids = [ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>()];
             if (Main.rand.NextBool(1500) && Entity.ShouldTargetNPCs && target.Type == Terraria.Enums.NPCTargetType.NPC && !target.Invalid)
             {
                 Entity.NearestAsteroid = Entity.NPC.FindClosestNPC(out float _, asteroids);
