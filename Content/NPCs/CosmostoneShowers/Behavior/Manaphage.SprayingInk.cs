@@ -46,7 +46,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 Vector2 spawnPosition = Entity.NPC.Center + Vector2.UnitY.RotatedBy(Entity.NPC.rotation) * 30f;
                 Vector2 inkVelocity = (target.Center - Entity.NPC.Center).SafeNormalize(Vector2.UnitX) * 14f + Entity.NPC.velocity;
 
-                Entity.NPC.BetterNewProjectile(spawnPosition, inkVelocity, ModContent.ProjectileType<ManaInk>(), (int)(Entity.NPC.defDamage * 0.45f), 0f, damageChanges: true);
+                Entity.NPC.BetterNewProjectile(spawnPosition, inkVelocity, ModContent.ProjectileType<ManaInk>(), Entity.NPC.defDamage, 0f, damageChanges: true);
             }
 
             Entity.UpdateAnimationFrames(ManaphageAnimation.Attack, 5f);
