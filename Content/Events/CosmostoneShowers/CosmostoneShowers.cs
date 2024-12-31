@@ -191,16 +191,16 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
-                    thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.PolygonAsteroid>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<PolygonAsteroid>(), 1f);
                     thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 0.2f);
 
                     if (NPC.downedBoss2)

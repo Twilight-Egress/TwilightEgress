@@ -28,12 +28,10 @@ namespace TwilightEgress.Core.Systems
 
             foreach (NPC activeNPC in Main.ActiveNPCs)
             {
-                if (activeNPC.ModNPC is not Planetoid)
+                if (activeNPC.ModNPC is not Planetoid planetoid)
                     continue;
 
-                Planetoid planetoid = activeNPC.ModNPC as Planetoid;
-
-                if (planetoid != null && (self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(planetoid.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))
+                if ((self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(planetoid.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))
                 {
                     SetGrapple(self.position, self);
                     return;
