@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
@@ -40,7 +36,6 @@ namespace TwilightEgress.Core.Systems
                 if (planetoid != null && (self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(planetoid.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))
                 {
                     SetGrapple(self.position, self);
-                    Main.NewText("uonis");
                     return;
                 }
             }
