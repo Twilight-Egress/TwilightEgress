@@ -18,7 +18,7 @@ using Terraria.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
 using TwilightEgress.Content.Skies.SkyEntities;

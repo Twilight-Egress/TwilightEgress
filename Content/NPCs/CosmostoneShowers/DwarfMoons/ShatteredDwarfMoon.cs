@@ -2,9 +2,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons
 {
     public class ShatteredDwarfMoon : DwarfMoon, ILocalizedModType
     {

@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
-using TwilightEgress.Core.BaseEntities.ModNPCs;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons;
 
 namespace TwilightEgress.Core.Systems
 {
@@ -28,10 +28,10 @@ namespace TwilightEgress.Core.Systems
 
             foreach (NPC activeNPC in Main.ActiveNPCs)
             {
-                if (activeNPC.ModNPC is not DwarfMoon planetoid)
+                if (activeNPC.ModNPC is not DwarfMoon dwarfMoon)
                     continue;
 
-                if ((self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(planetoid.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))
+                if ((self.Center - activeNPC.Center).LengthSquared() <= Math.Pow(dwarfMoon.WalkableRadius - (Main.player[self.owner].height * 0.75f), 2))
                 {
                     SetGrapple(self.position, self);
                     return;

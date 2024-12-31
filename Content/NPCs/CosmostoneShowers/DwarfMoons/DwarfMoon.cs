@@ -3,10 +3,9 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Core.Systems.OrbitalGravitySystem;
 
-namespace TwilightEgress.Core.BaseEntities.ModNPCs
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons
 {
     public abstract class DwarfMoon : ModNPC, ISpawnAvoidZone
     {
@@ -80,10 +79,10 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
                 float totalAttractionRadius = MaximumAttractionRadius + WalkableRadius;
                 float distanceBetweenBodies = Vector2.Distance(player.Center, NPC.Center);
 
-                if (distanceBetweenBodies < totalAttractionRadius && ModPlayer.AttractionCooldown <= 0 && ModPlayer.Planetoid is null)
+                if (distanceBetweenBodies < totalAttractionRadius && ModPlayer.AttractionCooldown <= 0 && ModPlayer.DwarfMoon is null)
                 {
                     // Set the planetoid index and player angle.
-                    ModPlayer.Planetoid = this;
+                    ModPlayer.DwarfMoon = this;
                     ModPlayer.PlayerAngle = (player.Center - NPC.Center).ToRotation();
                     NPC.netUpdate = true;
                 }
@@ -106,7 +105,7 @@ namespace TwilightEgress.Core.BaseEntities.ModNPCs
 
         public sealed override void AI()
         {
-            if (ModPlayer.Planetoid is not null && ModPlayer.Planetoid == this)
+            if (ModPlayer.DwarfMoon is not null && ModPlayer.DwarfMoon == this)
             {
                 // Increment the gravitational variable slowly. This will give the gravity the player experiences a more
                 // gradual effect, to give them a more realistic feeling of being pulled into a planet's atmosphere.
