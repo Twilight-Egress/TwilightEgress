@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using TwilightEgress.Core.Configs;
 
-namespace TwilightEgress.Core.Graphics.GraphicalObjects.Particles
+namespace TwilightEgress.Core.Graphics.Particles
 {
     /// <summary>
     /// A wrapper of Luminance's <see cref="Particle"/> class which some of its own extra built-in utilities, such as foreground parallax and

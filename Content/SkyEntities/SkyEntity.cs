@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using TwilightEgress.Core.Configs;
 
-namespace TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities
+namespace TwilightEgress.Content.SkyEntities
 {
     public abstract class SkyEntity
     {

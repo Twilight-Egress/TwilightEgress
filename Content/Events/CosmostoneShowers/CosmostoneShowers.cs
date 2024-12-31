@@ -21,10 +21,10 @@ using TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
+using TwilightEgress.Content.SkyEntities;
 using TwilightEgress.Content.SkyEntities.CosmostoneShowers;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
-using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+using TwilightEgress.Core.Graphics.Particles;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
