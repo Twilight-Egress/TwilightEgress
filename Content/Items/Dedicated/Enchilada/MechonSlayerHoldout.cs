@@ -32,8 +32,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
 
         public override string LocalizationCategory => "Items.Dedicated.MechonSlayer.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetDefaults()
         {
             Projectile.width = 32;

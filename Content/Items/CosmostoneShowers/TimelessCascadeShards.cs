@@ -7,8 +7,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class TimelessCascadeShards : ModProjectile
     {
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 8;

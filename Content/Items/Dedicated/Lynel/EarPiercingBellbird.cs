@@ -45,8 +45,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override string GlowTexture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()

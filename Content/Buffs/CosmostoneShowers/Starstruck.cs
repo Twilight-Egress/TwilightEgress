@@ -5,8 +5,6 @@ namespace TwilightEgress.Content.Buffs.CosmostoneShowers
 {
     public class Starstruck : ModBuff
     {
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = false;

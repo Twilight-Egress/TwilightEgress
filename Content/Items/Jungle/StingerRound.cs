@@ -13,8 +13,6 @@ namespace TwilightEgress.Content.Items.Jungle
     {
         public override string LocalizationCategory => "Items.Jungle";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 99;
 
         public override void SetDefaults()
@@ -38,8 +36,6 @@ namespace TwilightEgress.Content.Items.Jungle
     public class StingerRoundProjectile : ModProjectile
     {
         public override string LocalizationCategory => "Items.Jungle.StingerRound.Projectiles";
-
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         private Player Owner => Main.player[Projectile.owner];
 

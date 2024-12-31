@@ -19,8 +19,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         private const int MaxSegmentsForPrims = 20;
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetDefaults()
         {
             NPC.width = 32;

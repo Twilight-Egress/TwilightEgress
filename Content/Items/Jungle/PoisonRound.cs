@@ -11,8 +11,6 @@ namespace TwilightEgress.Content.Items.Jungle
     {
         public override string LocalizationCategory => "Items.Jungle";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults() => Item.ResearchUnlockCount = 99;
 
         public override void SetDefaults()
@@ -43,8 +41,6 @@ namespace TwilightEgress.Content.Items.Jungle
     public class PoisonRoundProjectile : ModProjectile
     {
         public override string LocalizationCategory => "Items.Jungle.PoisonRound.Projectiles";
-
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {

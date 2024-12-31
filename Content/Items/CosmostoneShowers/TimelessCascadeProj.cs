@@ -8,8 +8,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
 {
     public class TimelessCascadeProj : ModProjectile
     {
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public float explosionDamageMod = 0.95f;
 
         Vector2? saveVel = null;

@@ -86,8 +86,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public float LifeRatio => NPC.life / (float)NPC.lifeMax;
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.UsesNewTargetting[Type] = true;

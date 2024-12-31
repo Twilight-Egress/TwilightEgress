@@ -24,8 +24,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
 
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         private float ShaderTimeMultiplier = 1f;
 
         public override void SetStaticDefaults()

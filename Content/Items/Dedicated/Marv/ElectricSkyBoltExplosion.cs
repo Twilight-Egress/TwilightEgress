@@ -18,8 +18,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Marv
 
         public override string LocalizationCategory => "Items.Dedicated.ThunderousFury.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;

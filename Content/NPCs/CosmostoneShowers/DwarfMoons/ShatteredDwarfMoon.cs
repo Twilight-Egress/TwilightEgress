@@ -9,8 +9,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons
     {
         public new string LocalizationCategory => "NPCs.Misc";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override float MaximumAttractionRadius => 176f;
 
         public override float WalkableRadius => 120f;

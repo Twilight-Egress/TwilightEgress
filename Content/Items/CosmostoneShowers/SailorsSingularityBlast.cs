@@ -8,8 +8,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
     {
         public override string LocalizationCategory => "Items.CosmostoneShowers.SailorsSingularity.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetDefaults()
         {
             Projectile.width = 40;

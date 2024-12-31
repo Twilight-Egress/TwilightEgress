@@ -7,8 +7,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
     {
         public override string LocalizationCategory => "Items.Dedicated.TomeOfTheTank.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetDefaults()
         {
             Projectile.width = 80;

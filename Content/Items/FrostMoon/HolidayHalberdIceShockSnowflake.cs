@@ -15,8 +15,6 @@ namespace TwilightEgress.Content.Items.FrostMoon
     {
         public override string LocalizationCategory => "Items.FrostMoon.HolidayHalberd.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
