@@ -80,6 +80,7 @@ Mods: {
 			ChunkyCometpod.DisplayName: Chunky Cometpod
 			TerritorialCometpod.DisplayName: Territorial Cometpod
 			PathfindingPrototype.DisplayName: Pathfinding Prototype
+			BehaviorTreeDemoNPC.DisplayName: Behavior Tree Demo N P C
 		}
 
 		Projectiles: {
