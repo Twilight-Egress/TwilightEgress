@@ -79,6 +79,7 @@ Mods: {
 			Miniphage.DisplayName: Miniphage
 			ChunkyCometpod.DisplayName: Chunky Cometpod
 			TerritorialCometpod.DisplayName: Territorial Cometpod
+			PathfindingPrototype.DisplayName: Pathfinding Prototype
 		}
 
 		Projectiles: {

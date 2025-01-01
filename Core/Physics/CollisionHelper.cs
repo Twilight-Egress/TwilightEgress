@@ -19,11 +19,9 @@ namespace TwilightEgress.Core.Physics
         {
             // Run a test of each polygon against the other
             Tuple<Vector2?, float> testAB = SeparatingAxisTheorem(polygon1, polygon1Position, polygon2, polygon2Position);
-            if (testAB is null)
-                return null;
-
             Tuple<Vector2?, float> testBA = SeparatingAxisTheorem(polygon2, polygon2Position, polygon1, polygon1Position, true);  // note the 'flip' flag is set.
-            if (testBA is null)
+
+            if (testAB is null || testBA is null)
                 return null;
 
             Vector2? result = (Math.Abs(testAB.Item2) < Math.Abs(testBA.Item2)) ? testAB.Item1 : testBA.Item1;

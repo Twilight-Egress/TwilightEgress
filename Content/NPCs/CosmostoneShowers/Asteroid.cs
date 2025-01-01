@@ -144,39 +144,20 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 Vector2 normal = collision.Value;
                 normal.Normalize();
 
-                Collision.down = true;
-                Collision.stair = true;
-                //velocity.X *= 0.95f;
-                Vector2 newVelocity = velocity;
+                Vector2 projectedVector = Project(velocity, collision.Value);
 
-                newVelocity.Y = Math.Abs(velocity.Y) * normal.Y;
-
-                if (collision.Value.Y > 0)
-                {
-                    newVelocity.X = Math.Abs(velocity.X) * normal.X;
+                if (velocity.X != 0)
                     position.X += collision.Value.X;
-                }
-                else if (velocity.X != 0)
-                {
-                    newVelocity.Y = velocity.X * normal.X;
-                    position.X += collision.Value.X;
-                    newVelocity.X *= 0.95f;
-                }
-                else
-                {
-                    newVelocity.Y = 0;
-                    newVelocity.X *= 0.95f;
-                }
 
-                if (collision.Value.Y <= 0)
-                {
-                    position.Y += newVelocity.Y;
-                    newVelocity.Y = 0;
-                }
-                return new Vector4(position.X, position.Y + collision.Value.Y + newVelocity.Y, newVelocity.X, 0);
+                return new Vector4(position.X, position.Y + collision.Value.Y + velocity.X * normal.X + projectedVector.Y, velocity.X, 0);
             }
 
             return orig(position, velocity, width, height, gravity, fall);
+        }
+
+        public Vector2 Project(Vector2 value1, Vector2 value2)
+        {
+            return value1 * (Vector2.Dot(value2, value1) / value1.LengthSquared());
         }
 
         public static Vector2? AsteroidCollision(Vector2 position, int width, int height)
@@ -194,7 +175,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     continue;
 
                 bool canHit = Collision.CanHit(entityPosition, 1, 1, activeNPC.Center, 1, 1);
-                if (Vector2.DistanceSquared(entityPosition, activeNPC.Center) < distanceToAsteroid && canHit)
+                if (Vector2.DistanceSquared(entityPosition, activeNPC.Center) < distanceToAsteroid)
                 {
                     distanceToAsteroid = Vector2.DistanceSquared(entityPosition, activeNPC.Center);
                     closestAsteroid = activeNPC.ModNPC as Asteroid;
@@ -216,7 +197,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
                 foreach (Triangle triangle in closestAsteroid.TriangleMesh)
                 {
-                    Vector2? collision = CollisionHelper.TestCollisions(triangle, closestAsteroid.NPC.Center, hitbox, entityPosition);
+                    Vector2? collision = CollisionHelper.TestCollisions(triangle, Vector2.Zero, hitbox, entityPosition);
 
                     if (collision is not null && collision != Vector2.Zero)
                         collisions.Add(collision);
