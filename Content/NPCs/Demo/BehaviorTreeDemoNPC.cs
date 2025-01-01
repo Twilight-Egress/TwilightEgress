@@ -32,13 +32,21 @@ namespace TwilightEgress.Content.NPCs.Demo
 
         public override void OnSpawn(IEntitySource source)
         {
-            behaviorTree = new BehaviorTree(new MoveTowardsPlayer());
+            Selector root = new Selector([
+                new Sequence([
+                    new PlayerWithinRange(20 * 16),
+                    new MoveTowardsPlayer(2.5f)
+                ]),
+                new IdleRotate(0.05f, 0.95f)
+            ]);
+
+            behaviorTree = new BehaviorTree(root);
             base.OnSpawn(source);
         }
 
         public override bool PreAI()
         {
-            behaviorTree.Update(NPC.whoAmI);
+            behaviorTree?.Update(NPC.whoAmI);
             return false;
         }
     }
