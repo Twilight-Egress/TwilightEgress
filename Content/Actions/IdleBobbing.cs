@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
+﻿using Terraria;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
 namespace TwilightEgress.Content.Actions
