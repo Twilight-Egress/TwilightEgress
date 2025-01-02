@@ -44,7 +44,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                     ])
                 ]),
                 new MoveInRangeOfHome(5f, 80f),
-                new IdleBobbing()
+                new MultiplyVelocity(0.94f)
             ]);
 
             behaviorTree = new BehaviorTree(root);
