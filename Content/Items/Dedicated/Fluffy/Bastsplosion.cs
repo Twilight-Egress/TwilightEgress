@@ -13,8 +13,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Fluffy
     {
         public override string LocalizationCategory => "Items.Dedicated.TheBastOffense.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = Main.projFrames[645];

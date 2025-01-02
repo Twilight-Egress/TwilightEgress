@@ -31,8 +31,6 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public override string LocalizationCategory => "Items.Dedicated.MoonSpiritKhakkhara.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;

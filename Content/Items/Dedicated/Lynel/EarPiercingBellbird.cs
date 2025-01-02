@@ -45,8 +45,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Projectiles";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override string GlowTexture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
@@ -110,7 +108,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
             }
 
             // Stop perching if the player inverts their gravity.
-            bool orbitalGravity = Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid is not null && Owner.GetModPlayer<OrbitalGravityPlayer>().Planetoid.NPC.active;
+            bool orbitalGravity = Owner.GetModPlayer<OrbitalGravityPlayer>().DwarfMoon is not null && Owner.GetModPlayer<OrbitalGravityPlayer>().DwarfMoon.NPC.active;
             bool shouldStopPerching = Owner.gravDir == -1 || orbitalGravity;
             if (shouldStopPerching && AIState == (float)BellbirdStates.Perching)
             {

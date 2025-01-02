@@ -7,8 +7,6 @@ namespace TwilightEgress.Content.Items.EnchantedOvergrowth
     {
         public override string LocalizationCategory => "Items.EnchantedOvergrowth";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 25;

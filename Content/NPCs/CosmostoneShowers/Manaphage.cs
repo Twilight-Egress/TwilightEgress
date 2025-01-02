@@ -13,8 +13,8 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior;
+using TwilightEgress.Content.Actions.CosmostoneShowers.States;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
@@ -118,8 +118,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         #region Overrides
         public override string LocalizationCategory => "NPCs.CosmostoneShowers";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 5;
@@ -208,7 +206,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public override void AI()
         {
             NPC.AdvancedNPCTargeting(true, MaximumPlayerSearchDistance, ShouldTargetNPCs, MaximumNPCSearchDistance,
-                ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>());
+                ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>());
 
             // Don't bother targetting any asteroids at 60% and above mana capacity.
             if (ManaRatio > 0.6f)
@@ -245,7 +243,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
 
         public void SwitchBehavior_Latching(NPCAimedTarget target)
         {
-            int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneAsteroidSmall>(), ModContent.NPCType<CosmostoneAsteroidMedium>(), ModContent.NPCType<CosmostoneAsteroidLarge>()];
+            int[] cosmostoneAsteroidTypes = [ModContent.NPCType<CosmostoneMeteoroidSmall>(), ModContent.NPCType<CosmostoneMeteoroidMedium>(), ModContent.NPCType<CosmostoneMeteoroidLarge>()];
 
             // If the Manaphage starts becoming low on mana, start looking for nearby Asteroids.
             if (target.Type == Terraria.Enums.NPCTargetType.NPC)
@@ -394,7 +392,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                 bool leavingWorldBounds = centerAhead.Y >= Main.maxTilesY + 750f || centerAhead.Y < Main.maxTilesY * 0.34f;
                 turnAround = leavingWorldBounds;
 
-                Vector2? collision = PolygonAsteroidSystem.AsteroidCollision(centerAhead, NPC.width, NPC.height);
+                Vector2? collision = AsteroidSystem.AsteroidCollision(centerAhead, NPC.width, NPC.height);
                 if (!Collision.CanHit(NPC.Center, NPC.width, NPC.height, centerAhead, NPC.width, NPC.height) || collision is not null)
                     turnAround = true;
             }

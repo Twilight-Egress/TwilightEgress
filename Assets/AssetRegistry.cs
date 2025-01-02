@@ -11,22 +11,6 @@ namespace TwilightEgress.Assets
     {
         public class Textures
         {
-            public class Asteroids
-            {
-                public static readonly Asset<Texture2D> CosmostoneAsteroidLarge_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge_Glowmask");
-                public static readonly Asset<Texture2D> CosmostoneAsteroidLarge = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidLarge");
-                public static readonly Asset<Texture2D> CosmostoneAsteroidMedium_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidMedium_Glowmask");
-                public static readonly Asset<Texture2D> CosmostoneAsteroidMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidMedium");
-                public static readonly Asset<Texture2D> CosmostoneAsteroidSmall_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall_Glowmask");
-                public static readonly Asset<Texture2D> CosmostoneAsteroidSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneAsteroidSmall");
-                public static readonly Asset<Texture2D> CosmostoneGeode_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode_Glow");
-                public static readonly Asset<Texture2D> CosmostoneGeode = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/CosmostoneGeode");
-                public static readonly Asset<Texture2D> MeteoriteAsteroid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/MeteoriteAsteroid");
-                public static readonly Asset<Texture2D> SilicateAsteroidLarge = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidLarge");
-                public static readonly Asset<Texture2D> SilicateAsteroidMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidMedium");
-                public static readonly Asset<Texture2D> SilicateAsteroidSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Asteroids/SilicateAsteroidSmall");
-            }
-
             public class Atlases
             {
                 public static readonly Asset<Texture2D> TwilightEgress_Particles = ModContent.Request<Texture2D>("TwilightEgress/Assets/Atlases/TwilightEgress_Particles");
@@ -40,6 +24,7 @@ namespace TwilightEgress.Assets
 
             public class CosmostoneShowers
             {
+                public static readonly Asset<Texture2D> Starstruck = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Buffs/CosmostoneShowers/Starstruck");
                 public static readonly Asset<Texture2D> CosmostoneShowersSky = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Events/CosmostoneShowers/CosmostoneShowersSky");
                 public static readonly Asset<Texture2D> BurningQuasar = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/BurningQuasar");
                 public static readonly Asset<Texture2D> Cosmostone = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/Cosmostone");
@@ -66,6 +51,7 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> TimelessCascadeProj = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/TimelessCascadeProj");
                 public static readonly Asset<Texture2D> TimelessCascadeShards = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/TimelessCascadeShards");
                 public static readonly Asset<Texture2D> Angelatin = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Angelatin");
+                public static readonly Asset<Texture2D> AngelatinParalysis = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/AngelatinParalysis");
                 public static readonly Asset<Texture2D> ChunkyCometpod = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/ChunkyCometpod");
                 public static readonly Asset<Texture2D> DwarfJellyfish = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfJellyfish");
                 public static readonly Asset<Texture2D> Manaphage_Tank_Mask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphage_Tank_Mask");
@@ -77,6 +63,12 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> TerritorialCometpod = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/TerritorialCometpod");
                 public static readonly Asset<Texture2D> SilicateClusterBrick_Item = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/CosmostoneShowers/SilicateClusterBrick_Item");
                 public static readonly Asset<Texture2D> SilicateClusterBrick = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Tiles/CosmostoneShowers/SilicateClusterBrick");
+            }
+
+            public class DwarfMoons
+            {
+                public static readonly Asset<Texture2D> GalileoDwarfMoon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfMoons/GalileoDwarfMoon");
+                public static readonly Asset<Texture2D> ShatteredDwarfMoon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfMoons/ShatteredDwarfMoon");
             }
 
             public class EnchantedOvergrowth
@@ -200,6 +192,22 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> ThunderousFury = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Marv/ThunderousFury");
             }
 
+            public class Meteoroids
+            {
+                public static readonly Asset<Texture2D> CosmostoneGeode_Glow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneGeode_Glow");
+                public static readonly Asset<Texture2D> CosmostoneGeode = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneGeode");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidLarge_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidLarge_Glowmask");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidLarge = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidLarge");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidMedium_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidMedium_Glowmask");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidMedium");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidSmall_Glowmask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidSmall_Glowmask");
+                public static readonly Asset<Texture2D> CosmostoneMeteoroidSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/CosmostoneMeteoroidSmall");
+                public static readonly Asset<Texture2D> MeteoriteMeteoroid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/MeteoriteMeteoroid");
+                public static readonly Asset<Texture2D> SilicateMeteoroidLarge = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/SilicateMeteoroidLarge");
+                public static readonly Asset<Texture2D> SilicateMeteoroidMedium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/SilicateMeteoroidMedium");
+                public static readonly Asset<Texture2D> SilicateMeteoroidSmall = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Meteoroids/SilicateMeteoroidSmall");
+            }
+
             public class Misc
             {
                 public static readonly Asset<Texture2D> ResplendentRoarYharon = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Misc/ResplendentRoarYharon");
@@ -225,12 +233,6 @@ namespace TwilightEgress.Assets
             public class Particles
             {
                 public static readonly Asset<Texture2D> PrimordialWyrmEyes = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Particles/PrimordialWyrmEyes");
-            }
-
-            public class Planetoids
-            {
-                public static readonly Asset<Texture2D> GalileoPlanetoid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/GalileoPlanetoid");
-                public static readonly Asset<Texture2D> ShatteredPlanetoid = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Planetoids/ShatteredPlanetoid");
             }
 
             public class Raesh

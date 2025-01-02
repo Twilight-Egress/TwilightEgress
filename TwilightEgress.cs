@@ -1,5 +1,7 @@
+using ReLogic.Content.Sources;
 using Terraria.ModLoader;
 using TwilightEgress.Core.Players.BuffHandlers;
+using TwilightEgress.Core.Sources;
 
 namespace TwilightEgress
 {
@@ -26,6 +28,14 @@ namespace TwilightEgress
             MusicDisplay = null;
             UnloadLists();
             BuffHandler.StuffToUnload();
+        }
+
+        public override IContentSource CreateDefaultContentSource()
+        {
+            RedirectContentSource source = new RedirectContentSource(base.CreateDefaultContentSource());
+
+            source.AddRedirect("Content", "Assets/Textures");
+            return source;
         }
     }
 }

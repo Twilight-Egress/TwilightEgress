@@ -8,8 +8,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
     {
         public new string LocalizationCategory => "Items.Weapons.Ranged";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[Type] = true;

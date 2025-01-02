@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
+using TwilightEgress.Core.Graphics.Particles;
 
 namespace TwilightEgress.Content.Particles
 {

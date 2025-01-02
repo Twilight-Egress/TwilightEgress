@@ -29,3 +29,10 @@ MeteoriteAsteroid.DisplayName: Meteorite Asteroid
 SilicateAsteroidLarge.DisplayName: Silicate Asteroid Large
 SilicateAsteroidMedium.DisplayName: Silicate Asteroid Medium
 SilicateAsteroidSmall.DisplayName: Silicate Asteroid Small
+CosmostoneMeteoroidLarge.DisplayName: Cosmostone Meteoroid Large
+CosmostoneMeteoroidMedium.DisplayName: Cosmostone Meteoroid Medium
+CosmostoneMeteoroidSmall.DisplayName: Cosmostone Meteoroid Small
+MeteoriteMeteoroid.DisplayName: Meteorite Meteoroid
+SilicateMeteoroidLarge.DisplayName: Silicate Meteoroid Large
+SilicateMeteoroidMedium.DisplayName: Silicate Meteoroid Medium
+SilicateMeteoroidSmall.DisplayName: Silicate Meteoroid Small

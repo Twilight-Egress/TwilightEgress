@@ -11,8 +11,6 @@ namespace TwilightEgress.Content.Items.Jungle
     {
         public override string LocalizationCategory => "Items.Jungle";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
-
         public override void SetDefaults()
         {
             Item.width = 14;
@@ -42,8 +40,6 @@ namespace TwilightEgress.Content.Items.Jungle
     public class PoisonArrowProjectile : ModProjectile
     {
         public override string LocalizationCategory => "Items.Jungle.PoisonArrow.Projectiles";
-
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetDefaults()
         {

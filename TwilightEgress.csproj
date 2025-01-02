@@ -30,6 +30,7 @@
 	<ItemGroup>
 	  <Folder Include="Assets\Models\" />
 	  <Folder Include="Assets\Structures\" />
+	  <Folder Include="Core\Sources\" />
 	</ItemGroup>
 
 	<!-- Asset Generator -->

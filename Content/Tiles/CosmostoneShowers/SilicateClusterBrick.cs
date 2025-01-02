@@ -10,7 +10,7 @@ namespace TwilightEgress.Content.Tiles.CosmostoneShowers
     {
         public override string LocalizationCategory => "Tiles.CosmostoneShowers";
 
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
+
 
         public override void SetStaticDefaults()
         {

@@ -17,14 +17,14 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Asteroids;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Planetoids;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.DwarfMoons;
+using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Content.Projectiles;
-using TwilightEgress.Content.Skies.SkyEntities;
+using TwilightEgress.Content.SkyEntities;
+using TwilightEgress.Content.SkyEntities.CosmostoneShowers;
 using TwilightEgress.Core;
-using TwilightEgress.Core.Graphics.GraphicalObjects.Particles;
-using TwilightEgress.Core.Graphics.GraphicalObjects.SkyEntities;
+using TwilightEgress.Core.Graphics.Particles;
 
 namespace TwilightEgress.Content.Events.CosmostoneShowers
 {
@@ -177,7 +177,8 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 Vector2 spawnPosition = new Vector2(Main.rand.NextGaussian(Main.screenWidth + 100, closestPlayer.Center.X), Main.rand.NextGaussian(Main.screenHeight + 100, closestPlayer.Center.Y));
                 Rectangle screenBounds = new((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth + 100, Main.screenHeight + 100);
 
-                bool canSpawn = !Collision.SolidCollision(spawnPosition, 300, 300) && !screenBounds.Contains((int)spawnPosition.X, (int)spawnPosition.Y);
+                bool spawningInsideBounds = spawnPosition.X > 1200 && spawnPosition.X < Main.maxTilesX * 16f - 1200 && spawnPosition.Y > 1200 && spawnPosition.Y < Main.maxTilesY * 16f - 1200;
+                bool canSpawn = spawningInsideBounds && !Collision.SolidCollision(spawnPosition, 1200, 1200);
 
                 foreach (ISpawnAvoidZone obj in activeObjects)
                 {
@@ -191,22 +192,22 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                 if (canSpawn && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     WeightedRandom<int> thingsToSpawn = new WeightedRandom<int>();
-                    thingsToSpawn.Add(ModContent.NPCType<NPCs.CosmostoneShowers.PolygonAsteroid>(), 1f);
-                    thingsToSpawn.Add(ModContent.NPCType<GalileoPlanetoid>(), 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<ShatteredPlanetoid>(), 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidSmall>(), 4 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidMedium>(), 2 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneAsteroidLarge>(), 1 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidSmall>(), 8 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidMedium>(), 4 * 0.008f);
-                    thingsToSpawn.Add(ModContent.NPCType<SilicateAsteroidLarge>(), 2 * 0.008f);
+                    thingsToSpawn.Add(ModContent.NPCType<Asteroid>(), 1f);
+                    thingsToSpawn.Add(ModContent.NPCType<GalileoDwarfMoon>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<ShatteredDwarfMoon>(), 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidSmall>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidMedium>(), 2 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidLarge>(), 1 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidSmall>(), 8 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidMedium>(), 4 * 0.02f);
+                    thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidLarge>(), 2 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<Manaphage>(), 0.2f);
 
                     if (NPC.downedBoss2)
                     {
-                        thingsToSpawn.Add(ModContent.NPCType<MeteoriteAsteroid>(), 0.5f * 0.008f);
-                        thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 0.2f);
+                        thingsToSpawn.Add(ModContent.NPCType<MeteoriteMeteoroid>(), 0.5f * 0.008f);
+                        //thingsToSpawn.Add(ModContent.NPCType<ChunkyCometpod>(), 0.2f);
                     }
 
                     int p = Projectile.NewProjectile(new EntitySource_WorldEvent(), spawnPosition, Vector2.Zero, ModContent.ProjectileType<NPCSpawner>(), 0, 0f, Main.myPlayer, thingsToSpawn.Get());

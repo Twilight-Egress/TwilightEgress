@@ -9,7 +9,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
     public class Cosmostone : ModItem
     {
         public override string LocalizationCategory => "Items.CosmostoneShowers";
-        public override string Texture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -23,10 +22,6 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
             Item.width = 18;
             Item.height = 18;
             Item.maxStack = 9999;
-            Item.consumable = true;
-            Item.noMelee = true;
-            Item.useAnimation = 10;
-            Item.useTime = 10;
             Item.material = true;
         }
 
