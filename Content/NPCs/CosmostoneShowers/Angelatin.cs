@@ -38,7 +38,8 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                         ]),
                         new Sequence([
                             new CheckTargetInHomeRange(640f),
-                            new MoveTowardsTarget(3f)
+                            //new MoveTowardsTarget(3f)
+                            new AccelerateTowardsTarget(0.03f, 3.5f)
                         ])
                     ])
                 ]),
