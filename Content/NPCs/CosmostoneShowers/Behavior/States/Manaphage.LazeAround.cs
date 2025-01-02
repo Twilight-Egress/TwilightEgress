@@ -5,7 +5,7 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
 {
     public class LazeAround(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {

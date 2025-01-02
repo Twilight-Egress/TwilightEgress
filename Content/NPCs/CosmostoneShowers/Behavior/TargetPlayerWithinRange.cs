@@ -1,13 +1,14 @@
 ﻿using Terraria;
+using Terraria.WorldBuilding;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
-namespace TwilightEgress.Content.NPCs.Demo.Behavior
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 {
-    public class PlayerWithinRange : Node
+    public class TargetPlayerWithinRange : Node
     {
         private float range;
 
-        public PlayerWithinRange(float range)
+        public TargetPlayerWithinRange(float range)
         {
             this.range = range;
         }
@@ -18,7 +19,7 @@ namespace TwilightEgress.Content.NPCs.Demo.Behavior
 
             npc.TargetClosest();
 
-            if (Main.player[npc.target].Center.Distance(npc.Center) <= range)
+            if (Main.player[npc.target].WithinRange(npc.Center, range))
                 return NodeState.Success;
 
             return NodeState.Failure;

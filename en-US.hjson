@@ -81,6 +81,7 @@ Mods: {
 			TerritorialCometpod.DisplayName: Territorial Cometpod
 			PathfindingPrototype.DisplayName: Pathfinding Prototype
 			BehaviorTreeDemoNPC.DisplayName: Behavior Tree Demo N P C
+			Angelatin.DisplayName: Angelatin
 		}
 
 		Projectiles: {

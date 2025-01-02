@@ -8,7 +8,7 @@ using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
 {
     public class JellyfishPropulsion(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {
@@ -99,7 +99,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             Entity.NPC.velocity *= 0.96f;
             Vector2 futureVelocity = Vector2.One.RotatedBy(Entity.JellyfishMovementAngle);
-            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() + 1.57f, Entity.Timer / (float)Entity.JellyfishMovementInterval);
+            Entity.NPC.rotation = Entity.NPC.rotation.AngleLerp(futureVelocity.ToRotation() + 1.57f, Entity.Timer / Entity.JellyfishMovementInterval);
 
             // Randomly switch to the other idle AI state.
             if (Entity.JellyfishPropulsionsLeft <= 0 && Main.rand.NextBool(2))

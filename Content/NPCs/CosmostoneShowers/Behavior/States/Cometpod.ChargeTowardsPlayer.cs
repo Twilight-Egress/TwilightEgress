@@ -5,13 +5,13 @@ using Terraria.DataStructures;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
 {
-    public class ChargeTowardsAsteroid(FiniteStateMachine stateMachine, ChunkyCometpod cometpod) : EntityState<ChunkyCometpod>(stateMachine, cometpod)
+    public class ChargeTowardsPlayer(FiniteStateMachine stateMachine, ChunkyCometpod cometpod) : EntityState<ChunkyCometpod>(stateMachine, cometpod)
     {
         public override void Enter(float[] arguments = null)
         {
-            Entity.AIState = (int)CometpodBehavior.ChargeTowardsAsteroid;
+            Entity.AIState = (int)CometpodBehavior.ChargeTowardsPlayer;
             Entity.NPC.netUpdate = true;
         }
 
@@ -19,7 +19,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
         {
             NPCAimedTarget target = Entity.NPC.GetTargetData();
 
-            if (target.Invalid || Entity.NearestAsteroid is null)
+            if (target.Invalid)
             {
                 FiniteStateMachine.SetCurrentState((int)CometpodBehavior.Starstruck, [0f]);
                 return;
@@ -55,14 +55,9 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
                 // Bounce off of the target when collision is made.
                 if (Entity.NPC.Hitbox.Intersects(target.Hitbox))
                 {
-                    Entity.NPC.velocity = Entity.NPC.DirectionFrom(target.Center) * Entity.CalculateCollisionBounceSpeed(0.86f);
-                    target.Velocity = target.Center.DirectionFrom(Entity.NPC.Center) * Entity.CalculateCollisionBounceSpeed(1f);
+                    Entity.NPC.velocity = Entity.NPC.DirectionFrom(target.Center) * Entity.CalculateCollisionBounceSpeed(0.8f);
+                    target.Velocity = target.Center.DirectionFrom(Entity.NPC.Center) * Entity.CalculateCollisionBounceSpeed(2f);
 
-                    int damageTaken = (int)(Main.rand.Next(1, 3) * Entity.NPC.velocity.Length());
-                    Entity.NPC.SimpleStrikeNPC(damageTaken, Entity.NPC.direction, noPlayerInteraction: true);
-                    Entity.NearestAsteroid.SimpleStrikeNPC(damageTaken * 8, -Entity.NPC.direction, noPlayerInteraction: true);
-
-                    Entity.NearestAsteroid = null;
                     FiniteStateMachine.SetCurrentState((int)CometpodBehavior.Starstruck, [0f]);
                 }
 
