@@ -51,6 +51,7 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> TimelessCascadeProj = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/TimelessCascadeProj");
                 public static readonly Asset<Texture2D> TimelessCascadeShards = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/TimelessCascadeShards");
                 public static readonly Asset<Texture2D> Angelatin = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Angelatin");
+                public static readonly Asset<Texture2D> AngelatinParalysis = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/AngelatinParalysis");
                 public static readonly Asset<Texture2D> ChunkyCometpod = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/ChunkyCometpod");
                 public static readonly Asset<Texture2D> DwarfJellyfish = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/DwarfJellyfish");
                 public static readonly Asset<Texture2D> Manaphage_Tank_Mask = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/NPCs/CosmostoneShowers/Manaphage_Tank_Mask");

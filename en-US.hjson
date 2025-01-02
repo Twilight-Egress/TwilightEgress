@@ -105,6 +105,11 @@ Mods: {
 				DisplayName: Starstruck
 				Description: Mods.TwilightEgress.Buffs.Starstruck.Description
 			}
+
+			AngelatinParalysis: {
+				DisplayName: Angelatin Paralysis
+				Description: Mods.TwilightEgress.Buffs.AngelatinParalysis.Description
+			}
 		}
 	}
 }

@@ -5,7 +5,11 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Content.Actions;
+using TwilightEgress.Content.Actions.CosmostoneShowers;
 using TwilightEgress.Content.Actions.Interfaces;
+using TwilightEgress.Content.Buffs.CosmostoneShowers;
+using TwilightEgress.Content.Events;
+using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
@@ -15,6 +19,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         public Vector2 HomePosition { get; set; }
 
         private static BehaviorTree behaviorTree;
+
+        public ref float Timer => ref NPC.ai[0];
+
+        public bool ResetTimer;
 
         public override void SetStaticDefaults()
         {
@@ -26,9 +34,15 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
                         new TargetPlayerWithinRange(320f),
                         new TargetNPCWithinRange(320f)
                     ]),
-                    new Sequence([
-                        new CheckTargetInHomeRange(640f),
-                        new MoveTowardsTarget(3f)
+                    new Selector([
+                        new Sequence([
+                            new CheckTargetWithinRange(80f),
+                            new AngelatinGasAttack(8f * 16f, 4 * 60, 60)
+                        ]),
+                        new Sequence([
+                            new CheckTargetInHomeRange(640f),
+                            new MoveTowardsTarget(3f)
+                        ])
                     ])
                 ]),
                 new MoveInRangeOfHome(5f, 80f),
@@ -76,13 +90,88 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             HomePosition = NPC.Center;
 
             NPC.netUpdate = true;
+            ResetTimer = false;
             base.OnSpawn(source);
         }
 
         public override bool PreAI()
         {
+            ResetTimer = true;
+
             behaviorTree?.Update(NPC.whoAmI);
+
+            if (ResetTimer)
+                Timer = 60f;
+
+            if (Main.rand.NextBool(2))
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustPosition = NPC.Center + Main.rand.NextVector2CircularEdge(8f * 16f, 8f * 16f);
+                    Dust dust = Dust.NewDustPerfect(dustPosition, DustID.Electric, Vector2.UnitX);
+                    dust.noGravity = true;
+                }
+            }
+
             return false;
+        }
+    }
+
+    public class AngelatinParalysis : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.buffNoTimeDisplay[Type] = false;
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetModPlayer<AngelatinPlayer>().paralyzed = true;
+        }
+
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<AngelatinNPC>().active = true;
+        }
+    }
+
+    public class AngelatinPlayer : ModPlayer
+    {
+        public bool paralyzed;
+
+        public override void PreUpdateMovement()
+        {
+            if (paralyzed)
+                Player.velocity = Vector2.Zero;
+        }
+
+        public override void ResetEffects()
+        {
+            paralyzed = false;
+        }
+    }
+
+    public class AngelatinNPC : GlobalNPC
+    {
+        public override bool InstancePerEntity => true;
+
+        public bool active;
+
+        public override bool PreAI(NPC npc)
+        {
+            if (active)
+            {
+                npc.velocity = Vector2.Zero;
+                //return false;
+            }
+
+            return base.PreAI(npc);
+        }
+
+        public override void ResetEffects(NPC npc)
+        {
+            active = false;
         }
     }
 }
