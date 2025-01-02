@@ -2,15 +2,15 @@
 using Terraria;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.Actions
 {
-    public class MoveTowardsTarget : Node
+    public class CheckTargetWithinRange : Node
     {
-        private float speed;
+        private float range;
 
-        public MoveTowardsTarget(float speed)
+        public CheckTargetWithinRange(float range)
         {
-            this.speed = speed;
+            this.range = range;
         }
 
         public override NodeState Update(int whoAmI)
@@ -19,11 +19,10 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
 
             Vector2 targetCenter = npc.HasNPCTarget ? Main.npc[npc.TranslatedTargetIndex].Center : Main.player[npc.target].Center;
 
-            npc.velocity = targetCenter - npc.Center;
-            npc.velocity.Normalize();
-            npc.velocity *= speed;
+            if (npc.Center.WithinRange(targetCenter, range))
+                return NodeState.Success;
 
-            return NodeState.InProgress;
+            return NodeState.Failure;
         }
     }
 }

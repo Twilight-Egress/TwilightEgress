@@ -2,7 +2,7 @@
 using Terraria.WorldBuilding;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.Actions
 {
     public class TargetPlayerWithinRange : Node
     {

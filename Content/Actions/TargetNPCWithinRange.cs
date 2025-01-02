@@ -9,7 +9,7 @@ using Terraria.WorldBuilding;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 using static Terraria.Utilities.NPCUtils;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.Actions
 {
     public class TargetNPCWithinRange : Node
     {

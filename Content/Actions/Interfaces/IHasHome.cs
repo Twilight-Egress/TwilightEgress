@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.Interfaces
+namespace TwilightEgress.Content.Actions.Interfaces
 {
     public interface IHasHome
     {

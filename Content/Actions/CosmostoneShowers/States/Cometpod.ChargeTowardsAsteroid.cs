@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
+namespace TwilightEgress.Content.Actions.CosmostoneShowers.States
 {
     public class ChargeTowardsAsteroid(FiniteStateMachine stateMachine, ChunkyCometpod cometpod) : EntityState<ChunkyCometpod>(stateMachine, cometpod)
     {

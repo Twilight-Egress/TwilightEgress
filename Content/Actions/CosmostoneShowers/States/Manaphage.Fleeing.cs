@@ -4,12 +4,13 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
+namespace TwilightEgress.Content.Actions.CosmostoneShowers.States
 {
     public class Fleeing(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {

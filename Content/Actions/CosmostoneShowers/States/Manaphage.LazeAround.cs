@@ -1,11 +1,12 @@
 ﻿using Luminance.Common.Utilities;
 using Microsoft.Xna.Framework;
 using Terraria;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
+namespace TwilightEgress.Content.Actions.CosmostoneShowers.States
 {
     public class LazeAround(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {

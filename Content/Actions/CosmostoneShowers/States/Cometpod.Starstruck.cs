@@ -1,8 +1,9 @@
 ﻿using Terraria;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.ChunkyCometpod;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
+namespace TwilightEgress.Content.Actions.CosmostoneShowers.States
 {
     // @ zarachard
     public class Starstruck(FiniteStateMachine stateMachine, ChunkyCometpod cometpod) : EntityState<ChunkyCometpod>(stateMachine, cometpod)

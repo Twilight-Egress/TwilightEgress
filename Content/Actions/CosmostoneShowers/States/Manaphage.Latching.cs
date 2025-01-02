@@ -5,11 +5,12 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using TwilightEgress.Content.NPCs.CosmostoneShowers;
 using TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids;
 using TwilightEgress.Core.Behavior;
 using static TwilightEgress.Content.NPCs.CosmostoneShowers.Manaphage;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.States
+namespace TwilightEgress.Content.Actions.CosmostoneShowers.States
 {
     public class Latching(FiniteStateMachine stateMachine, Manaphage manaphage) : EntityState<Manaphage>(stateMachine, manaphage)
     {

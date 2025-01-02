@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior.Interfaces;
+using TwilightEgress.Content.Actions.Interfaces;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
-namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Behavior
+namespace TwilightEgress.Content.Actions
 {
     public class CheckTargetInHomeRange : Node
     {
