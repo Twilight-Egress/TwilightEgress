@@ -7,9 +7,6 @@ using Terraria.ModLoader;
 using TwilightEgress.Content.Actions;
 using TwilightEgress.Content.Actions.CosmostoneShowers;
 using TwilightEgress.Content.Actions.Interfaces;
-using TwilightEgress.Content.Buffs.CosmostoneShowers;
-using TwilightEgress.Content.Events;
-using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Behavior.BehaviorTrees;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers
