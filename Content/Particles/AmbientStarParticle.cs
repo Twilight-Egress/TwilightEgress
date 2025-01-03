@@ -1,6 +1,9 @@
 ﻿using Luminance.Common.Utilities;
+using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO.Pipelines;
+using Terraria;
 using TwilightEgress.Core.Graphics.Particles;
 
 namespace TwilightEgress.Content.Particles
@@ -39,6 +42,13 @@ namespace TwilightEgress.Content.Particles
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-            => spriteBatch.Draw(Texture, GetDrawPositionWithParallax(), Frame, DrawColor * Opacity, Rotation, scale: Scale * (ParallaxStrength / 2f));
+        {
+            Vector2 scale = Scale * (ParallaxStrength * 0.5f);
+            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
+
+            spriteBatch.Draw(bloomTexture, GetDrawPositionWithParallax(), null, DrawColor * 0.5f * Opacity * 0.5f, Rotation, null, scale * 0.1f);
+            spriteBatch.Draw(TwilightEgress.Pixel, GetDrawPositionWithParallax(), TwilightEgress.Pixel.Bounds, DrawColor * Opacity, 0f, TwilightEgress.Pixel.Size() * 0.5f, scale * 6f, SpriteEffects.None, 0f);
+
+        }
     }
 }

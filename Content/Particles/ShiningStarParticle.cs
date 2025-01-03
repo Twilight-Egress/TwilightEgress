@@ -2,8 +2,10 @@
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
+using TwilightEgress.Assets;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.Particles;
 
@@ -81,16 +83,14 @@ namespace TwilightEgress.Content.Particles
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            AtlasTexture starTextures = AtlasManager.GetTexture(FourPointedStars_Atlas[TextureIndex]);
-            AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
+            Asset<Texture2D> starTexture = AssetRegistry.Textures.GreyscaleObjects.StarFlare;
 
-            Vector2 mainOrigin = starTextures.Size / 2f;
-            Vector2 bloomOrigin = bloomTexture.Size / 2f;
+            Vector2 mainOrigin = starTexture.Size() / 2f;
 
             Color color = DrawColor * Opacity;
-            spriteBatch.Draw(bloomTexture, GetDrawPositionWithParallax(), null, color, Rotation, bloomOrigin, Scale / 8f);
-            spriteBatch.Draw(starTextures, GetDrawPositionWithParallax(), null, Color.White * Opacity, 0f, mainOrigin, Scale * StretchFactor * 0.6f);
-            spriteBatch.Draw(starTextures, GetDrawPositionWithParallax(), null, color, 0f, mainOrigin, Scale * StretchFactor);
+
+            spriteBatch.Draw(starTexture.Value, GetDrawPositionWithParallax(), starTexture.Value.Bounds, Color.White * Opacity, 0f, mainOrigin, Scale * StretchFactor * 0.1f * 0.6f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(starTexture.Value, GetDrawPositionWithParallax(), starTexture.Value.Bounds, color, 0f, mainOrigin, Scale * StretchFactor * 0.1f, SpriteEffects.None, 0f);
         }
     }
 }

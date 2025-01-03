@@ -137,12 +137,6 @@ namespace TwilightEgress.Assets
             {
                 public static readonly Asset<Texture2D> DistortedShockwave = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/DistortedShockwave");
                 public static readonly Asset<Texture2D> DistortedShockwave2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/DistortedShockwave2");
-                public static readonly Asset<Texture2D> FourPointedStar_Large_2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Large_2");
-                public static readonly Asset<Texture2D> FourPointedStar_Large = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Large");
-                public static readonly Asset<Texture2D> FourPointedStar_Medium_2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Medium_2");
-                public static readonly Asset<Texture2D> FourPointedStar_Medium = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Medium");
-                public static readonly Asset<Texture2D> FourPointedStar_Small_2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Small_2");
-                public static readonly Asset<Texture2D> FourPointedStar_Small = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/FourPointedStar_Small");
                 public static readonly Asset<Texture2D> GreyscaleVortex = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/GreyscaleVortex");
                 public static readonly Asset<Texture2D> SmokeCloud = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud");
                 public static readonly Asset<Texture2D> SmokeCloud2 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud2");
@@ -151,6 +145,7 @@ namespace TwilightEgress.Assets
                 public static readonly Asset<Texture2D> SmokeCloud5 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud5");
                 public static readonly Asset<Texture2D> SmokeCloud6 = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SmokeCloud6");
                 public static readonly Asset<Texture2D> SoftStar = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/SoftStar");
+                public static readonly Asset<Texture2D> StarFlare = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Extra/GreyscaleObjects/StarFlare");
             }
 
             public class Jacob

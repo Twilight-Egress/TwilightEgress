@@ -264,7 +264,7 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
         {
             // Ambient star particles; small sparkles that appear over the screen.
             int foregroundStarCount = Main.rand.Next(3) + 1;
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(2))
             {
                 Vector2 starSpawnPos = Main.LocalPlayer.Center + Main.rand.NextVector2Circular(Main.screenWidth, Main.screenHeight);
                 Vector2 starVelocity = Vector2.One.RotatedByRandom(Math.Tau) * Main.rand.NextFloat(-0.2f, 0.2f);
