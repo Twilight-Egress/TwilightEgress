@@ -46,7 +46,7 @@ namespace TwilightEgress.Content.Particles
             Vector2 scale = Scale * (ParallaxStrength * 0.5f);
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
-            spriteBatch.Draw(bloomTexture, GetDrawPositionWithParallax(), null, DrawColor * 0.5f * Opacity * 0.5f, Rotation, null, scale * 0.1f);
+            spriteBatch.Draw(bloomTexture, GetDrawPositionWithParallax(), null, DrawColor * 0.5f * Opacity * 0.5f, Rotation, null, scale * 0.08f);
             spriteBatch.Draw(TwilightEgress.Pixel, GetDrawPositionWithParallax(), TwilightEgress.Pixel.Bounds, DrawColor * Opacity, 0f, TwilightEgress.Pixel.Size() * 0.5f, scale * 6f, SpriteEffects.None, 0f);
 
         }
