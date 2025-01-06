@@ -11,6 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.CosmostoneShowers
@@ -159,7 +160,7 @@ namespace TwilightEgress.Content.Items.CosmostoneShowers
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D glowTexture = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/CosmostoneShowers/SparklingGrenadeProjectile_Glow", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glowTexture = AssetRegistry.Textures.CosmostoneShowers.SparklingGrenadeProjectile_Glow.Value;
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Main.spriteBatch.End();

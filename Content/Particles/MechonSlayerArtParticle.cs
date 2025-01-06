@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.Particles;
 
@@ -38,18 +39,17 @@ namespace TwilightEgress.Content.Particles
             if (ArtType == -1)
                 return;
 
-            List<string> ArtTexturePaths = new()
+            List<Texture2D> ArtTexturePaths = new()
             {
-                "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/ArmorArt",
-                "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/EaterArt",
-                "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/EnchantArt",
-                "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/PurgeArt",
-                "TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/SpeedArt",
+                AssetRegistry.Textures.Enchilada.ArmorArt.Value,
+                AssetRegistry.Textures.Enchilada.EaterArt.Value,
+                AssetRegistry.Textures.Enchilada.EnchantArt.Value,
+                AssetRegistry.Textures.Enchilada.PurgeArt.Value,
+                AssetRegistry.Textures.Enchilada.SpeedArt.Value,
             };
 
-            Texture2D artTexture = ModContent.Request<Texture2D>(ArtTexturePaths[ArtType]).Value;
             Vector2 drawPosition = Position - Main.screenPosition;
-            spriteBatch.Draw(artTexture, drawPosition, null, Color.White * Opacity, 0f, artTexture.Size() / 2f, Scale, 0, 0f);
+            spriteBatch.Draw(ArtTexturePaths[ArtType], drawPosition, null, Color.White * Opacity, 0f, ArtTexturePaths[ArtType].Size() / 2f, Scale, 0, 0f);
         }
     }
 }

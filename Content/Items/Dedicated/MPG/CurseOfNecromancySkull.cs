@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.Items.Dedicated.MPG
@@ -114,7 +115,7 @@ namespace TwilightEgress.Content.Items.Dedicated.MPG
 
         public void DrawChain()
         {
-            Texture2D chainTexture = ModContent.Request<Texture2D>(Texture + "_Chain").Value;
+            Texture2D chainTexture = AssetRegistry.Textures.MPG.CurseOfNecromancySkull_Chain.Value;
 
             Vector2 playerCenter = Owner.MountedCenter;
             Vector2 center = Projectile.Center;

@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Globals.GlobalProjectiles;
@@ -162,8 +163,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             ref float ritualCircleOpacity = ref Projectile.TwilightEgress().ExtraAI[RitualCircleOpacityIndex];
             ref float orbitingSummoningCircleRotation = ref Projectile.TwilightEgress().ExtraAI[OrbitingSummoningCircleRotationIndex];
 
-            Texture2D outerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircle").Value;
-            Texture2D innerCircle = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/TankGodRitualCircleInner").Value;
+            Texture2D outerCircle = AssetRegistry.Textures.Jacob.TankGodRitualCircle.Value;
+            Texture2D innerCircle = AssetRegistry.Textures.Jacob.TankGodRitualCircleInner.Value;
             Texture2D orbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredOrbitingCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Core;
 
 namespace TwilightEgress.Content.SkyEntities.CosmostoneShowers
@@ -57,7 +58,7 @@ namespace TwilightEgress.Content.SkyEntities.CosmostoneShowers
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D sirius = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Summon/SiriusMinion").Value;
+            Texture2D sirius = AssetRegistry.Textures.GreyscaleObjects.StarFlare.Value;
             AtlasTexture bloomTexture = AtlasManager.GetTexture("TwilightEgress.BloomFlare.png");
 
             Vector2 mainOrigin = sirius.Size() / 2f;
@@ -65,10 +66,10 @@ namespace TwilightEgress.Content.SkyEntities.CosmostoneShowers
 
             Color color = Color * Opacity;
 
-            spriteBatch.Draw(bloomTexture, GetDrawPositionBasedOnDepth(), null, color * 0.5f, Rotation, bloomOrigin, Scale / 5f);
-            spriteBatch.Draw(bloomTexture, GetDrawPositionBasedOnDepth(), null, color * 0.7f, -Rotation, bloomOrigin, Scale / 3f);
+            spriteBatch.Draw(bloomTexture, GetDrawPositionBasedOnDepth(), null, color * 0.5f, Rotation, bloomOrigin, Scale * 0.2f);
+            spriteBatch.Draw(bloomTexture, GetDrawPositionBasedOnDepth(), null, color * 0.7f, -Rotation, bloomOrigin, Scale * 0.334f);
 
-            spriteBatch.Draw(sirius, GetDrawPositionBasedOnDepth(), null, Color.White * Opacity, 0f, mainOrigin, Scale, 0, 0f);
+            spriteBatch.Draw(sirius, GetDrawPositionBasedOnDepth(), null, Color.White * Opacity, 0f, mainOrigin, Scale * 0.2f, 0, 0f);
         }
     }
 }

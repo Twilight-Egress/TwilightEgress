@@ -163,7 +163,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             ref float heartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowRadiusIndex];
             ref float heartBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[HeartBackglowSpinIndex];
 
-            Texture2D heartGlow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/DetonatingDraedonHeartGlow").Value;
+            Texture2D heartGlow = AssetRegistry.Textures.Jacob.DetonatingDraedonHeartGlow.Value;
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)

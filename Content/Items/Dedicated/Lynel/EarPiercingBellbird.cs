@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
@@ -44,8 +45,6 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
         private const int ScreamChargeVisualOpacityIndex = 1;
 
         public override string LocalizationCategory => "Items.Dedicated.EarmuffFruit.Projectiles";
-
-        public override string GlowTexture => base.Texture.Replace("Content", "Assets/Textures");
 
         public override void SetStaticDefaults()
         {
@@ -252,8 +251,8 @@ namespace TwilightEgress.Content.Items.Dedicated.Lynel
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-            Texture2D chargeVisualTexture = ModContent.Request<Texture2D>(GlowTexture).Value;
+            Texture2D texture = TextureAssets.Item[Type].Value;
+            Texture2D chargeVisualTexture = AssetRegistry.Textures.Lynel.EarPiercingBellbird_Glow.Value;
 
             SpriteEffects directionEffects = Projectile.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             SpriteEffects effects = AIState == 1f && LocalAIState == 1f ? Owner.direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None

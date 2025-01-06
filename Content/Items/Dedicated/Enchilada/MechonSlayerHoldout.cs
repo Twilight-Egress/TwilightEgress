@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+using TwilightEgress.Assets;
 using TwilightEgress.Content.Particles;
 using TwilightEgress.Core.Players.BuffHandlers;
 using EasingType = Luminance.Common.Easings.EasingType;
@@ -158,7 +159,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Enchilada
         public void DrawBlade()
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Texture2D baseMechonSlayerSprite = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Enchilada/MechonSlayer").Value;
+            Texture2D baseMechonSlayerSprite = AssetRegistry.Textures.Enchilada.MechonSlayer.Value;
 
             float baseDrawAngle = Projectile.rotation;
             float drawRotation = baseDrawAngle + MathHelper.PiOver4;

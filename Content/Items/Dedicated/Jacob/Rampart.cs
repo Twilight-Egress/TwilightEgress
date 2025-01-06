@@ -192,7 +192,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             ref float rampartBackglowRadius = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowRadiusIndex];
             ref float rampartBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[RampartBackglowSpinIndex];
 
-            Texture2D rampartGlow = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/RampartGlow").Value;
+            Texture2D rampartGlow = AssetRegistry.Textures.Jacob.RampartGlow.Value;
 
             Main.spriteBatch.UseBlendState(BlendState.Additive);
             for (int i = 0; i < 8; i++)
@@ -215,7 +215,7 @@ namespace TwilightEgress.Content.Items.Dedicated.Jacob
             ref float anvilAndSummoningCricleOpacity = ref Projectile.TwilightEgress().ExtraAI[AnvilAndSummoningCricleOpacityIndex];
             ref float cosmicAnvilBackglowSpin = ref Projectile.TwilightEgress().ExtraAI[CosmicAnvilBackglowSpinIndex];
 
-            Texture2D cosmicAnvil = ModContent.Request<Texture2D>("TwilightEgress/Assets/Textures/Items/Dedicated/Jacob/CosmicAnvil").Value;
+            Texture2D cosmicAnvil = AssetRegistry.Textures.Jacob.CosmicAnvil.Value;
             Texture2D summoningCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircle").Value;
             Texture2D blurredSummoningCircle = ModContent.Request<Texture2D>("CalamityMod/Projectiles/Magic/RancorMagicCircleGlowmask").Value;
 
