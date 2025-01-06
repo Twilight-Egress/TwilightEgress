@@ -198,7 +198,6 @@ namespace TwilightEgress.Content.Events.CosmostoneShowers
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidSmall>(), 4 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidMedium>(), 2 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<CosmostoneMeteoroidLarge>(), 1 * 0.02f);
-                    thingsToSpawn.Add(ModContent.NPCType<CosmostoneGeode>(), 1.5 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidSmall>(), 8 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidMedium>(), 4 * 0.02f);
                     thingsToSpawn.Add(ModContent.NPCType<SilicateMeteoroidLarge>(), 2 * 0.02f);

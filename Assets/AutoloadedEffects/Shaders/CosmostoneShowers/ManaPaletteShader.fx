@@ -4,15 +4,15 @@ float globalTime;
 float timeMultiplier;
 float flowCompactness;
 float gradientPrecision;
-float4 palette[7];
+float4 palette[10];
 float opacity;
 
 float4 PaletteLerp(float interpolant)
 {
     // These 5s should be 2 less than the length of the palette array.
-    int startIndex = clamp(interpolant * 5, 0, 5);
+    int startIndex = clamp(interpolant * 8, 0, 8);
     int endIndex = startIndex + 1;
-    return lerp(palette[startIndex], palette[endIndex], frac(interpolant * 5));
+    return lerp(palette[startIndex], palette[endIndex], frac(interpolant * 8));
 }
 
 float4 PixelShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0

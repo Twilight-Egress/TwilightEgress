@@ -36,3 +36,9 @@ MeteoriteMeteoroid.DisplayName: Meteorite Meteoroid
 SilicateMeteoroidLarge.DisplayName: Silicate Meteoroid Large
 SilicateMeteoroidMedium.DisplayName: Silicate Meteoroid Medium
 SilicateMeteoroidSmall.DisplayName: Silicate Meteoroid Small
+
+Meteoroids: {
+	LargeSwirlyMeteoroid.DisplayName: Large Swirly Meteoroid
+	MediumSwirlyMeteoroid.DisplayName: Medium Swirly Meteoroid
+	SmallSwirlyMeteoroid.DisplayName: Small Swirly Meteoroid
+}

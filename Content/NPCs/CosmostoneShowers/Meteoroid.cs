@@ -165,7 +165,6 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
             ModContent.NPCType<CosmostoneMeteoroidSmall>(),
             ModContent.NPCType<CosmostoneMeteoroidMedium>(),
             ModContent.NPCType<CosmostoneMeteoroidLarge>(),
-            ModContent.NPCType<CosmostoneGeode>(),
             ModContent.NPCType<SilicateMeteoroidSmall>(),
             ModContent.NPCType<SilicateMeteoroidMedium>(),
             ModContent.NPCType<SilicateMeteoroidLarge>(),
@@ -177,13 +176,16 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers
         /// </summary>
         public static readonly Vector4[] CosmostonePalette =
         {
-            new Color(96, 188, 246).ToVector4(),
-            new Color(81, 158, 245).ToVector4(),
-            new Color(76, 131, 242).ToVector4(),
-            new Color(3, 96, 243).ToVector4(),
-            new Color(48, 65, 197).ToVector4(),
-            new Color(104, 94, 228).ToVector4(),
-            new Color(157, 113, 239).ToVector4(),
+            new Color(4, 0, 191).ToVector4(),
+            new Color(5, 0, 218).ToVector4(),
+            new Color(6, 0, 255).ToVector4(),
+            new Color(56, 25, 255).ToVector4(),
+            new Color(77, 50, 255).ToVector4(),
+            new Color(109, 59, 245).ToVector4(),
+            new Color(146, 0, 255).ToVector4(),
+            new Color(118, 0, 205).ToVector4(),
+            new Color(96, 0, 190).ToVector4(),
+            new Color(71, 0, 190).ToVector4()
         };
     }
 }

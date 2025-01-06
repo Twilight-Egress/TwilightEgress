@@ -1,4 +1,5 @@
 ﻿using CalamityMod;
+using Luminance.Common.Utilities;
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,30 +13,30 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TwilightEgress.Assets;
-using TwilightEgress.Content.Items.CosmostoneShowers;
 using TwilightEgress.Content.Particles;
 
 namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
 {
-    public class CosmostoneGeode : Meteoroid, ILocalizedModType, IPixelatedPrimitiveRenderer
+    public class LargeSwirlyMeteoroid : Meteoroid
     {
-        public PixelationPrimitiveLayer LayerToRenderTo => PixelationPrimitiveLayer.BeforeNPCs;
-
         public new string LocalizationCategory => "NPCs.CosmostoneShowers";
+
+        private float ShaderTimeMultiplier = 1f;
 
         public override void SetStaticDefaults()
         {
+            Main.npcFrameCount[Type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.CannotDropSouls[Type] = true;
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 60;
-            NPC.height = 60;
+            NPC.width = 130;
+            NPC.height = 134;
             NPC.damage = 0;
             NPC.defense = 20;
-            NPC.lifeMax = 500;
+            NPC.lifeMax = 100;
             NPC.aiStyle = -1;
             NPC.dontCountMe = true;
             NPC.lavaImmune = true;
@@ -56,7 +57,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
             NPC.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             NPC.scale = Main.rand.NextFloat(0.75f, 1.25f);
             NPC.spriteDirection = Main.rand.NextBool().ToDirectionInt();
-            //NPC.frame.Y = Main.rand.Next(0, 8) * 54;
+            NPC.frame.Y = Main.rand.Next(0, 3) * 134;
             NPC.netUpdate = true;
         }
 
@@ -86,7 +87,7 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
             int chance = (int)(12 * MathHelper.Lerp(1f, 0.3f, NPC.scale / 2f) * MathHelper.Lerp(1f, 0.2f, item.pick / 250f));
             if (Main.rand.NextBool(chance))
             {
-                int itemType = ModContent.ItemType<Cosmostone>();
+                int itemType = ItemID.Meteorite;
                 int itemStack = (int)Math.Round(1 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
                 int i = Item.NewItem(NPC.GetSource_OnHurt(player), NPC.Center + Main.rand.NextVector2Circular(NPC.width, NPC.height), itemType, itemStack);
                 if (Main.item.IndexInRange(i))
@@ -113,29 +114,26 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
         {
             int minimumStack = (int)Math.Round(3 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
             int maximumStack = (int)Math.Round(5 * MathHelper.Lerp(1f, 3f, NPC.scale / 2f));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cosmostone>(), default, minimumStack, maximumStack));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Meteorite, default, minimumStack, maximumStack));
         }
 
         public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 25; i++)
                 {
                     Vector2 speed = Utils.RandomVector2(Main.rand, -1f, 1f);
-                    Dust d = Dust.NewDustPerfect(NPC.Center, DustID.BlueFairy, speed * 5f * hit.HitDirection);
-                    d.noGravity = true;
-                    d.scale = Main.rand.NextFloat(1f, 2f);
 
                     Dust d2 = Dust.NewDustPerfect(NPC.Center, DustID.TintableDust, speed * 5f * hit.HitDirection);
-                    d2.color = Color.Lerp(Color.SlateGray, Color.DarkGray, Main.rand.NextFloat());
+                    d2.color = Color.Lerp(new Color(147, 104, 87), new Color(39, 15, 29), Main.rand.NextFloat());
                     d2.scale = Main.rand.NextFloat(1f, 2f);
                 }
 
                 for (int i = 0; i < 12; i++)
                 {
                     Vector2 velocity = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(3f, 7f) * hit.HitDirection;
-                    Color initialColor = Color.Lerp(Color.DarkGray, Color.Cyan, Main.rand.NextFloat());
+                    Color initialColor = Color.SandyBrown;
                     Color fadeColor = Color.SaddleBrown;
                     float scale = Main.rand.NextFloat(0.85f, 1.75f) * NPC.scale;
                     float opacity = Main.rand.NextFloat(0.6f, 1f);
@@ -145,16 +143,12 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
             }
             else
             {
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     Vector2 speed = Utils.RandomVector2(Main.rand, -1f, 1f);
-                    Dust d = Dust.NewDustPerfect(NPC.Center, DustID.BlueTorch, speed * 5f * hit.HitDirection);
-                    d.noGravity = true;
-                    d.scale = Main.rand.NextFloat(1f, 2f);
-
 
                     Dust d2 = Dust.NewDustPerfect(NPC.Center, DustID.TintableDust, speed * 5f * hit.HitDirection);
-                    d2.color = Color.Lerp(Color.SlateGray, Color.DarkGray, Main.rand.NextFloat());
+                    d2.color = Color.Lerp(Color.SaddleBrown, Color.DarkOrange, Main.rand.NextFloat());
                     d2.scale = Main.rand.NextFloat(1f, 2f);
                 }
             }
@@ -162,29 +156,32 @@ namespace TwilightEgress.Content.NPCs.CosmostoneShowers.Meteoroids
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D glow = AssetRegistry.Textures.Meteoroids.CosmostoneGeode_Glow.Value;
-
             Texture2D texture = TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPosition = NPC.Center - Main.screenPosition;
             Vector2 origin = NPC.frame.Size() / 2f;
 
-            Main.EntitySpriteDraw(texture, drawPosition, NPC.frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None);
-            Main.EntitySpriteDraw(glow, drawPosition, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, origin, NPC.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawPosition, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, origin, NPC.scale, SpriteEffects.None);
+            DrawCosmostone(drawPosition, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, origin, NPC.scale, SpriteEffects.None);
+
             return false;
         }
 
-        public float TrailWidthFunction(float trailLengthInterpolant) => 20f * Utils.GetLerpValue(0.75f, 0f, trailLengthInterpolant, true) * NPC.scale * NPC.Opacity;
-
-        public Color TrailColorFunction(float trailLengthInterpolant) => Color.Lerp(Color.SkyBlue, Color.DeepSkyBlue, trailLengthInterpolant) * NPC.Opacity;
-
-        public void RenderPixelatedPrimitives(SpriteBatch spriteBatch)
+        public void DrawCosmostone(Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless = 0f)
         {
-            ShaderManager.TryGetShader("TwilightEgress.SmoothTextureMapTrail", out ManagedShader smoothTrail);
-            smoothTrail.SetTexture(AssetRegistry.Textures.Trails.MagicStreak, 1, SamplerState.LinearWrap);
-            smoothTrail.TrySetParameter("time", Main.GlobalTimeWrappedHourly);
+            Texture2D glowmask = AssetRegistry.Textures.Meteoroids.LargeSwirlyMeteoroid_Glowmask.Value;
 
-            PrimitiveSettings settings = new(TrailWidthFunction, TrailColorFunction, _ => NPC.Size * 0.5f, true, true, smoothTrail);
-            PrimitiveRenderer.RenderTrail(NPC.oldPos, settings, 24);
+            Main.spriteBatch.PrepareForShaders();
+
+            ManagedShader shader = ShaderManager.GetShader("TwilightEgress.ManaPaletteShader");
+            shader.TrySetParameter("flowCompactness", 3.0f);
+            shader.TrySetParameter("gradientPrecision", 10f);
+            shader.TrySetParameter("timeMultiplier", ShaderTimeMultiplier);
+            shader.TrySetParameter("palette", MeteoroidValues.CosmostonePalette);
+            shader.TrySetParameter("opacity", NPC.Opacity);
+            shader.Apply();
+
+            Main.spriteBatch.Draw(glowmask, position, sourceRectangle, color, rotation, origin, scale, effects, worthless);
+            Main.spriteBatch.ResetToDefault();
         }
     }
 }
