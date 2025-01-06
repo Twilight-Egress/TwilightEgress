@@ -1,11 +1,9 @@
 ﻿using Luminance.Common.Utilities;
-using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using TwilightEgress.Assets;
 using TwilightEgress.Core;
 

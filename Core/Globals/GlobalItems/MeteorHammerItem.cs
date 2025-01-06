@@ -1,11 +1,8 @@
-﻿using Terraria.DataStructures;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Mono.Cecil;
 using TwilightEgress.Content.NPCs.CosmostoneShowers;
-using System;
 using TwilightEgress.Core.Globals.GlobalNPCs;
 using TwilightEgress.Core.Players;
 
@@ -43,7 +40,7 @@ namespace TwilightEgress.Core.Globals.GlobalItems
                 closest.GetGlobalNPC<MeteorHammerNPC>().PlayerHammered = player.whoAmI;
 
                 return true;
-            } 
+            }
             else if (closest is not null && closest.GetGlobalNPC<MeteorHammerNPC>().IsNabbedForHammering)
             {
                 closest.GetGlobalNPC<MeteorHammerNPC>().IsNabbedForHammering = false;

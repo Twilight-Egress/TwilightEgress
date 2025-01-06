@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
 using TwilightEgress.Assets;
 using TwilightEgress.Core;
 using TwilightEgress.Core.Graphics.Particles;

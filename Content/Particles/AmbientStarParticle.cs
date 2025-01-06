@@ -2,7 +2,6 @@
 using Luminance.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO.Pipelines;
 using Terraria;
 using TwilightEgress.Core.Graphics.Particles;
 

@@ -24,7 +24,7 @@ namespace TwilightEgress.Core.Globals.GlobalNPCs
                 Player player = Main.player[PlayerHammered];
                 player.GetModPlayer<MeteorHammerPlayer>().MeteorToHammer = npc.whoAmI;
 
-                Vector2 targetPosition =  Main.MouseWorld - player.Center;
+                Vector2 targetPosition = Main.MouseWorld - player.Center;
                 targetPosition.Normalize();
                 targetPosition *= 5 * 16f;
 
