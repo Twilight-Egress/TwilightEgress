@@ -92,11 +92,6 @@ Mods: {
 				DisplayName: Overgrowth Dirt Item
 				Tooltip: ""
 			}
-
-			EarmuffFruit: {
-				DisplayName: Earmuff Fruit
-				Tooltip: ""
-			}
 		}
 
 		NPCs: {
@@ -123,6 +118,18 @@ Mods: {
 			TimelessCascadeExplode.DisplayName: Timeless Cascade Explode
 			TimelessCascadeShards.DisplayName: Timeless Cascade Shards
 			SparklingGrenadeProjectile.DisplayName: Sparkling Grenade Projectile
+		}
+
+		Buffs: {
+			Starstruck: {
+				DisplayName: Starstruck
+				Description: Mods.TwilightEgress.Buffs.Starstruck.Description
+			}
+
+			AngelatinParalysis: {
+				DisplayName: Angelatin Paralysis
+				Description: Mods.TwilightEgress.Buffs.AngelatinParalysis.Description
+			}
 		}
 	}
 }
