@@ -33,3 +33,12 @@ Manastone: {
 		}
 	}
 }
+
+BouncePad: {
+	Items: {
+		BouncePadItem: {
+			DisplayName: Bounce Pad Item
+			Tooltip: ""
+		}
+	}
+}

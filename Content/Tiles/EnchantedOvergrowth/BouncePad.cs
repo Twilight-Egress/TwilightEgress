@@ -63,15 +63,12 @@ namespace TwilightEgress.Content.Tiles.EnchantedOvergrowth
             foreach (Point touchedTile in Player.TouchedTiles)
             {
                 Tile tile = Main.tile[touchedTile.X, touchedTile.Y];
-                if (tile != null && tile.HasTile && tile.HasUnactuatedTile && tile.TileType == ModContent.TileType<BouncePad>())
+                if (tile != null && tile.HasTile && tile.HasUnactuatedTile && tile.TileType == ModContent.TileType<BouncePad>() && Player.velocity.Y > 0)
                 {
-                    if (Player.velocity.Y > 0)
-                    {
-                        Player.velocity.Y *= -1f;
-                        Player.velocity.Y -= 5;
+                    Player.velocity.Y *= -1f;
+                    Player.velocity.Y -= 5;
 
-                        Player.velocity.X *= 2f;
-                    }
+                    Player.velocity.X *= 2f;
 
                     break;
                 }
