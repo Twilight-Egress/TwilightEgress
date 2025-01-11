@@ -35,7 +35,7 @@ jobs:
           EOF
 
       - name: Get Luminance binaries
-        run: curl --create-dirs -O --output-dir "${{ env.MODREADER_DIR }}/Luminance/" -sL "https://github.com/DominicKarma/Luminance/releases/latest/download/Luminance.dll" -o Luminance.dll
+        run: curl --create-dirs -O --output-dir "${{ env.MODREADER_DIR }}/Luminance/" -sL "https://github.com/LucilleKarma/Luminance/releases/latest/download/Luminance.dll" -o Luminance.dll
 
       - name: Get Calamity binaries
         run: |
